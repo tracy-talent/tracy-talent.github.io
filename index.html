@@ -382,7 +382,7 @@
       
         
           
-            <center><h1>Dimensionality Reduction: LDA&&NCA</h1></center>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><center><h1>Dimensionality Reduction: LDA&&NCA</h1></center>
 
 <center>姓名:刘健&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:MF1833039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日期：2019/04/04</center>
 
@@ -391,7 +391,7 @@
 <h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi∈{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
 <script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中$S<em>b=\sum</em>{j=1}^{k}N<em>{j}(\mu</em>{j}-\mu)(\mu<em>j-\mu)^T$，$\mu$为所有样本均值向量。$S</em>{\mathcal{w}}=\sum<em>{j=1}^{k}\sum</em>{x \in X<em>{j}}(x-\mu_j)(x-\mu_j)^T$。　但是有一个问题，就是$W^TS_bW$和$W^TS</em>{\mathcal{w}}W$都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
+\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是$W^TS<em>bW$和$W^TS</em>{\mathcal{w}}W$都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 \mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
@@ -412,10 +412,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup><a href="#fn_1" id="reffn_1">1</a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<blockquote id="fn_1">
-<sup>1</sup>. <a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
+<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设$x<em>i(1 \le i \le n)$表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义$p</em>{ij}$为==映射空间中欧氏距离==(相当于原空间中的马氏距离)的softmax概率值</p>
 <script type="math/tex; mode=display">
 p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0</script><p>设$p<em>{i}$为i能够被正确分类的概率，$C</em>{i}$表示与i属于同一类的样本的集合，那么</p>
@@ -441,7 +438,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 </ul>
 </li>
 </ul>
-
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
           
         
       
@@ -579,7 +576,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
       
         
           
-            <h1 id="hadoop-tips"><a href="#hadoop-tips" class="headerlink" title="hadoop tips"></a>hadoop tips</h1><ul>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="hadoop-tips"><a href="#hadoop-tips" class="headerlink" title="hadoop tips"></a>hadoop tips</h1><ul>
 <li>==yarn查看application log的方式：==</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">1.在$&#123;HADOOP_HOME&#125;/etc/hadoop/yarn-site.xml中配置：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property &gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line">&lt;value&gt;604800&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/app-logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir-suffix&lt;/name&gt;</span><br><span class="line">&lt;value&gt;logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施物理内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施虚拟内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">2.在hdfs上创建/app-logs</span><br><span class="line">hadoop fs -mkdir /app-logs</span><br><span class="line"></span><br><span class="line">3.在/app-logs下查看运行过的application的applicationId，然后使用如下命令查看日志：</span><br><span class="line">yarn logs -applicationId application_12**345</span><br></pre></td></tr></table></figure>
@@ -739,7 +736,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
