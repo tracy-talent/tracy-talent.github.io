@@ -1846,7 +1846,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff1fff;
+  background: #9816ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2928,9 +2928,6 @@ hr {
     text-align: center;
   }
 }
-.header {
-  background: url("https://cdn.yangbingdong.com/img/header/header_background.jpg");
-}
 .site-subtitle {
   font-size: 15px;
   color: #fff;
@@ -3229,11 +3226,4 @@ p#div-border-top-purple {
   color: #fffa74;
   font-size: 14px;
   margin-top: 15px;
-}
-.post {
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 25px;
-  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
-  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
