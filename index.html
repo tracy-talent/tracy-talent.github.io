@@ -80,6 +80,7 @@
 
 
 <meta name="description" content="如果时间追你可以真得跑得掉，如果失去不会让你脸上少了笑">
+<meta name="keywords" content="hiphop | rock | basketball | movie">
 <meta property="og:type" content="website">
 <meta property="og:title" content="在人间漂流">
 <meta property="og:url" content="https://brooksj.club/index.html">
@@ -167,7 +168,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">想把你留在这里</p>
+        <p class="site-subtitle">厚德 求真 励学 笃行</p>
       
   </div>
 
@@ -298,7 +299,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/19/NCA-LDA/" itemprop="url">NCA&&LDA</a></h1>
+                <a class="post-title-link" href="/2019/04/19/NCA-LDA/" itemprop="url">NCA && LDA</a></h1>
         
 
         <div class="post-meta">
@@ -384,19 +385,15 @@
           
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><center><h1>Dimensionality Reduction: LDA&&NCA</h1></center>
 
-<center>姓名:刘健&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:MF1833039&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日期：2019/04/04</center>
-
-
-
 <h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi∈{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
 <script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是$W^TS<em>bW$和$W^TS</em>{\mathcal{w}}W$都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
+\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 \mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
 & =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中$\prod<em>{diag}A​$为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是$S</em>{w}^{-1}S<em>b​$的最大特征值，而最大的d个值的乘积就是$S</em>{w}^{-1}S<em>b​$最大的d个特征值的乘积，而W即为$S</em>{w}^{-1}S<em>b​$最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到$S</em>{b}​$的$(\mu<em>{j}-\mu)(\mu</em>{j}-\mu)^T​$的秩为1，所以$S<em>{b}​$的秩不超过k，又因为第k个$\mu</em>{k}-\mu​$可由前k-1个$\mu_{j}-\mu​$线性表示，因此$S_b​$秩最大为k-1，则不为0的特征值最多有k-1个。</p>
+\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以$S<em>{b}$的秩不超过k，又因为第k个$$\mu</em>{k}-\mu<script type="math/tex">可由前k-1个</script>\mu_{j}-\mu<script type="math/tex">线性表示，因此</script>S_b$$秩最大为k-1，则不为0的特征值最多有k-1个。</p>
 <h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
 <li>Commonalities：<ul>
 <li>两者均可以对数据进行降维。</li>
@@ -413,18 +410,18 @@
 </li>
 </ul>
 <h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设$x<em>i(1 \le i \le n)$表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义$p</em>{ij}$为==映射空间中欧氏距离==(相当于原空间中的马氏距离)的softmax概率值</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为==映射空间中欧氏距离==(相当于原空间中的马氏距离)的softmax概率值</p>
 <script type="math/tex; mode=display">
 p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0</script><p>设$p<em>{i}$为i能够被正确分类的概率，$C</em>{i}$表示与i属于同一类的样本的集合，那么</p>
 <script type="math/tex; mode=display">
 p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
 <script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义$x<em>{ij}=x</em>{i}-x_{j}$</p>
+f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
 &=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值$A<em>{0}$，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为$\alpha$，$A</em>{0}$通过下面公式迭代</p>
+\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
 <script type="math/tex; mode=display">
 A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
 <li>commonalities:<ul>
@@ -455,9 +452,12 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
     
     <div>
 	    <p id="div-border-left-red">
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
 	    <span>
-	    <b>本文地址: </b><a href="/index.html" title></a><br><b>转载请注明出处, 谢谢！</b>
+        <b>作者: brooksjay</b>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
 	    </span>
 	    </p>
     </div>
@@ -537,6 +537,39 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bigdata-Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Bigdata Technology</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bigdata-Technology/Distributed-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -577,26 +610,26 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
         
           
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="hadoop-tips"><a href="#hadoop-tips" class="headerlink" title="hadoop tips"></a>hadoop tips</h1><ul>
-<li>==yarn查看application log的方式：==</li>
+<li>yarn查看application log的方式：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">1.在$&#123;HADOOP_HOME&#125;/etc/hadoop/yarn-site.xml中配置：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property &gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line">&lt;value&gt;604800&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/app-logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir-suffix&lt;/name&gt;</span><br><span class="line">&lt;value&gt;logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施物理内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施虚拟内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">2.在hdfs上创建/app-logs</span><br><span class="line">hadoop fs -mkdir /app-logs</span><br><span class="line"></span><br><span class="line">3.在/app-logs下查看运行过的application的applicationId，然后使用如下命令查看日志：</span><br><span class="line">yarn logs -applicationId application_12**345</span><br></pre></td></tr></table></figure>
 <ul>
-<li>==hadoop关于jobhistory server的配置，以便在作业web界面查看日志信息==</li>
+<li>hadoop关于jobhistory server的配置，以便在作业web界面查看日志信息</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1.mapred-site.xml的配置</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:10020&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:19888&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">2.yarn-site.xml的配置</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log.server.url&lt;/name&gt;</span><br><span class="line">&lt;value&gt;http://localhost:19888/jobhistory/logs/&lt;/value&gt;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>==hadoop启动方式:==</li>
+<li>hadoop启动方式:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1.启动hdfs</span><br><span class="line">./sbin/start-dfs.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/hadoop-daemon.sh start namenode</span><br><span class="line">./sbin/hadoop-daemon.sh start datanode</span><br><span class="line">2.启动yarn</span><br><span class="line">./sbin/start-yarn.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/yarn-daemon.sh start resourcemanager</span><br><span class="line">./sbin/yarn-daemon.sh start nodemanager</span><br><span class="line">3.启动jobhistory server</span><br><span class="line">./sbin/mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure>
 <ul>
-<li>==hadoop jar提交作业时提示Exception in thread “main” java.lang.SecurityException: Invalid signature file digest for Manifest main attributes，跟jar包签名有关，可以在.pom下配置plugin:==</li>
+<li>hadoop jar提交作业时提示Exception in thread “main” java.lang.SecurityException: Invalid signature file digest for Manifest main attributes，跟jar包签名有关，可以在.pom下配置plugin:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;2.4.3&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;filters&gt;</span><br><span class="line">                                &lt;filter&gt;</span><br><span class="line">                                    &lt;artifact&gt;*:*&lt;/artifact&gt;</span><br><span class="line">                                    &lt;excludes&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;</span><br><span class="line">                                    &lt;/excludes&gt;</span><br><span class="line">                                &lt;/filter&gt;</span><br><span class="line">                            &lt;/filters&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                     &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br></pre></td></tr></table></figure>
 <p>如果还无法解决问题，就在每次生成jar包后，命令行下输入以下命令删除签名文件:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -d wordcount.jar 'META-INF/.SF' 'META-INF/.RSA' 'META-INF/*SF'</span><br></pre></td></tr></table></figure>
 <ul>
-<li>hdfs的目录默认是放在==/user/linux用户名==下的</li>
-<li>关闭namenode的safemode:==hdfs dfsadmin -safemode leave==</li>
+<li>hdfs的目录默认是放在/user/linux用户名下的</li>
+<li>关闭namenode的safemode:hdfs dfsadmin -safemode leave</li>
 </ul>
 
           
@@ -615,9 +648,12 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
     
     <div>
 	    <p id="div-border-left-red">
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
 	    <span>
-	    <b>本文地址: </b><a href="/index.html" title></a><br><b>转载请注明出处, 谢谢！</b>
+        <b>作者: brooksjay</b>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
 	    </span>
 	    </p>
     </div>
@@ -762,9 +798,12 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
     
     <div>
 	    <p id="div-border-left-red">
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
 	    <span>
-	    <b>本文地址: </b><a href="/index.html" title></a><br><b>转载请注明出处, 谢谢！</b>
+        <b>作者: brooksjay</b>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
 	    </span>
 	    </p>
     </div>
@@ -848,7 +887,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -859,7 +898,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -879,7 +918,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:tracy1talent@gmail.com" target="_blank" title="E-Mail">
+                    <a href="mailto:jaypark@smail.nju.edu.cn" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>

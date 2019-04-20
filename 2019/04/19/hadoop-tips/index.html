@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="hadoop,hdfs,yarn,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="hadoop tips ==yarn查看application log的方式：==  1234567891011121314151617181920212223242526272829303132331.在$&amp;#123;HADOOP_HOME&amp;#125;/etc/hadoop/yarn-site.xml中配置：&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;yarn.log-aggrega">
+<meta name="description" content="hadoop tips yarn查看application log的方式：  1234567891011121314151617181920212223242526272829303132331.在$&amp;#123;HADOOP_HOME&amp;#125;/etc/hadoop/yarn-site.xml中配置：&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;yarn.log-aggregation">
+<meta name="keywords" content="hadoop,hdfs,yarn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hadoop tips">
 <meta property="og:url" content="https://brooksj.club/2019/04/19/hadoop-tips/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="hadoop tips ==yarn查看application log的方式：==  1234567891011121314151617181920212223242526272829303132331.在$&amp;#123;HADOOP_HOME&amp;#125;/etc/hadoop/yarn-site.xml中配置：&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;yarn.log-aggrega">
+<meta property="og:description" content="hadoop tips yarn查看application log的方式：  1234567891011121314151617181920212223242526272829303132331.在$&amp;#123;HADOOP_HOME&amp;#125;/etc/hadoop/yarn-site.xml中配置：&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;yarn.log-aggregation">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-19T01:53:35.609Z">
+<meta property="og:updated_time" content="2019-04-20T12:42:19.157Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop tips">
-<meta name="twitter:description" content="hadoop tips ==yarn查看application log的方式：==  1234567891011121314151617181920212223242526272829303132331.在$&amp;#123;HADOOP_HOME&amp;#125;/etc/hadoop/yarn-site.xml中配置：&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;yarn.log-aggrega">
+<meta name="twitter:description" content="hadoop tips yarn查看application log的方式：  1234567891011121314151617181920212223242526272829303132331.在$&amp;#123;HADOOP_HOME&amp;#125;/etc/hadoop/yarn-site.xml中配置：&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;yarn.log-aggregation">
 
 
 
@@ -167,7 +168,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">想把你留在这里</p>
+        <p class="site-subtitle">厚德 求真 励学 笃行</p>
       
   </div>
 
@@ -319,6 +320,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bigdata-Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Bigdata Technology</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bigdata-Technology/Distributed-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
         <!-- 在下面的位置加上如下代码 -->
           <span id="busuanzi_container_page_pv">
@@ -363,26 +397,26 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="hadoop-tips"><a href="#hadoop-tips" class="headerlink" title="hadoop tips"></a>hadoop tips</h1><ul>
-<li>==yarn查看application log的方式：==</li>
+<li>yarn查看application log的方式：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">1.在$&#123;HADOOP_HOME&#125;/etc/hadoop/yarn-site.xml中配置：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property &gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line">&lt;value&gt;604800&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/app-logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir-suffix&lt;/name&gt;</span><br><span class="line">&lt;value&gt;logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施物理内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施虚拟内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">2.在hdfs上创建/app-logs</span><br><span class="line">hadoop fs -mkdir /app-logs</span><br><span class="line"></span><br><span class="line">3.在/app-logs下查看运行过的application的applicationId，然后使用如下命令查看日志：</span><br><span class="line">yarn logs -applicationId application_12**345</span><br></pre></td></tr></table></figure>
 <ul>
-<li>==hadoop关于jobhistory server的配置，以便在作业web界面查看日志信息==</li>
+<li>hadoop关于jobhistory server的配置，以便在作业web界面查看日志信息</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1.mapred-site.xml的配置</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:10020&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:19888&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">2.yarn-site.xml的配置</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log.server.url&lt;/name&gt;</span><br><span class="line">&lt;value&gt;http://localhost:19888/jobhistory/logs/&lt;/value&gt;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>==hadoop启动方式:==</li>
+<li>hadoop启动方式:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1.启动hdfs</span><br><span class="line">./sbin/start-dfs.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/hadoop-daemon.sh start namenode</span><br><span class="line">./sbin/hadoop-daemon.sh start datanode</span><br><span class="line">2.启动yarn</span><br><span class="line">./sbin/start-yarn.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/yarn-daemon.sh start resourcemanager</span><br><span class="line">./sbin/yarn-daemon.sh start nodemanager</span><br><span class="line">3.启动jobhistory server</span><br><span class="line">./sbin/mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure>
 <ul>
-<li>==hadoop jar提交作业时提示Exception in thread “main” java.lang.SecurityException: Invalid signature file digest for Manifest main attributes，跟jar包签名有关，可以在.pom下配置plugin:==</li>
+<li>hadoop jar提交作业时提示Exception in thread “main” java.lang.SecurityException: Invalid signature file digest for Manifest main attributes，跟jar包签名有关，可以在.pom下配置plugin:</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;2.4.3&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;filters&gt;</span><br><span class="line">                                &lt;filter&gt;</span><br><span class="line">                                    &lt;artifact&gt;*:*&lt;/artifact&gt;</span><br><span class="line">                                    &lt;excludes&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;</span><br><span class="line">                                    &lt;/excludes&gt;</span><br><span class="line">                                &lt;/filter&gt;</span><br><span class="line">                            &lt;/filters&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                     &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br></pre></td></tr></table></figure>
 <p>如果还无法解决问题，就在每次生成jar包后，命令行下输入以下命令删除签名文件:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -d wordcount.jar 'META-INF/.SF' 'META-INF/.RSA' 'META-INF/*SF'</span><br></pre></td></tr></table></figure>
 <ul>
-<li>hdfs的目录默认是放在==/user/linux用户名==下的</li>
-<li>关闭namenode的safemode:==hdfs dfsadmin -safemode leave==</li>
+<li>hdfs的目录默认是放在/user/linux用户名下的</li>
+<li>关闭namenode的safemode:hdfs dfsadmin -safemode leave</li>
 </ul>
 
       
@@ -408,6 +442,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/hadoop/" rel="tag"># hadoop</a>
+          
+            <a href="/tags/hdfs/" rel="tag"># hdfs</a>
+          
+            <a href="/tags/yarn/" rel="tag"># yarn</a>
+          
+        </div>
+      
 
       
       
@@ -427,8 +471,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/19/NCA-LDA/" rel="prev" title="NCA&&LDA">
-                NCA&&LDA <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/19/NCA-LDA/" rel="prev" title="NCA && LDA">
+                NCA && LDA <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,7 +563,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -530,7 +574,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -550,7 +594,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:tracy1talent@gmail.com" target="_blank" title="E-Mail">
+                    <a href="mailto:jaypark@smail.nju.edu.cn" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
