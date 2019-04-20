@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="Dimensionality Reduction: LDA&amp;amp;&amp;amp;NCA  姓名:刘健&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;学号:MF1833039    一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/04/18/hello-world/index.html">
+<meta property="og:title" content="NCA&amp;&amp;LDA">
+<meta property="og:url" content="http://yoursite.com/2019/04/19/NCA-LDA/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Dimensionality Reduction: LDA&amp;amp;&amp;amp;NCA  姓名:刘健&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;学号:MF1833039    一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nb">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T14:34:57.449Z">
+<meta property="og:updated_time" content="2019-04-19T14:13:50.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="NCA&amp;&amp;LDA">
+<meta name="twitter:description" content="Dimensionality Reduction: LDA&amp;amp;&amp;amp;NCA  姓名:刘健&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;学号:MF1833039    一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nb">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/18/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/19/NCA-LDA/">
 
 
 
 
 
-  <title>Hello World | 在人间漂流</title>
+  <title>NCA&&LDA | 在人间漂流</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/18/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/NCA-LDA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LiuJian">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">NCA&&LDA</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-18T22:34:57+08:00">
-                2019-04-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-19T21:46:43+08:00">
+                2019-04-19
               </time>
             
 
@@ -299,15 +299,35 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <center><h1>Dimensionality Reduction: LDA&amp;&amp;NCA</h1></center>
+
+<center>姓名:刘健&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号:MF1833039</center>
+
+
+
+<h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi∈{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成<br>$$<br>\frac{W^TS_bW}{W^TS_wW}<br>$$<br>其中$S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T$，$\mu$为所有样本均值向量。$S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T$。　但是有一个问题，就是$W^TS_bW$和$W^TS_{\mathcal{w}}W$都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
+<p>$$<br>\begin{aligned}<br>\mathop{\arg\max_{\mathrm{W}}}\ | \mathrm{J}(\mathrm{W})|&amp;=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\<br>&amp; =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}<em>i^TS</em>\mathcal{w}\mathcal{w}_i}<br>\end{aligned}<br>$$</p>
+<p>其中$\prod_{diag}A$为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是$S_{w}^{-1}S_b$的最大特征值，而最大的d个值的乘积就是$S_{w}^{-1}S_b$最大的d个特征值的乘积，而W即为$S_{w}^{-1}S_b$最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到$S_{b}$的$(\mu_{j}-\mu)(\mu_{j}-\mu)^T$的秩为1，所以$S_{b}$的秩不超过k，又因为第k个$\mu_{k}-\mu$可由前k-1个$\mu_{j}-\mu$线性表示，因此$S_b$秩最大为k-1，则不为0的特征值最多有k-1个。</p>
+<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
+<li>Commonalities：<ul>
+<li>两者均可以对数据进行降维。</li>
+<li>两者在降维时均使用了矩阵特征分解的思想。</li>
+<li>两者都假设数据符合高斯分布。</li>
+</ul>
+</li>
+<li>Differences：<ul>
+<li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
+<li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
+<li>LDA除了可以用于降维，还可以用于分类。</li>
+<li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-Advantages-and-Disadvantages-of-LDA"><a href="#1-3-Advantages-and-Disadvantages-of-LDA" class="headerlink" title="1.3 Advantages and Disadvantages of LDA"></a>1.3 Advantages and Disadvantages of LDA</h3><ul>
+<li>优点：</li>
+</ul>
+<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作[^1]，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA基于KNN</p>
 
       
     </div>
@@ -332,15 +352,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/19/hadoop-tips/" rel="next" title="hadoop tips">
+                <i class="fa fa-chevron-left"></i> hadoop tips
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/19/hadoop-tips/" rel="prev" title="hadoop tips">
-                hadoop tips <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,7 +490,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Dimensionality Reduction: LDA&amp;&amp;NCA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Linear-Discriminant-Analysis-LDA"><span class="nav-number">1.1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Rationale"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LDA-vs-PCA"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Advantages-and-Disadvantages-of-LDA"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 Advantages and Disadvantages of LDA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Neighborhood-Component-Analysis-NCA"><span class="nav-number">1.2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Rationale"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
