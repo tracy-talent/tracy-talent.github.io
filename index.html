@@ -152,7 +152,7 @@
     <div class="headband"></div>
 
     <!-- fork me on github -->
-    <!-- a href="https://github.com/you"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a -->
+    <!-- a href="https://github.com/tracy-talent"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a -->
     
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -391,12 +391,12 @@
 <h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi∈{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
 <script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中$S<em>b=\sum\</em>{j=1}^{k}N<em>{j}(\mu</em>{j}-\mu)(\mu<em>j-\mu)^T$，$\mu$为所有样本均值向量。$S</em>{\mathcal{w}}=\sum<em>{j=1}^{k}\sum</em>{x \in X<em>{j}}(x-\mu_j)(x-\mu_j)^T$。　但是有一个问题，就是$W^TS_bW$和$W^TS</em>{\mathcal{w}}W$都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
+\frac{W^TS_bW}{W^TS_wW}</script><p>其中$S<em>b=\sum</em>{j=1}^{k}N<em>{j}(\mu</em>{j}-\mu)(\mu<em>j-\mu)^T$，$\mu$为所有样本均值向量。$S</em>{\mathcal{w}}=\sum<em>{j=1}^{k}\sum</em>{x \in X<em>{j}}(x-\mu_j)(x-\mu_j)^T$。　但是有一个问题，就是$W^TS_bW$和$W^TS</em>{\mathcal{w}}W$都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 \mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
 & =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中$\prod<em>{diag}A$为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是$S</em>{w}^{-1}S<em>b$的最大特征值，而最大的d个值的乘积就是$S</em>{w}^{-1}S<em>b$最大的d个特征值的乘积，而W即为$S</em>{w}^{-1}S<em>b$最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到$S</em>{b}$的$(\mu<em>{j}-\mu)(\mu</em>{j}-\mu)^T$的秩为1，所以$S<em>{b}$的秩不超过k，又因为第k个$\mu</em>{k}-\mu$可由前k-1个$\mu_{j}-\mu$线性表示，因此$S_b$秩最大为k-1，则不为0的特征值最多有k-1个。</p>
+\end{aligned}</script><p>其中$\prod<em>{diag}A​$为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是$S</em>{w}^{-1}S<em>b​$的最大特征值，而最大的d个值的乘积就是$S</em>{w}^{-1}S<em>b​$最大的d个特征值的乘积，而W即为$S</em>{w}^{-1}S<em>b​$最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到$S</em>{b}​$的$(\mu<em>{j}-\mu)(\mu</em>{j}-\mu)^T​$的秩为1，所以$S<em>{b}​$的秩不超过k，又因为第k个$\mu</em>{k}-\mu​$可由前k-1个$\mu_{j}-\mu​$线性表示，因此$S_b​$秩最大为k-1，则不为0的特征值最多有k-1个。</p>
 <h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
 <li>Commonalities：<ul>
 <li>两者均可以对数据进行降维。</li>
@@ -1083,14 +1083,6 @@ show_date_time();
 
   
 
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
-    
-
-    
 
   
 
