@@ -85,14 +85,14 @@
 <meta name="description" content="一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后">
 <meta name="keywords" content="dimensionality reduction,metrics learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dimensionality Reduction">
+<meta property="og:title" content="Dimensionality Reduction:LDA and NCA">
 <meta property="og:url" content="https://brooksj.club/2019/04/19/NCA-LDA/index.html">
 <meta property="og:site_name" content="在人间漂流">
 <meta property="og:description" content="一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-21T13:11:03.717Z">
+<meta property="og:updated_time" content="2019-04-21T13:11:42.828Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dimensionality Reduction">
+<meta name="twitter:title" content="Dimensionality Reduction:LDA and NCA">
 <meta name="twitter:description" content="一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后">
 
 
@@ -132,7 +132,7 @@
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 
-  <title>Dimensionality Reduction | 在人间漂流</title>
+  <title>Dimensionality Reduction:LDA and NCA | 在人间漂流</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -320,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Dimensionality Reduction</h1>
+          <h1 class="post-title" itemprop="name headline">Dimensionality Reduction:LDA and NCA</h1>
         
 
         <div class="post-meta">
@@ -496,7 +496,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 	    <span>
         <b>作者: brooksjay</b><br>
         <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/2019/04/19/NCA-LDA/" title="Dimensionality Reduction">https://brooksj.club/2019/04/19/NCA-LDA/</a><br>
+	    <b>本文地址: </b><a href="/2019/04/19/NCA-LDA/" title="Dimensionality Reduction:LDA and NCA">https://brooksj.club/2019/04/19/NCA-LDA/</a><br>
 	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <b>转载请注明出处, 谢谢！</b>
 	    </span>
@@ -1000,13 +1000,13 @@ show_date_time();
       var articles = db.collection('articles')
 
       //https://hexo.io/zh-tw/docs/variables.html
-      var isPost = 'Dimensionality Reduction'.length > 0
+      var isPost = 'Dimensionality Reduction:LDA and NCA'.length > 0
       var isArchive = '' === 'true'
       var isCategory = ''.length > 0
       var isTag = ''.length > 0
 
       if (isPost) { //is article page
-        var title = 'Dimensionality Reduction'
+        var title = 'Dimensionality Reduction:LDA and NCA'
         var doc = articles.doc(title)
 
         getCount(doc, true).then(appendCountTo($('.post-meta')))
