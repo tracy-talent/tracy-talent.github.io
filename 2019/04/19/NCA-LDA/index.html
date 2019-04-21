@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后">
+<meta name="description" content="Dimensionality Reduction: LDA &amp;amp;&amp;amp; NCA一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之">
 <meta name="keywords" content="dimensionality reduction,metrics learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LDA &amp;&amp; NCA:Dimensionality Reduction">
+<meta property="og:title" content="LDA &amp;&amp; NCA">
 <meta property="og:url" content="https://brooksj.club/2019/04/19/NCA-LDA/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后">
+<meta property="og:description" content="Dimensionality Reduction: LDA &amp;amp;&amp;amp; NCA一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-21T13:16:52.958Z">
+<meta property="og:updated_time" content="2019-04-21T13:36:17.449Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LDA &amp;&amp; NCA:Dimensionality Reduction">
-<meta name="twitter:description" content="一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后">
+<meta name="twitter:title" content="LDA &amp;&amp; NCA">
+<meta name="twitter:description" content="Dimensionality Reduction: LDA &amp;amp;&amp;amp; NCA一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之">
 
 
 
@@ -132,7 +132,7 @@
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 
-  <title>LDA && NCA:Dimensionality Reduction | 在人间漂流</title>
+  <title>LDA && NCA | 在人间漂流</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -320,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LDA && NCA:Dimensionality Reduction</h1>
+          <h1 class="post-title" itemprop="name headline">LDA && NCA</h1>
         
 
         <div class="post-meta">
@@ -382,6 +382,17 @@
 
           
           
+             <span id="/2019/04/19/NCA-LDA/" class="leancloud_visitors" data-flag-title="LDA && NCA">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           <span class="post-time">
 	        &nbsp; | &nbsp;
@@ -421,7 +432,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Dimensionality-Reduction-LDA-amp-amp-NCA"><a href="#Dimensionality-Reduction-LDA-amp-amp-NCA" class="headerlink" title="Dimensionality Reduction: LDA &amp;&amp; NCA"></a>Dimensionality Reduction: LDA &amp;&amp; NCA</h1><h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
 <script type="math/tex; mode=display">
 \frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
@@ -492,7 +503,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 	    <span>
         <b>作者: brooksjay</b><br>
         <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/2019/04/19/NCA-LDA/" title="LDA && NCA:Dimensionality Reduction">https://brooksj.club/2019/04/19/NCA-LDA/</a><br>
+	    <b>本文地址: </b><a href="/2019/04/19/NCA-LDA/" title="LDA && NCA">https://brooksj.club/2019/04/19/NCA-LDA/</a><br>
 	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <b>转载请注明出处, 谢谢！</b>
 	    </span>
@@ -739,7 +750,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Linear-Discriminant-Analysis-LDA"><span class="nav-number">1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Rationale"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LDA-vs-PCA"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Neighborhood-Component-Analysis-NCA"><span class="nav-number">2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Rationale"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NCA-vs-PCA"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NCA vs PCA</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dimensionality-Reduction-LDA-amp-amp-NCA"><span class="nav-number">1.</span> <span class="nav-text">Dimensionality Reduction: LDA &amp;&amp; NCA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Linear-Discriminant-Analysis-LDA"><span class="nav-number">1.1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Rationale"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LDA-vs-PCA"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Neighborhood-Component-Analysis-NCA"><span class="nav-number">1.2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Rationale"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NCA-vs-PCA"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 NCA vs PCA</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -932,102 +943,113 @@ show_date_time();
   
 
   
-  <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
-  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("AJCfamp9AdxK89MonULcgI68-gzGzoHsz", "sVrhDpWMN5wNlfAPwgDHdxPL");</script>
   <script>
-    (function () {
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
 
-      firebase.initializeApp({
-        apiKey: 'AIzaSyChIXTcNewc2XlnYzglkecffd02T3xUInA',
-        projectId: 'mygoagent1-1310'
-      })
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
 
-      function getCount(doc, increaseCount) {
-        //increaseCount will be false when not in article page
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
 
-        return doc.get().then(function (d) {
-          var count
-          if (!d.exists) { //has no data, initialize count
-            if (increaseCount) {
-              doc.set({
-                count: 1
-              })
-              count = 1
-            }
-            else {
-              count = 0
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
             }
           }
-          else { //has data
-            count = d.data().count
-            if (increaseCount) {
-              if (!(window.localStorage && window.localStorage.getItem(title))) { //if first view this article
-                doc.set({ //increase count
-                  count: count + 1
-                })
-                count++
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
               }
-            }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
           }
-          if (window.localStorage && increaseCount) { //mark as visited
-            localStorage.setItem(title, true)
-          }
-
-          return count
-        })
-      }
-
-      function appendCountTo(el) {
-        return function (count) {
-          $(el).append(
-            $('<span>').addClass('post-visitors-count').append(
-              $('<span>').addClass('post-meta-divider').text('|')
-            ).append(
-              $('<span>').addClass('post-meta-item-icon').append(
-                $('<i>').addClass('fa fa-users')
-              )
-              ).append($('<span>').text('阅读次数 ' + count))
-          )
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
         }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
       }
-
-      var db = firebase.firestore()
-      var articles = db.collection('articles')
-
-      //https://hexo.io/zh-tw/docs/variables.html
-      var isPost = 'LDA && NCA:Dimensionality Reduction'.length > 0
-      var isArchive = '' === 'true'
-      var isCategory = ''.length > 0
-      var isTag = ''.length > 0
-
-      if (isPost) { //is article page
-        var title = 'LDA && NCA:Dimensionality Reduction'
-        var doc = articles.doc(title)
-
-        getCount(doc, true).then(appendCountTo($('.post-meta')))
-      }
-      else if (!isArchive && !isCategory && !isTag) { //is index page
-        var titles = [] //array to titles
-
-        var postsstr = '' //if you have a better way to get titles of posts, please change it
-        eval(postsstr)
-
-        var promises = titles.map(function (title) {
-          return articles.doc(title)
-        }).map(function (doc) {
-          return getCount(doc)
-        })
-        Promise.all(promises).then(function (counts) {
-          var metas = $('.post-meta')
-          counts.forEach(function (val, idx) {
-            appendCountTo(metas[idx])(val)
-          })
-        })
-      }
-    })()
+    });
   </script>
 
+
+
+  
 
   
 
