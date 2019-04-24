@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="dimensionality reduction,metrics learning,">
+  <meta name="keywords" content="C++,segment,">
 
 
 
@@ -82,18 +82,20 @@
 
 
 
-<meta name="description" content="Dimensionality Reduction: LDA &amp;amp;&amp;amp; NCA一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之">
-<meta name="keywords" content="dimensionality reduction,metrics learning">
+<meta name="description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于词典与规则的汉语自动分词系统。  二、技术路线 采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到">
+<meta name="keywords" content="C++,segment">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LDA &amp;&amp; NCA">
-<meta property="og:url" content="https://brooksj.club/2019/04/19/NCA-LDA/index.html">
+<meta property="og:title" content="seg:NLP之正向向最大匹配分词">
+<meta property="og:url" content="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="Dimensionality Reduction: LDA &amp;amp;&amp;amp; NCA一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之">
+<meta property="og:description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于词典与规则的汉语自动分词系统。  二、技术路线 采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-24T12:10:29.855Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png">
+<meta property="og:updated_time" content="2019-04-24T15:39:31.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LDA &amp;&amp; NCA">
-<meta name="twitter:description" content="Dimensionality Reduction: LDA &amp;amp;&amp;amp; NCA一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之">
+<meta name="twitter:title" content="seg:NLP之正向向最大匹配分词">
+<meta name="twitter:description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于词典与规则的汉语自动分词系统。  二、技术路线 采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png">
 
 
 
@@ -123,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="https://brooksj.club/2019/04/19/NCA-LDA/">
+  <link rel="canonical" href="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/">
 
 
 
@@ -132,7 +134,7 @@
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 
-  <title>LDA && NCA | 在人间漂流</title>
+  <title>seg:NLP之正向向最大匹配分词 | 在人间漂流</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -303,7 +305,7 @@
   
   <div class="post-block">
 
-    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/19/NCA-LDA/">
+    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brooksjay">
@@ -320,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LDA && NCA</h1>
+          <h1 class="post-title" itemprop="name headline">seg:NLP之正向向最大匹配分词</h1>
         
 
         <div class="post-meta">
@@ -332,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T21:46:43+08:00">
-                2019-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:11:42+08:00">
+                2019-04-24
               </time>
             
 
@@ -355,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
                   </a>
                 </span>
 
@@ -373,8 +375,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/04/19/NCA-LDA/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/19/NCA-LDA/" itemprop="commentCount">0</span> comments
+                <a href="/2019/04/24/seg-NLP之前向最大匹配分词/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -382,7 +384,7 @@
 
           
           
-             <span id="/2019/04/19/NCA-LDA/" class="leancloud_visitors" data-flag-title="LDA && NCA">
+             <span id="/2019/04/24/seg-NLP之前向最大匹配分词/" class="leancloud_visitors" data-flag-title="seg:NLP之正向向最大匹配分词">
                <span class="post-meta-divider"><br></span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -400,7 +402,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.4k(字)</span>
+            <span class="post-count">542(字)</span>
             
           </span>
 	  
@@ -410,7 +412,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">5(分)</span>
+            <span class="post-count">2(分)</span>
           </span>
 
           
@@ -432,57 +434,34 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Dimensionality-Reduction-LDA-amp-amp-NCA"><a href="#Dimensionality-Reduction-LDA-amp-amp-NCA" class="headerlink" title="Dimensionality Reduction: LDA &amp;&amp; NCA"></a>Dimensionality Reduction: LDA &amp;&amp; NCA</h1><h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
-<script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
-& =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以<script type="math/tex">S_{b}</script>的秩不超过k，又因为第k个<script type="math/tex">\mu_{k}-\mu</script>可由前k-1个<script type="math/tex">\mu_{j}-\mu</script>线性表示，因此<script type="math/tex">S_b</script>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
-<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
-<li>Commonalities：<ul>
-<li>两者均可以对数据进行降维。</li>
-<li>两者在降维时均使用了矩阵特征分解的思想。</li>
-<li>两者都假设数据符合高斯分布。</li>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/seg" target="_blank" rel="noopener">click me</a></p>
+<h2 id="一、任务要求"><a href="#一、任务要求" class="headerlink" title="一、任务要求"></a>一、任务要求</h2><ul>
+<li>实现一个基于词典与规则的汉语自动分词系统。</li>
 </ul>
+<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><ul>
+<li><p>采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：</p>
+<ol>
+<li>对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母</li>
+<li>在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到就将句子在当前匹配位置的这个字作为一个分词段并将匹配位置向前挪一个位置</li>
+<li>重复第2步直到匹配位置移到句末</li>
+</ol>
 </li>
-<li>Differences：<ul>
-<li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
-<li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
-<li>LDA除了可以用于降维，还可以用于分类。</li>
-<li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
-</ul>
+<li><p>下面是用FMM方法分词的具体实现:</p>
 </li>
 </ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为==映射空间中欧氏距离==(相当于原空间中的马氏距离)的softmax概率值</p>
-<script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0</script><p>设$p<em>{i}$为i能够被正确分类的概率，$C</em>{i}$表示与i属于同一类的样本的集合，那么</p>
-<script type="math/tex; mode=display">
-p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
-<script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
-&=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
-<script type="math/tex; mode=display">
-A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
-<li>commonalities:<ul>
-<li>都可以用来降维</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//param@seg:保存分词段结果的vector</span></span><br><span class="line"><span class="comment">//param@st:带分词的中文语句</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">segment</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;seg, <span class="built_in">string</span> st)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sz = st.length();</span><br><span class="line">    <span class="built_in">string</span> t;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, spos;</span><br><span class="line">    <span class="keyword">while</span> (pos &lt; sz) &#123;</span><br><span class="line">        cnt = pos;</span><br><span class="line">        spos = pos;</span><br><span class="line">        t = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> (st[cnt]) &#123;</span><br><span class="line">            t += st.substr(cnt, <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (wordmap.find(t) != wordmap.end())</span><br><span class="line">                pos = cnt + <span class="number">2</span>;</span><br><span class="line">            cnt += <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pos == spos) &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, <span class="number">2</span>));</span><br><span class="line">            pos += <span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, pos - spos));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
+<li>汉英词典dic_ce.txt，读取其中的汉词用于与句中词进行匹配，词典采用GBK编码，下面是给出文件内容示例：</li>
 </ul>
-</li>
-<li>differences:<ul>
-<li>NCA除了降维还是一种度量学习的方法</li>
-<li>NCA对数据分布没有假设，而PCA要求数据服从高斯分布</li>
-<li>NCA基于KNN选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向</li>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//g</span>bk编码，每行第一个词是汉词，后面是它对应的英译单词，以<span class="string">','</span>分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
+<h2 id="四、性能分析"><a href="#四、性能分析" class="headerlink" title="四、性能分析"></a>四、性能分析</h2><ul>
+<li>假设输入中文语句长度为n，程序时间复杂度最坏情况下是O(n^2)，最好情况是O(n)，下面是程序分析结果及分词耗时评测的截图：</li>
 </ul>
-</li>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png" alt="1541992901499"></p>
+<h2 id="五、运行环境"><a href="#五、运行环境" class="headerlink" title="五、运行环境"></a>五、运行环境</h2><ul>
+<li>将执行文件seg.exe与数据字典dic_ce.txt放在同一个目录下，然后点击seg.exe即可正常运行，进入运行窗口后根据提示进行输入即可得到分词结果。</li>
 </ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
+
       
     </div>
     
@@ -503,7 +482,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 	    <span>
         <b>作者: brooksjay</b><br>
         <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/2019/04/19/NCA-LDA/" title="LDA && NCA">https://brooksj.club/2019/04/19/NCA-LDA/</a><br>
+	    <b>本文地址: </b><a href="/2019/04/24/seg-NLP之前向最大匹配分词/" title="seg:NLP之正向向最大匹配分词">https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/</a><br>
 	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <b>转载请注明出处, 谢谢！</b>
 	    </span>
@@ -514,9 +493,9 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
       
         <div class="post-tags">
           
-            <a href="/tags/dimensionality-reduction/" rel="tag"><i class="fa fa-tag"></i> dimensionality reduction</a>
+            <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           
-            <a href="/tags/metrics-learning/" rel="tag"><i class="fa fa-tag"></i> metrics learning</a>
+            <a href="/tags/segment/" rel="tag"><i class="fa fa-tag"></i> segment</a>
           
         </div>
       
@@ -547,8 +526,8 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/19/hadoop-tips/" rel="next" title="hadoop tips">
-                <i class="fa fa-chevron-left"></i> hadoop tips
+              <a href="/2019/04/24/多机同步管理hexo博客/" rel="next" title="多机同步管理hexo博客">
+                <i class="fa fa-chevron-left"></i> 多机同步管理hexo博客
               </a>
             
           </div>
@@ -557,8 +536,8 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/24/apriori-fpgrowth/" rel="prev" title="apriori && fpgrowth">
-                apriori && fpgrowth <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/24/token-NLP之词形还原/" rel="prev" title="token:NLP之词形还原">
+                token:NLP之词形还原 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,7 +569,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 
   
     <div class="comments" id="comments">
-      <div class="fb-comments" data-href="https://brooksj.club/2019/04/19/NCA-LDA/" data-numposts="10" data-width="100%" data-colorscheme="light">
+      <div class="fb-comments" data-href="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/" data-numposts="10" data-width="100%" data-colorscheme="light">
       </div>
     </div>
 
@@ -754,7 +733,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Dimensionality-Reduction-LDA-amp-amp-NCA"><span class="nav-number">1.</span> <span class="nav-text">Dimensionality Reduction: LDA &amp;&amp; NCA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Linear-Discriminant-Analysis-LDA"><span class="nav-number">1.1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Rationale"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LDA-vs-PCA"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Neighborhood-Component-Analysis-NCA"><span class="nav-number">1.2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Rationale"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NCA-vs-PCA"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 NCA vs PCA</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、任务要求"><span class="nav-number">1.</span> <span class="nav-text">一、任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、技术路线"><span class="nav-number">2.</span> <span class="nav-text">二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、数据说明"><span class="nav-number">3.</span> <span class="nav-text">三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、性能分析"><span class="nav-number">4.</span> <span class="nav-text">四、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、运行环境"><span class="nav-number">5.</span> <span class="nav-text">五、运行环境</span></a></li></ol></div>
             
 
           </div>

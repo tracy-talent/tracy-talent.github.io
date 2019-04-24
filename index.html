@@ -303,6 +303,753 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/24/parsing-NLP之chart-parser句法分析器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/24/parsing-NLP之chart-parser句法分析器/" itemprop="url">parsing:NLP之chart parser句法分析器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:16:04+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/24/parsing-NLP之chart-parser句法分析器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/24/parsing-NLP之chart-parser句法分析器/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/24/parsing-NLP之chart-parser句法分析器/" class="leancloud_visitors" data-flag-title="parsing:NLP之chart parser句法分析器">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">1.5k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">5(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/parsing" target="_blank" rel="noopener">click me</a></p>
+<h2 id="一、任务要求"><a href="#一、任务要求" class="headerlink" title="一、任务要求"></a>一、任务要求</h2><ul>
+<li>实现一个基于简单英语语法的chart句法分析器。</li>
+</ul>
+<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态规划）</p>
+<ul>
+<li>chart parsing的数据表示：<ul>
+<li>p图（chart）的结点表示句子中词之间的位置数字</li>
+<li>p非活动边集（chart的核心，常直接就被称为chart<ul>
+<li>n记录分析中规约成功所得到的所有词法/句法符号</li>
+</ul>
+</li>
+<li>活动边集<ul>
+<li>未完全匹配的产生式，用加小圆圈标记（º）的产生式来表示，如：<ul>
+<li>NP -&gt; ART ºADJ N</li>
+<li>NP -&gt; ART ºN</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>待处理表（agenda）<ul>
+<li>实际上是一个队列模型，记录等待加入chart的已匹配成功的词法/句法符号</li>
+</ul>
+</li>
+<li>上面的活动边、非活动边以及词法/句法符号都带有“始/终结点”位置信息</li>
+</ul>
+</li>
+<li>chart parsing对“~1~ The ~2~ cat ~3~ caught ~4~ a ~5~ mouse ~6~”进行分析的数据示例：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png" alt="1541994559204"></p>
+<ul>
+<li><p>chart parsing的句法分析算法步骤描述如下：</p>
+<ul>
+<li>若agenda为空，则把句子中下一个词的各种词法符号（词）和它们的位置加入进来</li>
+<li>从agenda中取一个元素（设为C，位置为：p1-p2)</li>
+<li>对下面形式的每个规则增加活动边：<ul>
+<li>X-&gt;CX~1~…X~n~，增加一条活动边：X-&gt;C º X~1~…X~n~，位置为：p1-p2；</li>
+<li>X-&gt;C，把X加入agenda，位置为：p1-p2</li>
+</ul>
+</li>
+<li>将C作为非活动边加入到chart的位置p1-p2</li>
+<li>对已有活动边进行边扩展<ul>
+<li>对每个形式为：X-&gt;X~1~… º C…X~n~的活动边，若它在p0-p1之间，则增加一条活动边：X-&gt;X~1~… C º…X~n~，位置:p0-p2</li>
+<li>对每个形式为： X-&gt;X~1~… X~n~ º C的活动边，若它在p0-p1之间，则把X加入agenda ，位置为：p0-p2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>程序实现的大致流程：输入英文语句，对在词典dic_ec.txt中不存在的英文单词进行形态还原，对还原后的语句执行chart parsing算法并将分析出的所有非活动边输出。由于一个英文单词可能存在多种词性，这种情况下会对每种可能的词性进行递归，对于不符合句法规则的词性会进行回溯尝试以其它的词性进行句法规则的匹配与分析。直到找到符合句法规则的词性组合则结束递归，尝试完所有的词性组合还是没能找到则句法分析失败，输入的句子不符合当前的句法规则。</p>
+</li>
+</ul>
+<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
+<li>由于这个实验中引用了token实验模块，所以需要用到token实验中的三个数据字典dic_ec.txt，irregualr nouns.txt，irregular verbs.txt，关于这三个数据字典的说明在token实验中已给出，此处不再赘述。除此之外，chart parsing算法还需要用到dic_ec.txt词典中英文单词的词性。</li>
+</ul>
+<h2 id="四、遇到的问题及解决方案"><a href="#四、遇到的问题及解决方案" class="headerlink" title="四、遇到的问题及解决方案"></a>四、遇到的问题及解决方案</h2><ul>
+<li>程序实现过程中受到文件编码和分隔符的困扰，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
+<li>dic_ec.txt这个数据字典中的数据质量不太好，很多英文单词都被标注成none.词性，由于无法获取词的正确词性从而无法完成句子的句法分析。</li>
+</ul>
+<h2 id="五、性能分析"><a href="#五、性能分析" class="headerlink" title="五、性能分析"></a>五、性能分析</h2><ul>
+<li>对句法分析部分作一个性能的度量，单句句法分析的结果基本都在毫秒级别，下面给出基于规则S-&gt;NP VP，NP-&gt;ART N，NP-&gt;ART ADJ N，VP-&gt;V，VP-&gt;V NP对the cat catch a mouse进行句法分析得到的运行结果及耗时截图：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_2.png" alt="1542023773939"></p>
+<h2 id="六、运行环境"><a href="#六、运行环境" class="headerlink" title="六、运行环境"></a>六、运行环境</h2><ul>
+<li>将执行文件parsing.exe与数据字典dic_ec.txt，irregular nouns.txt，irregualr verbs.txt放在同一个文件夹下，然后点击parsing.exe即可正常运行程序。</li>
+</ul>
+<h2 id="七、用户手册"><a href="#七、用户手册" class="headerlink" title="七、用户手册"></a>七、用户手册</h2><ul>
+<li>在运行环境下正常运行程序后会出现下图这样的主菜单文字界面：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_3.png" alt="1542024516293"></p>
+<ul>
+<li>根据主菜单进行操作，首先选择1来写入规则，可一次写入多个规则，输入q!结束规则写入，如果后期需要增加规则，可以在主菜单界面再次选择1来写入增添的规则，这样就实现了规则的灵活扩展。下面是写入规则模块的截图：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_4.png" alt="1542025005658"></p>
+<ul>
+<li>写入规则结束后又回退到主菜单界面，这时候可以选择2来输入句子进行句法分析，程序会输出分析过程中得到的所有非活动边对应的短语及位置范围，下面是在上面所写入规则的基础上对the cat caught a mouse进行句法分析的结果截图，程序会对dic_ec.txt中不存在的单词尝试调用词形还原模块进行还原再分析：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_5.png" alt="1542026424475"></p>
+<ul>
+<li>句法分析回退到主菜单界面，可以继续选择1进行规则扩展，也可以选择2进行句法分析，选择q退出程序运行。</li>
+<li>基于下面的句法规则给出一个句法分析示例：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART N</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">PRON</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">N</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART ADJ N</span></span><br><span class="line"><span class="meta">VP-&gt;</span><span class="bash">V</span></span><br><span class="line"><span class="meta">VP-&gt;</span><span class="bash">V NP</span></span><br></pre></td></tr></table></figure>
+<p>对I like her进行句法分析的结果截图如下：</p>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_6.png" alt="1542031147205"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/24/token-NLP之词形还原/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/24/token-NLP之词形还原/" itemprop="url">token:NLP之词形还原</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:15:43+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/24/token-NLP之词形还原/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/24/token-NLP之词形还原/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/24/token-NLP之词形还原/" class="leancloud_visitors" data-flag-title="token:NLP之词形还原">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">924(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">3(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/token" target="_blank" rel="noopener">click me</a></p>
+<h2 id="一、任务描述"><a href="#一、任务描述" class="headerlink" title="一、任务描述"></a>一、任务描述</h2><ul>
+<li>形态还原算法：<ol>
+<li>输入一个单词</li>
+<li>如果词典里有该词，输出该词及其属性，转4，否则，转3</li>
+<li>如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&lt;未登录词模块&gt;</li>
+<li>如果输入中还有单词，转(1)，否则，结束。</li>
+</ol>
+</li>
+</ul>
+<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><ol>
+<li>加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.txt词典中包含这个单词的映射则直接输出。下面给出dic_ec.txt内容的基本形式：</li>
+</ol>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gbk编码，以\t分隔</span></span><br><span class="line">homokaryosis	<span class="literal">none</span>.	同核性, 同核现象</span><br><span class="line">homokaryotic	adj.	同核体的</span><br><span class="line">homokurtic	<span class="literal">none</span>.	等峰态性</span><br><span class="line">homolanthionine	<span class="literal">none</span>.	高羊毛氨酸</span><br></pre></td></tr></table></figure>
+<ol>
+<li>考虑到有些单词本身就是原形，也是其它单词的形态变换，所以在设计时决定把所有可能的结果都输出。在完成词典映射后再检查该单词是否能通过变换规则转换得到。我们知道英文单词的形态变换存在有规律的和无规律的变换，首先看有规律的变换，动词的规律变换形式有下面4条规则：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">规则1.</span>  <span class="meta">*ves</span> <span class="bullet">--&gt;</span> <span class="string">*f/*fe</span></span><br><span class="line"><span class="string">规则2.</span>  <span class="meta">*ies</span> <span class="bullet">--&gt;</span> <span class="meta">*y</span></span><br><span class="line"><span class="string">规则3.</span>  <span class="meta">*es</span>  <span class="bullet">--&gt;</span> <span class="string">*</span></span><br><span class="line"><span class="string">规则4.</span>  <span class="meta">*s</span>   <span class="bullet">--&gt;</span> <span class="string">*</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名次的规律变换形式有下面9条规则：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第三人称单数</span></span><br><span class="line">规则<span class="number">5</span>.  *<span class="function"><span class="title">ies</span> --&gt;</span> *y</span><br><span class="line">规则<span class="number">6</span>.  *<span class="function"><span class="title">es</span> --&gt;</span> *</span><br><span class="line">规则<span class="number">7</span>.  *<span class="function"><span class="title">s</span>   --&gt;</span> *</span><br><span class="line"><span class="comment">//现在进行时</span></span><br><span class="line">规则<span class="number">8</span>.  *??<span class="function"><span class="title">ing</span> --&gt;</span> *?   </span><br><span class="line">规则<span class="number">9</span>.  *<span class="function"><span class="title">ying</span> --&gt;</span> *ie</span><br><span class="line">规则<span class="number">10</span>.  *<span class="function"><span class="title">ing</span>  --&gt;</span> *<span class="comment">/*e</span></span><br><span class="line"><span class="comment">//过去时、过去分词</span></span><br><span class="line"><span class="comment">规则11.  *??ed --&gt; *?</span></span><br><span class="line"><span class="comment">规则12.  *ied --&gt; *y</span></span><br><span class="line"><span class="comment">规则13.  *ed  --&gt; */</span>*e</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过在程序中写入这些规则来对单词形态进行还原，而无规则的形态变换只能通过预先建立好的词库来完成词形形态映射。在程序中通过加载irregualr nouns.txt对名词进行还原，加载irregualr verbs.txt对动词进行还原。下面分别给出这两文件中的内容形式：</p>
+<p>&nbsp;&nbsp;irregular nouns.txt的内容形式：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span></span><br><span class="line">grief	griefs</span><br><span class="line">roof	roofs</span><br><span class="line">gulf	gulfs</span><br><span class="line">grief	griefs</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;irregualr verbs.txt的内容形式：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span><br><span class="line"><span class="keyword">bear	</span><span class="keyword">bore	</span><span class="keyword">borne	</span><span class="keyword">born</span></span><br><span class="line"><span class="keyword">alight	</span>alighted	alit	alighted	alit</span><br><span class="line"><span class="symbol">arise</span>	arose	arisen</span><br><span class="line"><span class="symbol">awake</span>	awoke	awaked	awoken	awoke	awaked</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果找到了还原映射，则在dic_ec.txt词典中查找还原后的单词并输出结果。</p>
+<ol>
+<li>若最终该单词没有检索到结果则把他登记到单词缺失词典missing words.txt中。</li>
+</ol>
+<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
+<li>英汉词典dic_ec.txt，名词的不规律变换词典irregualr nouns.txt，动词的不规律变换词典irregualr verbs.txt，这几个数据词典的编码以及内容形式都已在技术路线中给出，此处不再赘述。</li>
+</ul>
+<h2 id="四、遇到的问题及解决方案"><a href="#四、遇到的问题及解决方案" class="headerlink" title="四、遇到的问题及解决方案"></a>四、遇到的问题及解决方案</h2><ul>
+<li>程序实现过程中唯一遇到的问题就是文件编码和分隔符的问题，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
+</ul>
+<h2 id="五、性能分析"><a href="#五、性能分析" class="headerlink" title="五、性能分析"></a>五、性能分析</h2><ul>
+<li>下面是性能单词查询的耗时截图，平均不超过0.001s：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png" alt="1541928466093"></p>
+<h2 id="六、运行环境"><a href="#六、运行环境" class="headerlink" title="六、运行环境"></a>六、运行环境</h2><ul>
+<li>将token.exe与dic_ec.txt，irregualr nouns.txt，irregualr verbs.txt，missing words.txt放在同一个目录下，然后点击token.exe即可正确运行程序。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/24/seg-NLP之前向最大匹配分词/" itemprop="url">seg:NLP之正向向最大匹配分词</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:11:42+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/24/seg-NLP之前向最大匹配分词/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/24/seg-NLP之前向最大匹配分词/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/24/seg-NLP之前向最大匹配分词/" class="leancloud_visitors" data-flag-title="seg:NLP之正向向最大匹配分词">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">542(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">2(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/seg" target="_blank" rel="noopener">click me</a></p>
+<h2 id="一、任务要求"><a href="#一、任务要求" class="headerlink" title="一、任务要求"></a>一、任务要求</h2><ul>
+<li>实现一个基于词典与规则的汉语自动分词系统。</li>
+</ul>
+<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><ul>
+<li><p>采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：</p>
+<ol>
+<li>对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母</li>
+<li>在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到就将句子在当前匹配位置的这个字作为一个分词段并将匹配位置向前挪一个位置</li>
+<li>重复第2步直到匹配位置移到句末</li>
+</ol>
+</li>
+<li><p>下面是用FMM方法分词的具体实现:</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//param@seg:保存分词段结果的vector</span></span><br><span class="line"><span class="comment">//param@st:带分词的中文语句</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">segment</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;seg, <span class="built_in">string</span> st)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sz = st.length();</span><br><span class="line">    <span class="built_in">string</span> t;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, spos;</span><br><span class="line">    <span class="keyword">while</span> (pos &lt; sz) &#123;</span><br><span class="line">        cnt = pos;</span><br><span class="line">        spos = pos;</span><br><span class="line">        t = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> (st[cnt]) &#123;</span><br><span class="line">            t += st.substr(cnt, <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (wordmap.find(t) != wordmap.end())</span><br><span class="line">                pos = cnt + <span class="number">2</span>;</span><br><span class="line">            cnt += <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pos == spos) &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, <span class="number">2</span>));</span><br><span class="line">            pos += <span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, pos - spos));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
+<li>汉英词典dic_ce.txt，读取其中的汉词用于与句中词进行匹配，词典采用GBK编码，下面是给出文件内容示例：</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//g</span>bk编码，每行第一个词是汉词，后面是它对应的英译单词，以<span class="string">','</span>分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
+<h2 id="四、性能分析"><a href="#四、性能分析" class="headerlink" title="四、性能分析"></a>四、性能分析</h2><ul>
+<li>假设输入中文语句长度为n，程序时间复杂度最坏情况下是O(n^2)，最好情况是O(n)，下面是程序分析结果及分词耗时评测的截图：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png" alt="1541992901499"></p>
+<h2 id="五、运行环境"><a href="#五、运行环境" class="headerlink" title="五、运行环境"></a>五、运行环境</h2><ul>
+<li>将执行文件seg.exe与数据字典dic_ce.txt放在同一个目录下，然后点击seg.exe即可正常运行，进入运行窗口后根据提示进行输入即可得到分词结果。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/24/多机同步管理hexo博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -402,7 +1149,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">317(字)</span>
+            <span class="post-count">321(字)</span>
             
           </span>
 	  
@@ -437,7 +1184,7 @@
         
           
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h2><ol>
-<li>创建仓库，\<your github username\>.github.io；可参考我的<a href="https://github.com/tracy-talent/tracy-talent.github.io" target="_blank" rel="noopener">tracy-talent.github.io</a></your></li>
+<li>创建仓库，\&lt; your github username >.github.io；可参考我的<a href="https://github.com/tracy-talent/tracy-talent.github.io" target="_blank" rel="noopener">tracy-talent.github.io</a></li>
 <li>创建两个分支：master 与 hexo；</li>
 <li>设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件,git clone会download默认分支）；</li>
 <li>使用git clone git@github.com:username/username.github.io.git拷贝仓库；</li>
@@ -1714,7 +2461,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1725,7 +2472,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1736,7 +2483,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
