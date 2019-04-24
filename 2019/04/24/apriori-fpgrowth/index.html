@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="apriori,fpgrowth,">
 
 
 
@@ -82,17 +82,29 @@
 
 
 
-<meta name="description" content="一只沉迷于摸鱼的科研喵~">
-<meta name="keywords" content="hiphop | rock | basketball | movie">
-<meta property="og:type" content="website">
-<meta property="og:title" content="在人间漂流">
-<meta property="og:url" content="https://brooksj.club/index.html">
+<meta name="description" content="频繁模式与关联规则挖掘  一、实验说明1.1 任务描述 1.2 数据集说明 GroceryStore数据集  This data set contains transaction records of a grocery store in a month. Each line is a transaction, where the purchased items line in {}, separ">
+<meta name="keywords" content="apriori,fpgrowth">
+<meta property="og:type" content="article">
+<meta property="og:title" content="apriori &amp;&amp; fpgrowth">
+<meta property="og:url" content="https://brooksj.club/2019/04/24/apriori-fpgrowth/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="一只沉迷于摸鱼的科研喵~">
+<meta property="og:description" content="频繁模式与关联规则挖掘  一、实验说明1.1 任务描述 1.2 数据集说明 GroceryStore数据集  This data set contains transaction records of a grocery store in a month. Each line is a transaction, where the purchased items line in {}, separ">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2009-17-37屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2011-08-35屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2011-08-51屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2011-09-07屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2020-21-39屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2011-09-27屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2011-09-43屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2011-10-01屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2020-21-02屏幕截图.png">
+<meta property="og:image" content="https://brooksj.club/images/2019-04-23%2020-21-22屏幕截图.png">
+<meta property="og:updated_time" content="2019-04-24T04:28:44.241Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在人间漂流">
-<meta name="twitter:description" content="一只沉迷于摸鱼的科研喵~">
+<meta name="twitter:title" content="apriori &amp;&amp; fpgrowth">
+<meta name="twitter:description" content="频繁模式与关联规则挖掘  一、实验说明1.1 任务描述 1.2 数据集说明 GroceryStore数据集  This data set contains transaction records of a grocery store in a month. Each line is a transaction, where the purchased items line in {}, separ">
+<meta name="twitter:image" content="https://brooksj.club/images/2019-04-23%2009-17-37屏幕截图.png">
 
 
 
@@ -122,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="https://brooksj.club/">
+  <link rel="canonical" href="https://brooksj.club/2019/04/24/apriori-fpgrowth/">
 
 
 
@@ -131,7 +143,7 @@
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 
-  <title>在人间漂流</title>
+  <title>apriori && fpgrowth | 在人间漂流</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -169,8 +181,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <!-- fork me on github -->
@@ -286,9 +297,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
 
   
@@ -320,9 +331,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/apriori-fpgrowth/" itemprop="url">apriori && fpgrowth</a></h1>
+          <h1 class="post-title" itemprop="name headline">apriori && fpgrowth</h1>
         
 
         <div class="post-meta">
@@ -434,9 +443,7 @@
       
 
       
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><center><h1>频繁模式与关联规则挖掘</h1></center>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><center><h1>频繁模式与关联规则挖掘</h1></center>
 
 <h2 id="一、实验说明"><a href="#一、实验说明" class="headerlink" title="一、实验说明"></a>一、实验说明</h2><h3 id="1-1-任务描述"><a href="#1-1-任务描述" class="headerlink" title="1.1 任务描述"></a>1.1 任务描述</h3><p><img src="/images/2019-04-23 09-17-37屏幕截图.png" alt></p>
 <h3 id="1-2-数据集说明"><a href="#1-2-数据集说明" class="headerlink" title="1.2 数据集说明"></a>1.2 数据集说明</h3><ul>
@@ -761,8 +768,6 @@ exit
 </ul>
 <h4 id="3-3-3-简要分析对比"><a href="#3-3-3-简要分析对比" class="headerlink" title="3.3.3 简要分析对比"></a>3.3.3 简要分析对比</h4><p>advanced_1 apriori和advanced_2 apriori的内存消耗基本一致，在程序运行期间比较平稳，而dummy apriori相比advanced apriori占用内存较大，峰值达到了advanced apriori的2倍以上，主要消耗在暴力穷举候选项集，导致候选项集规模太大，占用内存过多。</p>
 
-          
-        
       
     </div>
     
@@ -783,7 +788,7 @@ exit
 	    <span>
         <b>作者: brooksjay</b><br>
         <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文地址: </b><a href="/2019/04/24/apriori-fpgrowth/" title="apriori && fpgrowth">https://brooksj.club/2019/04/24/apriori-fpgrowth/</a><br>
 	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <b>转载请注明出处, 谢谢！</b>
 	    </span>
@@ -792,678 +797,56 @@ exit
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/19/NCA-LDA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/19/NCA-LDA/" itemprop="url">LDA && NCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T21:46:43+08:00">
-                2019-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/apriori/" rel="tag"><i class="fa fa-tag"></i> apriori</a>
           
-
+            <a href="/tags/fpgrowth/" rel="tag"><i class="fa fa-tag"></i> fpgrowth</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/19/NCA-LDA/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/19/NCA-LDA/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/19/NCA-LDA/" class="leancloud_visitors" data-flag-title="LDA && NCA">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.4k(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">5(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Dimensionality-Reduction-LDA-amp-amp-NCA"><a href="#Dimensionality-Reduction-LDA-amp-amp-NCA" class="headerlink" title="Dimensionality Reduction: LDA &amp;&amp; NCA"></a>Dimensionality Reduction: LDA &amp;&amp; NCA</h1><h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
-<script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
-& =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以<script type="math/tex">S_{b}</script>的秩不超过k，又因为第k个<script type="math/tex">\mu_{k}-\mu</script>可由前k-1个<script type="math/tex">\mu_{j}-\mu</script>线性表示，因此<script type="math/tex">S_b</script>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
-<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
-<li>Commonalities：<ul>
-<li>两者均可以对数据进行降维。</li>
-<li>两者在降维时均使用了矩阵特征分解的思想。</li>
-<li>两者都假设数据符合高斯分布。</li>
-</ul>
-</li>
-<li>Differences：<ul>
-<li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
-<li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
-<li>LDA除了可以用于降维，还可以用于分类。</li>
-<li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为==映射空间中欧氏距离==(相当于原空间中的马氏距离)的softmax概率值</p>
-<script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0</script><p>设$p<em>{i}$为i能够被正确分类的概率，$C</em>{i}$表示与i属于同一类的样本的集合，那么</p>
-<script type="math/tex; mode=display">
-p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
-<script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
-&=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
-<script type="math/tex; mode=display">
-A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
-<li>commonalities:<ul>
-<li>都可以用来降维</li>
-</ul>
-</li>
-<li>differences:<ul>
-<li>NCA除了降维还是一种度量学习的方法</li>
-<li>NCA对数据分布没有假设，而PCA要求数据服从高斯分布</li>
-<li>NCA基于KNN选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向</li>
-</ul>
-</li>
-</ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/19/hadoop-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/19/hadoop-tips/" itemprop="url">hadoop tips</a></h1>
+        <div class="post-widgets">
         
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T09:53:13+08:00">
-                2019-04-19
-              </time>
+        
+          <div class="social-like">
             
 
             
-
+              <div class="fb_like">
+                <div class="fb-like" data-layout="button_count" data-share="true"></div>
+              </div>
             
-          </span>
+          </div>
+        
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Bigdata-Technology/" itemprop="url" rel="index">
-                    <span itemprop="name">Bigdata Technology</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Bigdata-Technology/Distributed-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed System</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/19/hadoop-tips/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/19/hadoop-tips/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/19/hadoop-tips/" class="leancloud_visitors" data-flag-title="hadoop tips">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">670(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
+        
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
       
 
       
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="hadoop-tips"><a href="#hadoop-tips" class="headerlink" title="hadoop tips"></a>hadoop tips</h1><ul>
-<li>yarn查看application log的方式：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">1.在$&#123;HADOOP_HOME&#125;/etc/hadoop/yarn-site.xml中配置：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property &gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line">&lt;value&gt;604800&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/app-logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir-suffix&lt;/name&gt;</span><br><span class="line">&lt;value&gt;logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施物理内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施虚拟内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">2.在hdfs上创建/app-logs</span><br><span class="line">hadoop fs -mkdir /app-logs</span><br><span class="line"></span><br><span class="line">3.在/app-logs下查看运行过的application的applicationId，然后使用如下命令查看日志：</span><br><span class="line">yarn logs -applicationId application_12**345</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hadoop关于jobhistory server的配置，以便在作业web界面查看日志信息</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1.mapred-site.xml的配置</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:10020&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:19888&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">2.yarn-site.xml的配置</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log.server.url&lt;/name&gt;</span><br><span class="line">&lt;value&gt;http://localhost:19888/jobhistory/logs/&lt;/value&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hadoop启动方式:</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.启动hdfs</span><br><span class="line">./sbin/start-dfs.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/hadoop-daemon<span class="selector-class">.sh</span> start namenode</span><br><span class="line">./sbin/hadoop-daemon<span class="selector-class">.sh</span> start datanode</span><br><span class="line"><span class="number">2</span>.启动yarn</span><br><span class="line">./sbin/start-yarn.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/yarn-daemon<span class="selector-class">.sh</span> start resourcemanager</span><br><span class="line">./sbin/yarn-daemon<span class="selector-class">.sh</span> start nodemanager</span><br><span class="line"><span class="number">3</span>.启动jobhistory server</span><br><span class="line">./sbin/mr-jobhistory-daemon<span class="selector-class">.sh</span> start historyserver</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hadoop jar提交作业时提示Exception in thread “main” java.lang.SecurityException: Invalid signature file digest for Manifest main attributes，跟jar包签名有关，可以在.pom下配置plugin:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;2.4.3&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;filters&gt;</span><br><span class="line">                                &lt;filter&gt;</span><br><span class="line">                                    &lt;artifact&gt;*:*&lt;/artifact&gt;</span><br><span class="line">                                    &lt;excludes&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;</span><br><span class="line">                                    &lt;/excludes&gt;</span><br><span class="line">                                &lt;/filter&gt;</span><br><span class="line">                            &lt;/filters&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                     &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br></pre></td></tr></table></figure>
-<p>如果还无法解决问题，就在每次生成jar包后，命令行下输入以下命令删除签名文件:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -d wordcount.jar 'META-INF/.SF' 'META-INF/.RSA' 'META-INF/*SF'</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hdfs的目录默认是放在/user/linux用户名下的</li>
-<li>关闭namenode的safemode:hdfs dfsadmin -safemode leave</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.club/2019/04/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/18/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-18T22:34:57+08:00">
-                2019-04-18
-              </time>
+              <a href="/2019/04/19/NCA-LDA/" rel="next" title="LDA && NCA">
+                <i class="fa fa-chevron-left"></i> LDA && NCA
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/18/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.club/2019/04/18/hello-world/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/18/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">73(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1473,10 +856,11 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1484,6 +868,16 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments" data-href="https://brooksj.club/2019/04/24/apriori-fpgrowth/" data-numposts="10" data-width="100%" data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -1504,8 +898,17 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1622,6 +1025,22 @@ show_date_time();
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">频繁模式与关联规则挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验说明"><span class="nav-number">1.1.</span> <span class="nav-text">一、实验说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-任务描述"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 任务描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-数据集说明"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 数据集说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、代码设计与实现"><span class="nav-number">1.2.</span> <span class="nav-text">二、代码设计与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-dummy-apriori"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 dummy apriori</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-advanced-apriori"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 advanced apriori</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-基于apriori的频繁项集挖掘关联规则"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 基于apriori的频繁项集挖掘关联规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-fpgrowth"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 fpgrowth</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、实验结果及分析对比"><span class="nav-number">1.3.</span> <span class="nav-text">三、实验结果及分析对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-实验结果展示"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 实验结果展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-时间性能对比"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 时间性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-频繁项集挖掘"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">3.2.1 频繁项集挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-1-UNIX-usage-Dataset"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">3.2.1.1 UNIX_usage Dataset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-2-GroceryStore-Dataset"><span class="nav-number">1.3.2.1.2.</span> <span class="nav-text">3.2.1.2 GroceryStore Dataset</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-关联规则挖掘"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">3.2.2 关联规则挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-UNIX-usage-Dataset"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">3.2.2.1 UNIX_usage Dataset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-2-GroceryStore-Dataset"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">3.2.2.2 GroceryStore Dataset</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-简要分析"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3.2.3 简要分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-内存占用对比"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 内存占用对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-UNIX-usage-Dataset"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">3.3.1 UNIX_usage Dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-GroceryStore-Dataset"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">3.3.2 GroceryStore Dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-简要分析对比"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">3.3.3 简要分析对比</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1755,6 +1174,10 @@ show_date_time();
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
