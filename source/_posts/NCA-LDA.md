@@ -1,14 +1,16 @@
 ---
-title: LDA && NCA
+title: LDA && NCA: 降维与度量学习
 date: 2019-04-19 21:46:43
 tags:
     - dimensionality reduction
     - metrics learning
+    - classification
 categories:
     - Machine Learning
+    - Data Mining
 ---
 
-# Dimensionality Reduction: LDA && NCA
+代码实现放在我的github上:[click me](https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/LDA%20%26%26%20NCA)
 
 ## 一、Linear Discriminant Analysis(LDA)
 

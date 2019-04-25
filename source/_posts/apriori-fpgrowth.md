@@ -1,5 +1,5 @@
 ---
-title: apriori && fpgrowth
+title: apriori && fpgrowth:频繁模式与关联规则挖掘
 date: 2019-04-24 11:47:04
 tags:
     - apriori
@@ -8,7 +8,7 @@ categories:
     - Data Mining
 ---
 
-<center><h1>频繁模式与关联规则挖掘</h1></center>
+详细代码实现放在我的github上:[click me](https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/apriori%20%26%26%20fpgrowth)
 
 ## 一、实验说明
 
@@ -90,8 +90,6 @@ categories:
 
 
 ## 二、代码设计与实现
-> 详细代码实现放在我的github上:[click me](https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/apriori%20%26%26%20fpgrowth)
-
 对apriori算法手动实现了一个dummy版本和一个advanced版本，dummy版本没有使用剪枝的trick，使用暴力的方法生成候选项级，対事务表不做任何处理。而advanced版本则在dummy版本的基础上加入了一剪枝的trick，性能更胜一筹。对fpgrowth算法使用了已有的python包，其中的实现细节没有深入去review了。下面对这几份代码的详细设计与实现做一个说明。
 
 ### 2.1 dummy apriori
