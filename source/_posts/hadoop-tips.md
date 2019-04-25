@@ -6,8 +6,8 @@ tags:
     - hdfs
     - yarn
 categories:
-    - Bigdata Technology
     - Distributed System
+    - Bigdata Technology
 ---
 
 # hadoop tips

@@ -1,12 +1,11 @@
 ---
-title: LDA && NCA: 降维与度量学习
+title: 降维与度量学习之LDA && NCA
 date: 2019-04-19 21:46:43
 tags:
     - dimensionality reduction
     - metrics learning
     - classification
 categories:
-    - Machine Learning
     - Data Mining
 ---
 
