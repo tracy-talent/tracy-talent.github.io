@@ -1,5 +1,5 @@
 ---
-title: tutorial of various classifiers
+title: 基于sklearn的分类器实战
 date: 2019-05-23 21:11:21
 tags:
     - KNN
