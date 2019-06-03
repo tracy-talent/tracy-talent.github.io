@@ -54,7 +54,7 @@ $$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设$$x_i(1 \le i \le n)$$表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义$$p_{ij}$$为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值
 $$
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0
+p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|^{2})}，\ p_{ii}=0
 $$
 设$$p_{i}$$为i能够被正确分类的概率，$$C_{i}$$表示与i属于同一类的样本的集合，那么
 $$
