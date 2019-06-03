@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="在人间漂流">
 <meta property="og:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-25T03:55:59.545Z">
+<meta property="og:updated_time" content="2019-06-03T14:36:36.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="降维与度量学习之LDA &amp;&amp; NCA">
 <meta name="twitter:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
@@ -458,9 +458,9 @@
 </li>
 </ul>
 <h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为==映射空间中欧氏距离==(相当于原空间中的马氏距离)的softmax概率值</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值</p>
 <script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0</script><p>设$p<em>{i}$为i能够被正确分类的概率，$C</em>{i}$表示与i属于同一类的样本的集合，那么</p>
+p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|)}，\ p_{ii}=0</script><p>设<script type="math/tex">p_{i}</script>为i能够被正确分类的概率，<script type="math/tex">C_{i}</script>表示与i属于同一类的样本的集合，那么</p>
 <script type="math/tex; mode=display">
 p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
 <script type="math/tex; mode=display">
