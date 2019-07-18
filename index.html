@@ -312,6 +312,217 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/07/18/动态规划题集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/18/动态规划题集/" itemprop="url">动态规划题集</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T10:15:33+08:00">
+                2019-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/18/动态规划题集/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/07/18/动态规划题集/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/18/动态规划题集/" class="leancloud_visitors" data-flag-title="动态规划题集">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">553(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">2(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h2><h3 id="HDU-3466"><a href="#HDU-3466" class="headerlink" title="HDU-3466"></a>HDU-3466</h3><p>题目: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3466" target="_blank" rel="noopener">HDU-3346. Proud Merchants</a></p>
+<p>分析:&nbsp;&nbsp;首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如:</p>
+<p>3 5 6</p>
+<p>5 10 5</p>
+<p>两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10.</p>
+<p>对于任意两个物品i和j,如果我们先i后j初始:</p>
+<p>金钱= <font color="#DC143C">Q[i]+Q[j]-(Q[i]-p[i]) = p[i]+Q[j]</font></p>
+<p>同理可得先j后i,初始:</p>
+<p>金钱= <font color="#DC143C">Q[j]+Q[i]-(Q[j]-p[j]) = p[j]+Q[i]</font></p>
+<p>所以对于i和j,假设我们手上有M金钱,我们肯定先以(Q-P)值从大到小开始选择,这样我才能保证对于同一种选择方案(某些选,某些不选),我们所需要的初始金钱最小.或者换一种说法,给定一定的金额,如果按照(Q-P)值从大到小的顺序进行选择,可以获得尽可能多的物品.</p>
+<p><strong>solution:</strong>&nbsp;&nbsp;01背包+贪心,关键在于找到要进行贪心的值</p>
+<p><strong>implementation:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">Author: liujian</span></span><br><span class="line"><span class="comment">Email: brooksj@foxmail.com</span></span><br><span class="line"><span class="comment">Date: 2019-07-18 10:51</span></span><br><span class="line"><span class="comment">File: hdu_3466.cpp</span></span><br><span class="line"><span class="comment">Last modified: 2019-07-18 10:51</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(<span class="meta-string">"O2"</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5</span> * <span class="number">1e2</span> + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">5</span> * <span class="number">1e3</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">item</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> p, q, v;</span><br><span class="line">    item(<span class="keyword">int</span> _p = <span class="number">0</span>, <span class="keyword">int</span> _q = <span class="number">0</span>, <span class="keyword">int</span> _v = <span class="number">0</span>):p(_p),q(_q),v(_v)&#123;&#125;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> item &amp;a, <span class="keyword">const</span> item &amp;b) &#123;</span><br><span class="line">        <span class="keyword">return</span> (a.q - a.p) &lt; (b.q - b.p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[maxm], sum[maxn];</span><br><span class="line">item items[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m) &#123;</span><br><span class="line">        sum[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; items[i].p &gt;&gt; items[i].q &gt;&gt; items[i].v;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(items + <span class="number">1</span>, items + n + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            sum[i] = sum[i - <span class="number">1</span>] + items[i].p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            dp[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">           <span class="keyword">int</span> lowerb = max(max(m - sum[n] + sum[i], items[i].p), items[i].q);</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> j = m; j &gt;= lowerb; j--) &#123;</span><br><span class="line">               dp[j] = max(dp[j], dp[j - items[i].p] + items[i].v);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; dp[m] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/06/20/树的最小支配集，最小点覆盖集，最大点独立集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2851,255 +3062,6 @@ exit
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/19/NCA-LDA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/19/NCA-LDA/" itemprop="url">降维与度量学习之LDA && NCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T21:46:43+08:00">
-                2019-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-Mining/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Mining</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/19/NCA-LDA/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/19/NCA-LDA/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/19/NCA-LDA/" class="leancloud_visitors" data-flag-title="降维与度量学习之LDA && NCA">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.4k(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">5(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/LDA%20%26%26%20NCA" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
-<script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
-& =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以<script type="math/tex">S_{b}</script>的秩不超过k，又因为第k个<script type="math/tex">\mu_{k}-\mu</script>可由前k-1个<script type="math/tex">\mu_{j}-\mu</script>线性表示，因此<script type="math/tex">S_b</script>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
-<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
-<li>Commonalities：<ul>
-<li>两者均可以对数据进行降维。</li>
-<li>两者在降维时均使用了矩阵特征分解的思想。</li>
-<li>两者都假设数据符合高斯分布。</li>
-</ul>
-</li>
-<li>Differences：<ul>
-<li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
-<li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
-<li>LDA除了可以用于降维，还可以用于分类。</li>
-<li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值</p>
-<script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|^{2})}，\ p_{ii}=0</script><p>设<script type="math/tex">p_{i}</script>为i能够被正确分类的概率，<script type="math/tex">C_{i}</script>表示与i属于同一类的样本的集合，那么</p>
-<script type="math/tex; mode=display">
-p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
-<script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
-&=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
-<script type="math/tex; mode=display">
-A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
-<li>commonalities:<ul>
-<li>都可以用来降维</li>
-</ul>
-</li>
-<li>differences:<ul>
-<li>NCA除了降维还是一种度量学习的方法</li>
-<li>NCA对数据分布没有假设，而PCA要求数据服从高斯分布</li>
-<li>NCA基于KNN选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向</li>
-</ul>
-</li>
-</ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3152,7 +3114,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3174,7 +3136,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
