@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="在人间漂流">
 <meta property="og:description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  \omega_n^n = 1 \omega_{n}^{0}, \omega_{n}^{1}, ⋯, \omega_{n}^{n-1}是互不相同的，这样带入计算出来的点值才可以用来还原出系数  \omega">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T08:55:58.796Z">
+<meta property="og:updated_time" content="2019-07-24T09:03:17.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多项式相关算法集成">
 <meta name="twitter:description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  \omega_n^n = 1 \omega_{n}^{0}, \omega_{n}^{1}, ⋯, \omega_{n}^{n-1}是互不相同的，这样带入计算出来的点值才可以用来还原出系数  \omega">
@@ -409,7 +409,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">2.4k(字)</span>
+            <span class="post-count">2.5k(字)</span>
             
           </span>
 	  
@@ -419,7 +419,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">12(分)</span>
+            <span class="post-count">13(分)</span>
           </span>
 
           
@@ -482,40 +482,8 @@
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="拉格朗日快速插值计算"><a href="#拉格朗日快速插值计算" class="headerlink" title="拉格朗日快速插值计算"></a>拉格朗日快速插值计算</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 多项式系数默认低次到高次排列</span></span><br><span class="line">    ios_base::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    poly.fnt.init(<span class="number">1</span> &lt;&lt; MAXL);   </span><br><span class="line">    <span class="comment">// 多项式插值</span></span><br><span class="line">    <span class="keyword">int</span> vnum; </span><br><span class="line">    <span class="comment">// 输入要计算的点</span></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; vnum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vnum; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; poly.xcoor[i] &gt;&gt; poly.ycoor[i];        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 二分求子多项式</span></span><br><span class="line">    poly.init(vnum);</span><br><span class="line">    poly.binary_subpoly(<span class="number">0</span>, vnum, <span class="number">0</span>); </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; poly.poly_divisor[<span class="number">0</span>].size(); i++) &#123;</span><br><span class="line">        poly.mcoef[i - <span class="number">1</span>] = poly.poly_divisor[<span class="number">0</span>][i] * i % mod_v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 遍历i计算所有\sum_&#123;j!=i&#125;&#123;xi-xj&#125; </span></span><br><span class="line">    poly.polynomial_calculator(<span class="number">0</span>, vnum, <span class="number">0</span>, poly.poly_divisor[<span class="number">0</span>].size() - <span class="number">1</span>, poly.mcoef);</span><br><span class="line">    <span class="comment">// 拉格朗日插值计算多项式</span></span><br><span class="line">    poly.polynomial_interpolate(<span class="number">0</span>, vnum, <span class="number">0</span>, poly.coef);</span><br><span class="line">    <span class="comment">// 输出插值得到的多项式系数 </span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vnum; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; poly.coef[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 将输入点代入插值得到的多项式中进行验证，输出计算得到的结果</span></span><br><span class="line">    poly.polynomial_calculator(<span class="number">0</span>, vnum, <span class="number">0</span>, vnum + <span class="number">1</span>, poly.coef);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vnum; i++) <span class="built_in">cout</span> &lt;&lt; poly.v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <details>
 <summary>展开查看</summary>
-<pre><code>
-int main() {
-    // 多项式系数默认低次到高次排列
-    ios_base::sync_with_stdio(false);
-    poly.fnt.init(1 << MAXL);   
-    // 多项式插值
-    int vnum; 
-    // 输入要计算的点
-    cin >> vnum;
-    for (int i = 0; i < vnum; i++) {
-        cin >> poly.xcoor[i] >> poly.ycoor[i];        
-    }
-    // 二分求子多项式
-    poly.init(vnum);
-    poly.binary_subpoly(0, vnum, 0); 
-    for (unsigned int i = 1; i < poly.poly_divisor[0].size(); i++) {
-        poly.mcoef[i - 1] = poly.poly_divisor[0][i] * i % mod_v;
-    }
-    // 遍历i计算所有\sum_{j!=i}{xi-xj} 
-    poly.polynomial_calculator(0, vnum, 0, poly.poly_divisor[0].size() - 1, poly.mcoef);
-    // 拉格朗日插值计算多项式
-    poly.polynomial_interpolate(0, vnum, 0, poly.coef);
-    // 输出插值得到的多项式系数 
-    for (int i = 0; i < vnum; i++) {
-        cout << poly.coef[i] << " ";
-    }
-    cout << endl;
-    // 将输入点代入插值得到的多项式中进行验证，输出计算得到的结果
-    poly.polynomial_calculator(0, vnum, 0, vnum + 1, poly.coef);
-    for (int i = 0; i < vnum; i++) cout << poly.v[i] << " ";
-    cout << endl;
-    return 0;
-}
-</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 多项式系数默认低次到高次排列</span></span><br><span class="line">    ios_base::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    poly.fnt.init(<span class="number">1</span> &lt;&lt; MAXL);   </span><br><span class="line">    <span class="comment">// 多项式插值</span></span><br><span class="line">    <span class="keyword">int</span> vnum; </span><br><span class="line">    <span class="comment">// 输入要计算的点</span></span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; vnum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vnum; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; poly.xcoor[i] &gt;&gt; poly.ycoor[i];        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 二分求子多项式</span></span><br><span class="line">    poly.init(vnum);</span><br><span class="line">    poly.binary_subpoly(<span class="number">0</span>, vnum, <span class="number">0</span>); </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">1</span>; i &lt; poly.poly_divisor[<span class="number">0</span>].size(); i++) &#123;</span><br><span class="line">        poly.mcoef[i - <span class="number">1</span>] = poly.poly_divisor[<span class="number">0</span>][i] * i % mod_v;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 遍历i计算所有\sum_&#123;j!=i&#125;&#123;xi-xj&#125; </span></span><br><span class="line">    poly.polynomial_calculator(<span class="number">0</span>, vnum, <span class="number">0</span>, poly.poly_divisor[<span class="number">0</span>].size() - <span class="number">1</span>, poly.mcoef);</span><br><span class="line">    <span class="comment">// 拉格朗日插值计算多项式</span></span><br><span class="line">    poly.polynomial_interpolate(<span class="number">0</span>, vnum, <span class="number">0</span>, poly.coef);</span><br><span class="line">    <span class="comment">// 输出插值得到的多项式系数 </span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vnum; i++) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; poly.coef[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 将输入点代入插值得到的多项式中进行验证，输出计算得到的结果</span></span><br><span class="line">    poly.polynomial_calculator(<span class="number">0</span>, vnum, <span class="number">0</span>, vnum + <span class="number">1</span>, poly.coef);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vnum; i++) <span class="built_in">cout</span> &lt;&lt; poly.v[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </details>
       
     </div>
