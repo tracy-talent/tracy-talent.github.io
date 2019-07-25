@@ -82,23 +82,23 @@
 
 
 
-<meta name="description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  $\omega_n^n = 1$  $\omega{n}^{0}$, $\omega{n}^{1}$, ⋯, $\omega_{n}^{n-1}$是互不相同的，这样带入计算出来的点值才可以用来还原出系数">
+<meta name="description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  $\omega_n^n = 1$  \omega_{n}^{0}, \omega_{n}^{1}, ⋯, \omega_{n}^{n-1}是互不相同的，这样带入计算出来的点值才可以用来还原出系数  \om">
 <meta name="keywords" content="FFT,Polynomial,FNT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多项式相关算法集成">
 <meta property="og:url" content="https://brooksj.com/2019/07/24/多项式相关算法集成/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  $\omega_n^n = 1$  $\omega{n}^{0}$, $\omega{n}^{1}$, ⋯, $\omega_{n}^{n-1}$是互不相同的，这样带入计算出来的点值才可以用来还原出系数">
+<meta property="og:description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  $\omega_n^n = 1$  \omega_{n}^{0}, \omega_{n}^{1}, ⋯, \omega_{n}^{n-1}是互不相同的，这样带入计算出来的点值才可以用来还原出系数  \om">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://brooksj.com/images/poly/poly5.png">
 <meta property="og:image" content="https://brooksj.com/images/poly/poly4.png">
 <meta property="og:image" content="https://brooksj.com/images/poly/poly3.png">
 <meta property="og:image" content="https://brooksj.com/images/poly/poly2.png">
 <meta property="og:image" content="https://brooksj.com/images/poly/poly1.png">
-<meta property="og:updated_time" content="2019-07-25T07:29:27.805Z">
+<meta property="og:updated_time" content="2019-07-25T11:49:35.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多项式相关算法集成">
-<meta name="twitter:description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  $\omega_n^n = 1$  $\omega{n}^{0}$, $\omega{n}^{1}$, ⋯, $\omega_{n}^{n-1}$是互不相同的，这样带入计算出来的点值才可以用来还原出系数">
+<meta name="twitter:description" content="原理快速数论变换(FNT)原理同FFT一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下: FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 \omega 的什么性质:  $\omega_n^n = 1$  \omega_{n}^{0}, \omega_{n}^{1}, ⋯, \omega_{n}^{n-1}是互不相同的，这样带入计算出来的点值才可以用来还原出系数  \om">
 <meta name="twitter:image" content="https://brooksj.com/images/poly/poly5.png">
 
 
@@ -452,9 +452,9 @@
 <ol>
 <li><p>$\omega_n^n = 1$</p>
 </li>
-<li><p>$\omega<em>{n}^{0}$, $\omega</em>{n}^{1}$, ⋯, $\omega_{n}^{n-1}$是互不相同的，这样带入计算出来的点值才可以用来还原出系数</p>
+<li><p><script type="math/tex">\omega_{n}^{0}</script>, <script type="math/tex">\omega_{n}^{1}</script>, ⋯, <script type="math/tex">\omega_{n}^{n-1}</script>是互不相同的，这样带入计算出来的点值才可以用来还原出系数</p>
 </li>
-<li><p>$\omega<em>{n}^{2}=\omega</em>{n/2}^{1}$, $\omega<em>{n}^{n/2+k}=-\omega</em>{n}^{k}$，这使得在按照指数奇偶分类之后能够把带入的值也减半使得问题规模能够减半</p>
+<li><p><script type="math/tex">\omega_{n}^{2}=\omega_{n/2}^{1}</script>, <script type="math/tex">\omega_{n}^{n/2+k}=-\omega_{n}^{k}</script>，这使得在按照指数奇偶分类之后能够把带入的值也减半使得问题规模能够减半</p>
 </li>
 <li><script type="math/tex; mode=display">
 \sum_{k=0}^{n-1}(\omega_{n}^{j-i})^{k}=\begin{cases}
