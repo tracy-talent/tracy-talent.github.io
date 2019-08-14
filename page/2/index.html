@@ -446,11 +446,11 @@
         
           
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/parsing" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一-任务要求"><a class="markdownIt-Anchor" href="#一-任务要求"></a> 一、任务要求</h2>
+<h2 id="一任务要求">一、任务要求</h2>
 <ul>
 <li>实现一个基于简单英语语法的chart句法分析器。</li>
 </ul>
-<h2 id="二-技术路线"><a class="markdownIt-Anchor" href="#二-技术路线"></a> 二、技术路线</h2>
+<h2 id="二技术路线">二、技术路线</h2>
 <p>        采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态规划）</p>
 <ul>
 <li>chart parsing的数据表示：
@@ -459,92 +459,93 @@
 <li>p非活动边集（chart的核心，常直接就被称为chart
 <ul>
 <li>n记录分析中规约成功所得到的所有词法/句法符号</li>
-</ul>
-</li>
+</ul></li>
 <li>活动边集
 <ul>
 <li>未完全匹配的产生式，用加小圆圈标记（º）的产生式来表示，如：
 <ul>
 <li>NP -&gt; ART ºADJ N</li>
 <li>NP -&gt; ART ºN</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 <li>待处理表（agenda）
 <ul>
 <li>实际上是一个队列模型，记录等待加入chart的已匹配成功的词法/句法符号</li>
-</ul>
-</li>
+</ul></li>
 <li>上面的活动边、非活动边以及词法/句法符号都带有“始/终结点”位置信息</li>
-</ul>
-</li>
+</ul></li>
 <li>chart parsing对“<sub>1</sub> The <sub>2</sub> cat <sub>3</sub> caught <sub>4</sub> a <sub>5</sub> mouse <sub>6</sub>”进行分析的数据示例：</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png" alt="1541994559204"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png" alt="1541994559204"><figcaption>1541994559204</figcaption>
+</figure>
 <ul>
-<li>
-<p>chart parsing的句法分析算法步骤描述如下：</p>
+<li>chart parsing的句法分析算法步骤描述如下：
 <ul>
 <li>若agenda为空，则把句子中下一个词的各种词法符号（词）和它们的位置加入进来</li>
 <li>从agenda中取一个元素（设为C，位置为：p1-p2)</li>
 <li>对下面形式的每个规则增加活动边：
 <ul>
-<li>X-&gt;CX<sub>1</sub>…X<sub>n</sub>，增加一条活动边：X-&gt;C º X<sub>1</sub>…X<sub>n</sub>，位置为：p1-p2；</li>
+<li>X-&gt;CX<sub>1</sub>...X<sub>n</sub>，增加一条活动边：X-&gt;C º X<sub>1</sub>...X<sub>n</sub>，位置为：p1-p2；</li>
 <li>X-&gt;C，把X加入agenda，位置为：p1-p2</li>
-</ul>
-</li>
+</ul></li>
 <li>将C作为非活动边加入到chart的位置p1-p2</li>
 <li>对已有活动边进行边扩展
 <ul>
-<li>对每个形式为：X-&gt;X<sub>1</sub>… º C…X<sub>n</sub>的活动边，若它在p0-p1之间，则增加一条活动边：X-&gt;X<sub>1</sub>… C º…X<sub>n</sub>，位置:p0-p2</li>
-<li>对每个形式为： X-&gt;X<sub>1</sub>… X<sub>n</sub> º C的活动边，若它在p0-p1之间，则把X加入agenda ，位置为：p0-p2</li>
+<li>对每个形式为：X-&gt;X<sub>1</sub>... º C...X<sub>n</sub>的活动边，若它在p0-p1之间，则增加一条活动边：X-&gt;X<sub>1</sub>... C º...X<sub>n</sub>，位置:p0-p2</li>
+<li>对每个形式为： X-&gt;X<sub>1</sub>... X<sub>n</sub> º C的活动边，若它在p0-p1之间，则把X加入agenda ，位置为：p0-p2</li>
+</ul></li>
+</ul></li>
+<li>程序实现的大致流程：输入英文语句，对在词典dic_ec.txt中不存在的英文单词进行形态还原，对还原后的语句执行chart parsing算法并将分析出的所有非活动边输出。由于一个英文单词可能存在多种词性，这种情况下会对每种可能的词性进行递归，对于不符合句法规则的词性会进行回溯尝试以其它的词性进行句法规则的匹配与分析。直到找到符合句法规则的词性组合则结束递归，尝试完所有的词性组合还是没能找到则句法分析失败，输入的句子不符合当前的句法规则。</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>
-<p>程序实现的大致流程：输入英文语句，对在词典dic_ec.txt中不存在的英文单词进行形态还原，对还原后的语句执行chart parsing算法并将分析出的所有非活动边输出。由于一个英文单词可能存在多种词性，这种情况下会对每种可能的词性进行递归，对于不符合句法规则的词性会进行回溯尝试以其它的词性进行句法规则的匹配与分析。直到找到符合句法规则的词性组合则结束递归，尝试完所有的词性组合还是没能找到则句法分析失败，输入的句子不符合当前的句法规则。</p>
-</li>
-</ul>
-<h2 id="三-数据说明"><a class="markdownIt-Anchor" href="#三-数据说明"></a> 三、数据说明</h2>
+<h2 id="三数据说明">三、数据说明</h2>
 <ul>
 <li>由于这个实验中引用了token实验模块，所以需要用到token实验中的三个数据字典dic_ec.txt，irregualr nouns.txt，irregular verbs.txt，关于这三个数据字典的说明在token实验中已给出，此处不再赘述。除此之外，chart parsing算法还需要用到dic_ec.txt词典中英文单词的词性。</li>
 </ul>
-<h2 id="四-遇到的问题及解决方案"><a class="markdownIt-Anchor" href="#四-遇到的问题及解决方案"></a> 四、遇到的问题及解决方案</h2>
+<h2 id="四遇到的问题及解决方案">四、遇到的问题及解决方案</h2>
 <ul>
-<li>程序实现过程中受到文件编码和分隔符的困扰，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
+<li>程序实现过程中受到文件编码和分隔符的困扰，最后用vim把用到的3个数据词典统一设置成gbk编码，以，方便程序统一读入处理。</li>
 <li>dic_ec.txt这个数据字典中的数据质量不太好，很多英文单词都被标注成none.词性，由于无法获取词的正确词性从而无法完成句子的句法分析。</li>
 </ul>
-<h2 id="五-性能分析"><a class="markdownIt-Anchor" href="#五-性能分析"></a> 五、性能分析</h2>
+<h2 id="五性能分析">五、性能分析</h2>
 <ul>
 <li>对句法分析部分作一个性能的度量，单句句法分析的结果基本都在毫秒级别，下面给出基于规则S-&gt;NP VP，NP-&gt;ART N，NP-&gt;ART ADJ N，VP-&gt;V，VP-&gt;V NP对the cat catch a mouse进行句法分析得到的运行结果及耗时截图：</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_2.png" alt="1542023773939"></p>
-<h2 id="六-运行环境"><a class="markdownIt-Anchor" href="#六-运行环境"></a> 六、运行环境</h2>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_2.png" alt="1542023773939"><figcaption>1542023773939</figcaption>
+</figure>
+<h2 id="六运行环境">六、运行环境</h2>
 <ul>
 <li>将执行文件parsing.exe与数据字典dic_ec.txt，irregular nouns.txt，irregualr verbs.txt放在同一个文件夹下，然后点击parsing.exe即可正常运行程序。</li>
 </ul>
-<h2 id="七-用户手册"><a class="markdownIt-Anchor" href="#七-用户手册"></a> 七、用户手册</h2>
+<h2 id="七用户手册">七、用户手册</h2>
 <ul>
 <li>在运行环境下正常运行程序后会出现下图这样的主菜单文字界面：</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_3.png" alt="1542024516293"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_3.png" alt="1542024516293"><figcaption>1542024516293</figcaption>
+</figure>
 <ul>
 <li>根据主菜单进行操作，首先选择1来写入规则，可一次写入多个规则，输入q!结束规则写入，如果后期需要增加规则，可以在主菜单界面再次选择1来写入增添的规则，这样就实现了规则的灵活扩展。下面是写入规则模块的截图：</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_4.png" alt="1542025005658"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_4.png" alt="1542025005658"><figcaption>1542025005658</figcaption>
+</figure>
 <ul>
 <li>写入规则结束后又回退到主菜单界面，这时候可以选择2来输入句子进行句法分析，程序会输出分析过程中得到的所有非活动边对应的短语及位置范围，下面是在上面所写入规则的基础上对the cat caught a mouse进行句法分析的结果截图，程序会对dic_ec.txt中不存在的单词尝试调用词形还原模块进行还原再分析：</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_5.png" alt="1542026424475"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_5.png" alt="1542026424475"><figcaption>1542026424475</figcaption>
+</figure>
 <ul>
 <li>句法分析回退到主菜单界面，可以继续选择1进行规则扩展，也可以选择2进行句法分析，选择q退出程序运行。</li>
 <li>基于下面的句法规则给出一个句法分析示例：</li>
 </ul>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NP-&gt;ART N</span><br><span class="line">NP-&gt;ART</span><br><span class="line">NP-&gt;PRON</span><br><span class="line">NP-&gt;N</span><br><span class="line">NP-&gt;ART ADJ N</span><br><span class="line">VP-&gt;V</span><br><span class="line">VP-&gt;V NP</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART N</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">PRON</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">N</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART ADJ N</span></span><br><span class="line"><span class="meta">VP-&gt;</span><span class="bash">V</span></span><br><span class="line"><span class="meta">VP-&gt;</span><span class="bash">V NP</span></span><br></pre></td></tr></table></figure>
 <p>对I like her进行句法分析的结果截图如下：</p>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_6.png" alt="1542031147205"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_6.png" alt="1542031147205"><figcaption>1542031147205</figcaption>
+</figure>
 
           
         
@@ -709,7 +710,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">889(字)</span>
+            <span class="post-count">877(字)</span>
             
           </span>
 	  
@@ -744,23 +745,22 @@
         
           
             <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/token" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一-任务描述"><a class="markdownIt-Anchor" href="#一-任务描述"></a> 一、任务描述</h2>
+<h2 id="一任务描述">一、任务描述</h2>
 <ul>
 <li>形态还原算法：
-<ol>
+<ol type="1">
 <li>输入一个单词</li>
 <li>如果词典里有该词，输出该词及其属性，转4，否则，转3</li>
-<li>如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&lt;未登录词模块&gt;</li>
+<li>如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用<未登录词模块></未登录词模块></li>
 <li>如果输入中还有单词，转(1)，否则，结束。</li>
-</ol>
-</li>
+</ol></li>
 </ul>
-<h2 id="二-技术路线"><a class="markdownIt-Anchor" href="#二-技术路线"></a> 二、技术路线</h2>
-<ol>
+<h2 id="二技术路线">二、技术路线</h2>
+<ol type="1">
 <li>加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.txt词典中包含这个单词的映射则直接输出。下面给出dic_ec.txt内容的基本形式：</li>
 </ol>
 <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gbk编码，以\t分隔</span></span><br><span class="line">homokaryosis	<span class="literal">none</span>.	同核性, 同核现象</span><br><span class="line">homokaryotic	adj.	同核体的</span><br><span class="line">homokurtic	<span class="literal">none</span>.	等峰态性</span><br><span class="line">homolanthionine	<span class="literal">none</span>.	高羊毛氨酸</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ol start="2" type="1">
 <li>考虑到有些单词本身就是原形，也是其它单词的形态变换，所以在设计时决定把所有可能的结果都输出。在完成词典映射后再检查该单词是否能通过变换规则转换得到。我们知道英文单词的形态变换存在有规律的和无规律的变换，首先看有规律的变换，动词的规律变换形式有下面4条规则：</li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">规则1.</span>  <span class="meta">*ves</span> <span class="bullet">--&gt;</span> <span class="string">*f/*fe</span></span><br><span class="line"><span class="string">规则2.</span>  <span class="meta">*ies</span> <span class="bullet">--&gt;</span> <span class="meta">*y</span></span><br><span class="line"><span class="string">规则3.</span>  <span class="meta">*es</span>  <span class="bullet">--&gt;</span> <span class="string">*</span></span><br><span class="line"><span class="string">规则4.</span>  <span class="meta">*s</span>   <span class="bullet">--&gt;</span> <span class="string">*</span></span><br></pre></td></tr></table></figure>
@@ -768,27 +768,29 @@
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第三人称单数</span></span><br><span class="line">规则<span class="number">5</span>.  *<span class="function"><span class="title">ies</span> --&gt;</span> *y</span><br><span class="line">规则<span class="number">6</span>.  *<span class="function"><span class="title">es</span> --&gt;</span> *</span><br><span class="line">规则<span class="number">7</span>.  *<span class="function"><span class="title">s</span>   --&gt;</span> *</span><br><span class="line"><span class="comment">//现在进行时</span></span><br><span class="line">规则<span class="number">8</span>.  *??<span class="function"><span class="title">ing</span> --&gt;</span> *?   </span><br><span class="line">规则<span class="number">9</span>.  *<span class="function"><span class="title">ying</span> --&gt;</span> *ie</span><br><span class="line">规则<span class="number">10</span>.  *<span class="function"><span class="title">ing</span>  --&gt;</span> *<span class="comment">/*e</span></span><br><span class="line"><span class="comment">//过去时、过去分词</span></span><br><span class="line"><span class="comment">规则11.  *??ed --&gt; *?</span></span><br><span class="line"><span class="comment">规则12.  *ied --&gt; *y</span></span><br><span class="line"><span class="comment">规则13.  *ed  --&gt; */</span>*e</span><br></pre></td></tr></table></figure>
 <p>        通过在程序中写入这些规则来对单词形态进行还原，而无规则的形态变换只能通过预先建立好的词库来完成词形形态映射。在程序中通过加载irregualr nouns.txt对名词进行还原，加载irregualr verbs.txt对动词进行还原。下面分别给出这两文件中的内容形式：</p>
 <p>  irregular nouns.txt的内容形式：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span></span><br><span class="line"><span class="attr">grief</span>	<span class="string">griefs</span></span><br><span class="line"><span class="attr">roof</span>	<span class="string">roofs</span></span><br><span class="line"><span class="attr">gulf</span>	<span class="string">gulfs</span></span><br><span class="line"><span class="attr">grief</span>	<span class="string">griefs</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span></span><br><span class="line">grief	griefs</span><br><span class="line">roof	roofs</span><br><span class="line">gulf	gulfs</span><br><span class="line">grief	griefs</span><br></pre></td></tr></table></figure>
 <p>         irregualr verbs.txt的内容形式：</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span><br><span class="line"><span class="keyword">bear	</span><span class="keyword">bore	</span><span class="keyword">borne	</span><span class="keyword">born</span></span><br><span class="line"><span class="keyword">alight	</span>alighted	alit	alighted	alit</span><br><span class="line"><span class="symbol">arise</span>	arose	arisen</span><br><span class="line"><span class="symbol">awake</span>	awoke	awaked	awoken	awoke	awaked</span><br></pre></td></tr></table></figure>
 <p>        如果找到了还原映射，则在dic_ec.txt词典中查找还原后的单词并输出结果。</p>
-<ol start="3">
+<ol start="3" type="1">
 <li>若最终该单词没有检索到结果则把他登记到单词缺失词典missing words.txt中。</li>
 </ol>
-<h2 id="三-数据说明"><a class="markdownIt-Anchor" href="#三-数据说明"></a> 三、数据说明</h2>
+<h2 id="三数据说明">三、数据说明</h2>
 <ul>
 <li>英汉词典dic_ec.txt，名词的不规律变换词典irregualr nouns.txt，动词的不规律变换词典irregualr verbs.txt，这几个数据词典的编码以及内容形式都已在技术路线中给出，此处不再赘述。</li>
 </ul>
-<h2 id="四-遇到的问题及解决方案"><a class="markdownIt-Anchor" href="#四-遇到的问题及解决方案"></a> 四、遇到的问题及解决方案</h2>
+<h2 id="四遇到的问题及解决方案">四、遇到的问题及解决方案</h2>
 <ul>
-<li>程序实现过程中唯一遇到的问题就是文件编码和分隔符的问题，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
+<li>程序实现过程中唯一遇到的问题就是文件编码和分隔符的问题，最后用vim把用到的3个数据词典统一设置成gbk编码，以，方便程序统一读入处理。</li>
 </ul>
-<h2 id="五-性能分析"><a class="markdownIt-Anchor" href="#五-性能分析"></a> 五、性能分析</h2>
+<h2 id="五性能分析">五、性能分析</h2>
 <ul>
 <li>下面是性能单词查询的耗时截图，平均不超过0.001s：</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png" alt="1541928466093"></p>
-<h2 id="六-运行环境"><a class="markdownIt-Anchor" href="#六-运行环境"></a> 六、运行环境</h2>
+<figure>
+<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png" alt="1541928466093"><figcaption>1541928466093</figcaption>
+</figure>
+<h2 id="六运行环境">六、运行环境</h2>
 <ul>
 <li>将token.exe与dic_ec.txt，irregualr nouns.txt，irregualr verbs.txt，missing words.txt放在同一个目录下，然后点击token.exe即可正确运行程序。</li>
 </ul>
