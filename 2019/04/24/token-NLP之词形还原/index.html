@@ -82,19 +82,19 @@
 
 
 
-<meta name="description" content="完整代码实现放在我的github上:click me 一、任务描述  形态还原算法：  输入一个单词 如果词典里有该词，输出该词及其属性，转4，否则，转3 如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用 如果输入中还有单词，转(1)，否则，结束。   二、技术路线  加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.">
+<meta name="description" content="完整代码实现放在我的github上:click me  一、任务描述  形态还原算法：  输入一个单词 如果词典里有该词，输出该词及其属性，转4，否则，转3 如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&amp;lt;未登录词模块&amp;gt; 如果输入中还有单词，转(1)，否则，结束。     二、技术路线  加载dic_ec.txt词典，词典存储着英到汉的映射，">
 <meta name="keywords" content="C++,lemmatization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="token:NLP之词形还原">
 <meta property="og:url" content="https://brooksj.com/2019/04/24/token-NLP之词形还原/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="完整代码实现放在我的github上:click me 一、任务描述  形态还原算法：  输入一个单词 如果词典里有该词，输出该词及其属性，转4，否则，转3 如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用 如果输入中还有单词，转(1)，否则，结束。   二、技术路线  加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.">
+<meta property="og:description" content="完整代码实现放在我的github上:click me  一、任务描述  形态还原算法：  输入一个单词 如果词典里有该词，输出该词及其属性，转4，否则，转3 如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&amp;lt;未登录词模块&amp;gt; 如果输入中还有单词，转(1)，否则，结束。     二、技术路线  加载dic_ec.txt词典，词典存储着英到汉的映射，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png">
 <meta property="og:updated_time" content="2019-04-24T15:37:29.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="token:NLP之词形还原">
-<meta name="twitter:description" content="完整代码实现放在我的github上:click me 一、任务描述  形态还原算法：  输入一个单词 如果词典里有该词，输出该词及其属性，转4，否则，转3 如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用 如果输入中还有单词，转(1)，否则，结束。   二、技术路线  加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.">
+<meta name="twitter:description" content="完整代码实现放在我的github上:click me  一、任务描述  形态还原算法：  输入一个单词 如果词典里有该词，输出该词及其属性，转4，否则，转3 如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&amp;lt;未登录词模块&amp;gt; 如果输入中还有单词，转(1)，否则，结束。     二、技术路线  加载dic_ec.txt词典，词典存储着英到汉的映射，">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png">
 
 
@@ -411,7 +411,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">877(字)</span>
+            <span class="post-count">889(字)</span>
             
           </span>
 	  
@@ -444,22 +444,23 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/token" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一任务描述">一、任务描述</h2>
+<h2 id="一-任务描述"><a class="markdownIt-Anchor" href="#一-任务描述"></a> 一、任务描述</h2>
 <ul>
 <li>形态还原算法：
-<ol type="1">
+<ol>
 <li>输入一个单词</li>
 <li>如果词典里有该词，输出该词及其属性，转4，否则，转3</li>
-<li>如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用<未登录词模块></未登录词模块></li>
+<li>如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&lt;未登录词模块&gt;</li>
 <li>如果输入中还有单词，转(1)，否则，结束。</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h2 id="二技术路线">二、技术路线</h2>
-<ol type="1">
+<h2 id="二-技术路线"><a class="markdownIt-Anchor" href="#二-技术路线"></a> 二、技术路线</h2>
+<ol>
 <li>加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.txt词典中包含这个单词的映射则直接输出。下面给出dic_ec.txt内容的基本形式：</li>
 </ol>
 <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gbk编码，以\t分隔</span></span><br><span class="line">homokaryosis	<span class="literal">none</span>.	同核性, 同核现象</span><br><span class="line">homokaryotic	adj.	同核体的</span><br><span class="line">homokurtic	<span class="literal">none</span>.	等峰态性</span><br><span class="line">homolanthionine	<span class="literal">none</span>.	高羊毛氨酸</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+<ol start="2">
 <li>考虑到有些单词本身就是原形，也是其它单词的形态变换，所以在设计时决定把所有可能的结果都输出。在完成词典映射后再检查该单词是否能通过变换规则转换得到。我们知道英文单词的形态变换存在有规律的和无规律的变换，首先看有规律的变换，动词的规律变换形式有下面4条规则：</li>
 </ol>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">规则1.</span>  <span class="meta">*ves</span> <span class="bullet">--&gt;</span> <span class="string">*f/*fe</span></span><br><span class="line"><span class="string">规则2.</span>  <span class="meta">*ies</span> <span class="bullet">--&gt;</span> <span class="meta">*y</span></span><br><span class="line"><span class="string">规则3.</span>  <span class="meta">*es</span>  <span class="bullet">--&gt;</span> <span class="string">*</span></span><br><span class="line"><span class="string">规则4.</span>  <span class="meta">*s</span>   <span class="bullet">--&gt;</span> <span class="string">*</span></span><br></pre></td></tr></table></figure>
@@ -467,29 +468,27 @@
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第三人称单数</span></span><br><span class="line">规则<span class="number">5</span>.  *<span class="function"><span class="title">ies</span> --&gt;</span> *y</span><br><span class="line">规则<span class="number">6</span>.  *<span class="function"><span class="title">es</span> --&gt;</span> *</span><br><span class="line">规则<span class="number">7</span>.  *<span class="function"><span class="title">s</span>   --&gt;</span> *</span><br><span class="line"><span class="comment">//现在进行时</span></span><br><span class="line">规则<span class="number">8</span>.  *??<span class="function"><span class="title">ing</span> --&gt;</span> *?   </span><br><span class="line">规则<span class="number">9</span>.  *<span class="function"><span class="title">ying</span> --&gt;</span> *ie</span><br><span class="line">规则<span class="number">10</span>.  *<span class="function"><span class="title">ing</span>  --&gt;</span> *<span class="comment">/*e</span></span><br><span class="line"><span class="comment">//过去时、过去分词</span></span><br><span class="line"><span class="comment">规则11.  *??ed --&gt; *?</span></span><br><span class="line"><span class="comment">规则12.  *ied --&gt; *y</span></span><br><span class="line"><span class="comment">规则13.  *ed  --&gt; */</span>*e</span><br></pre></td></tr></table></figure>
 <p>        通过在程序中写入这些规则来对单词形态进行还原，而无规则的形态变换只能通过预先建立好的词库来完成词形形态映射。在程序中通过加载irregualr nouns.txt对名词进行还原，加载irregualr verbs.txt对动词进行还原。下面分别给出这两文件中的内容形式：</p>
 <p>  irregular nouns.txt的内容形式：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span></span><br><span class="line">grief	griefs</span><br><span class="line">roof	roofs</span><br><span class="line">gulf	gulfs</span><br><span class="line">grief	griefs</span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span></span><br><span class="line"><span class="attr">grief</span>	<span class="string">griefs</span></span><br><span class="line"><span class="attr">roof</span>	<span class="string">roofs</span></span><br><span class="line"><span class="attr">gulf</span>	<span class="string">gulfs</span></span><br><span class="line"><span class="attr">grief</span>	<span class="string">griefs</span></span><br></pre></td></tr></table></figure>
 <p>         irregualr verbs.txt的内容形式：</p>
 <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span><br><span class="line"><span class="keyword">bear	</span><span class="keyword">bore	</span><span class="keyword">borne	</span><span class="keyword">born</span></span><br><span class="line"><span class="keyword">alight	</span>alighted	alit	alighted	alit</span><br><span class="line"><span class="symbol">arise</span>	arose	arisen</span><br><span class="line"><span class="symbol">awake</span>	awoke	awaked	awoken	awoke	awaked</span><br></pre></td></tr></table></figure>
 <p>        如果找到了还原映射，则在dic_ec.txt词典中查找还原后的单词并输出结果。</p>
-<ol start="3" type="1">
+<ol start="3">
 <li>若最终该单词没有检索到结果则把他登记到单词缺失词典missing words.txt中。</li>
 </ol>
-<h2 id="三数据说明">三、数据说明</h2>
+<h2 id="三-数据说明"><a class="markdownIt-Anchor" href="#三-数据说明"></a> 三、数据说明</h2>
 <ul>
 <li>英汉词典dic_ec.txt，名词的不规律变换词典irregualr nouns.txt，动词的不规律变换词典irregualr verbs.txt，这几个数据词典的编码以及内容形式都已在技术路线中给出，此处不再赘述。</li>
 </ul>
-<h2 id="四遇到的问题及解决方案">四、遇到的问题及解决方案</h2>
+<h2 id="四-遇到的问题及解决方案"><a class="markdownIt-Anchor" href="#四-遇到的问题及解决方案"></a> 四、遇到的问题及解决方案</h2>
 <ul>
-<li>程序实现过程中唯一遇到的问题就是文件编码和分隔符的问题，最后用vim把用到的3个数据词典统一设置成gbk编码，以，方便程序统一读入处理。</li>
+<li>程序实现过程中唯一遇到的问题就是文件编码和分隔符的问题，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
 </ul>
-<h2 id="五性能分析">五、性能分析</h2>
+<h2 id="五-性能分析"><a class="markdownIt-Anchor" href="#五-性能分析"></a> 五、性能分析</h2>
 <ul>
 <li>下面是性能单词查询的耗时截图，平均不超过0.001s：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png" alt="1541928466093"><figcaption>1541928466093</figcaption>
-</figure>
-<h2 id="六运行环境">六、运行环境</h2>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png" alt="1541928466093"></p>
+<h2 id="六-运行环境"><a class="markdownIt-Anchor" href="#六-运行环境"></a> 六、运行环境</h2>
 <ul>
 <li>将token.exe与dic_ec.txt，irregualr nouns.txt，irregualr verbs.txt，missing words.txt放在同一个目录下，然后点击token.exe即可正确运行程序。</li>
 </ul>
@@ -773,7 +772,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一任务描述"><span class="nav-number">1.</span> <span class="nav-text">一、任务描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二技术路线"><span class="nav-number">2.</span> <span class="nav-text">二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三数据说明"><span class="nav-number">3.</span> <span class="nav-text">三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四遇到的问题及解决方案"><span class="nav-number">4.</span> <span class="nav-text">四、遇到的问题及解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五性能分析"><span class="nav-number">5.</span> <span class="nav-text">五、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六运行环境"><span class="nav-number">6.</span> <span class="nav-text">六、运行环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-任务描述"><span class="nav-number">1.</span> <span class="nav-text"> 一、任务描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-技术路线"><span class="nav-number">2.</span> <span class="nav-text"> 二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-数据说明"><span class="nav-number">3.</span> <span class="nav-text"> 三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-遇到的问题及解决方案"><span class="nav-number">4.</span> <span class="nav-text"> 四、遇到的问题及解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-性能分析"><span class="nav-number">5.</span> <span class="nav-text"> 五、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-运行环境"><span class="nav-number">6.</span> <span class="nav-text"> 六、运行环境</span></a></li></ol></div>
             
 
           </div>
