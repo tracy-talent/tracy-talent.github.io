@@ -82,19 +82,19 @@
 
 
 
-<meta name="description" content="完整代码实现放在我的github上:click me 一、任务要求  实现一个基于词典与规则的汉语自动分词系统。  二、技术路线  采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹">
+<meta name="description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于词典与规则的汉语自动分词系统。  二、技术路线 采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到">
 <meta name="keywords" content="segment,C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="seg:NLP之正向向最大匹配分词">
 <meta property="og:url" content="https://brooksj.com/2019/04/24/seg-NLP之前向最大匹配分词/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="完整代码实现放在我的github上:click me 一、任务要求  实现一个基于词典与规则的汉语自动分词系统。  二、技术路线  采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹">
+<meta property="og:description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于词典与规则的汉语自动分词系统。  二、技术路线 采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png">
 <meta property="og:updated_time" content="2019-04-24T15:39:31.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="seg:NLP之正向向最大匹配分词">
-<meta name="twitter:description" content="完整代码实现放在我的github上:click me 一、任务要求  实现一个基于词典与规则的汉语自动分词系统。  二、技术路线  采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹">
+<meta name="twitter:description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于词典与规则的汉语自动分词系统。  二、技术路线 采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：  对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母 在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png">
 
 
@@ -411,7 +411,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">543(字)</span>
+            <span class="post-count">544(字)</span>
             
           </span>
 	  
@@ -444,35 +444,30 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/seg" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一任务要求">一、任务要求</h2>
-<ul>
+<h2 id="一、任务要求"><a href="#一、任务要求" class="headerlink" title="一、任务要求"></a>一、任务要求</h2><ul>
 <li>实现一个基于词典与规则的汉语自动分词系统。</li>
 </ul>
-<h2 id="二技术路线">二、技术路线</h2>
-<ul>
-<li>采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：
-<ol type="1">
+<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><ul>
+<li><p>采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：</p>
+<ol>
 <li>对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母</li>
 <li>在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到就将句子在当前匹配位置的这个字作为一个分词段并将匹配位置向前挪一个位置</li>
 <li>重复第2步直到匹配位置移到句末</li>
-</ol></li>
-<li>下面是用FMM方法分词的具体实现:</li>
+</ol>
+</li>
+<li><p>下面是用FMM方法分词的具体实现:</p>
+</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//param@seg:保存分词段结果的vector</span></span><br><span class="line"><span class="comment">//param@st:带分词的中文语句</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">segment</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;seg, <span class="built_in">string</span> st)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sz = st.length();</span><br><span class="line">    <span class="built_in">string</span> t;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, spos;</span><br><span class="line">    <span class="keyword">while</span> (pos &lt; sz) &#123;</span><br><span class="line">        cnt = pos;</span><br><span class="line">        spos = pos;</span><br><span class="line">        t = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> (st[cnt]) &#123;</span><br><span class="line">            t += st.substr(cnt, <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (wordmap.find(t) != wordmap.end())</span><br><span class="line">                pos = cnt + <span class="number">2</span>;</span><br><span class="line">            cnt += <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pos == spos) &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, <span class="number">2</span>));</span><br><span class="line">            pos += <span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, pos - spos));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三数据说明">三、数据说明</h2>
-<ul>
+<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
 <li>汉英词典dic_ce.txt，读取其中的汉词用于与句中词进行匹配，词典采用GBK编码，下面是给出文件内容示例：</li>
 </ul>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//g</span>bk编码，每行第一个词是汉词，后面是它对应的英译单词，以<span class="string">','</span>分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
-<h2 id="四性能分析">四、性能分析</h2>
-<ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行第一个词是汉词，后面是它对应的英译单词，以&apos;,&apos;分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
+<h2 id="四、性能分析"><a href="#四、性能分析" class="headerlink" title="四、性能分析"></a>四、性能分析</h2><ul>
 <li>假设输入中文语句长度为n，程序时间复杂度最坏情况下是O(n^2)，最好情况是O(n)，下面是程序分析结果及分词耗时评测的截图：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png" alt="1541992901499"><figcaption>1541992901499</figcaption>
-</figure>
-<h2 id="五运行环境">五、运行环境</h2>
-<ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png" alt="1541992901499"></p>
+<h2 id="五、运行环境"><a href="#五、运行环境" class="headerlink" title="五、运行环境"></a>五、运行环境</h2><ul>
 <li>将执行文件seg.exe与数据字典dic_ce.txt放在同一个目录下，然后点击seg.exe即可正常运行，进入运行窗口后根据提示进行输入即可得到分词结果。</li>
 </ul>
 
@@ -755,7 +750,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一任务要求"><span class="nav-number">1.</span> <span class="nav-text">一、任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二技术路线"><span class="nav-number">2.</span> <span class="nav-text">二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三数据说明"><span class="nav-number">3.</span> <span class="nav-text">三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四性能分析"><span class="nav-number">4.</span> <span class="nav-text">四、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五运行环境"><span class="nav-number">5.</span> <span class="nav-text">五、运行环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、任务要求"><span class="nav-number">1.</span> <span class="nav-text">一、任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、技术路线"><span class="nav-number">2.</span> <span class="nav-text">二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、数据说明"><span class="nav-number">3.</span> <span class="nav-text">三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、性能分析"><span class="nav-number">4.</span> <span class="nav-text">四、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、运行环境"><span class="nav-number">5.</span> <span class="nav-text">五、运行环境</span></a></li></ol></div>
             
 
           </div>

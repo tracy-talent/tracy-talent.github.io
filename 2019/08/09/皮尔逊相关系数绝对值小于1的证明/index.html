@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="皮尔逊相关系数的介绍可参考维基百科:皮尔逊积矩相关系数 在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 PPMCC或PCCs, 文章中常用r或Pearson&apos;s r表示）用于度量两个变量X和Y之间的相关程度（线性相关） 两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商 \[ \rho_{xy}=\fr">
+<meta name="description" content="皮尔逊相关系数的介绍可参考维基百科:皮尔逊积矩相关系数 在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 PPMCC或PCCs, 文章中常用r或Pearson’s r表示）用于度量两个变量X和Y之间的相关程度（线性相关） 两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商  \rho_{xy}=\frac">
 <meta name="keywords" content="Math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="皮尔逊相关系数绝对值小于1的证明">
 <meta property="og:url" content="https://brooksj.com/2019/08/09/皮尔逊相关系数绝对值小于1的证明/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="皮尔逊相关系数的介绍可参考维基百科:皮尔逊积矩相关系数 在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 PPMCC或PCCs, 文章中常用r或Pearson&apos;s r表示）用于度量两个变量X和Y之间的相关程度（线性相关） 两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商 \[ \rho_{xy}=\fr">
+<meta property="og:description" content="皮尔逊相关系数的介绍可参考维基百科:皮尔逊积矩相关系数 在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 PPMCC或PCCs, 文章中常用r或Pearson’s r表示）用于度量两个变量X和Y之间的相关程度（线性相关） 两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商  \rho_{xy}=\frac">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-08-09T06:34:33.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="皮尔逊相关系数绝对值小于1的证明">
-<meta name="twitter:description" content="皮尔逊相关系数的介绍可参考维基百科:皮尔逊积矩相关系数 在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 PPMCC或PCCs, 文章中常用r或Pearson&apos;s r表示）用于度量两个变量X和Y之间的相关程度（线性相关） 两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商 \[ \rho_{xy}=\fr">
+<meta name="twitter:description" content="皮尔逊相关系数的介绍可参考维基百科:皮尔逊积矩相关系数 在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 PPMCC或PCCs, 文章中常用r或Pearson’s r表示）用于度量两个变量X和Y之间的相关程度（线性相关） 两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商  \rho_{xy}=\frac">
 
 
 
@@ -409,7 +409,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">518(字)</span>
+            <span class="post-count">517(字)</span>
             
           </span>
 	  
@@ -442,21 +442,22 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>皮尔逊相关系数的介绍可参考<a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E5%B0%94%E9%80%8A%E7%A7%AF%E7%9F%A9%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0" target="_blank" rel="noopener">维基百科:皮尔逊积矩相关系数</a></p>
-<p>在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 <strong>PPMCC</strong>或<strong>PCCs</strong>, 文章中常用r或Pearson's r表示）用于度量两个变量X和Y之间的相关程度（线性相关）</p>
-<p>两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商 <span class="math display">\[
-\rho_{xy}=\frac{cov(X,Y)}{\sigma_{x}\sigma_{y}}=\frac{E[(X-\mu_{X})(Y-\mu_{Y})]}{\sigma_{X}\sigma_{Y}} \tag{1.1}
-\]</span> 估算样本的协方差和标准差，可得到样本相关系数 <span class="math display">\[
-r=\frac{\sum_{i=1}^{n}{(X_{i}-\overline{X})(Y_{i}-\overline{Y})}}{\sqrt{\sum_{i=1}^{n}{(X_{i}-\overline{X})^{2}}}\sqrt{\sum_{i=1}^{n}{(Y_{i}-\overline{Y})^{2}}}} \tag{1.2}
-\]</span> r 亦可由样本点(<span class="math display">\[X_{i},Y_{i}\]</span>)的标准分数均值估算，得到与上式等价的表达式 <span class="math display">\[
-r=\frac{1}{n-1}\sum_{i=1}^{n}{(\frac{X_{i}-\overline{X}}{\sigma_{X}})(\frac{Y_{i}-\overline{Y}}{\sigma_{Y}})} \tag{1.3}
-\]</span> 其中<span class="math display">\[\frac{X-\overline{X}}{\sigma_{X}}、\overline{X}、\sigma_{X}\]</span>分别是<span class="math display">\[X_{i}\]</span>样本的标准分数、样本均值和样本标准差</p>
+<p>在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 <strong>PPMCC</strong>或<strong>PCCs</strong>, 文章中常用r或Pearson’s r表示）用于度量两个变量X和Y之间的相关程度（线性相关）</p>
+<p>两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商</p>
+<script type="math/tex; mode=display">
+\rho_{xy}=\frac{cov(X,Y)}{\sigma_{x}\sigma_{y}}=\frac{E[(X-\mu_{X})(Y-\mu_{Y})]}{\sigma_{X}\sigma_{Y}} \tag{1.1}</script><p>估算样本的协方差和标准差，可得到样本相关系数</p>
+<script type="math/tex; mode=display">
+r=\frac{\sum_{i=1}^{n}{(X_{i}-\overline{X})(Y_{i}-\overline{Y})}}{\sqrt{\sum_{i=1}^{n}{(X_{i}-\overline{X})^{2}}}\sqrt{\sum_{i=1}^{n}{(Y_{i}-\overline{Y})^{2}}}} \tag{1.2}</script><p>r 亦可由样本点(<script type="math/tex">X_{i},Y_{i}</script>)的标准分数均值估算，得到与上式等价的表达式</p>
+<script type="math/tex; mode=display">
+r=\frac{1}{n-1}\sum_{i=1}^{n}{(\frac{X_{i}-\overline{X}}{\sigma_{X}})(\frac{Y_{i}-\overline{Y}}{\sigma_{Y}})} \tag{1.3}</script><p>其中<script type="math/tex">\frac{X-\overline{X}}{\sigma_{X}}、\overline{X}、\sigma_{X}</script>分别是<script type="math/tex">X_{i}</script>样本的标准分数、样本均值和样本标准差</p>
 <p>总体和样本皮尔逊相关系数都小于或者等于1，可以由柯西-施瓦茨不等式证明，关于柯西-施瓦茨不等式的定义与证明具体可参考<a href="https://zh.wikipedia.org/wiki/%E6%9F%AF%E8%A5%BF-%E6%96%BD%E7%93%A6%E8%8C%A8%E4%B8%8D%E7%AD%89%E5%BC%8F" target="_blank" rel="noopener">维基百科:柯西-施瓦茨不等式</a>，下面将直接利用柯西-施瓦茨不等式来证明皮尔逊相关系数的绝对值小于1</p>
-<p><font color="red" size="4">证明:</font></p>
-<p>要证明式(1.2)中的r绝对值小于等于1即证明<span class="math display">\[r^{2}\]</span>小于等于1，设式(1.2)中的<span class="math display">\[X_{i}-\overline{X}=x_{i},Y_{i}-\overline{Y}=y_{i}\]</span>，代入<span class="math display">\[r^{2}\]</span>有 <span class="math display">\[
-r^{2} = \frac{(\sum_{i=1}^{n}x_{i}y_{i})^{2}}{(\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{i=1}^{n}{y_{i}^{2}})} \tag{1.4}
-\]</span> 又由柯西-施瓦茨不等式知 <span class="math display">\[
-(\sum_{i=1}^{n}{x_{i}y_{i}})^{2} \le (\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{i=1}^{n}{y_{i}^{2}})
-\]</span> 由此可知式(1.4)中的<span class="math display">\[r^2 \le 1\]</span>，即<span class="math display">\[|r| \le 1\]</span>，证毕!</p>
+<font color="red" size="4">证明:</font>
+
+<p>要证明式(1.2)中的r绝对值小于等于1即证明<script type="math/tex">r^{2}</script>小于等于1，设式(1.2)中的<script type="math/tex">X_{i}-\overline{X}=x_{i},Y_{i}-\overline{Y}=y_{i}</script>，代入<script type="math/tex">r^{2}</script>有</p>
+<script type="math/tex; mode=display">
+r^{2} = \frac{(\sum_{i=1}^{n}x_{i}y_{i})^{2}}{(\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{i=1}^{n}{y_{i}^{2}})} \tag{1.4}</script><p>又由柯西-施瓦茨不等式知</p>
+<script type="math/tex; mode=display">
+(\sum_{i=1}^{n}{x_{i}y_{i}})^{2} \le (\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{i=1}^{n}{y_{i}^{2}})</script><p>由此可知式(1.4)中的<script type="math/tex">r^2 \le 1</script>，即<script type="math/tex">|r| \le 1</script>，证毕!</p>
 
       
     </div>

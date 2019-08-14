@@ -82,13 +82,13 @@
 
 
 
-<meta name="description" content="完整代码实现放在我的github上:click me 一、任务要求  实现一个基于简单英语语法的chart句法分析器。  二、技术路线         采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态">
+<meta name="description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于简单英语语法的chart句法分析器。  二、技术路线&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，">
 <meta name="keywords" content="C++,setence parsing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="parsing:NLP之chart parser句法分析器">
 <meta property="og:url" content="https://brooksj.com/2019/04/24/parsing-NLP之chart-parser句法分析器/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="完整代码实现放在我的github上:click me 一、任务要求  实现一个基于简单英语语法的chart句法分析器。  二、技术路线         采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态">
+<meta property="og:description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于简单英语语法的chart句法分析器。  二、技术路线&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_2.png">
@@ -99,7 +99,7 @@
 <meta property="og:updated_time" content="2019-04-24T15:34:01.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="parsing:NLP之chart parser句法分析器">
-<meta name="twitter:description" content="完整代码实现放在我的github上:click me 一、任务要求  实现一个基于简单英语语法的chart句法分析器。  二、技术路线         采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态">
+<meta name="twitter:description" content="完整代码实现放在我的github上:click me 一、任务要求 实现一个基于简单英语语法的chart句法分析器。  二、技术路线&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png">
 
 
@@ -416,7 +416,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.4k(字)</span>
+            <span class="post-count">1.5k(字)</span>
             
           </span>
 	  
@@ -449,106 +449,89 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/parsing" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一任务要求">一、任务要求</h2>
-<ul>
+<h2 id="一、任务要求"><a href="#一、任务要求" class="headerlink" title="一、任务要求"></a>一、任务要求</h2><ul>
 <li>实现一个基于简单英语语法的chart句法分析器。</li>
 </ul>
-<h2 id="二技术路线">二、技术路线</h2>
-<p>        采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态规划）</p>
+<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采用自底向上的句法分析方法，简单的自底向上句法分析效率不高，常常会重复尝试相同的匹配操作（回溯之前已匹配过）。一种基于图的句法分析技术（Chart Parsing）被提出，它把已经匹配过的结果保存起来，今后需要时可直接使用它们，不必重新匹配。（动态规划）</p>
 <ul>
-<li>chart parsing的数据表示：
-<ul>
+<li>chart parsing的数据表示：<ul>
 <li>p图（chart）的结点表示句子中词之间的位置数字</li>
-<li>p非活动边集（chart的核心，常直接就被称为chart
-<ul>
+<li>p非活动边集（chart的核心，常直接就被称为chart<ul>
 <li>n记录分析中规约成功所得到的所有词法/句法符号</li>
-</ul></li>
-<li>活动边集
-<ul>
-<li>未完全匹配的产生式，用加小圆圈标记（º）的产生式来表示，如：
-<ul>
+</ul>
+</li>
+<li>活动边集<ul>
+<li>未完全匹配的产生式，用加小圆圈标记（º）的产生式来表示，如：<ul>
 <li>NP -&gt; ART ºADJ N</li>
 <li>NP -&gt; ART ºN</li>
-</ul></li>
-</ul></li>
-<li>待处理表（agenda）
-<ul>
-<li>实际上是一个队列模型，记录等待加入chart的已匹配成功的词法/句法符号</li>
-</ul></li>
-<li>上面的活动边、非活动边以及词法/句法符号都带有“始/终结点”位置信息</li>
-</ul></li>
-<li>chart parsing对“<sub>1</sub> The <sub>2</sub> cat <sub>3</sub> caught <sub>4</sub> a <sub>5</sub> mouse <sub>6</sub>”进行分析的数据示例：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png" alt="1541994559204"><figcaption>1541994559204</figcaption>
-</figure>
+</li>
+</ul>
+</li>
+<li>待处理表（agenda）<ul>
+<li>实际上是一个队列模型，记录等待加入chart的已匹配成功的词法/句法符号</li>
+</ul>
+</li>
+<li>上面的活动边、非活动边以及词法/句法符号都带有“始/终结点”位置信息</li>
+</ul>
+</li>
+<li>chart parsing对“~1~ The ~2~ cat ~3~ caught ~4~ a ~5~ mouse ~6~”进行分析的数据示例：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_1.png" alt="1541994559204"></p>
 <ul>
-<li>chart parsing的句法分析算法步骤描述如下：
+<li><p>chart parsing的句法分析算法步骤描述如下：</p>
 <ul>
 <li>若agenda为空，则把句子中下一个词的各种词法符号（词）和它们的位置加入进来</li>
 <li>从agenda中取一个元素（设为C，位置为：p1-p2)</li>
-<li>对下面形式的每个规则增加活动边：
-<ul>
-<li>X-&gt;CX<sub>1</sub>...X<sub>n</sub>，增加一条活动边：X-&gt;C º X<sub>1</sub>...X<sub>n</sub>，位置为：p1-p2；</li>
+<li>对下面形式的每个规则增加活动边：<ul>
+<li>X-&gt;CX~1~…X~n~，增加一条活动边：X-&gt;C º X~1~…X~n~，位置为：p1-p2；</li>
 <li>X-&gt;C，把X加入agenda，位置为：p1-p2</li>
-</ul></li>
-<li>将C作为非活动边加入到chart的位置p1-p2</li>
-<li>对已有活动边进行边扩展
-<ul>
-<li>对每个形式为：X-&gt;X<sub>1</sub>... º C...X<sub>n</sub>的活动边，若它在p0-p1之间，则增加一条活动边：X-&gt;X<sub>1</sub>... C º...X<sub>n</sub>，位置:p0-p2</li>
-<li>对每个形式为： X-&gt;X<sub>1</sub>... X<sub>n</sub> º C的活动边，若它在p0-p1之间，则把X加入agenda ，位置为：p0-p2</li>
-</ul></li>
-</ul></li>
-<li>程序实现的大致流程：输入英文语句，对在词典dic_ec.txt中不存在的英文单词进行形态还原，对还原后的语句执行chart parsing算法并将分析出的所有非活动边输出。由于一个英文单词可能存在多种词性，这种情况下会对每种可能的词性进行递归，对于不符合句法规则的词性会进行回溯尝试以其它的词性进行句法规则的匹配与分析。直到找到符合句法规则的词性组合则结束递归，尝试完所有的词性组合还是没能找到则句法分析失败，输入的句子不符合当前的句法规则。</li>
 </ul>
-<h2 id="三数据说明">三、数据说明</h2>
-<ul>
+</li>
+<li>将C作为非活动边加入到chart的位置p1-p2</li>
+<li>对已有活动边进行边扩展<ul>
+<li>对每个形式为：X-&gt;X~1~… º C…X~n~的活动边，若它在p0-p1之间，则增加一条活动边：X-&gt;X~1~… C º…X~n~，位置:p0-p2</li>
+<li>对每个形式为： X-&gt;X~1~… X~n~ º C的活动边，若它在p0-p1之间，则把X加入agenda ，位置为：p0-p2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>程序实现的大致流程：输入英文语句，对在词典dic_ec.txt中不存在的英文单词进行形态还原，对还原后的语句执行chart parsing算法并将分析出的所有非活动边输出。由于一个英文单词可能存在多种词性，这种情况下会对每种可能的词性进行递归，对于不符合句法规则的词性会进行回溯尝试以其它的词性进行句法规则的匹配与分析。直到找到符合句法规则的词性组合则结束递归，尝试完所有的词性组合还是没能找到则句法分析失败，输入的句子不符合当前的句法规则。</p>
+</li>
+</ul>
+<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
 <li>由于这个实验中引用了token实验模块，所以需要用到token实验中的三个数据字典dic_ec.txt，irregualr nouns.txt，irregular verbs.txt，关于这三个数据字典的说明在token实验中已给出，此处不再赘述。除此之外，chart parsing算法还需要用到dic_ec.txt词典中英文单词的词性。</li>
 </ul>
-<h2 id="四遇到的问题及解决方案">四、遇到的问题及解决方案</h2>
-<ul>
-<li>程序实现过程中受到文件编码和分隔符的困扰，最后用vim把用到的3个数据词典统一设置成gbk编码，以，方便程序统一读入处理。</li>
+<h2 id="四、遇到的问题及解决方案"><a href="#四、遇到的问题及解决方案" class="headerlink" title="四、遇到的问题及解决方案"></a>四、遇到的问题及解决方案</h2><ul>
+<li>程序实现过程中受到文件编码和分隔符的困扰，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
 <li>dic_ec.txt这个数据字典中的数据质量不太好，很多英文单词都被标注成none.词性，由于无法获取词的正确词性从而无法完成句子的句法分析。</li>
 </ul>
-<h2 id="五性能分析">五、性能分析</h2>
-<ul>
+<h2 id="五、性能分析"><a href="#五、性能分析" class="headerlink" title="五、性能分析"></a>五、性能分析</h2><ul>
 <li>对句法分析部分作一个性能的度量，单句句法分析的结果基本都在毫秒级别，下面给出基于规则S-&gt;NP VP，NP-&gt;ART N，NP-&gt;ART ADJ N，VP-&gt;V，VP-&gt;V NP对the cat catch a mouse进行句法分析得到的运行结果及耗时截图：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_2.png" alt="1542023773939"><figcaption>1542023773939</figcaption>
-</figure>
-<h2 id="六运行环境">六、运行环境</h2>
-<ul>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_2.png" alt="1542023773939"></p>
+<h2 id="六、运行环境"><a href="#六、运行环境" class="headerlink" title="六、运行环境"></a>六、运行环境</h2><ul>
 <li>将执行文件parsing.exe与数据字典dic_ec.txt，irregular nouns.txt，irregualr verbs.txt放在同一个文件夹下，然后点击parsing.exe即可正常运行程序。</li>
 </ul>
-<h2 id="七用户手册">七、用户手册</h2>
-<ul>
+<h2 id="七、用户手册"><a href="#七、用户手册" class="headerlink" title="七、用户手册"></a>七、用户手册</h2><ul>
 <li>在运行环境下正常运行程序后会出现下图这样的主菜单文字界面：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_3.png" alt="1542024516293"><figcaption>1542024516293</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_3.png" alt="1542024516293"></p>
 <ul>
 <li>根据主菜单进行操作，首先选择1来写入规则，可一次写入多个规则，输入q!结束规则写入，如果后期需要增加规则，可以在主菜单界面再次选择1来写入增添的规则，这样就实现了规则的灵活扩展。下面是写入规则模块的截图：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_4.png" alt="1542025005658"><figcaption>1542025005658</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_4.png" alt="1542025005658"></p>
 <ul>
 <li>写入规则结束后又回退到主菜单界面，这时候可以选择2来输入句子进行句法分析，程序会输出分析过程中得到的所有非活动边对应的短语及位置范围，下面是在上面所写入规则的基础上对the cat caught a mouse进行句法分析的结果截图，程序会对dic_ec.txt中不存在的单词尝试调用词形还原模块进行还原再分析：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_5.png" alt="1542026424475"><figcaption>1542026424475</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_5.png" alt="1542026424475"></p>
 <ul>
 <li>句法分析回退到主菜单界面，可以继续选择1进行规则扩展，也可以选择2进行句法分析，选择q退出程序运行。</li>
 <li>基于下面的句法规则给出一个句法分析示例：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART N</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">PRON</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">N</span></span><br><span class="line"><span class="meta">NP-&gt;</span><span class="bash">ART ADJ N</span></span><br><span class="line"><span class="meta">VP-&gt;</span><span class="bash">V</span></span><br><span class="line"><span class="meta">VP-&gt;</span><span class="bash">V NP</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NP-&gt;ART N</span><br><span class="line">NP-&gt;ART</span><br><span class="line">NP-&gt;PRON</span><br><span class="line">NP-&gt;N</span><br><span class="line">NP-&gt;ART ADJ N</span><br><span class="line">VP-&gt;V</span><br><span class="line">VP-&gt;V NP</span><br></pre></td></tr></table></figure>
 <p>对I like her进行句法分析的结果截图如下：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_6.png" alt="1542031147205"><figcaption>1542031147205</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_parsing_6.png" alt="1542031147205"></p>
 
       
     </div>
@@ -829,7 +812,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一任务要求"><span class="nav-number">1.</span> <span class="nav-text">一、任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二技术路线"><span class="nav-number">2.</span> <span class="nav-text">二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三数据说明"><span class="nav-number">3.</span> <span class="nav-text">三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四遇到的问题及解决方案"><span class="nav-number">4.</span> <span class="nav-text">四、遇到的问题及解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五性能分析"><span class="nav-number">5.</span> <span class="nav-text">五、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六运行环境"><span class="nav-number">6.</span> <span class="nav-text">六、运行环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七用户手册"><span class="nav-number">7.</span> <span class="nav-text">七、用户手册</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、任务要求"><span class="nav-number">1.</span> <span class="nav-text">一、任务要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、技术路线"><span class="nav-number">2.</span> <span class="nav-text">二、技术路线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、数据说明"><span class="nav-number">3.</span> <span class="nav-text">三、数据说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、遇到的问题及解决方案"><span class="nav-number">4.</span> <span class="nav-text">四、遇到的问题及解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、性能分析"><span class="nav-number">5.</span> <span class="nav-text">五、性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、运行环境"><span class="nav-number">6.</span> <span class="nav-text">六、运行环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、用户手册"><span class="nav-number">7.</span> <span class="nav-text">七、用户手册</span></a></li></ol></div>
             
 
           </div>

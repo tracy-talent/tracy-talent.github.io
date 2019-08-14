@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="01背包问题 HDU-3466 题目: HDU-3346. Proud Merchants 分析:  首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如: 3 5 6 5 10 5 两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10. 对于任意两个物品i和j,如果我们先i后j初始">
+<meta name="description" content="01背包问题HDU-3466题目: HDU-3346. Proud Merchants 分析:&amp;nbsp;&amp;nbsp;首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如: 3 5 6 5 10 5 两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10. 对于任意两个物品i和j,如果">
 <meta name="keywords" content="dp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态规划题集">
 <meta property="og:url" content="https://brooksj.com/2019/07/18/动态规划题集/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="01背包问题 HDU-3466 题目: HDU-3346. Proud Merchants 分析:  首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如: 3 5 6 5 10 5 两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10. 对于任意两个物品i和j,如果我们先i后j初始">
+<meta property="og:description" content="01背包问题HDU-3466题目: HDU-3346. Proud Merchants 分析:&amp;nbsp;&amp;nbsp;首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如: 3 5 6 5 10 5 两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10. 对于任意两个物品i和j,如果">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-07-21T03:13:35.454Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划题集">
-<meta name="twitter:description" content="01背包问题 HDU-3466 题目: HDU-3346. Proud Merchants 分析:  首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如: 3 5 6 5 10 5 两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10. 对于任意两个物品i和j,如果我们先i后j初始">
+<meta name="twitter:description" content="01背包问题HDU-3466题目: HDU-3346. Proud Merchants 分析:&amp;nbsp;&amp;nbsp;首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如: 3 5 6 5 10 5 两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10. 对于任意两个物品i和j,如果">
 
 
 
@@ -420,7 +420,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">550(字)</span>
+            <span class="post-count">553(字)</span>
             
           </span>
 	  
@@ -452,10 +452,8 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="背包问题">01背包问题</h2>
-<h3 id="hdu-3466">HDU-3466</h3>
-<p>题目: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3466" target="_blank" rel="noopener">HDU-3346. Proud Merchants</a></p>
-<p>分析:  首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如:</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h2><h3 id="HDU-3466"><a href="#HDU-3466" class="headerlink" title="HDU-3466"></a>HDU-3466</h3><p>题目: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3466" target="_blank" rel="noopener">HDU-3346. Proud Merchants</a></p>
+<p>分析:&nbsp;&nbsp;首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如:</p>
 <p>3 5 6</p>
 <p>5 10 5</p>
 <p>两个物品,如果先1后2,初始需要13,如果先2后1,初始需要10.</p>
@@ -464,7 +462,7 @@
 <p>同理可得先j后i,初始:</p>
 <p>金钱= <font color="#DC143C">Q[j]+Q[i]-(Q[j]-p[j]) = p[j]+Q[i]</font></p>
 <p>所以对于i和j,假设我们手上有M金钱,我们肯定先以(Q-P)值从大到小开始选择,这样我才能保证对于同一种选择方案(某些选,某些不选),我们所需要的初始金钱最小.或者换一种说法,给定一定的金额,如果按照(Q-P)值从大到小的顺序进行选择,可以获得尽可能多的物品.</p>
-<p><strong>solution:</strong>  01背包+贪心,关键在于找到要进行贪心的值</p>
+<p><strong>solution:</strong>&nbsp;&nbsp;01背包+贪心,关键在于找到要进行贪心的值</p>
 <p><strong>implementation:</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******************************************************************************</span></span><br><span class="line"><span class="comment">Author: liujian</span></span><br><span class="line"><span class="comment">Email: brooksj@foxmail.com</span></span><br><span class="line"><span class="comment">Date: 2019-07-18 10:51</span></span><br><span class="line"><span class="comment">File: hdu_3466.cpp</span></span><br><span class="line"><span class="comment">Last modified: 2019-07-18 10:51</span></span><br><span class="line"><span class="comment">*******************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(<span class="meta-string">"O2"</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5</span> * <span class="number">1e2</span> + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">5</span> * <span class="number">1e3</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">item</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> p, q, v;</span><br><span class="line">    item(<span class="keyword">int</span> _p = <span class="number">0</span>, <span class="keyword">int</span> _q = <span class="number">0</span>, <span class="keyword">int</span> _v = <span class="number">0</span>):p(_p),q(_q),v(_v)&#123;&#125;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> item &amp;a, <span class="keyword">const</span> item &amp;b) &#123;</span><br><span class="line">        <span class="keyword">return</span> (a.q - a.p) &lt; (b.q - b.p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[maxm], sum[maxn];</span><br><span class="line">item items[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m) &#123;</span><br><span class="line">        sum[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; items[i].p &gt;&gt; items[i].q &gt;&gt; items[i].v;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(items + <span class="number">1</span>, items + n + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            sum[i] = sum[i - <span class="number">1</span>] + items[i].p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            dp[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">           <span class="keyword">int</span> lowerb = max(max(m - sum[n] + sum[i], items[i].p), items[i].q);</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> j = m; j &gt;= lowerb; j--) &#123;</span><br><span class="line">               dp[j] = max(dp[j], dp[j - items[i].p] + items[i].v);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; dp[m] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -745,7 +743,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背包问题"><span class="nav-number">1.</span> <span class="nav-text">01背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hdu-3466"><span class="nav-number">1.1.</span> <span class="nav-text">HDU-3466</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01背包问题"><span class="nav-number">1.</span> <span class="nav-text">01背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HDU-3466"><span class="nav-number">1.1.</span> <span class="nav-text">HDU-3466</span></a></li></ol></li></ol></div>
             
 
           </div>

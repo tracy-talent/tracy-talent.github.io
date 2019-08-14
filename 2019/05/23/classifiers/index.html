@@ -82,15 +82,32 @@
 
 
 
-<meta name="description" content="完整代码实现见github：click me 一、实验说明 1.1 任务描述  &amp;lt;img src=&amp;#39;/images/classifiers/assignment.png&amp;#39;&amp;gt;  1.2 数据说明 一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下： 1234567891">
+<meta name="description" content="完整代码实现见github：click me 一、实验说明1.1 任务描述        1.2 数据说明一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下： 12345678910111213连续型数据集: 1. diabets(4:8d-2c)2. mozilla4(6:5d-2c)3. p">
 <meta name="keywords" content="classification,KNN,MLP,naive bayes,decision tree,SVM,bagging,AUC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于sklearn的分类器实战">
 <meta property="og:url" content="https://brooksj.com/2019/05/23/classifiers/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="完整代码实现见github：click me 一、实验说明 1.1 任务描述  &amp;lt;img src=&amp;#39;/images/classifiers/assignment.png&amp;#39;&amp;gt;  1.2 数据说明 一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下： 1234567891">
+<meta property="og:description" content="完整代码实现见github：click me 一、实验说明1.1 任务描述        1.2 数据说明一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下： 12345678910111213连续型数据集: 1. diabets(4:8d-2c)2. mozilla4(6:5d-2c)3. p">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/assignment.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/single_alg_on_all_datasets/naive_bayes_gaussian.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/single_alg_on_all_datasets/decision_tree.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/single_alg_on_all_datasets/knn.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/single_alg_on_all_datasets/mlp.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/single_alg_on_all_datasets/linear_svm.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/breast-w.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/colic.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/credit-a.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/credit-g.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/diabetes.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/hepatitis.png">
 <meta property="og:image" content="https://brooksj.com/images/classifiers/hepatitis数据分布.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/mozilla4.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/pc1.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/pc5.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/algs_on_single_dataset/waveform-5000.png">
+<meta property="og:image" content="https://brooksj.com/images/classifiers/single_bagging_acc/breast-w.png">
 <meta property="og:image" content="https://brooksj.com/images/classifiers/single_bagging_auc/breast-w.png">
 <meta property="og:image" content="https://brooksj.com/images/classifiers/single_bagging_acc/colic.png">
 <meta property="og:image" content="https://brooksj.com/images/classifiers/single_bagging_auc/colic.png">
@@ -118,8 +135,8 @@
 <meta property="og:updated_time" content="2019-05-25T11:56:56.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于sklearn的分类器实战">
-<meta name="twitter:description" content="完整代码实现见github：click me 一、实验说明 1.1 任务描述  &amp;lt;img src=&amp;#39;/images/classifiers/assignment.png&amp;#39;&amp;gt;  1.2 数据说明 一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下： 1234567891">
-<meta name="twitter:image" content="https://brooksj.com/images/classifiers/hepatitis数据分布.png">
+<meta name="twitter:description" content="完整代码实现见github：click me 一、实验说明1.1 任务描述        1.2 数据说明一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下： 12345678910111213连续型数据集: 1. diabets(4:8d-2c)2. mozilla4(6:5d-2c)3. p">
+<meta name="twitter:image" content="https://brooksj.com/images/classifiers/assignment.png">
 
 
 
@@ -435,7 +452,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">3.4k(字)</span>
+            <span class="post-count">3.2k(字)</span>
             
           </span>
 	  
@@ -445,7 +462,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">13(分)</span>
+            <span class="post-count">12(分)</span>
           </span>
 
           
@@ -468,20 +485,16 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现见github：<a href="https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/classifiers" target="_blank" rel="noopener">click me</a></p>
-<h1 id="一实验说明">一、实验说明</h1>
-<h2 id="任务描述">1.1 任务描述</h2>
-<div data-align="center">
-<pre><code>&lt;img src=&#39;/images/classifiers/assignment.png&#39;&gt;</code></pre>
+<h1 id="一、实验说明"><a href="#一、实验说明" class="headerlink" title="一、实验说明"></a>一、实验说明</h1><h2 id="1-1-任务描述"><a href="#1-1-任务描述" class="headerlink" title="1.1 任务描述"></a>1.1 任务描述</h2><div align="center">
+    <img src="/images/classifiers/assignment.png">
 </div>
-<h2 id="数据说明">1.2 数据说明</h2>
-<p>一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下：</p>
-<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">连续型数据集: </span><br><span class="line"><span class="number">1.</span> diabets<span class="comment">(4:8d-2c)</span></span><br><span class="line"><span class="number">2.</span> mozilla<span class="number">4</span><span class="comment">(6:5d-2c)</span></span><br><span class="line"><span class="number">3.</span> pc<span class="number">1</span><span class="comment">(7:21d-2c)</span></span><br><span class="line"><span class="number">4.</span> pc<span class="number">5</span><span class="comment">(8:38d-2c)</span></span><br><span class="line"><span class="number">5.</span> waveform<span class="number">-5000</span><span class="comment">(9:40d-3c)</span></span><br><span class="line">离散型数据集:</span><br><span class="line"><span class="number">1.</span> breast-w<span class="comment">(0:9d-2c-?)</span></span><br><span class="line">离散-连续混合型数据集:</span><br><span class="line"><span class="number">1.</span> colic<span class="comment">(1:22d-2c-?)</span></span><br><span class="line"><span class="number">2.</span> credit-a<span class="comment">(2:15d-2c-?)</span></span><br><span class="line"><span class="number">3.</span> credit-g<span class="comment">(3:20d-2c)</span></span><br><span class="line"><span class="number">4.</span> hepatitis<span class="comment">(少量离散属性)</span><span class="comment">(5:19d-2c-?)</span></span><br></pre></td></tr></table></figure>
-<p>举一个例子说明，colic(1:22d-2c-?)对应colic这个数据集，冒号前面的1表示人工标注的数据集序号(在代码实现时我是用序号来映射数据集的)，22d表示数据集中包含22个属性，2c表示数据集共有3种类别，'?'表示该数据集中含有缺失值，在对数据处理前需要注意。</p>
-<h1 id="二数据预处理">二、数据预处理</h1>
-<p>由于提供的数据集文件格式是weka的.arff文件，可以直接导入到weka中选择各类算法模型进行分析，非常简便。但是我没有借助weka而是使用sklearn来对数据集进行分析的，这样灵活性更大一点。所以首先需要了解.arff的数据组织形式与结构，然后使用numpy读取到二维数组中。</p>
-<p>具体做法是过滤掉.arff中'%'开头的注释，对于'@'开头的标签，只关心'<span class="citation" data-cites="attribute">@attribute</span>'后面跟着的属性名与属性类型，如果属性类型是以'{}'围起来的离散型属性，就将这些离散型属性映射到0，1，2......，后面读取到这一列属性的数据时直接用建好的映射将字符串映射到数字。除此之外就是数据内容了,读完一个数据集的内容之后还需要检测该数据集中是否包含缺失值，这个使用numpy的布尔型索引很容易做到。如果包含缺失值，则统计缺失值这一行所属类别中所有非缺失数据在缺失属性上各个值的频次，然后用出现频次最高的值来替换缺失值，这就完成对缺失值的填补。具体实现可以参见preprocess.py模块中fill_miss函数。</p>
-<h1 id="三代码设计与实现">三、代码设计与实现</h1>
-<blockquote>
+
+<h2 id="1-2-数据说明"><a href="#1-2-数据说明" class="headerlink" title="1.2 数据说明"></a>1.2 数据说明</h2><p>一共有十个数据集，数据集中的数据属性有全部是离散型的，有全部是连续型的，也有离散与连续混合型的。通过对各个数据集的浏览，总结出各个数据集的一些基本信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">连续型数据集: </span><br><span class="line">1. diabets(4:8d-2c)</span><br><span class="line">2. mozilla4(6:5d-2c)</span><br><span class="line">3. pc1(7:21d-2c)</span><br><span class="line">4. pc5(8:38d-2c)</span><br><span class="line">5. waveform-5000(9:40d-3c)</span><br><span class="line">离散型数据集:</span><br><span class="line">1. breast-w(0:9d-2c-?)</span><br><span class="line">离散-连续混合型数据集:</span><br><span class="line">1. colic(1:22d-2c-?)</span><br><span class="line">2. credit-a(2:15d-2c-?)</span><br><span class="line">3. credit-g(3:20d-2c)</span><br><span class="line">4. hepatitis(少量离散属性)(5:19d-2c-?)</span><br></pre></td></tr></table></figure>
+<p>举一个例子说明，colic(1:22d-2c-?)对应colic这个数据集，冒号前面的1表示人工标注的数据集序号(在代码实现时我是用序号来映射数据集的)，22d表示数据集中包含22个属性，2c表示数据集共有3种类别，’?’表示该数据集中含有缺失值，在对数据处理前需要注意。</p>
+<h1 id="二、数据预处理"><a href="#二、数据预处理" class="headerlink" title="二、数据预处理"></a>二、数据预处理</h1><p>由于提供的数据集文件格式是weka的.arff文件，可以直接导入到weka中选择各类算法模型进行分析，非常简便。但是我没有借助weka而是使用sklearn来对数据集进行分析的，这样灵活性更大一点。所以首先需要了解.arff的数据组织形式与结构，然后使用numpy读取到二维数组中。</p>
+<p>具体做法是过滤掉.arff中’%’开头的注释，对于’@’开头的标签，只关心’@attribute’后面跟着的属性名与属性类型，如果属性类型是以’{}’围起来的离散型属性，就将这些离散型属性映射到0，1，2……，后面读取到这一列属性的数据时直接用建好的映射将字符串映射到数字。除此之外就是数据内容了,读完一个数据集的内容之后还需要检测该数据集中是否包含缺失值，这个使用numpy的布尔型索引很容易做到。如果包含缺失值，则统计缺失值这一行所属类别中所有非缺失数据在缺失属性上各个值的频次，然后用出现频次最高的值来替换缺失值，这就完成对缺失值的填补。具体实现可以参见preprocess.py模块中fill_miss函数。</p>
+<h1 id="三、代码设计与实现"><a href="#三、代码设计与实现" class="headerlink" title="三、代码设计与实现"></a>三、代码设计与实现</h1><blockquote>
 <p>实验环境:</p>
 <p>python 3.6.7</p>
 <p>configparser 3.7.4</p>
@@ -495,169 +508,155 @@
 <li>AUC性能指标: 使用sklearn.metrics.roc_auc_score计算AUC值，AUC计算对多类(二类以上)数据属性还需提前转换成one hot编码，使用了sklearn,preprocessing.label_binarize来实现，对于多分类问题选择micro-average</li>
 <li>数据标准化: 使用sklearn.preprocessing.StandardScaler来对数据进行归一标准化，实际上就是z分数</li>
 </ul>
-<h2 id="朴素贝叶斯naive-bayes">3.1 朴素贝叶斯Naive Bayes</h2>
-<p>由于大部分数据集中都包含连续型属性，所以选择sklearn.naive_bayes.GaussianNB来对各个数据集进行处理</p>
+<h2 id="3-1-朴素贝叶斯Naive-Bayes"><a href="#3-1-朴素贝叶斯Naive-Bayes" class="headerlink" title="3.1 朴素贝叶斯Naive Bayes"></a>3.1 朴素贝叶斯Naive Bayes</h2><p>由于大部分数据集中都包含连续型属性，所以选择sklearn.naive_bayes.GaussianNB来对各个数据集进行处理</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">clf = GaussianNB()</span><br><span class="line">skf = StratifiedKFold(n_splits=<span class="number">10</span>)</span><br><span class="line">skf_accuracy1 = []</span><br><span class="line">skf_accuracy2 = []</span><br><span class="line">n_classes = np.arange(np.unique(y).size)</span><br><span class="line"><span class="keyword">for</span> train, test <span class="keyword">in</span> skf.split(X, y):</span><br><span class="line">	clf.fit(X[train], y[train])</span><br><span class="line">	skf_accuracy1.append(clf.score(X[test], y[test]))</span><br><span class="line">	<span class="keyword">if</span> n_classes.size &lt; <span class="number">3</span>:</span><br><span class="line">	    skf_accuracy2.append(roc_auc_score(y[test], clf.predict_proba(X[test])[:, <span class="number">1</span>], 				average=<span class="string">'micro'</span>))</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">	    ytest_one_hot = label_binarize(y[test], n_classes)</span><br><span class="line">	    skf_accuracy2.append(roc_auc_score(ytest_one_hot, clf.predict_proba(X[test]), 				average=<span class="string">'micro'</span>))</span><br><span class="line">accuracy1 = np.mean(skf_accuracy1)</span><br><span class="line">accuracy2 = np.mean(skf_accuracy2)</span><br></pre></td></tr></table></figure>
 <p>在各个数据集上进行交叉验证后的accuracy和AUC性能指标如下</p>
-<div data-align="center">
-<pre><code>&lt;img src=&#39;/images/classifiers/single_alg_on_all_datasets/naive_bayes_gaussian.png&#39;&gt;</code></pre>
+<div align="center">
+    <img src="/images/classifiers/single_alg_on_all_datasets/naive_bayes_gaussian.png">
 </div>
+
 <p>可以看到大部分数据集上的auc指标都比acc高，说明控制好概率阈值(这里默认0.5)acc可能还有提升空间，因为样本分布跟总体分布还有一定的差距，样本数布可能很不平衡，并且权衡一个合适的阈值点还需要结合分类问题的背景和关注重点。由于auc指标考虑到了所有可能阈值划分情况，auc越高能说明模型越理想，总体上能表现得更好。</p>
-<h2 id="决策树decision-tree">3.2 决策树decision tree</h2>
-<p>使用sklearn.tree.DecisionTreeClassifier作决策树分析，并且采用gini系数选择效益最大的属性进行划分，下面给出接口调用方式，交叉验证方式与前面的naive bayes一样</p>
+<h2 id="3-2-决策树decision-tree"><a href="#3-2-决策树decision-tree" class="headerlink" title="3.2 决策树decision tree"></a>3.2 决策树decision tree</h2><p>使用sklearn.tree.DecisionTreeClassifier作决策树分析，并且采用gini系数选择效益最大的属性进行划分，下面给出接口调用方式，交叉验证方式与前面的naive bayes一样</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clf = DecisionTreeClassifier(random_state=<span class="number">0</span>, criterion=<span class="string">'gini'</span>)</span><br></pre></td></tr></table></figure>
 <p>在各个数据集上进行交叉验证后的accuracy和AUC性能指标如下</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/single_alg_on_all_datasets/decision_tree.png&quot;&gt;</code></pre>
+<div align="center">
+    <img src="/images/classifiers/single_alg_on_all_datasets/decision_tree.png">
 </div>
-<h2 id="k近邻knn">3.3 K近邻KNN</h2>
-<p>使用sklearn.neighbors.KNeighborsClassifier实现KNN，邻居数设置为3即根据最近的3个邻居来投票抉择样本所属分类，因为数据集最多不超过3类，邻居数选择3~6较为合适，设得更高效果增益不明显并且时间开销大，下面给出接口调用方式</p>
+
+<h2 id="3-3-K近邻KNN"><a href="#3-3-K近邻KNN" class="headerlink" title="3.3 K近邻KNN"></a>3.3 K近邻KNN</h2><p>使用sklearn.neighbors.KNeighborsClassifier实现KNN，邻居数设置为3即根据最近的3个邻居来投票抉择样本所属分类，因为数据集最多不超过3类，邻居数选择3~6较为合适，设得更高效果增益不明显并且时间开销大，下面给出接口调用方式</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clf = KNeighborsClassifier(n_neighbors=<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
 <p>在各个数据集上进行交叉验证后的accuracy和AUC性能指标如下</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/single_alg_on_all_datasets/knn.png&quot;&gt;</code></pre>
+<div align="center">
+    <img src="/images/classifiers/single_alg_on_all_datasets/knn.png">
 </div>
-<h2 id="神经网络之多层感知机mlp">3.4 神经网络之多层感知机MLP</h2>
-<p>使用sklearn.neural_network.MLPClassifier实现MLP，设置一层隐藏层100个节点，激活函数relu，优化器Adam，学习率1e-3并且自适应降低，l2正则项惩罚系数，下面给出具体的接口调用方式以及参数配置</p>
+
+<h2 id="3-4-神经网络之多层感知机MLP"><a href="#3-4-神经网络之多层感知机MLP" class="headerlink" title="3.4 神经网络之多层感知机MLP"></a>3.4 神经网络之多层感知机MLP</h2><p>使用sklearn.neural_network.MLPClassifier实现MLP，设置一层隐藏层100个节点，激活函数relu，优化器Adam，学习率1e-3并且自适应降低，l2正则项惩罚系数，下面给出具体的接口调用方式以及参数配置</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">clf = MLPClassifier(hidden_layer_sizes=(<span class="number">100</span>), </span><br><span class="line">		        activation=<span class="string">'relu'</span>,</span><br><span class="line">		        solver=<span class="string">'adam'</span>,</span><br><span class="line">		        batch_size=<span class="number">128</span>,</span><br><span class="line">		        alpha=<span class="number">1e-4</span>,</span><br><span class="line">		        learning_rate_init=<span class="number">1e-3</span>,</span><br><span class="line">		        learning_rate=<span class="string">'adaptive'</span>,</span><br><span class="line">		        tol=<span class="number">1e-4</span>,</span><br><span class="line">		        max_iter=<span class="number">200</span>)</span><br></pre></td></tr></table></figure>
 <p>在各个数据集上进行交叉验证后的accuracy和AUC性能指标如下</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/single_alg_on_all_datasets/mlp.png&quot;&gt;</code></pre>
+<div align="center">
+    <img src="/images/classifiers/single_alg_on_all_datasets/mlp.png">
 </div>
-<h2 id="支持向量机svm">3.5 支持向量机SVM</h2>
-<p>使用sklean.svm.LinearSVC实现线性SVM分类器，接口调用方式如下</p>
+
+<h2 id="3-5-支持向量机SVM"><a href="#3-5-支持向量机SVM" class="headerlink" title="3.5 支持向量机SVM"></a>3.5 支持向量机SVM</h2><p>使用sklean.svm.LinearSVC实现线性SVM分类器，接口调用方式如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clf = LinearSVC(penalty=<span class="string">'l2'</span>, random_state=<span class="number">0</span>, tol=<span class="number">1e-4</span>)</span><br></pre></td></tr></table></figure>
 <p>在各个数据集上进行交叉验证后的accuracy和AUC性能指标如下</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/single_alg_on_all_datasets/linear_svm.png&quot;&gt;</code></pre>
+<div align="center">
+    <img src="/images/classifiers/single_alg_on_all_datasets/linear_svm.png">
 </div>
-<h1 id="四实验结果与分析">四、实验结果与分析</h1>
-<h2 id="不同数据集上的模型对比">4.1 不同数据集上的模型对比</h2>
-<h3 id="breast-w-dataset">4.1.1 breast-w dataset</h3>
-<p>breast-w数据集上，各分类模型的效果都很好，其中linear svm的准确率最高，mlp的auc值最高</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/breast-w.png&quot;&gt;</code></pre>
+
+<h1 id="四、实验结果与分析"><a href="#四、实验结果与分析" class="headerlink" title="四、实验结果与分析"></a>四、实验结果与分析</h1><h2 id="4-1-不同数据集上的模型对比"><a href="#4-1-不同数据集上的模型对比" class="headerlink" title="4.1 不同数据集上的模型对比"></a>4.1 不同数据集上的模型对比</h2><h3 id="4-1-1-breast-w-dataset"><a href="#4-1-1-breast-w-dataset" class="headerlink" title="4.1.1 breast-w dataset"></a>4.1.1 breast-w dataset</h3><p>breast-w数据集上，各分类模型的效果都很好，其中linear svm的准确率最高，mlp的auc值最高</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/breast-w.png">
 </div>
-<h3 id="colic-dataset">4.1.2 colic dataset</h3>
-<p>colic数据集上，knn效果不佳，其它分类模型的效果都很好，其中decision tree的准确率最高，mlp的auc值最高</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/colic.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-2-colic-dataset"><a href="#4-1-2-colic-dataset" class="headerlink" title="4.1.2 colic dataset"></a>4.1.2 colic dataset</h3><p>colic数据集上，knn效果不佳，其它分类模型的效果都很好，其中decision tree的准确率最高，mlp的auc值最高</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/colic.png">
 </div>
-<h3 id="credit-a-dataset">4.1.3 credit-a dataset</h3>
-<p>credit-a数据集上，各分类模型的效果都不是很好，其中decision tree的准确率最高，naive bayes的auc值最高</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/credit-a.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-3-credit-a-dataset"><a href="#4-1-3-credit-a-dataset" class="headerlink" title="4.1.3 credit-a dataset"></a>4.1.3 credit-a dataset</h3><p>credit-a数据集上，各分类模型的效果都不是很好，其中decision tree的准确率最高，naive bayes的auc值最高</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/credit-a.png">
 </div>
-<h3 id="credit-g-dataset">4.1.4 credit-g dataset</h3>
-<p>credit-a数据集上，各分类模型的效果都不是很好，其中naive bayes的准确率和auc值都是最高的</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/credit-g.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-4-credit-g-dataset"><a href="#4-1-4-credit-g-dataset" class="headerlink" title="4.1.4 credit-g dataset"></a>4.1.4 credit-g dataset</h3><p>credit-a数据集上，各分类模型的效果都不是很好，其中naive bayes的准确率和auc值都是最高的</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/credit-g.png">
 </div>
-<h3 id="diabetes-dataset">4.1.5 diabetes dataset</h3>
-<p>diabetes数据集上，各分类模型的效果都不是很好，其中naive bayes的准确率和auc值都是最高的</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/diabetes.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-5-diabetes-dataset"><a href="#4-1-5-diabetes-dataset" class="headerlink" title="4.1.5 diabetes dataset"></a>4.1.5 diabetes dataset</h3><p>diabetes数据集上，各分类模型的效果都不是很好，其中naive bayes的准确率和auc值都是最高的</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/diabetes.png">
 </div>
-<h3 id="hepatitis-dataset">4.1.6 hepatitis dataset</h3>
-<p>hepatitis数据集上，各分类模型的准确率都没达到90%，decision tree的准确率最高，mlp的auc值最高，但是各分类模型的auc值基本都比acc高除了decision tree，说明hepatitis数据集的数据分布可能不太平衡</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/hepatitis.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-6-hepatitis-dataset"><a href="#4-1-6-hepatitis-dataset" class="headerlink" title="4.1.6 hepatitis dataset"></a>4.1.6 hepatitis dataset</h3><p>hepatitis数据集上，各分类模型的准确率都没达到90%，decision tree的准确率最高，mlp的auc值最高，但是各分类模型的auc值基本都比acc高除了decision tree，说明hepatitis数据集的数据分布可能不太平衡</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/hepatitis.png">
 </div>
+
 <p>通过weka对hepatitis数据集上的正负类进行统计得到下面的直方图</p>
-<p><img src="/images/classifiers/hepatitis数据分布.png"></p>
+<p><img src="/images/classifiers/hepatitis数据分布.png" alt></p>
 <p>从上面的直方图可以验证之前的猜测是对的，hepatitis数据集正负类1:4，数据分布不平衡，正类远少于负类样本数</p>
-<h3 id="mozilla4-dataset">4.1.7 mozilla4 dataset</h3>
-<p>mozilla4数据集上，各分类模型的表现差异很大，其中knn的acc和auc都是最高的，naivie bayes的acc和auc相差甚大</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/mozilla4.png&quot;&gt;</code></pre>
+<h3 id="4-1-7-mozilla4-dataset"><a href="#4-1-7-mozilla4-dataset" class="headerlink" title="4.1.7 mozilla4 dataset"></a>4.1.7 mozilla4 dataset</h3><p>mozilla4数据集上，各分类模型的表现差异很大，其中knn的acc和auc都是最高的，naivie bayes的acc和auc相差甚大</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/mozilla4.png">
 </div>
-<h3 id="pc1-dataset">4.1.8 pc1 dataset</h3>
-<p>pc1数据集上，各分类模型的准确率基本都挺高的，但是auc值普遍都很低，使用weka对数据进行统计分析后发现pc1数据集的正负类比达到13:1，根据auc计算原理可知正类太多可能会导致TPR相比FPR会低很多，从而压低了auc值</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/pc1.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-8-pc1-dataset"><a href="#4-1-8-pc1-dataset" class="headerlink" title="4.1.8 pc1 dataset"></a>4.1.8 pc1 dataset</h3><p>pc1数据集上，各分类模型的准确率基本都挺高的，但是auc值普遍都很低，使用weka对数据进行统计分析后发现pc1数据集的正负类比达到13:1，根据auc计算原理可知正类太多可能会导致TPR相比FPR会低很多，从而压低了auc值</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/pc1.png">
 </div>
-<h3 id="pc5-dataset">4.1.9 pc5 dataset</h3>
-<p>pc5数据集上，各分类模型的准确率都达到了90%以上，但是auc都比acc要低，其中mlp和linear svm的acc与auc相差甚大，原因估计和pc1差不多，正类样本太多拉低了AUC，使用weka分析后发现pc5正负类样本比值达到了32:1，并且数据中夹杂着些许异常的噪声点</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/pc5.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-9-pc5-dataset"><a href="#4-1-9-pc5-dataset" class="headerlink" title="4.1.9 pc5 dataset"></a>4.1.9 pc5 dataset</h3><p>pc5数据集上，各分类模型的准确率都达到了90%以上，但是auc都比acc要低，其中mlp和linear svm的acc与auc相差甚大，原因估计和pc1差不多，正类样本太多拉低了AUC，使用weka分析后发现pc5正负类样本比值达到了32:1，并且数据中夹杂着些许异常的噪声点</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/pc5.png">
 </div>
-<h3 id="waveform-5000-dataset">4.1.10 waveform-5000 dataset</h3>
-<p>waveform-5000数据集上，各分类模型的准确率基本都是在80%左右，各分类模型的auc基本都有90%除了decision tree以外。waveform-5000是一个三类别的数据集，相比前面的2分类数据集预测难度也会更大，概率阈值的选择尤为关键，一个好的阈值划分会带来更高的准确率。</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/algs_on_single_dataset/waveform-5000.png&quot;&gt;</code></pre>
+
+<h3 id="4-1-10-waveform-5000-dataset"><a href="#4-1-10-waveform-5000-dataset" class="headerlink" title="4.1.10 waveform-5000 dataset"></a>4.1.10 waveform-5000 dataset</h3><p>waveform-5000数据集上，各分类模型的准确率基本都是在80%左右，各分类模型的auc基本都有90%除了decision tree以外。waveform-5000是一个三类别的数据集，相比前面的2分类数据集预测难度也会更大，概率阈值的选择尤为关键，一个好的阈值划分会带来更高的准确率。</p>
+<div align="center">
+    <img src="/images/classifiers/algs_on_single_dataset/waveform-5000.png">
 </div>
-<h2 id="模型的bagging和single性能对比">4.2 模型的bagging和single性能对比</h2>
-<h3 id="breast-w-dataset-1">4.2.1 breast-w dataset</h3>
-<p>准确率对比</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/classifiers/single_bagging_acc/breast-w.png&quot;&gt;</code></pre>
+
+<h2 id="4-2-模型的bagging和single性能对比"><a href="#4-2-模型的bagging和single性能对比" class="headerlink" title="4.2 模型的bagging和single性能对比"></a>4.2 模型的bagging和single性能对比</h2><h3 id="4-2-1-breast-w-dataset"><a href="#4-2-1-breast-w-dataset" class="headerlink" title="4.2.1 breast-w dataset"></a>4.2.1 breast-w dataset</h3><p>准确率对比</p>
+<div align="center">
+    <img src="/images/classifiers/single_bagging_acc/breast-w.png">
 </div>
+
+
+
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/breast-w.png"></p>
-<h3 id="colic-dataset-1">4.2.1 colic dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/colic.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/breast-w.png" alt></p>
+<h3 id="4-2-1-colic-dataset"><a href="#4-2-1-colic-dataset" class="headerlink" title="4.2.1 colic dataset"></a>4.2.1 colic dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/colic.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/colic.png"></p>
-<h3 id="credit-a-dataset-1">4.2.3 credit-a dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/credit-a.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/colic.png" alt></p>
+<h3 id="4-2-3-credit-a-dataset"><a href="#4-2-3-credit-a-dataset" class="headerlink" title="4.2.3 credit-a dataset"></a>4.2.3 credit-a dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/credit-a.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/credit-a.png"></p>
-<h3 id="credit-g-dataset-1">4.2.4 credit-g dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/credit-g.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/credit-a.png" alt></p>
+<h3 id="4-2-4-credit-g-dataset"><a href="#4-2-4-credit-g-dataset" class="headerlink" title="4.2.4 credit-g dataset"></a>4.2.4 credit-g dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/credit-g.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/credit-g.png"></p>
-<h3 id="diabetes-dataset-1">4.2.5 diabetes dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/diabetes.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/credit-g.png" alt></p>
+<h3 id="4-2-5-diabetes-dataset"><a href="#4-2-5-diabetes-dataset" class="headerlink" title="4.2.5 diabetes dataset"></a>4.2.5 diabetes dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/diabetes.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/diabetes.png"></p>
-<h3 id="hepatitis-dataset-1">4.2.6 hepatitis dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/hepatitis.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/diabetes.png" alt></p>
+<h3 id="4-2-6-hepatitis-dataset"><a href="#4-2-6-hepatitis-dataset" class="headerlink" title="4.2.6 hepatitis dataset"></a>4.2.6 hepatitis dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/hepatitis.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/hepatitis.png"></p>
-<h3 id="mozilla4-dataset-1">4.2.7 mozilla4 dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/mozilla4.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/hepatitis.png" alt></p>
+<h3 id="4-2-7-mozilla4-dataset"><a href="#4-2-7-mozilla4-dataset" class="headerlink" title="4.2.7 mozilla4 dataset"></a>4.2.7 mozilla4 dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/mozilla4.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/mozilla4.png"></p>
-<h3 id="pc1-dataset-1">4.2.8 pc1 dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/pc1.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/mozilla4.png" alt></p>
+<h3 id="4-2-8-pc1-dataset"><a href="#4-2-8-pc1-dataset" class="headerlink" title="4.2.8 pc1 dataset"></a>4.2.8 pc1 dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/pc1.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/pc1.png"></p>
-<h3 id="pc5-dataset-1">4.2.9 pc5 dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/pc5.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/pc1.png" alt></p>
+<h3 id="4-2-9-pc5-dataset"><a href="#4-2-9-pc5-dataset" class="headerlink" title="4.2.9 pc5 dataset"></a>4.2.9 pc5 dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/pc5.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/pc5.png"></p>
-<h3 id="waveform-5000-dataset-1">4.2.10 waveform-5000 dataset</h3>
-<p>准确率对比</p>
-<p><img src="/images/classifiers/single_bagging_acc/waveform-5000.png"></p>
+<p><img src="/images/classifiers/single_bagging_auc/pc5.png" alt></p>
+<h3 id="4-2-10-waveform-5000-dataset"><a href="#4-2-10-waveform-5000-dataset" class="headerlink" title="4.2.10 waveform-5000 dataset"></a>4.2.10 waveform-5000 dataset</h3><p>准确率对比</p>
+<p><img src="/images/classifiers/single_bagging_acc/waveform-5000.png" alt></p>
 <p>AUC对比</p>
-<p><img src="/images/classifiers/single_bagging_auc/waveform-5000.png"></p>
-<h1 id="五优化">五、优化</h1>
-<h2 id="降维">5.1 降维</h2>
-<p>pc1，pc5，waveform-5000，colic，credit-g这几个数据集的属性维度都在20维及以上，而对分辨样本类别有关键作用的就只有几个属性，所以想到通过降维来摈除干扰属性以使分类模型更好得学习到数据的特征。用主成分分析(PCA)降维之后的数据分类效果不佳，考虑到都是带标签的数据，就尝试使用线性判别分析(LDA)利用数据类别信息来降维。但是LDA最多降维到类别数-1，对于二类数据集效果不好。waveform-5000包含三种类别，于是就尝试用LDA对waveform-5000降维之后再使用各分类模型对其进行学习。</p>
+<p><img src="/images/classifiers/single_bagging_auc/waveform-5000.png" alt></p>
+<h1 id="五、优化"><a href="#五、优化" class="headerlink" title="五、优化"></a>五、优化</h1><h2 id="5-1-降维"><a href="#5-1-降维" class="headerlink" title="5.1 降维"></a>5.1 降维</h2><p>pc1，pc5，waveform-5000，colic，credit-g这几个数据集的属性维度都在20维及以上，而对分辨样本类别有关键作用的就只有几个属性，所以想到通过降维来摈除干扰属性以使分类模型更好得学习到数据的特征。用主成分分析(PCA)降维之后的数据分类效果不佳，考虑到都是带标签的数据，就尝试使用线性判别分析(LDA)利用数据类别信息来降维。但是LDA最多降维到类别数-1，对于二类数据集效果不好。waveform-5000包含三种类别，于是就尝试用LDA对waveform-5000降维之后再使用各分类模型对其进行学习。</p>
 <p>使用sklearn.discriminant_analysis.LinearDiscriminantAnalysis对waveform-5000降维之后的数据样本分布散点图如下，可以明显看到数据被聚为三类，降维之后的数据特征信息更为明显，干扰信息更少，对分类更有利</p>
-<p><img src="/images/classifiers/lda_waveform/lda_effect.png"></p>
+<p><img src="/images/classifiers/lda_waveform/lda_effect.png" alt></p>
 <p>各分类模型在原数据集和LDA降维数据集上准确率对比如下图</p>
-<p><img src="/images/classifiers/lda_waveform/lda_waveform_acc.png"></p>
+<p><img src="/images/classifiers/lda_waveform/lda_waveform_acc.png" alt></p>
 <p>各分类模型在原数据集和LDA降维数据集上AUC值对比如下图</p>
-<p><img src="/images/classifiers/lda_waveform/lda_waveform_auc.png"></p>
+<p><img src="/images/classifiers/lda_waveform/lda_waveform_auc.png" alt></p>
 <p>可以看到降维之后的分类效果很理想，无论是acc还是auc，各个分类模型都得到了不同程度的性能提升</p>
-<h2 id="标准化提升bagging-with-knn性能">5.2 标准化提升bagging with KNN性能</h2>
-<p>由于KNN是基于样本空间的欧氏距离来计算的，而多属性样本的各属性通常有不同的量纲和量纲单位，这无疑会给计算样本之间的真实距离带来干扰，影响KNN分类效果。为了消除各属性之间的量纲差异，需要进行数据<em>标准化处理</em>，计算属性的z分数来替换原属性值。在具体的程序设计时使用sklearn.preprocessing.StandardScaler来对数据进行标准化。</p>
+<h2 id="5-2-标准化提升bagging-with-KNN性能"><a href="#5-2-标准化提升bagging-with-KNN性能" class="headerlink" title="5.2 标准化提升bagging with KNN性能"></a>5.2 标准化提升bagging with KNN性能</h2><p>由于KNN是基于样本空间的欧氏距离来计算的，而多属性样本的各属性通常有不同的量纲和量纲单位，这无疑会给计算样本之间的真实距离带来干扰，影响KNN分类效果。为了消除各属性之间的量纲差异，需要进行数据<em>标准化处理</em>，计算属性的z分数来替换原属性值。在具体的程序设计时使用sklearn.preprocessing.StandardScaler来对数据进行标准化。</p>
 <p>bagging with KNN在原数据集和标准化数据集上准确率对比如下图</p>
-<p><img src="/images/classifiers/baggingknn_isnorm/baggingknn_isnorm_acc.png"></p>
+<p><img src="/images/classifiers/baggingknn_isnorm/baggingknn_isnorm_acc.png" alt></p>
 <p>bagging with KNN在原数据集和标准化数据集上AUC对比如下图</p>
-<p><img src="/images/classifiers/baggingknn_isnorm/baggingknn_isnorm_auc.png"></p>
+<p><img src="/images/classifiers/baggingknn_isnorm/baggingknn_isnorm_auc.png" alt></p>
 <p>可以看到标准化之后效果还是不错的，无论是acc还是auc，基本在各数据集上都得到了性能提升</p>
-<h1 id="六实验总结">六、实验总结</h1>
-<p>此次实验让我对各个分类器的具体用法有了初步的了解，不同的数据集上应用不同分类模型的效果截然不同。数据挖掘任务70%时间消耗在数据清洗上，无论什么分类模型，其在高质量数据上的表现肯定是要优于其在低质量数据上的表现。所以拿到一个数据集后不能贸然往上面套分类模型，而是应该先对数据集进行观察分析，然后利用工具对数据进行清洗、约简、集成以及转换，提升数据质量，让分类更好得学习到数据的特征，从而有更好的分类效果。本次实验我也对各数据集进行了预处理，包括数据缺失值填补、数据类型转换、数据降维、数据标准化等等，这些工作都在各分类模型的分类效果上得到了一定的反馈。实验过程中也遇到了一些问题，比如使用sklearn.metrics.roc_auc_score计算多类别数据的AUC时需要提前将数据标签转换为one hot编码，LDA最多只能将数据维度降维到类别数-1等等，这些都为我以后进行数据挖掘工作积累了宝贵经验。</p>
+<h1 id="六、实验总结"><a href="#六、实验总结" class="headerlink" title="六、实验总结"></a>六、实验总结</h1><p>此次实验让我对各个分类器的具体用法有了初步的了解，不同的数据集上应用不同分类模型的效果截然不同。数据挖掘任务70%时间消耗在数据清洗上，无论什么分类模型，其在高质量数据上的表现肯定是要优于其在低质量数据上的表现。所以拿到一个数据集后不能贸然往上面套分类模型，而是应该先对数据集进行观察分析，然后利用工具对数据进行清洗、约简、集成以及转换，提升数据质量，让分类更好得学习到数据的特征，从而有更好的分类效果。本次实验我也对各数据集进行了预处理，包括数据缺失值填补、数据类型转换、数据降维、数据标准化等等，这些工作都在各分类模型的分类效果上得到了一定的反馈。实验过程中也遇到了一些问题，比如使用sklearn.metrics.roc_auc_score计算多类别数据的AUC时需要提前将数据标签转换为one hot编码，LDA最多只能将数据维度降维到类别数-1等等，这些都为我以后进行数据挖掘工作积累了宝贵经验。</p>
 
       
     </div>
@@ -950,7 +949,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一实验说明"><span class="nav-number">1.</span> <span class="nav-text">一、实验说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#任务描述"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 任务描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据说明"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 数据说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二数据预处理"><span class="nav-number">2.</span> <span class="nav-text">二、数据预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三代码设计与实现"><span class="nav-number">3.</span> <span class="nav-text">三、代码设计与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#朴素贝叶斯naive-bayes"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 朴素贝叶斯Naive Bayes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树decision-tree"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 决策树decision tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k近邻knn"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 K近邻KNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络之多层感知机mlp"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 神经网络之多层感知机MLP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持向量机svm"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 支持向量机SVM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四实验结果与分析"><span class="nav-number">4.</span> <span class="nav-text">四、实验结果与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不同数据集上的模型对比"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 不同数据集上的模型对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#breast-w-dataset"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 breast-w dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#colic-dataset"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 colic dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#credit-a-dataset"><span class="nav-number">4.1.3.</span> <span class="nav-text">4.1.3 credit-a dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#credit-g-dataset"><span class="nav-number">4.1.4.</span> <span class="nav-text">4.1.4 credit-g dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diabetes-dataset"><span class="nav-number">4.1.5.</span> <span class="nav-text">4.1.5 diabetes dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hepatitis-dataset"><span class="nav-number">4.1.6.</span> <span class="nav-text">4.1.6 hepatitis dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mozilla4-dataset"><span class="nav-number">4.1.7.</span> <span class="nav-text">4.1.7 mozilla4 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc1-dataset"><span class="nav-number">4.1.8.</span> <span class="nav-text">4.1.8 pc1 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc5-dataset"><span class="nav-number">4.1.9.</span> <span class="nav-text">4.1.9 pc5 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#waveform-5000-dataset"><span class="nav-number">4.1.10.</span> <span class="nav-text">4.1.10 waveform-5000 dataset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型的bagging和single性能对比"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 模型的bagging和single性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#breast-w-dataset-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 breast-w dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#colic-dataset-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.1 colic dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#credit-a-dataset-1"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 credit-a dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#credit-g-dataset-1"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 credit-g dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diabetes-dataset-1"><span class="nav-number">4.2.5.</span> <span class="nav-text">4.2.5 diabetes dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hepatitis-dataset-1"><span class="nav-number">4.2.6.</span> <span class="nav-text">4.2.6 hepatitis dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mozilla4-dataset-1"><span class="nav-number">4.2.7.</span> <span class="nav-text">4.2.7 mozilla4 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc1-dataset-1"><span class="nav-number">4.2.8.</span> <span class="nav-text">4.2.8 pc1 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc5-dataset-1"><span class="nav-number">4.2.9.</span> <span class="nav-text">4.2.9 pc5 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#waveform-5000-dataset-1"><span class="nav-number">4.2.10.</span> <span class="nav-text">4.2.10 waveform-5000 dataset</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五优化"><span class="nav-number">5.</span> <span class="nav-text">五、优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#降维"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 降维</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准化提升bagging-with-knn性能"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 标准化提升bagging with KNN性能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六实验总结"><span class="nav-number">6.</span> <span class="nav-text">六、实验总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、实验说明"><span class="nav-number">1.</span> <span class="nav-text">一、实验说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-任务描述"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 任务描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-数据说明"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 数据说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、数据预处理"><span class="nav-number">2.</span> <span class="nav-text">二、数据预处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、代码设计与实现"><span class="nav-number">3.</span> <span class="nav-text">三、代码设计与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-朴素贝叶斯Naive-Bayes"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 朴素贝叶斯Naive Bayes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-决策树decision-tree"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 决策树decision tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-K近邻KNN"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 K近邻KNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-神经网络之多层感知机MLP"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 神经网络之多层感知机MLP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-支持向量机SVM"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 支持向量机SVM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、实验结果与分析"><span class="nav-number">4.</span> <span class="nav-text">四、实验结果与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-不同数据集上的模型对比"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 不同数据集上的模型对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-breast-w-dataset"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 breast-w dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-colic-dataset"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 colic dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-3-credit-a-dataset"><span class="nav-number">4.1.3.</span> <span class="nav-text">4.1.3 credit-a dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-4-credit-g-dataset"><span class="nav-number">4.1.4.</span> <span class="nav-text">4.1.4 credit-g dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-5-diabetes-dataset"><span class="nav-number">4.1.5.</span> <span class="nav-text">4.1.5 diabetes dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-6-hepatitis-dataset"><span class="nav-number">4.1.6.</span> <span class="nav-text">4.1.6 hepatitis dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-7-mozilla4-dataset"><span class="nav-number">4.1.7.</span> <span class="nav-text">4.1.7 mozilla4 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-8-pc1-dataset"><span class="nav-number">4.1.8.</span> <span class="nav-text">4.1.8 pc1 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-9-pc5-dataset"><span class="nav-number">4.1.9.</span> <span class="nav-text">4.1.9 pc5 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-10-waveform-5000-dataset"><span class="nav-number">4.1.10.</span> <span class="nav-text">4.1.10 waveform-5000 dataset</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-模型的bagging和single性能对比"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 模型的bagging和single性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-breast-w-dataset"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 breast-w dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-colic-dataset"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.1 colic dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-3-credit-a-dataset"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 credit-a dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-4-credit-g-dataset"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 credit-g dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-diabetes-dataset"><span class="nav-number">4.2.5.</span> <span class="nav-text">4.2.5 diabetes dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-6-hepatitis-dataset"><span class="nav-number">4.2.6.</span> <span class="nav-text">4.2.6 hepatitis dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-7-mozilla4-dataset"><span class="nav-number">4.2.7.</span> <span class="nav-text">4.2.7 mozilla4 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-8-pc1-dataset"><span class="nav-number">4.2.8.</span> <span class="nav-text">4.2.8 pc1 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-9-pc5-dataset"><span class="nav-number">4.2.9.</span> <span class="nav-text">4.2.9 pc5 dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-10-waveform-5000-dataset"><span class="nav-number">4.2.10.</span> <span class="nav-text">4.2.10 waveform-5000 dataset</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、优化"><span class="nav-number">5.</span> <span class="nav-text">五、优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-降维"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 降维</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-标准化提升bagging-with-KNN性能"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 标准化提升bagging with KNN性能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六、实验总结"><span class="nav-number">6.</span> <span class="nav-text">六、实验总结</span></a></li></ol></div>
             
 
           </div>
