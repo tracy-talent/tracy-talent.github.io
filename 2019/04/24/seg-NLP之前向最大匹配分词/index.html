@@ -411,7 +411,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">542(字)</span>
+            <span class="post-count">544(字)</span>
             
           </span>
 	  
@@ -462,7 +462,7 @@
 <h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
 <li>汉英词典dic_ce.txt，读取其中的汉词用于与句中词进行匹配，词典采用GBK编码，下面是给出文件内容示例：</li>
 </ul>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//g</span>bk编码，每行第一个词是汉词，后面是它对应的英译单词，以<span class="string">','</span>分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行第一个词是汉词，后面是它对应的英译单词，以&apos;,&apos;分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
 <h2 id="四、性能分析"><a href="#四、性能分析" class="headerlink" title="四、性能分析"></a>四、性能分析</h2><ul>
 <li>假设输入中文语句长度为n，程序时间复杂度最坏情况下是O(n^2)，最好情况是O(n)，下面是程序分析结果及分词耗时评测的截图：</li>
 </ul>
