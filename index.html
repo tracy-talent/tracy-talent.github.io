@@ -491,7 +491,7 @@
 <script type="math/tex; mode=display">
 p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}^{T}\theta^{u})]^{1-L^{w}(u)}\tag{1.4}</script><p>从而$g(w)$可简写为</p>
 <script type="math/tex; mode=display">
-g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化$\sigma({x<em>{w}^{T}\theta^{w}})$，同时最小化所有的$\sigma({x</em>{w}^{T}\theta^{u}}),u \in NEG(w)$，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
+g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化<script type="math/tex">\sigma({x_{w}^{T}\theta^{w}})</script>，同时最小化所有的<script type="math/tex">\sigma({x_{w}^{T}\theta^{u}}),u \in NEG(w)</script>，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
 <script type="math/tex; mode=display">
 \begin{align}
     \mathcal{L}&=\log{G}=\sum_{w \in C}\log{g(w)} \\
@@ -505,7 +505,7 @@ g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\the
   &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
 \end{align}\tag{1.8}</script><p>于是$\theta^{u}$的更新公式可写成</p>
 <script type="math/tex; mode=display">
-  \theta^{u}=\theta^{u}+\eta[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w} \tag{1.9}</script><p>接下来考虑$\mathcal{L}(w,u)$对$x<em>{w}$的偏导，由于式(1.7)中$x</em>{w}$和$\theta^{u}$的对称性可得</p>
+  \theta^{u}=\theta^{u}+\eta[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w} \tag{1.9}</script><p>接下来考虑$\mathcal{L}(w,u)$对<script type="math/tex">x_{w}</script>的偏导，由于式(1.7)中<script type="math/tex">x_{w}</script>和<script type="math/tex">\theta^{u}</script>的对称性可得</p>
 <script type="math/tex; mode=display">
   \frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}}=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]\theta^{u} \tag{1.10}</script><p>于是，利用式(1.10)的结果可得$v(\widetilde{w}),\widetilde{w} \in Context(w)$的更新公式为</p>
 <script type="math/tex; mode=display">
