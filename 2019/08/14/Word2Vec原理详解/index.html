@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://brooksj.com/images/paper/word2vec1.png">
 <meta property="og:image" content="https://brooksj.com/images/paper/word2vec2.png">
-<meta property="og:updated_time" content="2019-08-14T16:20:36.392Z">
+<meta property="og:updated_time" content="2019-08-14T16:22:59.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word2Vec原理详解">
 <meta name="twitter:description" content="paper   Efficient Estimation of Word Representations inVector Space  Distributed Representations of Words and Phrasesand their Compositionality   简介Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
@@ -490,7 +490,7 @@
 <script type="math/tex; mode=display">
 p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}^{T}\theta^{u})]^{1-L^{w}(u)}\tag{1.4}</script><p>从而$g(w)$可简写为</p>
 <script type="math/tex; mode=display">
-g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)​$相当于最大化$\sigma({x<em>{w}^{T}\theta^{w}})​$，同时最小化所有的$\sigma({x</em>{w}^{T}\theta^{u}}),u \in NEG(w)​$，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
+g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化$\sigma({x<em>{w}^{T}\theta^{w}})$，同时最小化所有的$\sigma({x</em>{w}^{T}\theta^{u}}),u \in NEG(w)$，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
 <script type="math/tex; mode=display">
 \begin{align}
     \mathcal{L}&=\log{G}=\sum_{w \in C}\log{g(w)} \\
