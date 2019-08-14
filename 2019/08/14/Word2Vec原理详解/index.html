@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -82,15 +82,21 @@
 
 
 
+<meta name="description" content="paper   Efficient Estimation of Word Representations inVector Space  Distributed Representations of Words and Phrasesand their Compositionality   简介Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
 <meta name="keywords" content="NLP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Word2Vec原理详解">
 <meta property="og:url" content="https://brooksj.com/2019/08/14/Word2Vec原理详解/index.html">
 <meta property="og:site_name" content="在人间漂流">
+<meta property="og:description" content="paper   Efficient Estimation of Word Representations inVector Space  Distributed Representations of Words and Phrasesand their Compositionality   简介Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-14T14:39:56.465Z">
+<meta property="og:image" content="https://brooksj.com/images/paper/word2vec1.png">
+<meta property="og:image" content="https://brooksj.com/images/paper/word2vec2.png">
+<meta property="og:updated_time" content="2019-08-14T14:49:57.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word2Vec原理详解">
+<meta name="twitter:description" content="paper   Efficient Estimation of Word Representations inVector Space  Distributed Representations of Words and Phrasesand their Compositionality   简介Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
+<meta name="twitter:image" content="https://brooksj.com/images/paper/word2vec1.png">
 
 
 
@@ -147,7 +153,7 @@
      js.src = "//connect.facebook.net/zh_Hans/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -167,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <!-- fork me on github -->
@@ -417,7 +423,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">0(字)</span>
+            <span class="post-count">1.2k(字)</span>
             
           </span>
 	  
@@ -427,7 +433,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
+            <span class="post-count">6(分)</span>
           </span>
 
           
@@ -449,7 +455,92 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><font color="red" size="5">paper</font>
+
+<ul>
+<li><p><a href="https://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener">Efficient Estimation of Word Representations in<br>Vector Space</a></p>
+</li>
+<li><p><a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" target="_blank" rel="noopener">Distributed Representations of Words and Phrases<br>and their Compositionality</a></p>
+</li>
+</ul>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip-gram(Continuous Skip-gram Model)模型,如下图所示</p>
+<div align="center">
+    <img src="/images/paper/word2vec1.png">
+</div>
+
+<p>当训练文本集规模较小时适合使用CBOW模型，当训练文本集规模较大时适合使用Skip-gram模型</p>
+<h3 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h3><h4 id="Hierarchical-Softmax"><a href="#Hierarchical-Softmax" class="headerlink" title="Hierarchical Softmax"></a>Hierarchical Softmax</h4><p>方法一：基于Huffman树的Hierarchical Softmax</p>
+<h4 id="Negative-Sampling"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</h4><p>方法二：作者Mikolov提出的Negative Sampling(NEG)，该方法是Noise Contrastive Estimation(NCE)的一个简化版本</p>
+<h5 id="CBOW模型"><a href="#CBOW模型" class="headerlink" title="CBOW模型"></a>CBOW模型</h5><p>在CBOW模型中，已知词$w$的上下文$Context(w)$，需要预测$w$，因此对于给定的$Context(w)$，词$w$就是一个正样本，其它词就是负样本了。假定现在已经选好了一个关于$w$的负样本子集$NEG(w) \ne \emptyset$，且对$\forall\  \widetilde{w} \in \mathcal{D}$，定义</p>
+<script type="math/tex; mode=display">
+  L^{w}(\widetilde{w})=\begin{cases}
+  1,& {\widetilde{w}}=w; \\
+  0,& {\widetilde{w}} \ne w;
+  \end{cases}\tag{1.1}</script><p>令$\sigma(x)=\frac{1}{1+\mathrm{e}^{x}}$，语料库$C$，概率生成函数如下</p>
+<script type="math/tex; mode=display">
+\begin{align}
+    G&=\prod_{w \in C}{g(\mathcal{w})} \\
+    &=\prod_{w \in C}\prod_{u \in \{w\} \cup NEG(w)}{p(u|Context(w))} 
+    \end{align}\tag{1.2}</script><p>其中</p>
+<script type="math/tex; mode=display">
+  p(u|Context(w))=\begin{cases}
+    \sigma({x_{w}^{T}\theta^{u})},& L^{w}(u)=1\\
+    1-\sigma(x_{w}^{T}\theta^{u}), & L^{w}(u)=0
+    \end{cases}\tag{1.3}</script><p>可将$p(u|Context(w))$写成整体表达式如下</p>
+<script type="math/tex; mode=display">
+p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}^{T}\theta^{u})]^{1-L^{w}(u)}\tag{1.4}从而$g(w)$可简写为</script><p>从而$g(w)$可简写为</p>
+<script type="math/tex; mode=display">
+  g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)​$相当于最大化$\sigma({x<em>{w}^{T}\theta^{w}})​$，同时最小化所有的$\sigma({x</em>{w}^{T}\theta^{u}}),u \in NEG(w)​$，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
+<script type="math/tex; mode=display">
+\begin{align}
+    \mathcal{L}&=\log{G}=\sum_{w \in C}\log{g(w)} \\
+    \end{align}\tag{1.6}</script><p>为方便梯度推导，将(1.6)式花括号中的内容简记为$\mathcal{L}(w,u)$，即</p>
+<script type="math/tex; mode=display">
+  \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
+<script type="math/tex; mode=display">
+  \begin{align}
+  &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
+  &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
+  &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
+  \end{align}\tag{1.8}</script><p>于是$\theta^{u}$的更新公式可写成</p>
+<script type="math/tex; mode=display">
+  \theta^{u}=\theta^{u}+\eta[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w} \tag{1.9}</script><p>接下来考虑$\mathcal{L}(w,u)$对$x<em>{w}$的偏导，由于式(1.7)中$x</em>{w}$和$\theta^{u}$的对称性可得</p>
+<script type="math/tex; mode=display">
+  \frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}}=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]\theta^{u} \tag{1.10}</script><p>于是，利用式(1.10)的结果可得$v(\widetilde{w}),\widetilde{w} \in Context(w)$的更新公式为</p>
+<script type="math/tex; mode=display">
+v(\widetilde{w})=v(\widetilde{w}) + \eta\sum_{u \in \{w\} \cup NEG(w)}\frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}} \tag{1.11}</script><p>伪代码如下</p>
+<div align="center">
+    <img src="/images/paper/word2vec2.png">
+</div>
+
+
+
+<h5 id="Skip-gram模型"><a href="#Skip-gram模型" class="headerlink" title="Skip-gram模型"></a>Skip-gram模型</h5><p>结合SKip-gram和CBOW模型的区别，将优化目标函数由原来的$G=\prod_{w \in C}g(w)$改写为</p>
+<script type="math/tex; mode=display">
+G=\prod_{w \in C}\prod_{u \in Context(w)}g(u) \tag{2.1}</script><p>这里，$\prod_{u \in Context(w)}g(u)$表示对于一个给定的样本$(w,Context(w))$，我们希望最大化的量，$g(u)$类似于上一节$g(w)$，定义为</p>
+<script type="math/tex; mode=display">
+g(u)=\prod_{z \in \{u\} \cup NEG(u)}p(z|w) \tag{2.2}</script><p>其中$NEG(u)$表示处理词u时生成的负样本子集，条件概率</p>
+<script type="math/tex; mode=display">
+p(z|w)=\begin{cases}
+\sigma(v(w)^T\theta^z),& L^{u}(z)=1\\
+1-\sigma(v(w)^T\theta^z),& L^{u}(z)=0
+\end{cases}\tag{2.3}</script><p>(2.3)式写成整体表达式为</p>
+<script type="math/tex; mode=display">
+p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]^{1-L^{u}(z)} \tag{2.4}</script><p>同样，我们取G的对数，最终的目标函数为</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathcal{L}=\log{G}&=log\prod_{w \in C}\prod_{u \in Context(w)}\prod_{z \in \{u\} \cup NEG(u)}p(z|w)\\
+&=\sum_{w \in C}\sum_{u \in Context(w)}\sum_{z \in \{u\} \cup NEG(u)}\log{p(z|w)}\\
+&=\sum_{w \in C}\sum_{u \in Context(w)}\sum_{z \in \{u\} \cup NEG(u)}\{L^{u}(z) \cdot \log{[\sigma(v(w)^T\theta^{z})]} + [1-L^{u}(z)]\log{[1-\sigma(v(w)^{T}\theta^z)]}\}
+\end{align}\tag{2.5}</script><p>与CBOW模型一样利用梯度上升法对$\mathcal{L}$进行优化求最大值，将式(2.5)中花括号中的内容简记为$\mathcal{L}(w,u,z)$，然后将$\mathcal{L}(w,u,z)$分别对$v(w)$和$\theta^{z}$求偏导，具体求解过程省略，可参考文末链接参考1中的5.2节</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://www.cnblogs.com/peghoty/p/3857839.html" target="_blank" rel="noopener">* word2vec 中的数学原理详解</a></li>
+<li><a href="https://blog.csdn.net/Layumi1993/article/details/72866235" target="_blank" rel="noopener">Word2Vec教程 - Skip-Gram模型</a></li>
+<li><a href="https://blog.csdn.net/Layumi1993/article/details/72868399" target="_blank" rel="noopener">Word2Vec教程（2）- Negative Sampling</a></li>
+<li><a href="https://www.bilibili.com/video/av6475775" target="_blank" rel="noopener">Hierarchical Softmax(视频)</a></li>
+<li><a href="http://www.jmlr.org/papers/volume13/gutmann12a/gutmann12a.pdf" target="_blank" rel="noopener">Noise Contrastive Estimation(paper)</a></li>
+</ol>
+
       
     </div>
     
@@ -578,8 +669,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -704,6 +804,22 @@ show_date_time();
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练方法"><span class="nav-number">2.</span> <span class="nav-text">训练方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hierarchical-Softmax"><span class="nav-number">2.1.</span> <span class="nav-text">Hierarchical Softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Negative-Sampling"><span class="nav-number">2.2.</span> <span class="nav-text">Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CBOW模型"><span class="nav-number">2.2.1.</span> <span class="nav-text">CBOW模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Skip-gram模型"><span class="nav-number">2.2.2.</span> <span class="nav-text">Skip-gram模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1024,7 +1140,7 @@ show_date_time();
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
