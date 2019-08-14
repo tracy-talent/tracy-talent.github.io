@@ -422,7 +422,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.3k(字)</span>
+            <span class="post-count">0(字)</span>
             
           </span>
 	  
@@ -432,7 +432,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">6(分)</span>
+            <span class="post-count">1(分)</span>
           </span>
 
           
@@ -456,104 +456,7 @@
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p><font color="red" size="5">paper</font></p>
-<ul>
-<li><p><a href="https://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener">Efficient Estimation of Word Representations in Vector Space</a></p></li>
-<li><p><a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" target="_blank" rel="noopener">Distributed Representations of Words and Phrases and their Compositionality</a></p></li>
-</ul>
-<h3 id="简介">简介</h3>
-<p>Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip-gram(Continuous Skip-gram Model)模型,如下图所示</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/paper/word2vec1.png&quot;&gt;</code></pre>
-</div>
-<p>当训练文本集规模较小时适合使用CBOW模型，当训练文本集规模较大时适合使用Skip-gram模型</p>
-<h3 id="训练方法">训练方法</h3>
-<h4 id="hierarchical-softmax">Hierarchical Softmax</h4>
-<p>方法一：基于Huffman树的Hierarchical Softmax</p>
-<h4 id="negative-sampling">Negative Sampling</h4>
-<p>方法二：作者Mikolov提出的Negative Sampling(NEG)，该方法是Noise Contrastive Estimation(NCE)的一个简化版本</p>
-<h5 id="cbow模型">CBOW模型</h5>
-<p>在CBOW模型中，已知词<span class="math inline">\(w\)</span>的上下文<span class="math inline">\(Context(w)\)</span>，需要预测<span class="math inline">\(w\)</span>，因此对于给定的<span class="math inline">\(Context(w)\)</span>，词<span class="math inline">\(w\)</span>就是一个正样本，其它词就是负样本了。假定现在已经选好了一个关于<span class="math inline">\(w\)</span>的负样本子集<span class="math inline">\(NEG(w) \ne \emptyset\)</span>，且对<span class="math inline">\(\forall\  \widetilde{w} \in \mathcal{D}\)</span>，定义 <span class="math display">\[
-  L^{w}(\widetilde{w})=\begin{cases}
-  1,&amp; {\widetilde{w}}=w; \\
-  0,&amp; {\widetilde{w}} \ne w;
-  \end{cases}\tag{1.1}
-\]</span></p>
-<p>令<span class="math inline">\(\sigma(x)=\frac{1}{1+\mathrm{e}^{x}}\)</span>，语料库<span class="math inline">\(C\)</span>，概率生成函数如下 <span class="math display">\[
-\begin{align}
-    G&amp;=\prod_{w \in C}{g(\mathcal{w})} \\
-    &amp;=\prod_{w \in C}\prod_{u \in \{w\} \cup NEG(w)}{p(u|Context(w))} 
-    \end{align}\tag{1.2}
-\]</span></p>
-<p>其中 <span class="math display">\[
-  p(u|Context(w))=\begin{cases}
-    \sigma({x_{w}^{T}\theta^{u})},&amp; L^{w}(u)=1\\
-    1-\sigma(x_{w}^{T}\theta^{u}), &amp; L^{w}(u)=0
-    \end{cases}\tag{1.3}
-\]</span></p>
-<p>可将<span class="math inline">\(p(u|Context(w))\)</span>写成整体表达式如下 <span class="math display">\[
-p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}^{T}\theta^{u})]^{1-L^{w}(u)}\tag{1.4}从而$g(w)$可简写为
-\]</span></p>
-<p>从而<span class="math inline">\(g(w)\)</span>可简写为 <span class="math display">\[
-  g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}
-\]</span></p>
-<p>最终的目标函数对G取对数求最大似然。从形式上看，最大化<span class="math inline">\(g(w)​\)</span>相当于最大化<span class="math inline">\(\sigma({x_{w}^{T}\theta^{w}})​\)</span>，同时最小化所有的<span class="math inline">\(\sigma({x_{w}^{T}\theta^{u}}),u \in NEG(w)​\)</span>，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果 <span class="math display">\[
-\begin{align}
-    \mathcal{L}&amp;=\log{G}=\sum_{w \in C}\log{g(w)} \\
-    &amp;=\sum_{w \in C}\sum_{u \in \{w\} \cup NEG(w)}\{{L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]}}\}
-    \end{align}\tag{1.6}
-\]</span></p>
-<p>为方便梯度推导，将(1.6)式花括号中的内容简记为<span class="math inline">\(\mathcal{L}(w,u)\)</span>，即 <span class="math display">\[
-  \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}
-\]</span></p>
-<p>利用梯度上升法对<span class="math inline">\(\mathcal{L}\)</span>进行优化求最大值，<span class="math inline">\(\mathcal{L}(w,u)\)</span>分别对<span class="math inline">\(x_{w}和\theta^{u}\)</span>求偏导 <span class="math display">\[
-  \begin{align}
-  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&amp;=\frac{\partial}{\partial\theta^{u}}\{{L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]}}\}\\
-  &amp;=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
-  &amp;=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
-  &amp;=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
-  \end{align}\tag{1.8}
-\]</span></p>
-<p>于是<span class="math inline">\(\theta^{u}\)</span>的更新公式可写成 <span class="math display">\[
-  \theta^{u}=\theta^{u}+\eta[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w} \tag{1.9}
-\]</span></p>
-<p>接下来考虑<span class="math inline">\(\mathcal{L}(w,u)\)</span>对<span class="math inline">\(x_{w}\)</span>的偏导，由于式(1.7)中<span class="math inline">\(x_{w}\)</span>和<span class="math inline">\(\theta^{u}\)</span>的对称性可得 <span class="math display">\[
-  \frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}}=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]\theta^{u} \tag{1.10}
-\]</span></p>
-<p>于是，利用式(1.10)的结果可得<span class="math inline">\(v(\widetilde{w}),\widetilde{w} \in Context(w)\)</span>的更新公式为 <span class="math display">\[
-v(\widetilde{w})=v(\widetilde{w}) + \eta\sum_{u \in \{w\} \cup NEG(w)}\frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}} \tag{1.11}
-\]</span></p>
-<p>伪代码如下</p>
-<div data-align="center">
-<pre><code>&lt;img src=&quot;/images/paper/word2vec2.png&quot;&gt;</code></pre>
-</div>
-<h5 id="skip-gram模型">Skip-gram模型</h5>
-<p>结合SKip-gram和CBOW模型的区别，将优化目标函数由原来的<span class="math inline">\(G=\prod_{w \in C}g(w)\)</span>改写为 <span class="math display">\[
-G=\prod_{w \in C}\prod_{u \in Context(w)}g(u) \tag{2.1}
-\]</span> 这里，<span class="math inline">\(\prod_{u \in Context(w)}g(u)\)</span>表示对于一个给定的样本<span class="math inline">\((w,Context(w))\)</span>，我们希望最大化的量，<span class="math inline">\(g(u)\)</span>类似于上一节<span class="math inline">\(g(w)\)</span>，定义为 <span class="math display">\[
-g(u)=\prod_{z \in \{u\} \cup NEG(u)}p(z|w) \tag{2.2}
-\]</span> 其中<span class="math inline">\(NEG(u)\)</span>表示处理词u时生成的负样本子集，条件概率 <span class="math display">\[
-p(z|w)=\begin{cases}
-\sigma(v(w)^T\theta^z),&amp; L^{u}(z)=1\\
-1-\sigma(v(w)^T\theta^z),&amp; L^{u}(z)=0
-\end{cases}\tag{2.3}
-\]</span> (2.3)式写成整体表达式为 <span class="math display">\[
-p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]^{1-L^{u}(z)} \tag{2.4}
-\]</span> 同样，我们取G的对数，最终的目标函数为 <span class="math display">\[
-\begin{align}
-\mathcal{L}=\log{G}&amp;=log\prod_{w \in C}\prod_{u \in Context(w)}\prod_{z \in \{u\} \cup NEG(u)}p(z|w)\\
-&amp;=\sum_{w \in C}\sum_{u \in Context(w)}\sum_{z \in \{u\} \cup NEG(u)}\log{p(z|w)}\\
-&amp;=\sum_{w \in C}\sum_{u \in Context(w)}\sum_{z \in \{u\} \cup NEG(u)}\{L^{u}(z) \cdot \log{[\sigma(v(w)^T\theta^{z})]} + [1-L^{u}(z)]\log{[1-\sigma(v(w)^{T}\theta^z)]}\}
-\end{align}\tag{2.5}
-\]</span> 与CBOW模型一样利用梯度上升法对<span class="math inline">\(\mathcal{L}\)</span>进行优化求最大值，将式(2.5)中花括号中的内容简记为<span class="math inline">\(\mathcal{L}(w,u,z)\)</span>，然后将<span class="math inline">\(\mathcal{L}(w,u,z)\)</span>分别对<span class="math inline">\(v(w)\)</span>和<span class="math inline">\(\theta^{z}\)</span>求偏导，具体求解过程省略，可参考文末链接参考1中的5.2节</p>
-<h3 id="参考">参考</h3>
-<ol type="1">
-<li><a href="https://www.cnblogs.com/peghoty/p/3857839.html" target="_blank" rel="noopener">* word2vec 中的数学原理详解</a></li>
-<li><a href="https://blog.csdn.net/Layumi1993/article/details/72866235" target="_blank" rel="noopener">Word2Vec教程 - Skip-Gram模型</a></li>
-<li><a href="https://blog.csdn.net/Layumi1993/article/details/72868399" target="_blank" rel="noopener">Word2Vec教程（2）- Negative Sampling</a></li>
-<li><a href="https://www.bilibili.com/video/av6475775" target="_blank" rel="noopener">Hierarchical Softmax(视频)</a></li>
-<li><a href="http://www.jmlr.org/papers/volume13/gutmann12a/gutmann12a.pdf" target="_blank" rel="noopener">Noise Contrastive Estimation(paper)</a></li>
-</ol>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">
 
           
         
