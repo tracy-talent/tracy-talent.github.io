@@ -312,6 +312,460 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/09/皮尔逊相关系数绝对值小于1的证明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/09/皮尔逊相关系数绝对值小于1的证明/" itemprop="url">皮尔逊相关系数绝对值小于1的证明</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T13:36:12+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Math/" itemprop="url" rel="index">
+                    <span itemprop="name">Math</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/09/皮尔逊相关系数绝对值小于1的证明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/08/09/皮尔逊相关系数绝对值小于1的证明/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/09/皮尔逊相关系数绝对值小于1的证明/" class="leancloud_visitors" data-flag-title="皮尔逊相关系数绝对值小于1的证明">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">517(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">2(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>皮尔逊相关系数的介绍可参考<a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E5%B0%94%E9%80%8A%E7%A7%AF%E7%9F%A9%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0" target="_blank" rel="noopener">维基百科:皮尔逊积矩相关系数</a></p>
+<p>在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 <strong>PPMCC</strong>或<strong>PCCs</strong>, 文章中常用r或Pearson’s r表示）用于度量两个变量X和Y之间的相关程度（线性相关）</p>
+<p>两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商</p>
+<script type="math/tex; mode=display">
+\rho_{xy}=\frac{cov(X,Y)}{\sigma_{x}\sigma_{y}}=\frac{E[(X-\mu_{X})(Y-\mu_{Y})]}{\sigma_{X}\sigma_{Y}} \tag{1.1}</script><p>估算样本的协方差和标准差，可得到样本相关系数</p>
+<script type="math/tex; mode=display">
+r=\frac{\sum_{i=1}^{n}{(X_{i}-\overline{X})(Y_{i}-\overline{Y})}}{\sqrt{\sum_{i=1}^{n}{(X_{i}-\overline{X})^{2}}}\sqrt{\sum_{i=1}^{n}{(Y_{i}-\overline{Y})^{2}}}} \tag{1.2}</script><p>r 亦可由样本点(<script type="math/tex">X_{i},Y_{i}</script>)的标准分数均值估算，得到与上式等价的表达式</p>
+<script type="math/tex; mode=display">
+r=\frac{1}{n-1}\sum_{i=1}^{n}{(\frac{X_{i}-\overline{X}}{\sigma_{X}})(\frac{Y_{i}-\overline{Y}}{\sigma_{Y}})} \tag{1.3}</script><p>其中<script type="math/tex">\frac{X-\overline{X}}{\sigma_{X}}、\overline{X}、\sigma_{X}</script>分别是<script type="math/tex">X_{i}</script>样本的标准分数、样本均值和样本标准差</p>
+<p>总体和样本皮尔逊相关系数都小于或者等于1，可以由柯西-施瓦茨不等式证明，关于柯西-施瓦茨不等式的定义与证明具体可参考<a href="https://zh.wikipedia.org/wiki/%E6%9F%AF%E8%A5%BF-%E6%96%BD%E7%93%A6%E8%8C%A8%E4%B8%8D%E7%AD%89%E5%BC%8F" target="_blank" rel="noopener">维基百科:柯西-施瓦茨不等式</a>，下面将直接利用柯西-施瓦茨不等式来证明皮尔逊相关系数的绝对值小于1</p>
+<font color="red" size="4">证明:</font>
+
+<p>要证明式(1.2)中的r绝对值小于等于1即证明<script type="math/tex">r^{2}</script>小于等于1，设式(1.2)中的<script type="math/tex">X_{i}-\overline{X}=x_{i},Y_{i}-\overline{Y}=y_{i}</script>，代入<script type="math/tex">r^{2}</script>有</p>
+<script type="math/tex; mode=display">
+r^{2} = \frac{(\sum_{i=1}^{n}x_{i}y_{i})^{2}}{(\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{i=1}^{n}{y_{i}^{2}})} \tag{1.4}</script><p>又由柯西-施瓦茨不等式知</p>
+<script type="math/tex; mode=display">
+(\sum_{i=1}^{n}{x_{i}y_{i}})^{2} \le (\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{i=1}^{n}{y_{i}^{2}})</script><p>由此可知式(1.4)中的<script type="math/tex">r^2 \le 1</script>，即<script type="math/tex">|r| \le 1</script>，证毕!</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/08/各类概率分布函数tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/08/各类概率分布函数tutorial/" itemprop="url">各类概率分布函数tutorial</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T19:00:03+08:00">
+                2019-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/08/各类概率分布函数tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/08/08/各类概率分布函数tutorial/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/08/各类概率分布函数tutorial/" class="leancloud_visitors" data-flag-title="各类概率分布函数tutorial">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">1.1k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">4(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="泊松分布、指数分布与伽马分布简介及其关系"><a href="#泊松分布、指数分布与伽马分布简介及其关系" class="headerlink" title="泊松分布、指数分布与伽马分布简介及其关系"></a>泊松分布、指数分布与伽马分布简介及其关系</h2><p>泊松分布: <script type="math/tex">Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t > 0, n \ge 0)</script></p>
+<p>指数分布: <script type="math/tex">f(x)=\lambda e^{-\lambda t},\ (\lambda > 0,t > 0)</script></p>
+<p>伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为<script type="math/tex">\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}}(x > 0)</script>，对伽马函数做一个变形即可得到</p>
+<script type="math/tex; mode=display">
+\int_{0}^{\infty}{\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}}dx=1 \tag{1.1}</script><p>式(1.1)去除积分即为伽马分布的概率密度函数</p>
+<script type="math/tex; mode=display">
+Gamma(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)},(x>0,\alpha>0)</script><p>令<script type="math/tex">\beta t=x</script>，代入积分公式(1.1)中则可得到新的概率密度函数</p>
+<script type="math/tex; mode=display">
+Gamma(x|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\beta t>0,\alpha>0)</script><p>其中<script type="math/tex">\alpha</script>为shape parameter，主要决定了分布曲线的形状，<script type="math/tex">\beta</script>为scale parameter，主要决定曲线有多陡，<script type="math/tex">\beta</script>越大则曲线越陡。</p>
+<p>伽马分布是为解决阶乘数列的插值而产生的，伽马函数使得任意正实数所有阶乘，伽马函数有几条特性如下:</p>
+<ol>
+<li><script type="math/tex; mode=display">\Gamma(x+1)=x\Gamma(x)</script></li>
+<li><script type="math/tex; mode=display">\Gamma(n)=(n-1)!</script></li>
+</ol>
+<p>其中，<script type="math/tex">\Gamma(\frac{1}{2})=\sqrt{\pi},\frac{1}{2}!=\Gamma(\frac{3}{2})=\frac{1}{2}\Gamma(\frac{1}{2})=\frac{\sqrt{\pi}}{2}</script></p>
+<font color="red" size="4">物理解释:</font>
+
+<p>泊松分布: 单位时间t内独立事件发生次数n的概率分布</p>
+<p>指数分布: 独立事件的时间间隔的概率分布</p>
+<p>伽马分布: <script type="math/tex">\alpha</script>个独立事件的时间间隔的概率分布</p>
+<font color="green" size="4">参考链接:</font>
+
+<ul>
+<li><p><a href="https://www.jianshu.com/p/6ee90ba47b4a" target="_blank" rel="noopener">伽马分布，指数分布，泊松分布的关系</a></p>
+<p>这篇文章先讲述泊松分布，然后由泊松分布引出指数分布，说明了泊松分布与指数分布的关系，最后说明了伽马分布与指数分布的关系.</p>
+</li>
+<li><p><a href>LDA-math-神奇的Gamma函数(3)</a></p>
+<p>这篇文章由二项分布和Beta分布的关系式，借用二项分布的极限是泊松分布的性质转换得到泊松分布与伽马分布的关系式，以及泊松分布的概率累积函数与伽马分布的概率累积函数互补的关系。</p>
+</li>
+</ul>
+<h2 id="Beta分布简介"><a href="#Beta分布简介" class="headerlink" title="Beta分布简介"></a>Beta分布简介</h2><p>Beta分布: 首先来看Beta函数，Beta函数又称贝塔函数或者第一类欧拉积分，它的函数式如下</p>
+<script type="math/tex; mode=display">
+B(\alpha, \beta)=\int_{0}^{1}x^{\alpha-1}(1-x)^{\beta-1}dx=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)},(x \in [0,1],\alpha \gt 0, \beta \gt 0) \tag{2.1}</script><p>对Beta函数作一个变形即可得到</p>
+<script type="math/tex; mode=display">
+\int_{0}^{\infty}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}}=1,(\alpha>0,\beta>0)</script><p>去除式(2.1)的积分即可得到Beta分布的概率密度函数</p>
+<script type="math/tex; mode=display">
+X\sim Be(\alpha,\beta):Beta(x|\alpha,\beta)=\frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1},(\alpha>0,\beta>0)</script><font color="green" size="4">参考链接:</font>
+
+<ul>
+<li><p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="noopener">LDA-math-认识Beta/Dirichlet分布(1)</a></p>
+<p>这篇文章由掷骰子游戏从物理上解释了Beta分布的由来</p>
+</li>
+<li><p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%832" target="_blank" rel="noopener">LDA-math-认识Beta/Dirichlet分布(2)</a></p>
+<p>这篇文章在上一篇文章的基础上通过更新掷骰子的游戏规则引出了Beta分布与二项分布的共轭分布关系，共轭的意思就是，数据符合二项分布的时候，参数的先验分布和后验分布都能保持Beta 分布的形式。我们知道贝叶斯的参数估计过程是</p>
+<script type="math/tex; mode=display">
+先验分布\ + \ 数据的知识\ =\ 后验分布</script><p>对应到beta分布和二项分布的共轭</p>
+<script type="math/tex; mode=display">
+Beta(p|\alpha, \beta)\ +\ Binomial(m1|m1+m2,p)\ =\ Beta(p|\alpha+m1,\alpha+m2)</script></li>
+</ul>
+<h2 id="Dirichlet分布简介"><a href="#Dirichlet分布简介" class="headerlink" title="Dirichlet分布简介"></a>Dirichlet分布简介</h2><p>Multinomial分布: 中文名多项式分布</p>
+<script type="math/tex; mode=display">
+Mult(\vec{n}|\vec{p},N)=\binom{N}{\vec{n}}\prod_{k=1}^{K}{p_{k}^{n_{k}}}</script><p>Dirichlet分布: 中文名狄利克雷分布</p>
+<script type="math/tex; mode=display">
+Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}\Gamma(\alpha_{k})}{\prod_{k=1}^{K}{p_{k}^{\alpha_{k}-1}}}</script><font color="green" size="4">参考链接:</font>
+
+<ul>
+<li><p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%833" target="_blank" rel="noopener">LDA-math-认识Beta/Dirichlet分布(3)</a></p>
+<p>这篇文章由掷骰子的游戏引出Dirichlet分布，并且通过改变游戏规则引出Dirichlet分布与Multinomial分布的关系，但是在推导共轭关系时定义有些许错误要注意</p>
+</li>
+<li><p><a href="https://v.youku.com/v_show/id_XMzI4NzI4Mjg5Mg==.html?spm=a2hzp.8244740.0.0" target="_blank" rel="noopener">LDA基础知识—-Dirichlet 分布</a></p>
+<p>这是优酷上讲解LDA的Dirichlet分布的视频</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/07/24/多项式相关算法集成/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2458,462 +2912,6 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/24/seg-NLP之前向最大匹配分词/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/seg-NLP之前向最大匹配分词/" itemprop="url">seg:NLP之正向向最大匹配分词</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:11:42+08:00">
-                2019-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/24/seg-NLP之前向最大匹配分词/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/24/seg-NLP之前向最大匹配分词/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/24/seg-NLP之前向最大匹配分词/" class="leancloud_visitors" data-flag-title="seg:NLP之正向向最大匹配分词">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">542(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">2(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/seg" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一、任务要求"><a href="#一、任务要求" class="headerlink" title="一、任务要求"></a>一、任务要求</h2><ul>
-<li>实现一个基于词典与规则的汉语自动分词系统。</li>
-</ul>
-<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><ul>
-<li><p>采用正向最大匹配(FMM)方法对输入的中文语句进行分词，具体的实现可以分为下面几个步骤：</p>
-<ol>
-<li>对输入的一个中文语句，首先在程序中判断并确保语句中不包含数字或者字母</li>
-<li>在句子中的当前位置开始取与词典dic_ce.txt中最大匹配长度的词作为一个分词段，如果没有在词典中成功匹配到就将句子在当前匹配位置的这个字作为一个分词段并将匹配位置向前挪一个位置</li>
-<li>重复第2步直到匹配位置移到句末</li>
-</ol>
-</li>
-<li><p>下面是用FMM方法分词的具体实现:</p>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//param@seg:保存分词段结果的vector</span></span><br><span class="line"><span class="comment">//param@st:带分词的中文语句</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">segment</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;seg, <span class="built_in">string</span> st)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> sz = st.length();</span><br><span class="line">    <span class="built_in">string</span> t;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, spos;</span><br><span class="line">    <span class="keyword">while</span> (pos &lt; sz) &#123;</span><br><span class="line">        cnt = pos;</span><br><span class="line">        spos = pos;</span><br><span class="line">        t = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> (st[cnt]) &#123;</span><br><span class="line">            t += st.substr(cnt, <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span> (wordmap.find(t) != wordmap.end())</span><br><span class="line">                pos = cnt + <span class="number">2</span>;</span><br><span class="line">            cnt += <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pos == spos) &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, <span class="number">2</span>));</span><br><span class="line">            pos += <span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            seg.push_back(st.substr(spos, pos - spos));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
-<li>汉英词典dic_ce.txt，读取其中的汉词用于与句中词进行匹配，词典采用GBK编码，下面是给出文件内容示例：</li>
-</ul>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">//g</span>bk编码，每行第一个词是汉词，后面是它对应的英译单词，以<span class="string">','</span>分隔</span><br><span class="line">阿弥陀佛,Amitabha</span><br><span class="line">阿米巴,amoeba,amoebae</span><br><span class="line">阿姆斯特丹,Amsterdam</span><br><span class="line">阿斯匹林,aspirin</span><br></pre></td></tr></table></figure>
-<h2 id="四、性能分析"><a href="#四、性能分析" class="headerlink" title="四、性能分析"></a>四、性能分析</h2><ul>
-<li>假设输入中文语句长度为n，程序时间复杂度最坏情况下是O(n^2)，最好情况是O(n)，下面是程序分析结果及分词耗时评测的截图：</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_seg_1.png" alt="1541992901499"></p>
-<h2 id="五、运行环境"><a href="#五、运行环境" class="headerlink" title="五、运行环境"></a>五、运行环境</h2><ul>
-<li>将执行文件seg.exe与数据字典dic_ce.txt放在同一个目录下，然后点击seg.exe即可正常运行，进入运行窗口后根据提示进行输入即可得到分词结果。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/24/多机同步管理hexo博客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/多机同步管理hexo博客/" itemprop="url">多机同步管理hexo博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T22:23:16+08:00">
-                2019-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/24/多机同步管理hexo博客/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/24/多机同步管理hexo博客/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/24/多机同步管理hexo博客/" class="leancloud_visitors" data-flag-title="多机同步管理hexo博客">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">973(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="一、关于搭建的流程"><a href="#一、关于搭建的流程" class="headerlink" title="一、关于搭建的流程"></a>一、关于搭建的流程</h2><ol>
-<li><p>创建仓库，\&lt; your github username >.github.io；可参考我的<a href="https://github.com/tracy-talent/tracy-talent.github.io" target="_blank" rel="noopener">tracy-talent.github.io</a></p>
-</li>
-<li><p>创建两个分支：master 与 hexo；</p>
-</li>
-<li><p>设置hexo为默认分支（因为我们只需要手动管理这个分支上的Hexo网站文件,git clone会download默认分支）；</p>
-</li>
-<li><p>使用git clone git@github.com:username/username.github.io.git拷贝仓库；</p>
-</li>
-<li><p>在本地username.github.io文件夹下通过Git bash依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git（此时当前分支应显示为hexo）;</p>
-</li>
-<li><p>修改_config.yml中的deploy参数，分支应为master；</p>
-</li>
-<li><p>下载hexo主题，推荐使用next，先fork一份<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">hexo-theme-next</a>到自己账号上(主要为了方便自己后期对主题的定制)，然后进入到themes目录下执行git submodule add git@github.com:username/hexo-theme-next.git将fork的next主题仓库download下来作为当前博客主仓库的子模块，这时username.github.io目录下会多出一个.gitmodules的文件(里面存储着所有子模块的文件路径和url)，然后进入到hexo-theme-next主题目录下，使用git branch -a查看当前子模块所出的分支，确保在主分支master上，然后git pull origin master使得子模块与远程保持一致，接着在进入到博客根目录username.github.io下，依次git add、git commit、git push提交到github hexo分支；</p>
-</li>
-<li><p>网页端进入到username.github.io仓库下可以看到themes目录下hexo-theme-next存的是指向你fork的hexo-theme-next仓库最新commit id的指针，而不是实实在在的文件内容，点击之后会跳转到子仓库，github这样做也是为了节省存储开销</p>
-</li>
-<li><p>后期如果对主题自定义，每次修改完之后确保将主题模块切换到master分支，然后提交修改。再回到博客主目录下提交修改，更新主线(hexo分支)指向子模块的指针，这样才能将第三方库即子模块同步到主线上，使得主线上指向子模块的指针对应的永远是子模块最新的commit id</p>
-</li>
-<li><p>这时候如果想在另一台机器上同步部署博客，那么需要先安装npm，然后新建一个目录例如hexo(因为hexo初始化必须是一个空目录)，在hexo目录下依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git，然后退出hexo目录执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:username/username.github.io.git</span><br><span class="line">git submodule init &amp;&amp; git submodule update</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">下面这一句的效果和上面三条命令的效果是一样的,多加了个参数  `--recursive`</span></span><br><span class="line">git clone git@github.com:username/username.github.io.git --recursive</span><br></pre></td></tr></table></figure>
-<p>download完成之后将username.github.io目录下所有内容copy到hexo目录下，然后进入到hexo\themes\hexo-theme-next目录下，执行git checkout master切换到子模块的master分支上，执行git pull origin master同步子模块与远程子仓库，到此就实现了在另一台机器上与远程完全同步的工作了，可以在这台机器上写博客发表文章了，记得每次在不同机器作业时先在博客主目录下git pull origin master同步commit之后再开始写博客发表。</p>
-</li>
-<li><p>执行hexo g -d生成网站并部署到GitHub上。</p>
-</li>
-</ol>
-<p>这样一来，在GitHub上的username.github.io仓库就有两个分支，一个hexo分支用来存放网站的原始文件，一个master分支用来存放生成的静态网页。完美( •̀ ω •́ )y！</p>
-<h2 id="二、关于日常的改动流程"><a href="#二、关于日常的改动流程" class="headerlink" title="二、关于日常的改动流程"></a>二、关于日常的改动流程</h2><p>在本地对博客进行修改（添加新博文、修改样式等等）后，通过下面的流程进行管理。</p>
-<ol>
-<li>先git pull origin hexo同步远程仓库</li>
-<li>依次执行git add .、git commit -m “…”、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；</li>
-<li>然后才执行hexo g -d发布网站到master分支上。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2966,7 +2964,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2977,7 +2975,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2988,7 +2986,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
