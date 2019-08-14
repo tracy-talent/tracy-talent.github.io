@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
+<meta name="description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA) 1.1 Rationale         线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大">
 <meta name="keywords" content="dimensionality reduction,metrics learning,classification">
 <meta property="og:type" content="article">
 <meta property="og:title" content="降维与度量学习之LDA &amp;&amp; NCA">
 <meta property="og:url" content="https://brooksj.com/2019/04/19/NCA-LDA/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
+<meta property="og:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA) 1.1 Rationale         线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-06-03T14:52:52.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="降维与度量学习之LDA &amp;&amp; NCA">
-<meta name="twitter:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
+<meta name="twitter:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA) 1.1 Rationale         线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大">
 
 
 
@@ -442,57 +442,74 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/LDA%20%26%26%20NCA" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
-<script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
-<script type="math/tex; mode=display">
+<h2 id="一linear-discriminant-analysislda">一、Linear Discriminant Analysis(LDA)</h2>
+<h3 id="rationale">1.1 Rationale</h3>
+<p>        线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
+<p>        假设我们的数据集D={(x1,y1),(x2,y2),...,((xm,ym))}，其中任意样本xixi为n维向量，yi<span class="math display">\[\in\]</span>{C1,C2,...,Ck}。我们定义Nj(j=1,2...k)为第j类样本的个数，Xj(j=1,2...k)为第j类样本的集合，而μj(j=1,2...k)为第j类样本的均值向量，定义Σj(j=1,2...k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,...wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成 <span class="math display">\[
+\frac{W^TS_bW}{W^TS_wW}
+\]</span> 其中<span class="math display">\[S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T\]</span>，<span class="math display">\[\mu\]</span>为所有样本均值向量。<span class="math display">\[S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T\]</span>。但是有一个问题，就是<span class="math display">\[W^TS_bW\]</span>和<span class="math display">\[W^TS_{\mathcal{w}}W\]</span>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标 <span class="math display">\[
 \begin{aligned}
-\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
-& =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以<script type="math/tex">S_{b}</script>的秩不超过k，又因为第k个<script type="math/tex">\mu_{k}-\mu</script>可由前k-1个<script type="math/tex">\mu_{j}-\mu</script>线性表示，因此<script type="math/tex">S_b</script>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
-<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
-<li>Commonalities：<ul>
+\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&amp;=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
+&amp; =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
+\end{aligned}
+\]</span> 其中<span class="math display">\[\prod_{diag}A\]</span>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<span class="math display">\[S_{w}^{-1}S_b\]</span>的最大特征值，而最大的d个值的乘积就是<span class="math display">\[S_{w}^{-1}S_b\]</span>最大的d个特征值的乘积，而W即为<span class="math display">\[S_{w}^{-1}S_b\]</span>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<span class="math display">\[S_{b}\]</span>的<span class="math display">\[(\mu_{j}-\mu)(\mu_{j}-\mu)^T\]</span>的秩为1，所以<span class="math display">\[S_{b}\]</span>的秩不超过k，又因为第k个<span class="math display">\[\mu_{k}-\mu\]</span>可由前k-1个<span class="math display">\[\mu_{j}-\mu\]</span>线性表示，因此<span class="math display">\[S_b\]</span>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
+<h3 id="lda-vs-pca">1.2 LDA vs PCA</h3>
+<ul>
+<li>Commonalities：
+<ul>
 <li>两者均可以对数据进行降维。</li>
 <li>两者在降维时均使用了矩阵特征分解的思想。</li>
 <li>两者都假设数据符合高斯分布。</li>
-</ul>
-</li>
-<li>Differences：<ul>
+</ul></li>
+<li>Differences：
+<ul>
 <li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
 <li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
 <li>LDA除了可以用于降维，还可以用于分类。</li>
 <li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值</p>
-<script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|^{2})}，\ p_{ii}=0</script><p>设<script type="math/tex">p_{i}</script>为i能够被正确分类的概率，<script type="math/tex">C_{i}</script>表示与i属于同一类的样本的集合，那么</p>
-<script type="math/tex; mode=display">
-p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
-<script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
-<script type="math/tex; mode=display">
+<h2 id="二neighborhood-component-analysisnca">二、Neighborhood Component Analysis(NCA)</h2>
+<h3 id="rationale-1">2.1 Rationale</h3>
+<p>        近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" data-aria-label="&lt;http://www.cs.toronto.edu/~fritz/absps/nca.pdf&gt;">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
+<p>        接下来对NCA学习转换矩阵的数学推导，设<span class="math display">\[x_i(1 \le i \le n)\]</span>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<span class="math display">\[p_{ij}\]</span>为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值 <span class="math display">\[
+p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|^{2})}，\ p_{ii}=0
+\]</span> 设<span class="math display">\[p_{i}\]</span>为i能够被正确分类的概率，<span class="math display">\[C_{i}\]</span>表示与i属于同一类的样本的集合，那么 <span class="math display">\[
+p_{i}=\sum_{j \in C_{i}}p_{ij}
+\]</span> 优化目标就是最大化能被正确分类的点的数目 <span class="math display">\[
+f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}
+\]</span> f(A)对A求偏导，定义<span class="math display">\[x_{ij}=x_{i}-x_{j}\]</span> <span class="math display">\[
 \begin{aligned}
-f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
-&=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
-<script type="math/tex; mode=display">
-A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
-<li>commonalities:<ul>
+f^{&#39;}(A)=\frac{\partial f}{\partial A}&amp;=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
+&amp;=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
+\end{aligned}
+\]</span> 有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<span class="math display">\[A_{0}\]</span>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<span class="math display">\[\alpha\]</span>，<span class="math display">\[A_{0}\]</span>通过下面公式迭代 <span class="math display">\[
+A_{0}=A_{0}+\alpha f^{&#39;}(A_{0})
+\]</span></p>
+<h3 id="nca-vs-pca">2.2 NCA vs PCA</h3>
+<ul>
+<li>commonalities:
+<ul>
 <li>都可以用来降维</li>
-</ul>
-</li>
-<li>differences:<ul>
+</ul></li>
+<li>differences:
+<ul>
 <li>NCA除了降维还是一种度量学习的方法</li>
 <li>NCA对数据分布没有假设，而PCA要求数据服从高斯分布</li>
 <li>NCA基于KNN选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向</li>
+</ul></li>
 </ul>
+<div id="footnotes">
+<hr>
+<div id="footnotelist">
+<ol style="list-style: none; padding-left: 0; margin-left: 40px">
+<li id="fn:1">
+<span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span>
 </li>
-</ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
+</ol>
+</div>
+</div>
+
       
     </div>
     
@@ -667,7 +684,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -774,7 +791,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Linear-Discriminant-Analysis-LDA"><span class="nav-number">1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Rationale"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LDA-vs-PCA"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Neighborhood-Component-Analysis-NCA"><span class="nav-number">2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Rationale"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NCA-vs-PCA"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NCA vs PCA</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一linear-discriminant-analysislda"><span class="nav-number">1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rationale"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lda-vs-pca"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二neighborhood-component-analysisnca"><span class="nav-number">2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rationale-1"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nca-vs-pca"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NCA vs PCA</span></a></li></ol></li></ol></div>
             
 
           </div>
