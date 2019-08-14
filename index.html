@@ -463,7 +463,6 @@
 </ul>
 <h3 id="简介">简介</h3>
 <p>Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip-gram(Continuous Skip-gram Model)模型,如下图所示</p>
-<img src="/images/paper/word2vec1.png">
 <div>
 <pre><code>&lt;img src=&quot;/images/paper/word2vec1.png&quot;&gt;</code></pre>
 </div>
@@ -525,7 +524,6 @@ p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}
 v(\widetilde{w})=v(\widetilde{w}) + \eta\sum_{u \in \{w\} \cup NEG(w)}\frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}} \tag{1.11}
 \]</span></p>
 <p>伪代码如下</p>
-<img src="/images/paper/word2vec2.png">
 <div data-align="center">
 <pre><code>&lt;img src=&quot;/images/paper/word2vec2.png&quot;&gt;</code></pre>
 </div>
