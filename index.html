@@ -422,7 +422,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.2k(字)</span>
+            <span class="post-count">1.3k(字)</span>
             
           </span>
 	  
@@ -495,11 +495,13 @@ p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}
 <script type="math/tex; mode=display">
 \begin{align}
     \mathcal{L}&=\log{G}=\sum_{w \in C}\log{g(w)} \\
+    &=\sum_{w \in C}\sum_{u \in \{w\} \cup NEG(w)}&#123{L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]}}&#125
     \end{align}\tag{1.6}</script><p>为方便梯度推导，将(1.6)式花括号中的内容简记为$\mathcal{L}(w,u)$，即</p>
 <script type="math/tex; mode=display">
   \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
 <script type="math/tex; mode=display">
   \begin{align}
+  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}&#123{L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]}}&#125\\
   &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
   &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
   &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
