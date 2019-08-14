@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="在人间漂流">
 <meta property="og:description" content="paper  Efficient Estimation of Word Representations in Vector Space Distributed Representations of Words and Phrases and their Compositionality  简介 Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-14T14:17:01.286Z">
+<meta property="og:updated_time" content="2019-08-14T14:21:00.331Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word2Vec原理详解">
 <meta name="twitter:description" content="paper  Efficient Estimation of Word Representations in Vector Space Distributed Representations of Words and Phrases and their Compositionality  简介 Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
@@ -469,7 +469,7 @@
 <h4 id="negative-sampling">Negative Sampling</h4>
 <p>方法二：作者Mikolov提出的Negative Sampling(NEG)，该方法是Noise Contrastive Estimation(NCE)的一个简化版本</p>
 <h5 id="cbow模型">CBOW模型</h5>
-<p>在CBOW模型中，已知词<span class="math inline">\(w\)</span>的上下文<span class="math inline">\(Context(w)\)</span>，需要预测<span class="math inline">\(w\)</span>，因此对于给定的<span class="math inline">\(Context(w)\)</span>，词<span class="math inline">\(w\)</span>就是一个正样本，其它词就是负样本了。假定现在已经选好了一个关于<span class="math inline">\(w\)</span>的负样本子集<span class="math inline">\(NEG(w) \ne \empty\)</span>，且对<span class="math inline">\(\forall\  \widetilde{w} \in \mathcal{D}\)</span>，定义 <span class="math display">\[
+<p>在CBOW模型中，已知词<span class="math inline">\(w\)</span>的上下文<span class="math inline">\(Context(w)\)</span>，需要预测<span class="math inline">\(w\)</span>，因此对于给定的<span class="math inline">\(Context(w)\)</span>，词<span class="math inline">\(w\)</span>就是一个正样本，其它词就是负样本了。假定现在已经选好了一个关于<span class="math inline">\(w\)</span>的负样本子集<span class="math inline">\(NEG(w) \ne \emptyset\)</span>，且对<span class="math inline">\(\forall\  \widetilde{w} \in \mathcal{D}\)</span>，定义 <span class="math display">\[
   L^{w}(\widetilde{w})=\begin{cases}
   1,&amp; {\widetilde{w}}=w; \\
   0,&amp; {\widetilde{w}} \ne w;
