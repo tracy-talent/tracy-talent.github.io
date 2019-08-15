@@ -422,7 +422,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.2k(字)</span>
+            <span class="post-count">1.3k(字)</span>
             
           </span>
 	  
@@ -501,6 +501,7 @@ g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\the
   \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
 <script type="math/tex; mode=display">
 \begin{align}
+  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u)\log[\sigma(x_{w}^{T} \cdot \theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
   &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
   &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
   &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}

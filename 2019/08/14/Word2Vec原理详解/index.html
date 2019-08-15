@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://brooksj.com/images/paper/word2vec1.png">
 <meta property="og:image" content="https://brooksj.com/images/paper/word2vec2.png">
-<meta property="og:updated_time" content="2019-08-15T05:42:15.964Z">
+<meta property="og:updated_time" content="2019-08-15T05:43:37.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word2Vec原理详解">
 <meta name="twitter:description" content="paper   Efficient Estimation of Word Representations inVector Space  Distributed Representations of Words and Phrasesand their Compositionality   简介Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
@@ -423,7 +423,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.2k(字)</span>
+            <span class="post-count">1.3k(字)</span>
             
           </span>
 	  
@@ -500,6 +500,7 @@ g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\the
   \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
 <script type="math/tex; mode=display">
 \begin{align}
+  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u)\log[\sigma(x_{w}^{T} \cdot \theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
   &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
   &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
   &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
