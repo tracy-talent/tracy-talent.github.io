@@ -312,6 +312,511 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/06/20/树的最小支配集，最小点覆盖集，最大点独立集/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/20/树的最小支配集，最小点覆盖集，最大点独立集/" itemprop="url">树的最小支配集，最小点覆盖集，最大点独立集</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T22:14:05+08:00">
+                2019-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/20/树的最小支配集，最小点覆盖集，最大点独立集/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/06/20/树的最小支配集，最小点覆盖集，最大点独立集/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/06/20/树的最小支配集，最小点覆盖集，最大点独立集/" class="leancloud_visitors" data-flag-title="树的最小支配集，最小点覆盖集，最大点独立集">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">3.8k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">15(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>首先看一下三者的定义：</p>
+<p>定义1对于图G=(V,E)来说， <strong>最小支配集</strong> 指的是从V中取尽量少的点组成一个集合，使得对于V中剩余的点都与取出来的点有边相连。也就是说，设V‘是图G的一个支配集，则对于图中的任意一个顶点u，要么属于集合V’，要么与V‘中的顶点相邻。在V’中出去任何元素后V‘不再是支配集，则支配集是极小支配集。称G的所有支配集中顶点个数最少的支配集为最小支配集，最小支配集中顶点的个数称为支配数。</p>
+<p>定义2对于图G=(V,E)来说， <strong>最小点覆盖</strong> 指的是从V中取尽量少的点组成一个集合，使得E中所有的边都与取出来的点相连。也就是说，设V‘是图G的一个顶点覆盖，则对于图中的任意一条边(u,v)，要么u属于集合V’，要么v属于集合V‘。在V‘中除去任何元素后V’不在是顶点覆盖，则V‘是极小顶点覆盖。称G的所有顶点覆盖中顶点个数最少的覆盖为最小点覆盖。</p>
+<p>定义3对于图G=(V,E)来说， <strong>最大独立集</strong> 指的是从V中取尽量多的点组成一个集合，使得这些点之间没有边相连。也就是说，设V’是图G的一个独立集，则对于图中任意一条边(u,v)，u和v不能同时属于集合V’，甚至可以u和v都不属于集合V‘。在V’中添加任何不属于V‘元素后V’不再是独立集，则V‘是极大独立集。称G的所有顶点独立集中顶点个数最多的独立集为最大独立集。</p>
+<p>对于任意图G来说，这三个问题不存在多项式时间的解法。 不过对于树来说，却很容易。目前有两种解法，一种基于贪心思想，另一种基于树形动态规划思想。<strong>贪心法能得到具体的点集，而动态规划只能得到集合大小。</strong></p>
+<h2 id="一、贪心法"><a href="#一、贪心法" class="headerlink" title="一、贪心法"></a>一、贪心法</h2><p>基本算法：</p>
+<p>以最小支配集为例，对于树上的最小支配集问题，贪心策略是首先选择一点为根，按照深度优先遍历得到遍历序列，按照所得序列的反向序列的顺序进行贪心，对于一个既不属于支配集也不与支配集中的点相连的点来说，如果他的父节点不属于支配集，将其父节点加入支配集。</p>
+<p>这里注意到贪心的策略中贪心的顺序非常重要，按照深度优先遍历得到遍历序列的反向进行贪心，可以保证对于每个点来说，当期子树都被处理过后才轮到该节点的处理，保证了贪心的正确性。</p>
+<p>伪代码：</p>
+<p>①以1号点深度优先搜索整棵树，求出每个点在深度优先遍历序列中的编号和每个点的父节点编号。</p>
+<p>②按照深度优先序列的反向序列检查，如果当前点既不属于支配集也不与支配集中的点相连，且他的父节点不属于支配集，将其父节点加入支配集，支配集中点的个数加1.标记当前节点、当前节点的父节点和当前节点的父节点的父节点，因为这些节点要么属于支配集，要么与支配集中的点相连。</p>
+<p>最小点覆盖于最大独立集与上面的做法相似。对于最小点覆盖来说，贪心的策略是，如果当前点和当前点的父节点都不属于顶点覆盖集合，则将父节点加入到顶点覆盖集合，并标记当前节点和其父节点都被覆盖。对于最大独立集来说，贪心策略是如果当前点没有被覆盖，则将当前节点加入到独立集，并标记当前节点和其父节点都被覆盖。</p>
+<p>需要注意的是由于默认程序中根节点和其他节点的区别在于根节点的父节点是其自己，所以三种问题对根节点的处理不同。对于最小支配集和最大独立集，需要检查根节点是否满足贪心条件，但是对于最小点覆盖不可以检查根节点。</p>
+<p>具体实现：</p>
+<p>采用链式前向星存储整棵树。对于DFS()，newpos[i]表示深度优先遍历序列的第i个点是哪个点，now表示当前深度优先遍历序列已经有多少个点了。select[]用于深度优先遍历序列的判重，p[i]表示点i的父节点的编号。对于greedy()，s[i]如果为true，表示第i个点被覆盖。set[i]表示点i属于要求的点集。</p>
+<h3 id="最小支配集贪心实现"><a href="#最小支配集贪心实现" class="headerlink" title="最小支配集贪心实现"></a>最小支配集贪心实现</h3><p>树上最小支配集贪心完整实现代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(<span class="meta-string">"O2"</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span>;  <span class="comment">//点数目</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">1e6</span>; <span class="comment">//边数目</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;edge[maxm];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[maxn]; <span class="comment">//父节点</span></span><br><span class="line"><span class="keyword">int</span> head[maxn];</span><br><span class="line"><span class="keyword">bool</span> domi_set[maxn];  <span class="comment">//最小支配集包含的点</span></span><br><span class="line"><span class="keyword">bool</span> select[maxn];</span><br><span class="line"><span class="keyword">int</span> newpos[maxn];  <span class="comment">//dfs顺序访问元素</span></span><br><span class="line"><span class="keyword">int</span> now, cnt;</span><br><span class="line"><span class="keyword">int</span> n, m;  <span class="comment">//输入图的点、边数目</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//无向边</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[cnt].to = v, edge[cnt].next = head[u], head[u] = cnt++;</span><br><span class="line">    edge[cnt].to = u, edge[cnt].next = head[v], head[v] = cnt++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取dfs序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    newpos[now++]=x;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="keyword">for</span>(k=head[x];k!=<span class="number">-1</span>;k=edge[k].next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!select[edge[k].to])</span><br><span class="line">        &#123;</span><br><span class="line">            select[edge[k].to]=<span class="literal">true</span>;</span><br><span class="line">            p[edge[k].to]=x;</span><br><span class="line">            dfs(edge[k].to);        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//dfs逆序贪心，这样遍历到的当前节点其子树节点已全部计算完毕</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">greedy</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> s[maxn];</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t=newpos[i];</span><br><span class="line">        <span class="keyword">if</span>(!s[t])</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!domi_set[p[t]])</span><br><span class="line">            &#123;</span><br><span class="line">                domi_set[p[t]]=<span class="literal">true</span>;</span><br><span class="line">                ans++;</span><br><span class="line">            &#125;</span><br><span class="line">            s[t]=<span class="literal">true</span>;</span><br><span class="line">            s[p[t]]=<span class="literal">true</span>;</span><br><span class="line">            s[p[p[t]]]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    now = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line">    <span class="built_in">memset</span>(select, <span class="number">0</span>, <span class="keyword">sizeof</span>(select));</span><br><span class="line">    <span class="built_in">memset</span>(domi_set, <span class="number">0</span>, <span class="keyword">sizeof</span>(domi_set));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        add_edge(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//读入图信息</span></span><br><span class="line">    read();</span><br><span class="line">    <span class="comment">//从0开始dfs</span></span><br><span class="line">    select[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    p[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    dfs(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"最小点支配集大小: %d\n"</span>, greedy()); </span><br><span class="line">    <span class="comment">//输出最小支配集</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (domi_set[i]) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d "</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最小点覆盖集贪心实现"><a href="#最小点覆盖集贪心实现" class="headerlink" title="最小点覆盖集贪心实现"></a>最小点覆盖集贪心实现</h3><p>对于最小点覆盖集，将greedy函数改为如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">greedy</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> s[maxn]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=n<span class="number">-1</span>;i&gt;=<span class="number">1</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t=newpos[i];</span><br><span class="line">        <span class="keyword">if</span>(!s[t]&amp;&amp;!s[p[t]])</span><br><span class="line">        &#123;</span><br><span class="line">            domi_set[p[t]]=<span class="literal">true</span>;</span><br><span class="line">            ans++;</span><br><span class="line">            s[t]=<span class="literal">true</span>;</span><br><span class="line">            s[p[t]]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最大点独立集贪心实现"><a href="#最大点独立集贪心实现" class="headerlink" title="最大点独立集贪心实现"></a>最大点独立集贪心实现</h3><p>对于最大点独立集，将greedy函数改为如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">greedy</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> s[maxn]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t=newpos[i];</span><br><span class="line">        <span class="keyword">if</span>(!s[t])</span><br><span class="line">        &#123;</span><br><span class="line">            domi_set[t]=<span class="literal">true</span>;</span><br><span class="line">            ans++;</span><br><span class="line">            s[t]=<span class="literal">true</span>;</span><br><span class="line">            s[p[t]]=<span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>复杂度分析：</strong>该方法经过一次深度优先遍历和一次贪心得到最终解，第一步的时间复杂度为O(m)，由于这是一棵树，m=n-1.第二步是O(n)，总的是O(n)。</p>
+<h2 id="二、树形动态规划法"><a href="#二、树形动态规划法" class="headerlink" title="二、树形动态规划法"></a>二、树形动态规划法</h2><h3 id="最小支配集树形dp实现"><a href="#最小支配集树形dp实现" class="headerlink" title="最小支配集树形dp实现"></a>最小支配集树形dp实现</h3><p>基本算法：</p>
+<p>由于这是在树上求最值的问题，显然可以用树形动态规划，只是状态的设计比较复杂。为了保证动态规划的正确性，对于每个点设计了三种状态，这三种状态的意义如下：</p>
+<ul>
+<li><p>dp[i][0]：表示点i属于支配集，并且以点i为根的子树都被覆盖了的情况下支配集中所包含的的最少点的个数。</p>
+</li>
+<li><p>dp[i][1]：i不属于支配集，且以i为根的子树都被覆盖，且i被其中不少于1个子节点覆盖的情况下支配集中所包含最少点的个数。</p>
+</li>
+<li><p>dp[i][2]：i不属于支配集，且以i为根的子树都被覆盖，且i没被子节点覆盖的情况下支配集中所包含最少点的个数。</p>
+</li>
+</ul>
+<p>对于第一种状态，dp[i][0]等于每个儿子节点的3种状态（其儿子是否被覆盖没有关系）的最小值之和加1，即只要每个以i的儿子为根的子树都被覆盖，再加上当前点i,所需要的最少点的个数，方程如下：</p>
+<script type="math/tex; mode=display">
+dp[i][0]=1+\sum_{p(u)=i}{min(dp[u][0],dp[u][1],dp[u][2])}</script><p>对于第二种状态，如果点i没有子节点，那么dp[i][1]=INF；否则，需要保证它的每个以i的儿子为根的子树都被覆盖，那么要取每个儿子节点的前两种状态的最小值之和，因为此时i点不属于支配集，不能支配其子节点，所以子节点必须已经被支配，与子节点的第三种状态无关。如果当前所选的状态中，每个儿子都没有被选择进入支配集，即在每个儿子的前两种状态中，第一种状态都不是所需点最少的，那么为了满足第二种状态的定义，需要重新选择点i的一个儿子的状态为第一种状态，这时取花费最少的一个点，即取min(dp[u][0]-dp[u][1])的儿子节点u，强制取其第一种状态，其他儿子节点都取第二种状态，转移方程为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(i没有子节点)  dp[i][1]=INF</span><br><span class="line">else dp[i][1]=Σmin(dp[u][0],dp[u][1])+inc</span><br></pre></td></tr></table></figure>
+<p>其中对于inc有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(上面式子中的Σmin(dp[u][0],dp[u][1])中包含某个dp[u][0]) inc=0;</span><br><span class="line">else inc=min(dp[u][0]-dp[u][1])。</span><br></pre></td></tr></table></figure>
+<p>对于第三种状态，i不属于支配集，且以i为根的子树都被覆盖，又i没被子节点覆盖，那么说明点i和点i的儿子节点都不属于支配集，则点i的第三种状态只与其儿子的第二种状态有关，方程为</p>
+<script type="math/tex; mode=display">
+dp[i][2]=\sum{dp[u][1]}</script><p>树上最小支配集树形dp完整实现代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(<span class="meta-string">"O2"</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1e5</span>;  <span class="comment">//点数目</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxm = <span class="number">1e6</span>; <span class="comment">//边数目</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x7FFFFFFF</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;</span><br><span class="line">    <span class="keyword">int</span> next;</span><br><span class="line">&#125;edge[maxm];</span><br><span class="line"></span><br><span class="line"><span class="comment">//dp[i][0]：表示点i属于支配集，并且以点i为根的子树都被覆盖了的情况下支配集中所包含的的最少点的个数</span></span><br><span class="line"><span class="comment">//dp[i][1]：i不属于支配集，且以i为根的子树都被覆盖，且i被其中不少于1个子节点覆盖的情况下支配集中所包含最少点的个数</span></span><br><span class="line"><span class="comment">//dp[i][2]：i不属于支配集，且以i为根的子树都被覆盖，且i没被子节点覆盖的情况下支配集中所包含最少点的个数</span></span><br><span class="line"><span class="keyword">int</span> dp[maxn][<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;  <span class="comment">//输入图的点、边数目</span></span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="keyword">int</span> head[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[cnt].to = v, edge[cnt].next = head[u], head[u] = cnt++;</span><br><span class="line">    edge[cnt].to = u, edge[cnt].next = head[v], head[v] = cnt++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DP</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    dp[u][<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line">    dp[u][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">bool</span> s = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>, inc = INF;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="keyword">for</span>(k = head[u]; k != <span class="number">-1</span>; k = edge[k].next) &#123;</span><br><span class="line">        <span class="keyword">int</span> to = edge[k].to;</span><br><span class="line">        <span class="keyword">if</span>(to == p) <span class="keyword">continue</span>;</span><br><span class="line">        DP(to, u);</span><br><span class="line">        dp[u][<span class="number">0</span>] += min(dp[to][<span class="number">0</span>], min(dp[to][<span class="number">1</span>], dp[to][<span class="number">2</span>]));</span><br><span class="line">        <span class="keyword">if</span>(dp[to][<span class="number">0</span>] &lt;= dp[to][<span class="number">1</span>]) &#123;</span><br><span class="line">            sum += dp[to][<span class="number">0</span>];</span><br><span class="line">            s = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sum += dp[to][<span class="number">1</span>];</span><br><span class="line">            inc = min(inc, dp[to][<span class="number">0</span>] - dp[to][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(dp[to][<span class="number">1</span>] != INF &amp;&amp; dp[u][<span class="number">2</span>] != INF) dp[u][<span class="number">2</span>] += dp[to][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">else</span> dp[u][<span class="number">2</span>] = INF;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(inc == INF &amp;&amp; !s) dp[u][<span class="number">1</span>] = INF;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        dp[u][<span class="number">1</span>]=sum;</span><br><span class="line">        <span class="keyword">if</span>(!s) dp[u][<span class="number">1</span>] += inc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        add_edge(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    read();</span><br><span class="line">    <span class="comment">//假设0为root</span></span><br><span class="line">    DP(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"最小支配集大小: %d\n"</span>, min(dp[<span class="number">0</span>][<span class="number">0</span>], dp[<span class="number">0</span>][<span class="number">1</span>]));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终的最小支配集大小为：min(dp[0][0], dp[0][1])</p>
+<h3 id="最小点覆盖集树形dp实现"><a href="#最小点覆盖集树形dp实现" class="headerlink" title="最小点覆盖集树形dp实现"></a>最小点覆盖集树形dp实现</h3><p>对于最小的覆盖问题，为每个点设计了两种状态，这两种状态的意义如下：</p>
+<ul>
+<li><p>dp[i][0]：表示点i属于点覆盖，并且以点i为根的子树中所连接的边都被覆盖的情况下点覆盖集中所包含最少点的个数。</p>
+</li>
+<li><p>dp[i][1]：表示点i不属于点覆盖，并且以点i为根的子树中所连接的边都被覆盖的情况下点覆盖集中所包含最少点的个数。</p>
+</li>
+</ul>
+<p>对于第一种状态dp[i][0]，等于每个儿子节点的两种状态的最小值之和加1，方程如下：</p>
+<script type="math/tex; mode=display">
+dp[i][0]=1+\sum_{(p[u]=i)}{min(dp[u][0],dp[u][1])}</script><p>对于第二种状态dp[i][1]，要求所有与i连接的边都被覆盖，但是i点不属于点覆盖，那么i点所有的子节点都必须属于点覆盖，即对于点i的第二种状态与所有子节点的第一种状态无关，在数值上等于所有子节点的第一种状态之和。方程如下：</p>
+<script type="math/tex; mode=display">
+dp[i][1]=\sum{dp[u][0]}</script><p>对于最小点覆盖集实现，将DP函数改为如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DP</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    dp[u][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[u][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> k, to;</span><br><span class="line">    <span class="keyword">for</span>(k = head[u]; k != <span class="number">-1</span>; k = edge[k].next) &#123;</span><br><span class="line">        to = edge[k].to;</span><br><span class="line">        <span class="keyword">if</span>(to == p) <span class="keyword">continue</span>;</span><br><span class="line">        DP(to, u);</span><br><span class="line">        dp[u][<span class="number">0</span>] += min(dp[to][<span class="number">0</span>], dp[to][<span class="number">1</span>]);</span><br><span class="line">        dp[u][<span class="number">1</span>] += dp[to][<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最终的最小点覆盖集大小为：min(dp[0][0], dp[0][1])</p>
+<h3 id="最大点独立集树形dp实现"><a href="#最大点独立集树形dp实现" class="headerlink" title="最大点独立集树形dp实现"></a>最大点独立集树形dp实现</h3><p>对于最大独立集问题，为每个节点设立两种状态，这两种状态的意义如下：</p>
+<ul>
+<li><p>dp[i][0]：表示点i属于独立集的情况下，最大独立集中点的个数。</p>
+</li>
+<li><p>dp[i][1]：表示点i不属于独立集的情况下，最大独立集中点的个数。</p>
+</li>
+</ul>
+<p>对于第一种状态dp[i][0]，由于点i属于独立集，他的子节点都不能属于独立集，所以只与第二种状态有关。方程如下：</p>
+<script type="math/tex; mode=display">
+dp[i][0]=1+\sum{dp[u][1]}</script><p>对于第二种状态，点i的子节点可以属于独立集，也可以不属于独立集，方程如下：</p>
+<script type="math/tex; mode=display">
+dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 ，将DP函数改为如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DP</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    dp[u][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[u][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> k, to;</span><br><span class="line">    <span class="keyword">for</span>(k = head[u]; k != <span class="number">-1</span>; k = edge[k].next) &#123;</span><br><span class="line">        to = edge[k].to;</span><br><span class="line">        <span class="keyword">if</span>(to == p) <span class="keyword">continue</span>;</span><br><span class="line">        DP(to, u);</span><br><span class="line">        dp[u][<span class="number">0</span>] += dp[to][<span class="number">1</span>];</span><br><span class="line">        dp[u][<span class="number">1</span>] += max(dp[to][<span class="number">0</span>], dp[to][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终的最大点独立集大小为：max(dp[0][0], dp[0][1])</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/05/28/单调栈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/28/单调栈/" itemprop="url">单调栈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-28T18:49:22+08:00">
+                2019-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/ACM-Solution/" itemprop="url" rel="index">
+                    <span itemprop="name">ACM Solution</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/28/单调栈/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/05/28/单调栈/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/05/28/单调栈/" class="leancloud_visitors" data-flag-title="单调栈">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">1.1k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">5(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>单调栈理解起来很容易，但是实际运用却没那么简单。一句话解释单调栈，就是一个栈，里面的元素的大小按照他们所在栈内的位置，满足一定的单调性。</p>
+<p>下面结合题目，在实战中学会使用单调栈解决问题。</p>
+<h2 id="Google面试题"><a href="#Google面试题" class="headerlink" title="Google面试题"></a>Google面试题</h2><p>(google面试)题目: 给一个数组，返回一个大小相同的数组。返回的数组的第i个位置的值应当是，对于原数组中的第i个元素，至少往右走多少步，才能遇到一个比自己大的元素（如果之后没有比自己大的元素，或者已经是最后一个元素，则在返回数组的对应位置放上-1）。</p>
+<p>简单的例子：</p>
+<p>input: 5,3,1,2,4</p>
+<p>return: -1 3 1 1 -1</p>
+<p>解决方案：递减栈</p>
+<p><strong>implementation:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nextExceed(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;input) &#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result (input.size(), <span class="number">-1</span>);</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; monoStack;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; input.size(); ++i) &#123;	</span><br><span class="line">		<span class="keyword">while</span>(!monoStack.empty() &amp;&amp; input[monoStack.top()] &lt; input[i]) &#123;</span><br><span class="line">			result[monoStack.top()] = i - monoStack.top();</span><br><span class="line">			monoStack.pop();</span><br><span class="line">		&#125;</span><br><span class="line">		monoStack.push(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode-84"><a href="#LeetCode-84" class="headerlink" title="LeetCode-84"></a>LeetCode-84</h2><p>题目：<a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">LeetCode-84. Largest Rectangle in Histogram</a></p>
+<p>Given <em>n</em> non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.</p>
+<p>Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].</p>
+<p>The largest rectangle is shown in the shaded area, which has area = 10 unit.</p>
+<p>For example,<br>Given heights = [2,1,5,6,2,3],<br>return 10.</p>
+<p>解决方案：递增栈</p>
+<p><strong>implementation:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    height.push_back(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; index;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(index.size() &gt; <span class="number">0</span> &amp;&amp; height[index.top()] &gt; height[i]) &#123;</span><br><span class="line">            <span class="comment">// 计算以index.top()为轴的矩形大小,左右两边是已从栈中弹出的比index.top()高的小矩形</span></span><br><span class="line">            <span class="keyword">int</span> h = height[index.top()];</span><br><span class="line">            index.pop();</span><br><span class="line">            <span class="keyword">int</span> idx = index.empty() ? <span class="number">-1</span> : index.top();</span><br><span class="line">            ret = max(ret, (i - idx - <span class="number">1</span>) * h);</span><br><span class="line">        &#125;</span><br><span class="line">        index.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode-85"><a href="#LeetCode-85" class="headerlink" title="LeetCode-85"></a>LeetCode-85</h2><p>题目: <a href="https://leetcode.com/problems/maximal-rectangle/" target="_blank" rel="noopener">LeetCode-85. Maximal Rectangle</a></p>
+<p>Given a 2D binary matrix filled with 0’s and 1’s, find the largest rectangle containing only 1’s and return its area.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],</span><br><span class="line">  [&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]</span><br><span class="line">]</span><br><span class="line">Output: 6</span><br></pre></td></tr></table></figure>
+<p><strong>implementation:</strong></p>
+<p>方法一:  单调递增栈(20ms)<br>实质上与LeetCode-84求最大矩形面积等价,通过迭代行来更新高度数组</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; height(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">'0'</span>) height[j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> height[j]++;</span><br><span class="line">            &#125;</span><br><span class="line">            ret = max(ret, largestRectangleArea(height));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        height.push_back(<span class="number">0</span>);</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; index;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(index.size() &gt; <span class="number">0</span> &amp;&amp; height[index.top()] &gt; height[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> h = height[index.top()];</span><br><span class="line">                index.pop();</span><br><span class="line">                <span class="keyword">int</span> idx = index.empty() ? <span class="number">-1</span> : index.top();</span><br><span class="line">                ret = max(ret, (i - idx - <span class="number">1</span>) * h);</span><br><span class="line">            &#125;</span><br><span class="line">            index.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        height.pop_back();</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>方法二：动态规划dp(16ms)<br>lefts[j]和rights[j]分别存储以height[j]为高度的矩阵的左边界和右边界</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; heights(n, <span class="number">0</span>), lefts(n, <span class="number">0</span>), rights(n, n);</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> cur_left = <span class="number">0</span>, cur_right = n;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">'0'</span>) heights[j] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> heights[j]++;</span><br><span class="line">                <span class="keyword">if</span> (heights[j] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    lefts[j] = max(cur_left, lefts[j]);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    lefts[j] = <span class="number">0</span>;</span><br><span class="line">                    cur_left = j + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (heights[j] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    rights[j] = min(cur_right, rights[j]);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    rights[j] = n;</span><br><span class="line">                    cur_right = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                ret = max(ret, (rights[j] - lefts[j]) * heights[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>方法三：暴力枚举(60ms)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maximalRectangle</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> m = matrix.size(), n = matrix[<span class="number">0</span>].size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; heights(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">'0'</span>)&#123;</span><br><span class="line">                    heights[j] = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> heights[j]++;</span><br><span class="line">                <span class="keyword">int</span> min_height = heights[j];</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = j; k &gt;= <span class="number">0</span>; k--) &#123;</span><br><span class="line">                    min_height = min(heights[k], min_height);</span><br><span class="line">                    ret = max(ret, (j - k + <span class="number">1</span>) * min_height);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/05/23/classifiers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2606,242 +3111,11 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/19/hadoop-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/19/hadoop-tips/" itemprop="url">hadoop tips</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T09:53:13+08:00">
-                2019-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Distributed-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Distributed-System/Bigdata-Technology/" itemprop="url" rel="index">
-                    <span itemprop="name">Bigdata Technology</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/19/hadoop-tips/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/19/hadoop-tips/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/19/hadoop-tips/" class="leancloud_visitors" data-flag-title="hadoop tips">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">670(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="hadoop-tips"><a href="#hadoop-tips" class="headerlink" title="hadoop tips"></a>hadoop tips</h1><ul>
-<li>yarn查看application log的方式：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">1.在$&#123;HADOOP_HOME&#125;/etc/hadoop/yarn-site.xml中配置：</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property &gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line">&lt;value&gt;604800&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;</span><br><span class="line">&lt;value&gt;/app-logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.remote-app-log-dir-suffix&lt;/name&gt;</span><br><span class="line">&lt;value&gt;logs&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施物理内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;!-- 是否将对容器强制实施虚拟内存限制 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">&lt;value&gt;false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">2.在hdfs上创建/app-logs</span><br><span class="line">hadoop fs -mkdir /app-logs</span><br><span class="line"></span><br><span class="line">3.在/app-logs下查看运行过的application的applicationId，然后使用如下命令查看日志：</span><br><span class="line">yarn logs -applicationId application_12**345</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hadoop关于jobhistory server的配置，以便在作业web界面查看日志信息</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1.mapred-site.xml的配置</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:10020&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</span><br><span class="line">&lt;value&gt;localhost:19888&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">2.yarn-site.xml的配置</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">&lt;name&gt;yarn.log.server.url&lt;/name&gt;</span><br><span class="line">&lt;value&gt;http://localhost:19888/jobhistory/logs/&lt;/value&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hadoop启动方式:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1.启动hdfs</span><br><span class="line">./sbin/start-dfs.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/hadoop-daemon.sh start namenode</span><br><span class="line">./sbin/hadoop-daemon.sh start datanode</span><br><span class="line">2.启动yarn</span><br><span class="line">./sbin/start-yarn.sh</span><br><span class="line">或者分开启动</span><br><span class="line">./sbin/yarn-daemon.sh start resourcemanager</span><br><span class="line">./sbin/yarn-daemon.sh start nodemanager</span><br><span class="line">3.启动jobhistory server</span><br><span class="line">./sbin/mr-jobhistory-daemon.sh start historyserver</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hadoop jar提交作业时提示Exception in thread “main” java.lang.SecurityException: Invalid signature file digest for Manifest main attributes，跟jar包签名有关，可以在.pom下配置plugin:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;2.4.3&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                        &lt;configuration&gt;</span><br><span class="line">                            &lt;filters&gt;</span><br><span class="line">                                &lt;filter&gt;</span><br><span class="line">                                    &lt;artifact&gt;*:*&lt;/artifact&gt;</span><br><span class="line">                                    &lt;excludes&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.SF&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.DSA&lt;/exclude&gt;</span><br><span class="line">                                        &lt;exclude&gt;META-INF/*.RSA&lt;/exclude&gt;</span><br><span class="line">                                    &lt;/excludes&gt;</span><br><span class="line">                                &lt;/filter&gt;</span><br><span class="line">                            &lt;/filters&gt;</span><br><span class="line">                        &lt;/configuration&gt;</span><br><span class="line">                     &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br></pre></td></tr></table></figure>
-<p>如果还无法解决问题，就在每次生成jar包后，命令行下输入以下命令删除签名文件:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -d wordcount.jar 'META-INF/.SF' 'META-INF/.RSA' 'META-INF/*SF'</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hdfs的目录默认是放在/user/linux用户名下的</li>
-<li>关闭namenode的safemode:hdfs dfsadmin -safemode leave</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2889,7 +3163,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2900,7 +3174,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
