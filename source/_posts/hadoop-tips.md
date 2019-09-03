@@ -3,8 +3,6 @@ title: hadoop tips
 date: 2019-04-19 09:53:13
 tags:
     - hadoop
-    - hdfs
-    - yarn
 categories:
     - Distributed System
     - Bigdata Technology
