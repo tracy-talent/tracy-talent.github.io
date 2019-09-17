@@ -4,7 +4,7 @@ date: 2019-04-24 22:23:16
 tags:
     - hexo
 categories:
-    - hexo
+    - Hexo
 ---
 ## 一、关于搭建的流程
 
