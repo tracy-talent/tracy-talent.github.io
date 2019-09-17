@@ -312,6 +312,250 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/07/18/快速傅里叶变换原理及其实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/18/快速傅里叶变换原理及其实现/" itemprop="url">快速傅里叶变换原理及其实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T22:39:42+08:00">
+                2019-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/18/快速傅里叶变换原理及其实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/07/18/快速傅里叶变换原理及其实现/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/18/快速傅里叶变换原理及其实现/" class="leancloud_visitors" data-flag-title="快速傅里叶变换原理及其实现">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">1.1k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">6(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>参考:</p>
+<p><a href="https://www.jianshu.com/p/73f0ab14828a" target="_blank" rel="noopener">如何给文科生解释傅里叶变换</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/31584464" target="_blank" rel="noopener">一小时学会快速傅里叶变换（Fast Fourier Transform）</a></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li><p><strong>使用C++内置的complex</strong></p>
+<details>
+<summary>展开代码</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI = <span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXL = <span class="number">18</span>, N = <span class="number">1</span> &lt;&lt; MAXL;  <span class="comment">// 序列周期大小</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FastFourierTransform</span>  &#123;</span></span><br><span class="line">​    <span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; omega[N], omegaInverse[N];</span><br><span class="line">​    <span class="keyword">int</span> range;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化频率</span></span><br><span class="line">    <span class="comment">// 可以只进行一次初始化,只要大于可能出现的最高次幂即可,后面的转换就可以复用初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span> <span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>&amp; n)</span> </span>&#123;</span><br><span class="line">        range = n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            omega[i] = <span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt;(<span class="built_in">cos</span>(<span class="number">2</span> * PI / n * i), <span class="built_in">sin</span>( <span class="number">2</span> * PI / n * i )) ;</span><br><span class="line">            omegaInverse[i] = <span class="built_in">std</span>::conj(omega[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Cooley-Tukey算法:O(n*logn)</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">transform</span> <span class="params">(<span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; *a, <span class="keyword">const</span> <span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; *omega, <span class="keyword">const</span> <span class="keyword">int</span> &amp;n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">    	    <span class="keyword">if</span> (i &gt; j) <span class="built_in">std</span>::swap (a[i], a[j]);</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> l = n &gt;&gt; <span class="number">1</span>; ( j ^= l ) &lt; l; l &gt;&gt;= <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">2</span>; l &lt;= n; l &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> m = l / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; *p = a; p != a + n; p += l) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">                    <span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; t = omega[range / l * i] * p[m + i];</span><br><span class="line">                    p[m + i] = p[i] - t;</span><br><span class="line">                    p[i] += t;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 时域转频域</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dft</span> <span class="params">(<span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; *a, <span class="keyword">const</span> <span class="keyword">int</span>&amp; n)</span> </span>&#123;</span><br><span class="line">        transform(a, omega, n);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 频域转时域</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">idft</span> <span class="params">(<span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; *a, <span class="keyword">const</span> <span class="keyword">int</span>&amp; n)</span> </span>&#123;</span><br><span class="line">        transform(a, omegaInverse, n);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) a[i] /= n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; fft ;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>使用自定义的complex,两者在精度上有细微差别但影响不大</strong></p>
+<details>
+    <summary>展开代码</summary>
+    <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> PI = <span class="built_in">acos</span>(<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXL = <span class="number">18</span>, N = <span class="number">1</span> &lt;&lt; MAXL;  <span class="comment">// 序列周期大小</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Complex</span>  &#123;</span></span><br><span class="line">    <span class="keyword">double</span> r, i ;</span><br><span class="line">    Complex ( )  &#123;	&#125;</span><br><span class="line">    Complex ( <span class="keyword">double</span> r, <span class="keyword">double</span> i ) : r ( r ), i ( i )  &#123;	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">real</span> <span class="params">( <span class="keyword">const</span> <span class="keyword">double</span> &amp;x )</span>  </span>&#123;  r = x ;  &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">real</span> <span class="params">( )</span>  </span>&#123;  <span class="keyword">return</span> r ;  &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">imag</span><span class="params">(<span class="keyword">const</span> <span class="keyword">double</span> &amp;x)</span> </span>&#123; i = x; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">imag</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> i; &#125;</span><br><span class="line">    <span class="keyword">inline</span> Complex <span class="keyword">operator</span> + ( <span class="keyword">const</span> Complex&amp; rhs )  <span class="keyword">const</span>  &#123;</span><br><span class="line">        <span class="keyword">return</span> Complex ( r + rhs.r, i + rhs.i ) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inline</span> Complex <span class="keyword">operator</span> - ( <span class="keyword">const</span> Complex&amp; rhs )  <span class="keyword">const</span>  &#123;</span><br><span class="line">        <span class="keyword">return</span> Complex ( r - rhs.r, i - rhs.i ) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inline</span> Complex <span class="keyword">operator</span> * ( <span class="keyword">const</span> Complex&amp; rhs )  <span class="keyword">const</span>  &#123;</span><br><span class="line">        <span class="keyword">return</span> Complex ( r * rhs.r - i * rhs.i, r * rhs.i + i * rhs.r ) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">void</span> <span class="keyword">operator</span> /= ( <span class="keyword">const</span> <span class="keyword">double</span>&amp; x )   &#123;</span><br><span class="line">        r /= x, i /= x ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">void</span> <span class="keyword">operator</span> *= ( <span class="keyword">const</span> Complex&amp; rhs )   &#123;</span><br><span class="line">        *<span class="keyword">this</span> = Complex ( r * rhs.r - i * rhs.i, r * rhs.i + i * rhs.r ) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">void</span> <span class="keyword">operator</span> += ( <span class="keyword">const</span> Complex&amp; rhs )   &#123;</span><br><span class="line">        r += rhs.r, i += rhs.i ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> Complex <span class="title">conj</span> <span class="params">( )</span>  </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Complex ( r, -i ) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span> &lt;&lt; (ostream&amp; out, <span class="keyword">const</span> Complex&amp; cx) &#123;</span><br><span class="line">        out &lt;&lt; <span class="string">"("</span> &lt;&lt; cx.r &lt;&lt; <span class="string">", "</span> &lt;&lt; cx.i &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> out;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">friend</span> istream&amp; <span class="keyword">operator</span> &gt;&gt; (istream&amp; in, Complex&amp; cx) &#123;</span><br><span class="line">        in &gt;&gt; cx.r &gt;&gt; cx.i;</span><br><span class="line">        <span class="keyword">return</span> in;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FastFourierTransform</span>  &#123;</span></span><br><span class="line">    Complex omega [N], omegaInverse [N] ;</span><br><span class="line">    <span class="keyword">int</span> range;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span> <span class="params">( <span class="keyword">const</span> <span class="keyword">int</span>&amp; n )</span>  </span>&#123;</span><br><span class="line">        range = n;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; ++ i )  &#123;</span><br><span class="line">            omega [i] = Complex ( <span class="built_in">cos</span> ( <span class="number">2</span> * PI / n * i), <span class="built_in">sin</span> ( <span class="number">2</span> * PI / n * i ) ) ;</span><br><span class="line">            omegaInverse [i] = omega [i].conj ( ) ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 迭代式二分转换</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">transform</span> <span class="params">( Complex *a, <span class="keyword">const</span> <span class="keyword">int</span>&amp; n, <span class="keyword">const</span> Complex* omega )</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span> ; i &lt; n ; ++ i )  &#123;</span><br><span class="line">        <span class="keyword">if</span> ( i &gt; j )  <span class="built_in">std</span> :: swap ( a [i], a [j] ) ;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> l = n &gt;&gt; <span class="number">1</span> ; ( j ^= l ) &lt; l ; l &gt;&gt;= <span class="number">1</span> ) ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> l = <span class="number">2</span> ; l &lt;= n ; l &lt;&lt;= <span class="number">1</span> )  &#123;</span><br><span class="line">            <span class="keyword">int</span> m = l / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">for</span> ( Complex *p = a ; p != a + n ; p += l )  &#123;</span><br><span class="line">                <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; m ; ++ i )  &#123;</span><br><span class="line">                    Complex t = omega [range / l * i] * p [m + i] ;</span><br><span class="line">                    p [m + i] = p [i] - t ;</span><br><span class="line">                    p [i] += t ;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 时域转频域</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dft</span> <span class="params">( Complex *a, <span class="keyword">const</span> <span class="keyword">int</span>&amp; n )</span>  </span>&#123;</span><br><span class="line">        transform ( a, n, omega ) ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 频域转时域</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">idft</span> <span class="params">( Complex *a, <span class="keyword">const</span> <span class="keyword">int</span>&amp; n )</span>  </span>&#123;</span><br><span class="line">        transform ( a, n, omegaInverse ) ;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n ; ++ i ) a [i] /= n ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; fft ;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+
+
+
+
+
+</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li><p>加速多项式计算O(nlogn)</p>
+<details>
+<summary>展开代码</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 应用到加速多项式乘法</span></span><br><span class="line">    <span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; a[<span class="number">500</span>], b[<span class="number">500</span>];</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span> &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) <span class="built_in">cin</span> &gt;&gt; b[i];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// a*b之后的真实系数</span></span><br><span class="line">    <span class="keyword">int</span> r[<span class="number">20</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++)</span><br><span class="line">            r[i + j] += a[i].real() * b[j].real();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"真实系数："</span>；</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n + m - <span class="number">1</span>; i++)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; r[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 利用fft计算得出的系数</span></span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (p &lt; n + m - <span class="number">1</span>) p &lt;&lt;= <span class="number">1</span>;  <span class="comment">// 只要p大于多项式结果中的最大次幂即可</span></span><br><span class="line">    fft.init(p);</span><br><span class="line">    fft.dft(a, p);</span><br><span class="line">    fft.dft(b, p);</span><br><span class="line">    <span class="keyword">complex</span>&lt;<span class="keyword">double</span>&gt; c[<span class="number">500</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; p; i++) &#123;</span><br><span class="line">        c[i] = a[i] * b[i];</span><br><span class="line">    &#125;</span><br><span class="line">    fft.idft(c, p);</span><br><span class="line">    <span class="comment">// 考虑到精度问题取实部+0.5向下取整</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"fft计算得出的系数："</span>；</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n + m - <span class="number">1</span>; i++) <span class="built_in">cout</span> &lt;&lt; <span class="keyword">int</span>(c[i].real() + <span class="number">0.5</span>) &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<p>输入一组数据得到输出结果如下</p>
+<div align="center">
+    <img src="/images/poly/fft1.png">
+</div>
+
+
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/07/18/动态规划题集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2211,8 +2455,8 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
                   </a>
                 </span>
 
@@ -2899,255 +3143,6 @@ exit
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/19/NCA-LDA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/19/NCA-LDA/" itemprop="url">降维与度量学习之LDA && NCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T21:46:43+08:00">
-                2019-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-Mining/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Mining</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/19/NCA-LDA/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/19/NCA-LDA/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/19/NCA-LDA/" class="leancloud_visitors" data-flag-title="降维与度量学习之LDA && NCA">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.4k(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">5(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/LDA%20%26%26%20NCA" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
-<script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
-& =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以<script type="math/tex">S_{b}</script>的秩不超过k，又因为第k个<script type="math/tex">\mu_{k}-\mu</script>可由前k-1个<script type="math/tex">\mu_{j}-\mu</script>线性表示，因此<script type="math/tex">S_b</script>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
-<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
-<li>Commonalities：<ul>
-<li>两者均可以对数据进行降维。</li>
-<li>两者在降维时均使用了矩阵特征分解的思想。</li>
-<li>两者都假设数据符合高斯分布。</li>
-</ul>
-</li>
-<li>Differences：<ul>
-<li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
-<li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
-<li>LDA除了可以用于降维，还可以用于分类。</li>
-<li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值</p>
-<script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|^{2})}，\ p_{ii}=0</script><p>设<script type="math/tex">p_{i}</script>为i能够被正确分类的概率，<script type="math/tex">C_{i}</script>表示与i属于同一类的样本的集合，那么</p>
-<script type="math/tex; mode=display">
-p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
-<script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
-&=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
-<script type="math/tex; mode=display">
-A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
-<li>commonalities:<ul>
-<li>都可以用来降维</li>
-</ul>
-</li>
-<li>differences:<ul>
-<li>NCA除了降维还是一种度量学习的方法</li>
-<li>NCA对数据分布没有假设，而PCA要求数据服从高斯分布</li>
-<li>NCA基于KNN选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向</li>
-</ul>
-</li>
-</ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3200,7 +3195,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3211,7 +3206,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3222,7 +3217,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
