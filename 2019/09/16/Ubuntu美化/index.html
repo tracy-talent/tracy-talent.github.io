@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://brooksj.com/images/tweak.png">
 <meta property="og:image" content="https://brooksj.com/images/gnome-shell-extension.png">
 <meta property="og:image" content="https://brooksj.com/images/tweakconfig.png">
-<meta property="og:updated_time" content="2019-09-17T05:45:48.047Z">
+<meta property="og:updated_time" content="2019-09-17T12:11:50.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu18.04美化">
 <meta name="twitter:description" content="前言ubuntu桌面比较简陋，这就驱使很多人想DIY自己的一套桌面主题，如果是从零开始配置和美化ubuntu18.04，可以建议先参考Ubuntu 18.04配置及美化 工具 工欲善其事，必先利其器  要对ubuntu进行美化就必定要用到神器gnome-tweak-tool，这是 Gnome 官方发布的一款 Gnome 调节软件, 借助这款软件, 我们可以更好地管理主题, 扩展, 字体 以及系统行">
@@ -517,7 +517,7 @@
 <p>其中<a href="https://github.com/agnoster/agnoster-zsh-theme" target="_blank" rel="noopener">agnoster</a>主题比较像之前在bash下使用的powerline，由于包含特殊的字体符号，需要安装额外的字体 <a href="https://github.com/Lokaltog/powerline-fonts" target="_blank" rel="noopener">Powerline-patched font</a>才能支持主题正常显示，ubuntu下可直接使用apt安装</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> sudo apt-get install fonts-powerline</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">fc</span>-cache -vf /usr/share/fonts/  <span class="comment">#更新系统的字体缓存</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
 </blockquote>
-<p>zsh的一些主题例如agnoster会自动添加命令行头名user@host，如果觉得这种形式使得命令行看起来很臃肿，可以在~/.zshrc中可以设置DEFAULT_USER来避免</p>
+<p>zsh主题定制可以参考<a href="https://www.jianshu.com/p/bf488bf22cba" target="_blank" rel="noopener">oh-my-zsh终端用户名设置（PS1）</a>，zsh的一些主题例如agnoster会自动添加命令行头名user@host，如果觉得这种形式使得命令行看起来很臃肿，可以在~/.zshrc中可以设置DEFAULT_USER来避免</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEFAULT_USER=brooksj</span><br></pre></td></tr></table></figure>
 <p>避免命令行头名臃肿还可以通过prompt_context() {}来设置</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 隐藏用户名和主机名</span></span><br><span class="line">prompt_context() &#123;&#125;                                                           </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 只保留用户名，隐藏主机名</span></span><br><span class="line">prompt_context() &#123;</span><br><span class="line">  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then</span><br><span class="line">    prompt_segment black default "%(!.%&#123;%F&#123;yellow&#125;%&#125;.)$USER"</span><br><span class="line">  fi  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -711,7 +711,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -733,7 +733,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
