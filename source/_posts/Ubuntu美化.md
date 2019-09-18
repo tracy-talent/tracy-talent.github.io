@@ -146,7 +146,7 @@ ZSH_THEME="robbyrussell"
 > fc-cache -vf /usr/share/fonts/  #更新系统的字体缓存
 > ```
 
-zsh的一些主题例如agnoster会自动添加命令行头名user@host，如果觉得这种形式使得命令行看起来很臃肿，可以在\~/.zshrc中可以设置DEFAULT_USER来避免
+zsh主题定制可以参考[oh-my-zsh终端用户名设置（PS1）](https://www.jianshu.com/p/bf488bf22cba)，zsh的一些主题例如agnoster会自动添加命令行头名user@host，如果觉得这种形式使得命令行看起来很臃肿，可以在\~/.zshrc中可以设置DEFAULT_USER来避免
 
 ```shell
 DEFAULT_USER=brooksj

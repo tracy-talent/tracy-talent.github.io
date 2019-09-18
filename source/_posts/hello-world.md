@@ -1,5 +1,5 @@
 ---
-title: Hello World
+title: Hello Hexo
 tags:
 	- hexo
 categories:
@@ -40,3 +40,17 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/deployment.html)
+
+### Markdown renderer
+
+hexo默认的markdown渲染插件<font color='red'>hexo-renderer-marked</font>效果不是很好，有些复杂公式渲染不出来，需要安装一个更好的markdown rendrer: <font color='green'>hexo-renderer-kramed</font>
+
+``` shell
+$ npm un hexo-renderer-marked --save
+$ npm i hexo-renderer-kramed --save
+```
+
+安装好之后将其添加进站点目录下的package.json中，并删除默认markdown渲染插件
+
+
+
