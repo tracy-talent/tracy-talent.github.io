@@ -13,7 +13,7 @@ categories:
 * 查看本机显卡
 
   ```shell
-  lspci | grep -VGA
+  lspci | grep -i VGA
   ```
 
   终端输出显卡名称，现在电脑一般都有集显+独显2块显卡，若都是nvidia公司的，后续如果安装openGL就不会冲突，因为openGL只支持nvidia的显卡，其他公司的会被openGL安装覆盖。我这里是intel集显，所以安装cuda的时候就不能安装openGL.
@@ -44,13 +44,15 @@ categories:
   可能本机上已安装过nvidia driver，但是安装更高版本的cuda需要安装更高版本的nvidia driver，查看系统是否已安装的nvidia driver
 
   ```shell
-  sudo dpkg --list | grep nvidia-*
+  sudo dpkg --list | grep nvidia-*  # dpkg安装的
+  sudo apt list | grep nvidia-*  # apt安装的
   ```
 
   如果包含nvidia-*开头的一系列文件则说明系统已安装过nvidia driver，执行以下命令下载已有驱动
 
   ```shell
-  sudo dpkg purge nvidia-*
+  sudo dpkg purge nvidia-* # dpkg或.run安装的
+  sudo /usr/bin/nvidia-uninstall # cuda打包安装的或者dpkg或.run安装的(建议)
   ```
 
 * 正式安装nvidia driver
@@ -65,10 +67,19 @@ categories:
 
   ```shell
   chmod a+x NVIDIA-*.run
-  ./NVIDIA-*.run
+  ./NVIDIA-*.run  --no-opengl-files  # 务必加上--no-opengl-files，否则安装过后将处于登录界面而无法进入桌面
   ```
 
-  如果询问安装openGL则不要答应，安装好之后即可进入有nvidia显卡驱动的桌面
+  参数解释：
+  
+  - `–no-opengl-files`：表示只安装驱动文件，不安装OpenGL文件。这个参数不可省略，否则会导致登陆界面死循环，英语一般称为”login loop”或者”stuck in login”。
+  - `–no-x-check`：表示安装驱动时不检查X服务，非必需。
+  - `–no-nouveau-check`：表示安装驱动时不检查nouveau，非必需。
+  - `-Z, --disable-nouveau`：禁用nouveau。此参数非必需，因为之前已经手动禁用了nouveau(建议手动禁用)。
+  
+  * `-A`：查看更多高级选项。
+  
+  > 必选参数解释：因为NVIDIA的驱动默认会安装OpenGL，而Ubuntu的内核本身也有OpenGL、且与GUI显示息息相关，一旦NVIDIA的驱动覆写了OpenGL，在GUI需要动态链接OpenGL库的时候就引起问题。提示安装基本上都是accept，yes，当提示你nvidia-xconfig时，就视自己的电脑情况而定，如果电脑是双显卡（双独显、集显和独显）就选择不安装，如果只有一个显卡就选择安装。我的电脑是intel集显+nvidai独显，所以拒绝安装nvidia-xconfig。
 
 
 
