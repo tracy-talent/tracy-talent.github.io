@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://brooksj.com/images/catalan1.jpeg">
 <meta property="og:image" content="https://brooksj.com/images/catalan2.jpeg">
 <meta property="og:image" content="https://brooksj.com/images/catalan3.jpeg">
-<meta property="og:updated_time" content="2019-09-23T13:07:46.149Z">
+<meta property="og:updated_time" content="2019-09-23T13:11:14.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卡特兰数(Catalan Number)">
 <meta name="twitter:description" content="卡特兰数又称卡塔兰数，英文名Catalan number，是组合数学中一个常出现在各种计数问题中出现的数列。该数在计算机专业中比较重要，有一些具体的应用实例。这篇文章主要分三部分：  卡特兰数递归式的含义解释 卡特兰数表达式的证明过程 卡特兰数的计算机中的应用  Catalan Number递归式解释假设h(0)=1，h(1)=1，catalan数满足递推式：  h(n) = h(0)*h(n-1">
@@ -458,6 +458,8 @@ h(n) = h(0)*h(n-1) + h(1)*h(n-2) + h(2)*h(n-3) + ... +h(n-1)*h(0) \tag{1.1}</scr
 
 <font color="green">含义解释：</font>首先，我们设$h(n)$=序列个数为n的出栈序列种数。（我们假定，最后出栈的元素为k，显然，k取不同值时的情况是相互独立的，也就是求出每种k最后出栈的情况数后可用加法原则，由于k最后出栈，因此，在k入栈之前，比k小的值均出栈，此处情况有$h(k-1)$种，而之后比k大的值入栈，且都在k之前出栈，因此有$h(n-k)$种方式，由于比k小和比k大的值入栈出栈情况是相互独立的，此处可用乘法原则，$h(n-k)*h(k-1)$种，求和便是Catalan递归式。<br>
 
+
+
 ## Catalan Number表达式证明
 
 第n个卡特兰数h(n)表达式如下
@@ -496,6 +498,8 @@ h(n)&=\frac{2(2n-1)}{n+1}h(n-1)
 \end{align}
 $$
 最终得到$h(n)$和$h(n-1)$之间的递归式$h(n)=\frac{2(2n-1)}{n+1}h(n-1)$<br>
+
+
 
 ## Catalan Number应用实例
 
