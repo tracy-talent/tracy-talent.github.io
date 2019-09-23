@@ -312,6 +312,309 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/09/23/卡特兰数-Catalan-Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/23/卡特兰数-Catalan-Number/" itemprop="url">卡特兰数(Catalan Number)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T19:18:40+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Math/" itemprop="url" rel="index">
+                    <span itemprop="name">Math</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/23/卡特兰数-Catalan-Number/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/09/23/卡特兰数-Catalan-Number/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/09/23/卡特兰数-Catalan-Number/" class="leancloud_visitors" data-flag-title="卡特兰数(Catalan Number)">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">1.4k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">5(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>卡特兰数又称卡塔兰数，英文名Catalan number，是组合数学中一个常出现在各种计数问题中出现的数列。该数在计算机专业中比较重要，有一些具体的应用实例。这篇文章主要分三部分：</p>
+<ol>
+<li>卡特兰数递归式的含义解释</li>
+<li>卡特兰数表达式的证明过程</li>
+<li>卡特兰数的计算机中的应用</li>
+</ol>
+<h2 id="Catalan-Number递归式解释"><a href="#Catalan-Number递归式解释" class="headerlink" title="Catalan Number递归式解释"></a>Catalan Number递归式解释</h2><p>假设h(0)=1，h(1)=1，catalan数满足递推式：</p>
+<script type="math/tex; mode=display">
+h(n) = h(0)*h(n-1) + h(1)*h(n-2) + h(2)*h(n-3) + ... +h(n-1)*h(0) \tag{1.1}</script><p>递归式背后有什么物理含义呢，这里以出栈序列问题进行说明：</p>
+<font color="red">问题描述：</font>一个栈(无穷大)的进栈序列为1，2，3，…，n，有多少个不同的出栈序列?
+
+<font color="green">含义解释：</font>首先，我们设f（n）=序列个数为n的出栈序列种数。（我们假定，最后出栈的元素为k，显然，k取不同值时的情况是相互独立的，也就是求出每种k最后出栈的情况数后可用加法原则，由于k最后出栈，因此，在k入栈之前，比k小的值均出栈，此处情况有f(k-1)种，而之后比k大的值入栈，且都在k之前出栈，因此有f(n-k)种方式，由于比k小和比k大的值入栈出栈情况是相互独立的，此处可用乘法原则，f(n-k)*f(k-1)种，求和便是Catalan递归式。
+
+
+
+## Catalan Number表达式证明
+
+第n个卡特兰数h(n)表达式如下
+$$
+h(n)=\frac{C_{2n}^{n}}{n+1}=C_{2n}^{n}-C_{2n}^{n-1} \tag{1.2}
+$$
+具体证明过程如下
+
+<div align="center">
+    <img src="/images/catalan1.jpeg">
+</div>
+
+<div align="center">
+    <img src="/images/catalan2.jpeg">
+</div>
+
+<div align="center">
+    <img src="/images/catalan3.jpeg">
+</div>
+
+为了便于编程实现，需要进一步推导h(n)与h(n-1)之间的关系
+
+已知$h(n)$，易知
+$$
+h(n-1)=\frac{C_{2n-2}^{n-1}}{n}
+$$
+推导$h(n)$的$C_{2n}^{n}$和$h(n-1)$的$C_{2n-2}^{n-1}$之间的关系，由$kC_{n}^{k}=nC_{n-1}^{k-1}$知
+$$
+\begin{align}
+n*C_{2n}^{n}&=2nC_{2n-1}^{n-1} \\
+C_{2n}^{n}&=2C_{2n-1}^{n-1} \\
+C_{2n}^{n}&=2\frac{(2n-1)C_{2n-2}^{n-1}}{n} \\
+C_{2n}^{n}&=2(2n-1)h(n-1) \\
+\frac{C_{2n}^{n}}{n+1}&=\frac{2(2n-1)}{n+1}h(n-1) \\
+h(n)&=\frac{2(2n-1)}{n+1}h(n-1)
+\end{align}
+$$
+最终得到$h(n)$和$h(n-1)$之间的递归式$h(n)=\frac{2(2n-1)}{n+1}h(n-1)$
+
+
+
+## Catalan Number应用实例
+
+### 括号匹配问题
+
+<font color="red">问题描述: </font>矩阵连乘 $P=A_1A_2...A_n$，依据乘法结合律，不改变其顺序，只用括号表示成对的乘积，问有几种括号化的方案？
+
+问题转换一下就是n对括号的正确匹配方案，可以参考做一下[LeetCode-22](https://leetcode.com/problems/generate-parentheses/)
+
+### 出栈次序问题
+
+<font color="red">问题描述: </font>一个栈(无穷大)的进栈序列为1,2,3,..n,有多少个不同的出栈序列?
+
+出栈问题问题正是卡特兰数递归式$h(n)=h(0)h(n-1)+h(1)h(n-2)+...+h(n-1)h(0)$的由来
+
+### 相关应用问题
+
+1. 有2n个人排成一行进入剧场，入场费5元。其中只有n个人有一张5元钞票，另外n人只有10元钞票，剧院无其它钞票，问有多少中方法使得只要有10元的人买票，售票处就有5元的钞票找零？(将持5元者到达视作将5元入栈，持10元者到达视作使栈中某5元出栈)
+
+2. n个1和n个0组成一个2n位的二进制数，要求从左到右扫描，0的累计数不小于1的累计数，求满足条件的的数。
+
+3. 12个人排成两排，每排必须是从矮到高排列，而且第二排比对应的第一排的人高，问排列方式有多少种？
+
+   我们先把这12个人从低到高排列，然后，选择6个人排在第一排，那么剩下的6个肯定是在第二排。对问题进行转化：用0表示对应的人在第一排，用1表示对应的人在第二排，那么含有6个0，6个1的序列，并且任意前缀中0的个数大于等于1的个数就对应一种方案，转化后的问题就是问题2了。
+
+4. 给定节点组成二叉树的问题：给定n个节点，能构成多少种形状不同的二叉树？
+
+   先取一个点作为顶点，然后左边依次可以取0至n-1个相对应的，右边是n-1到0个，两两配对相乘，就是$h(0)*h(n-1) + h(2)*h(n-2) + ... + h(n-1)h(0)=h(n)$能构成$h(n)$个，因此二叉树问题也可以解释卡特兰数递归式(1.1)式的由来
+
+5. n\*n棋盘从左下角走到右上角而不穿过主对角线的走法？
+
+   要从左下角走到右上角则必须向上走n步，向右n步，同时为了不跨过主对角线，则走过的步数中向上走的步数必须大于等于向右走的步数，剖析之后发现这个问题与问题3是等价问题，走法有卡特兰数$h(n)$种。
+
+   可以做一下下面两题练练手：
+
+   [hdoj2067-小兔的棋盘](http://acm.hdu.edu.cn/showproblem.php?pid=2067)
+
+   [LeetCode62-Unique Paths](https://leetcode.com/problems/unique-paths/)
+
+6. n个+1和n个-1构成的2n项序列，其部分和总满足：$a_1+a_2+...+a_n>=0$的序列的个数。
+
+   卡特兰数表达式(1.2)式就是以该问题模型为基础推导出来的
+
+
+
+<font color="green" size="4">参考链接:</font>
+
+<ol>
+<li><a href="https://blog.csdn.net/ACdreamers/article/details/7628667" target="_blank" rel="noopener">https://blog.csdn.net/ACdreamers/article/details/7628667</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/09/18/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2515,267 +2818,6 @@ r^{2} = \frac{(\sum_{i=1}^{n}x_{i}y_{i})^{2}}{(\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/08/各类概率分布函数tutorial/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/08/各类概率分布函数tutorial/" itemprop="url">各类概率分布函数tutorial</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T19:00:03+08:00">
-                2019-08-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Math/" itemprop="url" rel="index">
-                    <span itemprop="name">Math</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/08/08/各类概率分布函数tutorial/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/08/08/各类概率分布函数tutorial/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/08/08/各类概率分布函数tutorial/" class="leancloud_visitors" data-flag-title="各类概率分布函数tutorial">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.1k(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">4(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="泊松分布、指数分布与伽马分布简介及其关系"><a href="#泊松分布、指数分布与伽马分布简介及其关系" class="headerlink" title="泊松分布、指数分布与伽马分布简介及其关系"></a>泊松分布、指数分布与伽马分布简介及其关系</h2><p>泊松分布: <script type="math/tex">Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t > 0, n \ge 0)</script></p>
-<p>指数分布: <script type="math/tex">f(x)=\lambda e^{-\lambda t},\ (\lambda > 0,t > 0)</script></p>
-<p>伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为<script type="math/tex">\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}}(x > 0)</script>，对伽马函数做一个变形即可得到</p>
-<script type="math/tex; mode=display">
-\int_{0}^{\infty}{\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}}dx=1 \tag{1.1}</script><p>式(1.1)去除积分即为伽马分布的概率密度函数</p>
-<script type="math/tex; mode=display">
-Gamma(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)},(x>0,\alpha>0)</script><p>令<script type="math/tex">\beta t=x</script>，代入积分公式(1.1)中则可得到新的概率密度函数</p>
-<script type="math/tex; mode=display">
-Gamma(x|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\beta t>0,\alpha>0)</script><p>其中<script type="math/tex">\alpha</script>为shape parameter，主要决定了分布曲线的形状，<script type="math/tex">\beta</script>为scale parameter，主要决定曲线有多陡，<script type="math/tex">\beta</script>越大则曲线越陡。</p>
-<p>伽马分布是为解决阶乘数列的插值而产生的，伽马函数使得任意正实数所有阶乘，伽马函数有几条特性如下:</p>
-<ol>
-<li><script type="math/tex; mode=display">\Gamma(x+1)=x\Gamma(x)</script></li>
-<li><script type="math/tex; mode=display">\Gamma(n)=(n-1)!</script></li>
-</ol>
-<p>其中，<script type="math/tex">\Gamma(\frac{1}{2})=\sqrt{\pi},\frac{1}{2}!=\Gamma(\frac{3}{2})=\frac{1}{2}\Gamma(\frac{1}{2})=\frac{\sqrt{\pi}}{2}</script></p>
-<font color="red" size="4">物理解释:</font>
-
-<p>泊松分布: 单位时间t内独立事件发生次数n的概率分布</p>
-<p>指数分布: 独立事件的时间间隔的概率分布</p>
-<p>伽马分布: <script type="math/tex">\alpha</script>个独立事件的时间间隔的概率分布</p>
-<font color="green" size="4">参考链接:</font>
-
-<ul>
-<li><p><a href="https://www.jianshu.com/p/6ee90ba47b4a" target="_blank" rel="noopener">伽马分布，指数分布，泊松分布的关系</a></p>
-<p>这篇文章先讲述泊松分布，然后由泊松分布引出指数分布，说明了泊松分布与指数分布的关系，最后说明了伽马分布与指数分布的关系.</p>
-</li>
-<li><p><a href>LDA-math-神奇的Gamma函数(3)</a></p>
-<p>这篇文章由二项分布和Beta分布的关系式，借用二项分布的极限是泊松分布的性质转换得到泊松分布与伽马分布的关系式，以及泊松分布的概率累积函数与伽马分布的概率累积函数互补的关系。</p>
-</li>
-</ul>
-<h2 id="Beta分布简介"><a href="#Beta分布简介" class="headerlink" title="Beta分布简介"></a>Beta分布简介</h2><p>Beta分布: 首先来看Beta函数，Beta函数又称贝塔函数或者第一类欧拉积分，它的函数式如下</p>
-<script type="math/tex; mode=display">
-B(\alpha, \beta)=\int_{0}^{1}x^{\alpha-1}(1-x)^{\beta-1}dx=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)},(x \in [0,1],\alpha \gt 0, \beta \gt 0) \tag{2.1}</script><p>对Beta函数作一个变形即可得到</p>
-<script type="math/tex; mode=display">
-\int_{0}^{\infty}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}}=1,(\alpha>0,\beta>0)</script><p>去除式(2.1)的积分即可得到Beta分布的概率密度函数</p>
-<script type="math/tex; mode=display">
-X\sim Be(\alpha,\beta):Beta(x|\alpha,\beta)=\frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1},(\alpha>0,\beta>0)</script><font color="green" size="4">参考链接:</font>
-
-<ul>
-<li><p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%831" target="_blank" rel="noopener">LDA-math-认识Beta/Dirichlet分布(1)</a></p>
-<p>这篇文章由掷骰子游戏从物理上解释了Beta分布的由来</p>
-</li>
-<li><p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%832" target="_blank" rel="noopener">LDA-math-认识Beta/Dirichlet分布(2)</a></p>
-<p>这篇文章在上一篇文章的基础上通过更新掷骰子的游戏规则引出了Beta分布与二项分布的共轭分布关系，共轭的意思就是，数据符合二项分布的时候，参数的先验分布和后验分布都能保持Beta 分布的形式。我们知道贝叶斯的参数估计过程是</p>
-<script type="math/tex; mode=display">
-先验分布\ + \ 数据的知识\ =\ 后验分布</script><p>对应到beta分布和二项分布的共轭</p>
-<script type="math/tex; mode=display">
-Beta(p|\alpha, \beta)\ +\ Binomial(m1|m1+m2,p)\ =\ Beta(p|\alpha+m1,\alpha+m2)</script></li>
-</ul>
-<h2 id="Dirichlet分布简介"><a href="#Dirichlet分布简介" class="headerlink" title="Dirichlet分布简介"></a>Dirichlet分布简介</h2><p>Multinomial分布: 中文名多项式分布</p>
-<script type="math/tex; mode=display">
-Mult(\vec{n}|\vec{p},N)=\binom{N}{\vec{n}}\prod_{k=1}^{K}{p_{k}^{n_{k}}}</script><p>Dirichlet分布: 中文名狄利克雷分布</p>
-<script type="math/tex; mode=display">
-Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}\Gamma(\alpha_{k})}{\prod_{k=1}^{K}{p_{k}^{\alpha_{k}-1}}}</script><font color="green" size="4">参考链接:</font>
-
-<ul>
-<li><p><a href="http://www.52nlp.cn/lda-math-%E8%AE%A4%E8%AF%86betadirichlet%E5%88%86%E5%B8%833" target="_blank" rel="noopener">LDA-math-认识Beta/Dirichlet分布(3)</a></p>
-<p>这篇文章由掷骰子的游戏引出Dirichlet分布，并且通过改变游戏规则引出Dirichlet分布与Multinomial分布的关系，但是在推导共轭关系时定义有些许错误要注意</p>
-</li>
-<li><p><a href="https://v.youku.com/v_show/id_XMzI4NzI4Mjg5Mg==.html?spm=a2hzp.8244740.0.0" target="_blank" rel="noopener">LDA基础知识—-Dirichlet 分布</a></p>
-<p>这是优酷上讲解LDA的Dirichlet分布的视频</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2828,7 +2870,7 @@ Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
