@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://brooksj.com/images/catalan1.jpeg">
 <meta property="og:image" content="https://brooksj.com/images/catalan2.jpeg">
 <meta property="og:image" content="https://brooksj.com/images/catalan3.jpeg">
-<meta property="og:updated_time" content="2019-09-24T02:54:28.354Z">
+<meta property="og:updated_time" content="2019-09-24T02:57:25.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卡特兰数(Catalan Number)">
 <meta name="twitter:description" content="卡特兰数又称卡塔兰数，英文名Catalan number，是组合数学中一个常出现在各种计数问题中出现的数列。该数在计算机专业中比较重要，有一些具体的应用实例。这篇文章主要分三部分：  卡特兰数递归式的含义解释 卡特兰数表达式的证明过程 卡特兰数的计算机中的应用  Catalan Number递归式解释  假设h(0)=1，h(1)=1，catalan数满足递推式：  h(n) = h(0)*h(n">
@@ -456,7 +456,7 @@
 <p>假设h(0)=1，h(1)=1，catalan数满足递推式：</p>
 <script type="math/tex; mode=display">
 h(n) = h(0)*h(n-1) + h(1)*h(n-2) + h(2)*h(n-3) + ... +h(n-1)*h(0) \tag{1.1}</script><p>递归式背后有什么物理含义呢，这里以出栈序列问题进行说明：</p>
-<font color="red">问题描述：</font>一个栈(无穷大)的进栈序列为1，2，3，…，n，有多少个不同的出栈序列?<br>
+<font color="red">问题描述：</font>一个栈(无穷大)的进栈序列为1，2，3，…，n，有多少个不同的出栈序列?
 
 <font color="green">含义解释：</font>首先，我们设$h(n)$=序列个数为n的出栈序列种数。（我们假定，最后出栈的元素为k，显然，k取不同值时的情况是相互独立的，也就是求出每种k最后出栈的情况数后可用加法原则，由于k最后出栈，因此，在k入栈之前，比k小的值均出栈，此处情况有$h(k-1)$种，而之后比k大的值入栈，且都在k之前出栈，因此有$h(n-k)$种方式，由于比k小和比k大的值入栈出栈情况是相互独立的，此处可用乘法原则，$h(n-k)*h(k-1)$种，求和便是Catalan递归式。
 
@@ -509,7 +509,7 @@ $$
 
 <font color="red">问题描述: </font>矩阵连乘 $P=A_1A_2...A_n$，依据乘法结合律，不改变其顺序，只用括号表示成对的乘积，问有几种括号化的方案？
 
-问题转换一下就是n对括号的正确匹配方案，可以做一下[LeetCode-22](https://leetcode.com/problems/generate-parentheses/)
+问题转换一下就是n对括号的正确匹配方案，可以做一下<a href="https://leetcode.com/problems/generate-parentheses/" target="_blank" rel="noopener">LeetCode-22</a>
 
 <h3>出栈次序问题</h3>
 
@@ -535,11 +535,11 @@ $$
 
    要从左下角走到右上角则必须向上走n步，向右n步，同时为了不跨过主对角线，则走过的步数中向上走的步数必须大于等于向右走的步数，剖析之后发现这个问题与问题3是等价问题，走法有卡特兰数$h(n)$种。
 
-   可以做一下下面两题练练手：<br>
+   可以做一下下面两题练练手：
 
-   [hdoj2067-小兔的棋盘](http://acm.hdu.edu.cn/showproblem.php?pid=2067)
+   <a href="http://acm.hdu.edu.cn/showproblem.php?pid=2067" target="_blank" rel="noopener">hdoj2067-小兔的棋盘</a>
 
-   [LeetCode62-Unique Paths](https://leetcode.com/problems/unique-paths/)
+   <a href="https://leetcode.com/problems/unique-paths/" target="_blank" rel="noopener">LeetCode62-Unique Paths</a>
 
 6. n个+1和n个-1构成的2n项序列，其部分和总满足：$a_1+a_2+...+a_n>=0$的序列的个数。
 
