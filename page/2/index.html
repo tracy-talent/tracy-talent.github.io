@@ -1714,7 +1714,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.1k(字)</span>
+            <span class="post-count">1.2k(字)</span>
             
           </span>
 	  
@@ -1724,7 +1724,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">5(分)</span>
+            <span class="post-count">6(分)</span>
           </span>
 
           
@@ -1757,6 +1757,14 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
 <p>解决方案：递减栈</p>
 <p><strong>implementation:</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nextExceed(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;input) &#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result (input.size(), <span class="number">-1</span>);</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; monoStack;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; input.size(); ++i) &#123;	</span><br><span class="line">		<span class="keyword">while</span>(!monoStack.empty() &amp;&amp; input[monoStack.top()] &lt; input[i]) &#123;</span><br><span class="line">			result[monoStack.top()] = i - monoStack.top();</span><br><span class="line">			monoStack.pop();</span><br><span class="line">		&#125;</span><br><span class="line">		monoStack.push(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LeetCode-42"><a href="#LeetCode-42" class="headerlink" title="LeetCode-42"></a>LeetCode-42</h2><p>题目: <a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener">LeetCode-42. Trapping Rain Water</a></p>
+<div align="center">
+    <img src="/images/leetcode42.png">
+</div>
+
+<p>解决方案：递减栈</p>
+<p>implementation:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; st(height.size());</span><br><span class="line">        <span class="keyword">int</span> head = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (head &gt;= <span class="number">0</span> &amp;&amp; height[st[head]] &lt;= height[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (st[head] + <span class="number">1</span> != i) &#123;</span><br><span class="line">                    res += (height[st[head]] - height[st[head + <span class="number">1</span>]]) * (i - st[head] - <span class="number">1</span>);</span><br><span class="line">                &#125;    </span><br><span class="line">                head--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (head &gt;= <span class="number">0</span>) res += (height[i] - height[st[head + <span class="number">1</span>]]) * (i - st[head] - <span class="number">1</span>);</span><br><span class="line">            st[++head] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="LeetCode-84"><a href="#LeetCode-84" class="headerlink" title="LeetCode-84"></a>LeetCode-84</h2><p>题目：<a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="noopener">LeetCode-84. Largest Rectangle in Histogram</a></p>
 <p>Given <em>n</em> non-negative integers representing the histogram’s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.</p>
 <p>Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].</p>
