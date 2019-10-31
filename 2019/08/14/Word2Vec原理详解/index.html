@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://brooksj.com/images/paper/word2vec1.png">
 <meta property="og:image" content="https://brooksj.com/images/paper/word2vec2.png">
-<meta property="og:updated_time" content="2019-09-12T15:28:02.158Z">
+<meta property="og:updated_time" content="2019-10-31T14:17:54.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word2Vec原理详解">
 <meta name="twitter:description" content="paper   Efficient Estimation of Word Representations inVector Space  Distributed Representations of Words and Phrasesand their Compositionality   简介Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip">
@@ -490,17 +490,17 @@
 <script type="math/tex; mode=display">
 p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}^{T}\theta^{u})]^{1-L^{w}(u)}\tag{1.4}</script><p>从而$g(w)$可简写为</p>
 <script type="math/tex; mode=display">
-g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化<script type="math/tex">\sigma({x_{w}^{T}\theta^{w}})</script>，同时最小化所有的<script type="math/tex">\sigma({x_{w}^{T}\theta^{u}}),u \in NEG(w)</script>，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
+g(w)=\sigma({x_{w}^{T}\theta^{w}})\prod_{u \in NEG(w)}{[1 - \sigma({x_{w}^{T}\theta^{u}})]}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化<script type="math/tex">\sigma({x_{w}^{T}\theta^{w}})</script>，同时最小化所有的<script type="math/tex">\sigma({x_{w}^{T}\theta^{u}}),u \in NEG(w)</script>，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
 <script type="math/tex; mode=display">
 \begin{align}
-    \mathcal{L}&=\log{G}=\sum_{w \in C}\log{g(w)} \\
-    &=\sum_{w \in C}\sum_{u \in \{w\} \cup NEG(w)}\{L^{w}(u)\log[\sigma(x_{w}^{T} \cdot \theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}
+    \mathcal{L}&=\log{G}=\log\prod_{w \in \mathcal{C}}g(w)=\sum_{w \in \mathcal{C}}\log{g(w)} \\
+    &=\sum_{w \in \mathcal{C}}\sum_{u \in \{w\} \cup NEG(w)}\{L^{w}(u) \cdot \log[\sigma(x_{w}^{T}\theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}
 \end{align}\tag{1.6}</script><p>为方便梯度推导，将(1.6)式花括号中的内容简记为$\mathcal{L}(w,u)$，即</p>
 <script type="math/tex; mode=display">
-  \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
+\mathcal{L}(w,u)=L^{w}(u) \cdot \log[\sigma({x_{w}^{T}\theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
 <script type="math/tex; mode=display">
 \begin{align}
-  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u)\log[\sigma(x_{w}^{T} \cdot \theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
+  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u) \cdot \log[\sigma(x_{w}^{T}\theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
   &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
   &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
   &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
