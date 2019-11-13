@@ -312,6 +312,212 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/14/三色旗问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/14/三色旗问题/" itemprop="url">三色旗问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T15:51:57+08:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/14/三色旗问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/08/14/三色旗问题/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/14/三色旗问题/" class="leancloud_visitors" data-flag-title="三色旗问题">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">411(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">1(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>假设有一条绳子，上面有红、白、蓝三种颜色的旗子，起初绳子上的旗子的颜色并没有顺序，你希望将之分类并排列为蓝、白、红的顺序，要如何移动次数最少，注意你只能在绳子上进行这个动作，并且一次只能调换两个旗子。</p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>快排的思想，分别设三个标记wflag，rflag，bflag，初始bflag和wflag置首，rflag置末，然后分以下几个步骤解决：</p>
+<ol>
+<li>rflag向左移动到第一个非红色旗处停下，bflag向前移动到第一个非蓝色旗停下，wflag向前移动超越bflag并在非白色旗处停下</li>
+<li>wflag处如果为红旗则与rflag处的旗交换位置，如果为蓝旗则与bflag处的旗交换位置，交换位置后移动更新三个标志位的位置</li>
+<li>重复1~2步直到wflag &gt; rflag</li>
+</ol>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(<span class="meta-string">"O2"</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//char color[] = &#123;'r','w','b','w','w','b','r','b','w','r','\0'&#125;;</span></span><br><span class="line"><span class="keyword">char</span> color[] = &#123;<span class="string">'r'</span>,<span class="string">'r'</span>,<span class="string">'r'</span>,<span class="string">'r'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> n = <span class="built_in">strlen</span>(color);</span><br><span class="line"><span class="keyword">int</span> wflag = <span class="number">0</span>, bflag = <span class="number">0</span>, rflag = n - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (bflag &lt; n &amp;&amp; color[bflag] == <span class="string">'b'</span>) bflag++;</span><br><span class="line">    <span class="keyword">while</span> (wflag &lt; n &amp;&amp; (wflag &lt; bflag || color[wflag] == <span class="string">'w'</span>)) wflag++;</span><br><span class="line">    <span class="keyword">while</span> (rflag &gt;= <span class="number">0</span> &amp;&amp; color[rflag] == <span class="string">'r'</span>) rflag--;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; color &lt;&lt; <span class="string">" "</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    move();</span><br><span class="line">    <span class="keyword">while</span> (wflag &lt; n &amp;&amp; wflag &lt;= rflag) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (color[wflag] == <span class="string">'r'</span>) &#123;</span><br><span class="line">    		swap(color[wflag], color[rflag]);</span><br><span class="line">    		res++;</span><br><span class="line">    	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (color[wflag] == <span class="string">'b'</span>) &#123;</span><br><span class="line">    		swap(color[wflag], color[bflag]);</span><br><span class="line">    		res++;</span><br><span class="line">    	&#125;</span><br><span class="line">    	move();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; color &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"至少交换 "</span> &lt;&lt; res &lt;&lt; <span class="string">" 次"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/09/皮尔逊相关系数绝对值小于1的证明/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2702,246 +2908,6 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/24/token-NLP之词形还原/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/24/token-NLP之词形还原/" itemprop="url">token:NLP之词形还原</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T23:15:43+08:00">
-                2019-04-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NLP/" itemprop="url" rel="index">
-                    <span itemprop="name">NLP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/24/token-NLP之词形还原/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/24/token-NLP之词形还原/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/24/token-NLP之词形还原/" class="leancloud_visitors" data-flag-title="token:NLP之词形还原">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">924(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>完整代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/NLP/token" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一、任务描述"><a href="#一、任务描述" class="headerlink" title="一、任务描述"></a>一、任务描述</h2><ul>
-<li>形态还原算法：<ol>
-<li>输入一个单词</li>
-<li>如果词典里有该词，输出该词及其属性，转4，否则，转3</li>
-<li>如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用&lt;未登录词模块&gt;</li>
-<li>如果输入中还有单词，转(1)，否则，结束。</li>
-</ol>
-</li>
-</ul>
-<h2 id="二、技术路线"><a href="#二、技术路线" class="headerlink" title="二、技术路线"></a>二、技术路线</h2><ol>
-<li>加载dic_ec.txt词典，词典存储着英到汉的映射，对于输入的单词，如果dic_ec.txt词典中包含这个单词的映射则直接输出。下面给出dic_ec.txt内容的基本形式：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，以\t分隔</span><br><span class="line">homokaryosis	none.	同核性, 同核现象</span><br><span class="line">homokaryotic	adj.	同核体的</span><br><span class="line">homokurtic	none.	等峰态性</span><br><span class="line">homolanthionine	none.	高羊毛氨酸</span><br></pre></td></tr></table></figure>
-<ol>
-<li>考虑到有些单词本身就是原形，也是其它单词的形态变换，所以在设计时决定把所有可能的结果都输出。在完成词典映射后再检查该单词是否能通过变换规则转换得到。我们知道英文单词的形态变换存在有规律的和无规律的变换，首先看有规律的变换，动词的规律变换形式有下面4条规则：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">规则1.  *ves --&gt; *f/*fe</span><br><span class="line">规则2.  *ies --&gt; *y</span><br><span class="line">规则3.  *es  --&gt; *</span><br><span class="line">规则4.  *s   --&gt; *</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名次的规律变换形式有下面9条规则：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//第三人称单数</span><br><span class="line">规则5.  *ies --&gt; *y</span><br><span class="line">规则6.  *es --&gt; *</span><br><span class="line">规则7.  *s   --&gt; *</span><br><span class="line">//现在进行时</span><br><span class="line">规则8.  *??ing --&gt; *?   </span><br><span class="line">规则9.  *ying --&gt; *ie</span><br><span class="line">规则10.  *ing  --&gt; */*e</span><br><span class="line">//过去时、过去分词</span><br><span class="line">规则11.  *??ed --&gt; *?</span><br><span class="line">规则12.  *ied --&gt; *y</span><br><span class="line">规则13.  *ed  --&gt; */*e</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过在程序中写入这些规则来对单词形态进行还原，而无规则的形态变换只能通过预先建立好的词库来完成词形形态映射。在程序中通过加载irregualr nouns.txt对名词进行还原，加载irregualr verbs.txt对动词进行还原。下面分别给出这两文件中的内容形式：</p>
-<p>&nbsp;&nbsp;irregular nouns.txt的内容形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span><br><span class="line">grief	griefs</span><br><span class="line">roof	roofs</span><br><span class="line">gulf	gulfs</span><br><span class="line">grief	griefs</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;irregualr verbs.txt的内容形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//gbk编码，每行的第一个词是原形，后面的是变换形态，以\t分隔</span><br><span class="line">bear	bore	borne	born</span><br><span class="line">alight	alighted	alit	alighted	alit</span><br><span class="line">arise	arose	arisen</span><br><span class="line">awake	awoke	awaked	awoken	awoke	awaked</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果找到了还原映射，则在dic_ec.txt词典中查找还原后的单词并输出结果。</p>
-<ol>
-<li>若最终该单词没有检索到结果则把他登记到单词缺失词典missing words.txt中。</li>
-</ol>
-<h2 id="三、数据说明"><a href="#三、数据说明" class="headerlink" title="三、数据说明"></a>三、数据说明</h2><ul>
-<li>英汉词典dic_ec.txt，名词的不规律变换词典irregualr nouns.txt，动词的不规律变换词典irregualr verbs.txt，这几个数据词典的编码以及内容形式都已在技术路线中给出，此处不再赘述。</li>
-</ul>
-<h2 id="四、遇到的问题及解决方案"><a href="#四、遇到的问题及解决方案" class="headerlink" title="四、遇到的问题及解决方案"></a>四、遇到的问题及解决方案</h2><ul>
-<li>程序实现过程中唯一遇到的问题就是文件编码和分隔符的问题，最后用vim把用到的3个数据词典统一设置成gbk编码，以\t进行分隔，方便程序统一读入处理。</li>
-</ul>
-<h2 id="五、性能分析"><a href="#五、性能分析" class="headerlink" title="五、性能分析"></a>五、性能分析</h2><ul>
-<li>下面是性能单词查询的耗时截图，平均不超过0.001s：</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/nlp_token_1.png" alt="1541928466093"></p>
-<h2 id="六、运行环境"><a href="#六、运行环境" class="headerlink" title="六、运行环境"></a>六、运行环境</h2><ul>
-<li>将token.exe与dic_ec.txt，irregualr nouns.txt，irregualr verbs.txt，missing words.txt放在同一个目录下，然后点击token.exe即可正确运行程序。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/page/2/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2994,7 +2960,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3016,7 +2982,7 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
