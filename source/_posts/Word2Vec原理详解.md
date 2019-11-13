@@ -70,26 +70,26 @@ $$
 
 从而$g(w)$可简写为
 $$
-g(w)=\sigma({x_{w}^{T}\theta^{u}})\prod_{u \in Context(w)}{\sigma({x_{w}^{T}\theta^{u}})}\tag{1.5}
+g(w)=\sigma({x_{w}^{T}\theta^{w}})\prod_{u \in NEG(w)}{[1 - \sigma({x_{w}^{T}\theta^{u}})]}\tag{1.5}
 $$
 
 最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化$$\sigma({x_{w}^{T}\theta^{w}})$$，同时最小化所有的$$\sigma({x_{w}^{T}\theta^{u}}),u \in NEG(w)$$，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果
 $$
 \begin{align}
-    \mathcal{L}&=\log{G}=\sum_{w \in C}\log{g(w)} \\
-    &=\sum_{w \in C}\sum_{u \in \{w\} \cup NEG(w)}\{L^{w}(u)\log[\sigma(x_{w}^{T} \cdot \theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}
+    \mathcal{L}&=\log{G}=\log\prod_{w \in \mathcal{C}}g(w)=\sum_{w \in \mathcal{C}}\log{g(w)} \\
+    &=\sum_{w \in \mathcal{C}}\sum_{u \in \{w\} \cup NEG(w)}\{L^{w}(u) \cdot \log[\sigma(x_{w}^{T}\theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}
 \end{align}\tag{1.6}
 $$
 
 为方便梯度推导，将(1.6)式花括号中的内容简记为$\mathcal{L}(w,u)$，即
 $$
-  \mathcal{L}(w,u)=L^{w}(u)\log[\sigma({x_{w}^{T} \cdot \theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}
+\mathcal{L}(w,u)=L^{w}(u) \cdot \log[\sigma({x_{w}^{T}\theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}
 $$
 
 利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导
 $$
 \begin{align}
-  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u)\log[\sigma(x_{w}^{T} \cdot \theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
+  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u) \cdot \log[\sigma(x_{w}^{T}\theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
   &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
   &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
   &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
