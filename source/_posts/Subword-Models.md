@@ -73,8 +73,10 @@ wordpieces这个名字取得很形象，说白了就是将词划分成片表示�
 import sentencepiece as spm
 # model_prefix是模型输出2个文件*.vocab，*.model前缀名
 # model_type模型种类:unigram, bpe, char, word
+# 为了支持跨语言处理，SentencePiece支持自定义character normalization，默认是使用NFKC的unicode编码转换
 # input文件内容每行一个sentence，model_type为word时需要提前分好词，其它3种不需要，原始输入即可
 spm.SentencePieceTrainer.Train('--input=newtext.txt \
+								--normalization_rule_name=nfkc \
                                --model_prefix=subword \
                                --vocab_size=1000 \
                                --model_type=unigram')
@@ -82,7 +84,7 @@ spm.SentencePieceTrainer.Train('--input=newtext.txt \
 
 Train方法中的参数说明如下
 
-- `--input`: one-sentence-per-line **raw** corpus file. No need to run tokenizer, normalizer or preprocessor. By default, SentencePiece normalizes the input with Unicode NFKC. You can pass a comma-separated list of files.
+- `--input`: one-sentence-per-line **raw** corpus file. No need to run tokenizer, normalizer or preprocessor. By default, SentencePiece normalizes the input with Unicode NFKC, . You can pass a comma-separated list of files.
 - `--model_prefix`: output model name prefix. `.model` and `.vocab` are generated.
 - `--vocab_size`: vocabulary size, e.g., 8000, 16000, or 32000
 - `--character_coverage`: amount of characters covered by the model, good defaults are: `0.9995` for languages with rich character set like Japanse or Chinese and `1.0` for other languages with small character set.
