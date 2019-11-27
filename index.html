@@ -312,6 +312,276 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/11/26/Subword-Models/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksjay">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/26/Subword-Models/" itemprop="url">Subword Models</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-26T21:03:48+08:00">
+                2019-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/26/Subword-Models/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/11/26/Subword-Models/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/11/26/Subword-Models/" class="leancloud_visitors" data-flag-title="Subword Models">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">2.2k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">9(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>随着深度神经网络的发展，深度学习在文本生成比如nueral machine translation(NMT)以及question answer(QA)等任务中突破了传统方法的瓶颈，在很多数据集上都取得了state-of-the-art(SOTA)的效果。</p>
+<p>我们知道神经网络输入层必须接收数字形式的信息，所以必须将文本形式的词嵌入成向量。通常会设定一个词汇表大小，对于词汇表中所有词有对应的向量表示。而由于一种语言涵盖的词汇太多，以及处理的文本数据本身就不规范(比如web数据)，从而无法覆盖所有的词汇，在对corpus中的词进行向量map时会出现out of  vocabulary(OOV)的现象。以往的做法是设置一个特殊字段(比如UNK)来表示所有OOV的词汇，这种做法可谓相当粗糙，那有没有更细致微妙的处理方法呢？答案当然是有的，很多从事NLP研究的工作者在这个方面开展了不少的工作。一种方法是从word embedding扩展到character embedding，另外一种方法是将word拆分成有意义的更小的词素也就是wordpieces，两个word可能不相同，但是他们可能包含相同的wordpieces，这样对于OOV的word，找到其对应的wordpieces的向量added or averaged也可以蕴含该word的word sense。接下来分别介绍这两种方法。</p>
+<h2 id="Character-Embedding"><a href="#Character-Embedding" class="headerlink" title="Character Embedding"></a>Character Embedding</h2><p>在没出现character embedding之前可能会觉得仅用少量的字符向量就可以表示含有丰富含义的词向量会有点不可思议，但借助于神经网络对特征强大的组合能力，使得这一切成为了可能。目前对word中的characters进行组合的方式目前主要有convolutional network和LSTM network两种。下面分别介绍这两种方法以及混合使用word-character embedding的模型。</p>
+<h3 id="Convolutional"><a href="#Convolutional" class="headerlink" title="Convolutional"></a>Convolutional</h3><p><a href="http://proceedings.mlr.press/v32/santos14.pdf" target="_blank" rel="noopener">Learning Character-level Representations for Part-of-Speech Tagging C´ıcero</a>，这篇文章发表于JMLR2014，应该是最早的使用卷积神经网络处理char embedding的，模型主要分三层conv+fcn+maxpool，具体的结构图如下</p>
+<div align="center">
+    <img src="/images/NLP/cnn_char_embedding.png">
+</div>
+
+<h3 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h3><p><a href="https://arxiv.org/abs/1508.02096" target="_blank" rel="noopener">Finding Function in Form: Compositional Character Models for Open Vocabulary Word Representation</a>，这篇文章发表于EMNLP2015，使用LSTM网络处理char embedding，并将其很好得应用于language model和POS tagging，具体的模型结构如下</p>
+<div align="center">
+    <img src="/images/NLP/lstm_char_embedding.png">
+</div>
+
+<p>模型使用双向LSTM对character embedding进行处理并将两个方向最终的隐状态向量拼接作为word embedding输出。</p>
+<h3 id="Hybrid-Word-Character-Models"><a href="#Hybrid-Word-Character-Models" class="headerlink" title="Hybrid Word-Character Models"></a>Hybrid Word-Character Models</h3><p>character embedding与word embedding不同在于：word embedding是在巨大语料集上学习好的，然后再用于NLP的各种下游任务，而character embedding是随机初始化的，在学习下游任务目标的同时学习character embedding。考虑到word embedding和character embedding各自都包含了有用的信息，因此Christopher D. Manning等人提出了综合使用word embedding和character embedding的混合模型<a href="https://arxiv.org/abs/1604.00788" target="_blank" rel="noopener">Achieving Open Vocabulary Neural Machine Translation with Hybrid Word-Character Models</a>，这篇文章发表于ACL2016，模型使用单向LSTM网络，具体结构如下</p>
+<div align="center">
+    <img src="/images/NLP/hybrid_word_char_embedding.png">
+</div>
+
+<p>对于输入序列中的OOV word使用双层LSTM处理其对应的char embedding得到的输出作为word embedding，对于输出序列中的\<unk\>使用双层LSTM+beam search转换成有意义的word。</unk\></p>
+<h2 id="WordPieces"><a href="#WordPieces" class="headerlink" title="WordPieces"></a>WordPieces</h2><p>wordpieces这个名字取得很形象，说白了就是将词划分成片表示，但可不是随便划分。目前的划分方法主要有两种：</p>
+<ul>
+<li>基于频率计数的方法byte pair encoding(BPE)</li>
+<li>基于unigram language model的方法</li>
+</ul>
+<h3 id="byte-pair-encoding"><a href="#byte-pair-encoding" class="headerlink" title="byte pair encoding"></a>byte pair encoding</h3><p><a href="https://arxiv.org/abs/1508.07909" target="_blank" rel="noopener">Neural Machine Translation of Rare Words with Subword Units</a>，这篇文章发表于ACL2016。文章思路其实很简单，初始化所有的wordpieces为单个字符，就是统计相邻两个wordpieces在所有word中共现频率，然后合并出现频率最高的wordpieces，直到当前词汇表满足设定的大小。注意，合并起来的wordpieces的所有前缀都要包含进词汇表中。下面是BPE算法的python代码</p>
+<div align="center">
+    <img src="/images/NLP/bpe_algorithm.png">
+</div>
+
+<p>代码一目了然，但正是这么简单的方法却在很多NLP下游任务上取得了很不错的效果，因而得到了广泛的应用，毕竟简单而又好用的谁不喜欢呢！！</p>
+<h3 id="unigram-language-model"><a href="#unigram-language-model" class="headerlink" title="unigram language model"></a>unigram language model</h3><p><a href="https://arxiv.org/abs/1804.10959" target="_blank" rel="noopener">Subword Regularization: Improving Neural Network Translation Models with Multiple Subword Candidates</a>，这篇文章发表于ACL2018。文章基于输入语料库建立unigram model，使用EM算法迭代，每次保留去除该词后使得语言模型的perpelxity损失最大的前80%的词，迭代计算直到当前词汇表满足设定的大小。</p>
+<h3 id="Google’s-SentencePiece"><a href="#Google’s-SentencePiece" class="headerlink" title="Google’s SentencePiece"></a>Google’s SentencePiece</h3><p><a href="https://arxiv.org/abs/1808.06226" target="_blank" rel="noopener">SentencePiece: A simple and language independent subword tokenizer and detokenizer for Neural Text Processing</a>，这篇文章发表于EMNLP2018，在发表这篇文章之前，google也发表了一篇基于unigram language model的建立wordpieces词汇表的文章<a href="https://ieeexplore.ieee.org/abstract/document/6289079" target="_blank" rel="noopener">Japanese and Korean voice search</a>，这篇文章发表于IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)2012。但SentencePiece这篇文章可谓集大成者，Google在这篇文章基础上开源了<a href="https://github.com/google/sentencepiece" target="_blank" rel="noopener">github: SentencePiece Package</a>，它不仅包含常用的character和word embedding，并且实现了前述2种subword segmentation algorithms即BPE和unigram language model，Google真乃良心啊，这就为后面所有NLPer的工作提供了提供了一个统一的输入预处理工具。并且该工具还可以保存构建wordpieces的model，便于论文实验结果的再现(reproducibility，因为很多NLP模型对输入极其敏感，输入稍有偏差将导致结果迥然不同)。SentencePiece Package上手使用非常简单，下面给出代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sentencepiece <span class="keyword">as</span> spm</span><br><span class="line"><span class="comment"># model_prefix是模型输出2个文件*.vocab，*.model前缀名</span></span><br><span class="line"><span class="comment"># model_type模型种类:unigram, bpe, char, word</span></span><br><span class="line"><span class="comment"># input文件内容每行一个sentence，model_type为word时需要提前分好词，其它3种不需要，原始输入即可</span></span><br><span class="line">spm.SentencePieceTrainer.Train(<span class="string">'--input=newtext.txt \</span></span><br><span class="line"><span class="string">                               --model_prefix=subword \</span></span><br><span class="line"><span class="string">                               --vocab_size=1000 \</span></span><br><span class="line"><span class="string">                               --model_type=unigram'</span>)</span><br></pre></td></tr></table></figure>
+<p>Train方法中的参数说明如下</p>
+<ul>
+<li><code>--input</code>: one-sentence-per-line <strong>raw</strong> corpus file. No need to run tokenizer, normalizer or preprocessor. By default, SentencePiece normalizes the input with Unicode NFKC. You can pass a comma-separated list of files.</li>
+<li><code>--model_prefix</code>: output model name prefix. <code>.model</code> and <code>.vocab</code> are generated.</li>
+<li><code>--vocab_size</code>: vocabulary size, e.g., 8000, 16000, or 32000</li>
+<li><code>--character_coverage</code>: amount of characters covered by the model, good defaults are: <code>0.9995</code> for languages with rich character set like Japanse or Chinese and <code>1.0</code> for other languages with small character set.</li>
+<li><code>--model_type</code>: model type. Choose from <code>unigram</code> (default), <code>bpe</code>, <code>char</code>, or <code>word</code>. The input sentence must be pretokenized when using <code>word</code> type.</li>
+</ul>
+<p>执行上面代码后会在当前目录下生成subword.vocab和subword.model两个文件，下面给出加载模型进行编码解码的代码示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sentencepiece <span class="keyword">as</span> spm</span><br><span class="line"></span><br><span class="line">sp = spm.SentencePieceProcessor()</span><br><span class="line">sp.Load(<span class="string">'unigram.model'</span>)</span><br><span class="line">ids = sp.EncodeAsIds(<span class="string">'I love you'</span>)</span><br><span class="line">print(ids)</span><br><span class="line">print(sp.DecodeIds(ids))</span><br></pre></td></tr></table></figure>
+<h3 id="fastText-embedding"><a href="#fastText-embedding" class="headerlink" title="fastText embedding"></a>fastText embedding</h3><p>wordpieces以很巧妙的思想解决了OOV的问题，后面出现了大量的使用wordpieces作为embedding的工作。这里不得不提一下<a href="https://www.mitpressjournals.org/doi/abs/10.1162/tacl_a_00051" target="_blank" rel="noopener">fastText: Enriching Word Vectors with Subword Information</a>，这篇文章是facebook ai团队发表于TACL2017，这篇文章使用和word2vector一样的学习embedding的方法skip-gram，但是它是学习word的subword n-grams(文章中n设为3~6，就是word的所有连续的3~6grams) embedding，这样其它任务使用词向量出现OOV现象即可使用该词n-grams的subword embeddig累加来合成。那么如何训练subword n-grams 的embedding呢？就skip-gram进行讨论，假设center word为$w_t$，window word为$w_c$，则围绕$w_t$的loss为</p>
+<script type="math/tex; mode=display">
+log(1+e^{-s(w_{t},w_{c})})+\sum_{n  \in \mathcal{N}_{t,c}}{log(1+e^{s(w_{t},w_{c})})}</script><p>其中，$\mathcal{N}<em>{t,c}$ is a set of negative examples sampled from the vocabulary.  我们用$\mathcal{G}w \subset {1,…,G}$  表示出现在w中的n-grams集合(3~6 grams in paper)，$z</em>{g}$表示$w$每个n-gram的embedding，$w$的向量表示为$z_g$的和，因此可得$s(w,c)$</p>
+<script type="math/tex; mode=display">
+s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效，train cost非常低，不同以往的word embedding学习需要海量的文本数据进行学习，fastText只需要word2vec方法的5%甚至1%的数据即可在许多任务上达到一致的效果。下图是word2vec的cbow方法以及fastText的skip-gram方法使用不同大小数据集训练后在word similarity任务上spearman rank表现对比</p>
+<div align="center">
+    <img src="/images/NLP/fastText_data_percent.png">
+</div>
+
+<p>其中，sisg-是fastText使用null vector表示OOV word，而sisg是fastText使用summing subword n-grams表示OOV word，可以看到sisg使用少量数据之后即可效果基本就饱和了。fastText对于复合词多、词尾变化丰富、多形态词的语言，以及包含大量生僻词的语料库效果更为明显，因为这些很难直接用word embedding直接覆盖，非常适合使用subword n-grams来拼接表示。但是对于常见词使用直接word embedding效果会比subword n-grams embedding效果更好，如下图所示，可以看到在word similarity任务上，fastText在WS353 dataset上表现不如word2vec的cbow，because words in the English WS353 dataset are common words for which good vectors can be obtained without exploiting subword information.</p>
+<div align="center">
+    <img src="/images/NLP/fastText1.png">
+</div>
+
+
+
+<p>所以前面提到的<a href="https://arxiv.org/abs/1604.00788" target="_blank" rel="noopener">Hybrid Word-Character Model</a>也正是发现此问题后的进一步优化，能优先使用word embedding的就是用word embedding，否则使用character embedding或者wordpieces embedding。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/11/13/Backpropagation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2525,302 +2795,6 @@ num-executors = cores-in-cluster/executor.cores</script></li>
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/14/Word2Vec原理详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksjay">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/14/Word2Vec原理详解/" itemprop="url">Word2Vec原理详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T19:15:20+08:00">
-                2019-08-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Research/" itemprop="url" rel="index">
-                    <span itemprop="name">Research</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Research/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/08/14/Word2Vec原理详解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/08/14/Word2Vec原理详解/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/08/14/Word2Vec原理详解/" class="leancloud_visitors" data-flag-title="Word2Vec原理详解">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.3k(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">6(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><font color="red" size="5">paper</font>
-
-<ul>
-<li><p><a href="https://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener">Efficient Estimation of Word Representations in<br>Vector Space</a></p>
-</li>
-<li><p><a href="http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf" target="_blank" rel="noopener">Distributed Representations of Words and Phrases<br>and their Compositionality</a></p>
-</li>
-</ul>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Word2Vec分为CBOW模型(Continuous Bag-of-Words Model)和Skip-gram(Continuous Skip-gram Model)模型,如下图所示</p>
-<div align="center">
-    <img src="/images/paper/word2vec1.png">
-</div>
-
-<p>当训练文本集规模较小时适合使用CBOW模型，当训练文本集规模较大时适合使用Skip-gram模型</p>
-<h3 id="训练方法"><a href="#训练方法" class="headerlink" title="训练方法"></a>训练方法</h3><h4 id="Hierarchical-Softmax"><a href="#Hierarchical-Softmax" class="headerlink" title="Hierarchical Softmax"></a>Hierarchical Softmax</h4><p>方法一：基于Huffman树的Hierarchical Softmax</p>
-<h4 id="Negative-Sampling"><a href="#Negative-Sampling" class="headerlink" title="Negative Sampling"></a>Negative Sampling</h4><p>方法二：作者Mikolov提出的Negative Sampling(NEG)，该方法是Noise Contrastive Estimation(NCE)的一个简化版本</p>
-<h5 id="CBOW模型"><a href="#CBOW模型" class="headerlink" title="CBOW模型"></a>CBOW模型</h5><p>在CBOW模型中，已知词$w$的上下文$Context(w)$，需要预测$w$，因此对于给定的$Context(w)$，词$w$就是一个正样本，其它词就是负样本了。假定现在已经选好了一个关于$w$的负样本子集$NEG(w) \ne \emptyset$，且对$\forall\  \widetilde{w} \in \mathcal{D}$，定义</p>
-<script type="math/tex; mode=display">
-  L^{w}(\widetilde{w})=\begin{cases}
-  1,& {\widetilde{w}}=w; \\
-  0,& {\widetilde{w}} \ne w;
-  \end{cases}\tag{1.1}</script><p>令$\sigma(x)=\frac{1}{1+\mathrm{e}^{x}}$，语料库$C$，概率生成函数如下</p>
-<script type="math/tex; mode=display">
-\begin{align}
-    G&=\prod_{w \in C}{g(\mathcal{w})} \\
-    &=\prod_{w \in C}\prod_{u \in \{w\} \cup NEG(w)}{p(u|Context(w))} 
-    \end{align}\tag{1.2}</script><p>其中</p>
-<script type="math/tex; mode=display">
-  p(u|Context(w))=\begin{cases}
-    \sigma({x_{w}^{T}\theta^{u})},& L^{w}(u)=1\\
-    1-\sigma(x_{w}^{T}\theta^{u}), & L^{w}(u)=0
-    \end{cases}\tag{1.3}</script><p>可将$p(u|Context(w))$写成整体表达式如下</p>
-<script type="math/tex; mode=display">
-p(u|Context(w))=[\sigma({x_{w}^{T}\theta^{u}})]^{L^{w}(u)} \cdot [1-\sigma(x_{w}^{T}\theta^{u})]^{1-L^{w}(u)}\tag{1.4}</script><p>从而$g(w)$可简写为</p>
-<script type="math/tex; mode=display">
-g(w)=\sigma({x_{w}^{T}\theta^{w}})\prod_{u \in NEG(w)}{[1 - \sigma({x_{w}^{T}\theta^{u}})]}\tag{1.5}</script><p>最终的目标函数对G取对数求最大似然。从形式上看，最大化$g(w)$相当于最大化<script type="math/tex">\sigma({x_{w}^{T}\theta^{w}})</script>，同时最小化所有的<script type="math/tex">\sigma({x_{w}^{T}\theta^{u}}),u \in NEG(w)</script>，使得增大正样本概率的同时降低负样本的概率，这正是我们所希望看到的结果</p>
-<script type="math/tex; mode=display">
-\begin{align}
-    \mathcal{L}&=\log{G}=\log\prod_{w \in \mathcal{C}}g(w)=\sum_{w \in \mathcal{C}}\log{g(w)} \\
-    &=\sum_{w \in \mathcal{C}}\sum_{u \in \{w\} \cup NEG(w)}\{L^{w}(u) \cdot \log[\sigma(x_{w}^{T}\theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}
-\end{align}\tag{1.6}</script><p>为方便梯度推导，将(1.6)式花括号中的内容简记为$\mathcal{L}(w,u)$，即</p>
-<script type="math/tex; mode=display">
-\mathcal{L}(w,u)=L^{w}(u) \cdot \log[\sigma({x_{w}^{T}\theta^{u}})]+[1-L^{w}(u)] \cdot \log{[1-\sigma({x_{w}^{T}\theta^{u}})]} \tag{1.7}</script><p>利用梯度上升法对$\mathcal{L}$进行优化求最大值，$\mathcal{L}(w,u)$分别对$x_{w}和\theta^{u}$求偏导</p>
-<script type="math/tex; mode=display">
-\begin{align}
-  \frac{\partial\mathcal{L}(w,u)}{\partial\theta^{u}}&=\frac{\partial}{\partial\theta^{u}}\{L^{w}(u) \cdot \log[\sigma(x_{w}^{T}\theta^{u})]+[1-L^{w}(u)] \cdot \log[1-\sigma({x_{w}^{T}\theta^{u}})]\}\\
-  &=L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]x_{w}-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})x_{w}\\
-  &=\{L^{w}(u)[1-\sigma(x_{w}^{T}\theta^{u}]-[1-L^{w}(u)]\sigma(x_{w}^{T}\theta^{u})\}x_{w}\\
-  &=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w}
-\end{align}\tag{1.8}</script><p>于是$\theta^{u}$的更新公式可写成</p>
-<script type="math/tex; mode=display">
-  \theta^{u}=\theta^{u}+\eta[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]x_{w} \tag{1.9}</script><p>接下来考虑$\mathcal{L}(w,u)$对<script type="math/tex">x_{w}</script>的偏导，由于式(1.7)中<script type="math/tex">x_{w}</script>和<script type="math/tex">\theta^{u}</script>的对称性可得</p>
-<script type="math/tex; mode=display">
-  \frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}}=[L^{w}(u)-\sigma(x_{w}^{T}\theta^{u})]\theta^{u} \tag{1.10}</script><p>于是，利用式(1.10)的结果可得$v(\widetilde{w}),\widetilde{w} \in Context(w)$的更新公式为</p>
-<script type="math/tex; mode=display">
-v(\widetilde{w})=v(\widetilde{w}) + \eta\sum_{u \in \{w\} \cup NEG(w)}\frac{\partial\mathcal{L}(w,u)}{\partial{x_{w}}} \tag{1.11}</script><p>伪代码如下</p>
-<div align="center">
-    <img src="/images/paper/word2vec2.png">
-</div>
-
-
-
-<h5 id="Skip-gram模型"><a href="#Skip-gram模型" class="headerlink" title="Skip-gram模型"></a>Skip-gram模型</h5><p>结合SKip-gram和CBOW模型的区别，将优化目标函数由原来的$G=\prod_{w \in C}g(w)$改写为</p>
-<script type="math/tex; mode=display">
-G=\prod_{w \in C}\prod_{u \in Context(w)}g(u) \tag{2.1}</script><p>这里，$\prod_{u \in Context(w)}g(u)$表示对于一个给定的样本$(w,Context(w))$，我们希望最大化的量，$g(u)$类似于上一节$g(w)$，定义为</p>
-<script type="math/tex; mode=display">
-g(u)=\prod_{z \in \{u\} \cup NEG(u)}p(z|w) \tag{2.2}</script><p>其中$NEG(u)$表示处理词u时生成的负样本子集，条件概率</p>
-<script type="math/tex; mode=display">
-p(z|w)=\begin{cases}
-\sigma(v(w)^T\theta^z),& L^{u}(z)=1\\
-1-\sigma(v(w)^T\theta^z),& L^{u}(z)=0
-\end{cases}\tag{2.3}</script><p>(2.3)式写成整体表达式为</p>
-<script type="math/tex; mode=display">
-p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]^{1-L^{u}(z)} \tag{2.4}</script><p>同样，我们取G的对数，最终的目标函数为</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\mathcal{L}=\log{G}&=log\prod_{w \in C}\prod_{u \in Context(w)}\prod_{z \in \{u\} \cup NEG(u)}p(z|w)\\
-&=\sum_{w \in C}\sum_{u \in Context(w)}\sum_{z \in \{u\} \cup NEG(u)}\log{p(z|w)}\\
-&=\sum_{w \in C}\sum_{u \in Context(w)}\sum_{z \in \{u\} \cup NEG(u)}\{L^{u}(z) \cdot \log{[\sigma(v(w)^T\theta^{z})]} + [1-L^{u}(z)]\log{[1-\sigma(v(w)^{T}\theta^z)]}\}
-\end{align}\tag{2.5}</script><p>与CBOW模型一样利用梯度上升法对$\mathcal{L}$进行优化求最大值，将式(2.5)中花括号中的内容简记为$\mathcal{L}(w,u,z)$，然后将$\mathcal{L}(w,u,z)$分别对$v(w)$和$\theta^{z}$求偏导，具体求解过程省略，可参考文末链接参考1中的5.2节</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><a href="https://www.cnblogs.com/peghoty/p/3857839.html" target="_blank" rel="noopener">* word2vec 中的数学原理详解</a></li>
-<li><a href="https://blog.csdn.net/Layumi1993/article/details/72866235" target="_blank" rel="noopener">Word2Vec教程 - Skip-Gram模型</a></li>
-<li><a href="https://blog.csdn.net/Layumi1993/article/details/72868399" target="_blank" rel="noopener">Word2Vec教程（2）- Negative Sampling</a></li>
-<li><a href="https://www.bilibili.com/video/av6475775" target="_blank" rel="noopener">Hierarchical Softmax(视频)</a></li>
-<li><a href="http://www.jmlr.org/papers/volume13/gutmann12a/gutmann12a.pdf" target="_blank" rel="noopener">Noise Contrastive Estimation(paper)</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2873,7 +2847,7 @@ p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2895,7 +2869,7 @@ p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
