@@ -5,6 +5,7 @@ tags:
     - lemmatization
     - C++
 categories:
+    - Machine Learning
     - NLP
 ---
 

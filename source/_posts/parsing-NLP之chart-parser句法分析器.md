@@ -5,6 +5,7 @@ tags:
     - setence parsing
     - C++
 categories:
+    - Machine Learning
     - NLP
 ---
 
