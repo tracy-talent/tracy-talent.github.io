@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="dimensionality reduction,metrics learning,classification,">
+  <meta name="keywords" content="transformer,">
 
 
 
@@ -82,18 +82,22 @@
 
 
 
-<meta name="description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
-<meta name="keywords" content="dimensionality reduction,metrics learning,classification">
+<meta name="description" content="Introduction在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder. Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurren">
+<meta name="keywords" content="transformer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="降维与度量学习之LDA &amp;&amp; NCA">
-<meta property="og:url" content="https://brooksj.com/2019/04/19/NCA-LDA/index.html">
+<meta property="og:title" content="Transformer">
+<meta property="og:url" content="https://brooksj.com/2019/12/06/Transformer/index.html">
 <meta property="og:site_name" content="在人间漂流">
-<meta property="og:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
+<meta property="og:description" content="Introduction在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder. Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurren">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-12T15:28:01.742Z">
+<meta property="og:image" content="https://brooksj.com/images/NLP/transformer_1.png">
+<meta property="og:image" content="https://brooksj.com/images/NLP/transformer_2.png">
+<meta property="og:image" content="https://brooksj.com/images/NLP/transformer_3.png">
+<meta property="og:updated_time" content="2019-12-06T13:18:14.266Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="降维与度量学习之LDA &amp;&amp; NCA">
-<meta name="twitter:description" content="代码实现放在我的github上:click me 一、Linear Discriminant Analysis(LDA)1.1 Rationale&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类">
+<meta name="twitter:title" content="Transformer">
+<meta name="twitter:description" content="Introduction在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder. Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurren">
+<meta name="twitter:image" content="https://brooksj.com/images/NLP/transformer_1.png">
 
 
 
@@ -123,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="https://brooksj.com/2019/04/19/NCA-LDA/">
+  <link rel="canonical" href="https://brooksj.com/2019/12/06/Transformer/">
 
 
 
@@ -132,7 +136,7 @@
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 
-  <title>降维与度量学习之LDA && NCA | 在人间漂流</title>
+  <title>Transformer | 在人间漂流</title>
   
 <script>
   window.fbAsyncInit = function() {
@@ -312,7 +316,7 @@
   
   <div class="post-block">
 
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/19/NCA-LDA/">
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/12/06/Transformer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brooksjay">
@@ -329,7 +333,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">降维与度量学习之LDA && NCA</h1>
+          <h1 class="post-title" itemprop="name headline">Transformer</h1>
         
 
         <div class="post-meta">
@@ -341,8 +345,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-19T21:46:43+08:00">
-                2019-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-06T21:14:01+08:00">
+                2019-12-06
               </time>
             
 
@@ -352,28 +356,6 @@
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-Mining/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Mining</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -382,8 +364,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/04/19/NCA-LDA/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/19/NCA-LDA/" itemprop="commentCount">0</span> comments
+                <a href="/2019/12/06/Transformer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/12/06/Transformer/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -391,7 +373,7 @@
 
           
           
-             <span id="/2019/04/19/NCA-LDA/" class="leancloud_visitors" data-flag-title="降维与度量学习之LDA && NCA">
+             <span id="/2019/12/06/Transformer/" class="leancloud_visitors" data-flag-title="Transformer">
                <span class="post-meta-divider"><br></span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -409,7 +391,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">1.4k(字)</span>
+            <span class="post-count">2.7k(字)</span>
             
           </span>
 	  
@@ -419,7 +401,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">5(分)</span>
+            <span class="post-count">10(分)</span>
           </span>
 
           
@@ -441,58 +423,82 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/LDA%20%26%26%20NCA" target="_blank" rel="noopener">click me</a></p>
-<h2 id="一、Linear-Discriminant-Analysis-LDA"><a href="#一、Linear-Discriminant-Analysis-LDA" class="headerlink" title="一、Linear Discriminant Analysis(LDA)"></a>一、Linear Discriminant Analysis(LDA)</h2><h3 id="1-1-Rationale"><a href="#1-1-Rationale" class="headerlink" title="1.1 Rationale"></a>1.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线性判别分析(LDA)是一种监督学习的分类和降维的方法，但更多是被用来降维。LDA的原理是让投影后同一类中数据的投影点之间尽可能地靠近，而类不同类别中数据的类别中心之间的距离尽可能远，用一句话概括就是“投影后类内方差最小，类间方差最大”。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们的数据集D={(x1,y1),(x2,y2),…,((xm,ym))}，其中任意样本xixi为n维向量，yi<script type="math/tex">\in</script>{C1,C2,…,Ck}。我们定义Nj(j=1,2…k)为第j类样本的个数，Xj(j=1,2…k)为第j类样本的集合，而μj(j=1,2…k)为第j类样本的均值向量，定义Σj(j=1,2…k)为第j类样本的协方差矩阵。由于我们是多类向低维投影，则此时投影到的低维空间就不是一条直线，而是一个超平面了。假设我们投影到的低维空间的维度为d，对应的基向量为(w1,w2,…wd)，基向量组成的矩阵为W, 它是一个n×d的矩阵。此时优化的目标变成</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder.</p>
+<p>Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurrent network是一种sequential model，不能很好地解决长距离依赖的问题(序列过长时，信息在序列模型中传递时容易一点点丢失)，并且阻碍了parallelism within train example.而<font color="red">transform最引人瞩目的一点正是很好地解决了长距离依赖的问题，通过引入自注意力机制(self-attention)使得对依赖的建模与输入输出序列的距离无关，并且支持train exmaple内部的并行化。</font>注意力机制可以参考之前写的<a href="https://brooksj.com/2019/12/01/Standford-CS224n-Notes/">notes of cs224n lecture8</a>.</p>
+<h2 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h2><p>下图1是transformer的模型架构图</p>
+<div align="center">
+    <img src="/images/NLP/transformer_1.png">
+</div>
+
+<center>图1. The Transformer - model architecture</center>
+左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。
+
+### Attention
+
+<div align="center">
+    <img src="/images/NLP/transformer_2.png">
+</div>
+
+<center>图2. (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.
+3.2.1</center>
+
+<h4 id="Scaled-Dot-Producted-Attention"><a href="#Scaled-Dot-Producted-Attention" class="headerlink" title="Scaled Dot-Producted Attention"></a>Scaled Dot-Producted Attention</h4><p>如上图2左边所示即为dot-producted attention的一般形式，在transformer中，初始Q, K, V即为一个句子所有的subword编码构成的矩阵(seq_len, d_model)，其中d_model是subword的编码长度。Deocder的第二个Multi-Head Attention中的Q, K, V会有所不同，在讲解Multi-Head Attention是提到。下面是dot-producted attention的数学表达形式</p>
 <script type="math/tex; mode=display">
-\frac{W^TS_bW}{W^TS_wW}</script><p>其中<script type="math/tex">S_b=\sum_{j=1}^{k}N_{j}(\mu_{j}-\mu)(\mu_j-\mu)^T</script>，<script type="math/tex">\mu</script>为所有样本均值向量。<script type="math/tex">S_{\mathcal{w}}=\sum_{j=1}^{k}\sum_{x \in X_{j}}(x-\mu_j)(x-\mu_j)^T</script>。但是有一个问题，就是<script type="math/tex">W^TS_bW</script>和<script type="math/tex">W^TS_{\mathcal{w}}W</script>都是矩阵，不是标量，无法作为一个标量函数来优化。可以用如下的替代优化目标</p>
+Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{k}}})V</script><p>这里除以$\sqrt{d_k}$是因为在与<a href="https://brooksj.com/2019/12/01/Standford-CS224n-Notes/">additive attention</a>(之前写的文章有提到)对比时发现$d_k$较小时，这两种注意力机制表现相似，但是当$d_k$较大时dot-producted attention不如additive attention。最后分析原因发现$d_k$较大时$QK^T$点乘结果矩阵元素在数量级很大，使得softmax函数求导的梯度非常小。下面是原论文的一个解释</p>
+<blockquote>
+<p>To illustrate why the dot products get large, assume that the components of q and k are independent random variables with mean 0 and variance 1. Then their dot product, $q \cdot d=\sum<em>{i=1}^{d_k}{q</em>{i}k_{i}}$, has mean 0 and variance dk.</p>
+</blockquote>
+<h4 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h4><p>如上图2右边所示即为Multi-Head Attention的结构图。它的中心思想就是将原来的$(Q, K, V)$转换成num_heads个shape为(seq_len, d_model/num_heads)的$(Q_i, K_i, V_i)$，然后再为每个head执行dot-producted attention的操作，最后再将所有head的输出在最后一个维度上进行拼接得到与对原始输入$(Q, K, V)$执行单个dot-producted attention操作后shape一致的结果。下面是Multi-Attention的数学表达形式</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \text { MultiHead }(Q, K, V) &=\text { Concat }\left(\text { head }_{1}, \ldots, \text { head }_{\mathrm{h}}\right) W^{O} \\ \text { where head }_{\mathrm{i}} &=\text { Attention }\left(Q W_{i}^{Q}, K W_{i}^{K}, V W_{i}^{V}\right) \end{aligned}</script><p>其中，$W^{Q}<em>{i} \in \mathbb{R}^{d</em>{model} \times d<em>k}, W^{K}</em>{i} \in \mathbb{R}^{d<em>{model} \times d_k}, W^{V}</em>{i} \in \mathbb{R}^{d<em>{model} \times d_k}$，而$W^{O}</em>{i} \in \mathbb{R}^{hd<em>{v} \times d</em>{model}}$</p>
+<p>在transformer中使用h=8个parallel attention heads.对于每个head使用$d<em>k=d_v=d</em>{model}/h=64$. 我看<a href="https://www.tensorflow.org/tutorials/text/transformer#encoder_layer" target="_blank" rel="noopener">tf official tutorial of transformer</a>实现中并没有为每个head学习转换矩阵$W^{Q}<em>{i},W^{K}</em>{i},W^{V}<em>{i}$，而是直接对$d</em>{model}$的编码表示进行划分成h份，然后输入到各自的head中进行处理。<font color="red">Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font></p>
+<p>Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用初始的$(Q, K, V)$作为输入，而是使用上一层MHA的输出作为$Q$，Encoder最后一层(第6层)的输出作为$K, V$.</p>
+<h3 id="Masking"><a href="#Masking" class="headerlink" title="Masking"></a>Masking</h3><p>无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。</p>
+<p>对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$\frac{Qk^T}{\sqrt{d_k}}$之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.</p>
+<p>对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为$K, V$，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。</p>
+<h3 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h3><p>encoder和decoder的输入是两套独立的embedding(例如translation task，分别是原语和目标语subword的Embeddings)，embedding的维度为$d<em>{model}$，论文中的base model设为512，big model设为1024.在embedding输入模型前逐元素乘以$\sqrt{d</em>{model}}$，因为在dot-producted attention中 $\frac{QK^T}{\sqrt{d_{model}}}$.</p>
+<h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h3><p>由于transform model不包含循环和卷积网络，为了使模型能利用sequence的顺序信息，必须加入序列中每个subword的相对或者绝对位置信息。因此引入了Positional Encoding，它保持和embedding一样维度$d_{model}$，具体encoding的方式有很多种，主要分为学习的和固定的(learned and fixed)。在论文中使用了固定的无须学习的positional embedding，使用不同频率的cos和sin函数如下</p>
+<script type="math/tex; mode=display">
+\begin{align}
+PE_{(pos,2i)}&=sin(pos/10000^{2i/d_{model}})\\
+PE_{(pos,2i+1)}&=cos(pos/10000^{2i/d_{model}})
+\end{align}</script><p>其中，pos是token position in sequence，i是dimension position.之所以选择cos和sin函数是因为对于固定的偏置量$k,PE<em>{pos+k}$能够表示为$PE</em>{pos}$的线性函数，假设它可以很容易学习到相对位置引入的信息。使用cos和sin的另一个原因是它允许模型推断比训练过程中遇到的更长的序列。论文中作者表示也使用了learned positional embeddings，但是与上述的fixed positional embeddings结果基本一致，所以最终采用了fixed positional embedings，这种方式更高效，减少训练开销。</p>
+<p>最终作为模型输入的是token embeddings + positional embeddings，然后套一层dropout.</p>
+<h3 id="Why-Self-Attention"><a href="#Why-Self-Attention" class="headerlink" title="Why Self-Attention"></a>Why Self-Attention</h3><div aling="center">
+    <img src="/images/NLP/transformer_3.png">
+</div>
+
+<p>如上图所示，使用self-attention机制主要有三点原因</p>
+<ul>
+<li>相比convolutional和recurrent，当sequence length n比representation dimensionality d更小时(SOTA的机器翻译模型都符合)，每一层的计算开销都更少</li>
+<li>self-attention相比recurrent和convolutional更适合并行化，可并行化的粒度更小(measured by the minimum sequential operations required)</li>
+<li>最重要的一点self-attention解决了长距离依赖(long -range denpendency)的问题。对于sequence transduction task，影响这种依赖的关键因素就是前向或者后向信号要在网络中遍历的路径长度。而self-attention的Q(query)直接与K(key),V(value)中每个token直接产生联系，无须信号序列式传递，所以如上图中self-attention的sequential operations和maximum path length常数级别的。</li>
+</ul>
+<p>由于self-attention的complexity per layer为$O(n^2 \cdot d)$，考虑非常长序列的极限情况，可以限制self-attention在计算时只考虑输入序列K,V中的r个邻居即可将complexity per layer限制在$O(r \cdot n \cdot d)$，这就是上图2中的Self-Attention(restricted).</p>
+<h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><h3 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h3><p>WMT 2014 English-German datasset和WMT 2014 English-French dataset，数据集<a href="http://www.statmt.org/wmt14/translation-task.html" target="_blank" rel="noopener">官网download</a>，论文使用其中的newstest2013作为验证集(development dataset)，newstest2014作为测试集(test dataset)。base model平均最后5个checkpoint的结果，big model平均最后20个checkpoint的结果。由于数据集太过庞大，训练代价很大。论文中使用8 NVIDIA P100 GPUs，base model训练100000 steps耗时12h，big model训练300000 steps耗时3.5 days.</p>
+<h3 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h3><p>论文中主要使用了两种正则化手段来避免过拟合并加速训练过程。</p>
+<h4 id="Residual-Dropout"><a href="#Residual-Dropout" class="headerlink" title="Residual Dropout"></a>Residual Dropout</h4><p>在每一residual Multi-Head Attention之后，Add&amp;Norm之前进行dropout，以及add(token embedding,positional encoding)之后进行dropout，FFN中没有dropout，base model的dropout rate统一设置为0.1，big model在wmt14 en-fr数据集上设置为0.1，在en-de数据集上设置为0.3</p>
+<h4 id="Label-Smothing"><a href="#Label-Smothing" class="headerlink" title="Label Smothing"></a>Label Smothing</h4><p>Label Smothing Regularization(LSR)是2015年发表在CoRR的<a href="https://arxiv.org/abs/1512.00567" target="_blank" rel="noopener">paper:Rethinking the inception architecture for computer vision</a>中的一个idea，这个idea简单又实用。假设数据样本x的针对label条件概率的真实分布为</p>
+<script type="math/tex; mode=display">
+q(k|x)=\delta_{k,y}=\left\{
+\begin{aligned}
+1, k = y\\
+0, k \neq y
+\end{aligned}
+\right.</script><p>这使得模型对自己给出的预测太过自信，容易导致过拟合并且自适应能力差(easy cause overfit and hard to adapt)。解决方案：给label分布加入平滑分布$u(k)$，一般取均匀分布$u(k)=\frac{1}{k}$就好，于是得到</p>
+<script type="math/tex; mode=display">
+q'(k|x)=(1-\epsilon)\delta_{k,y}+\epsilon u(k)</script><p>映射到损失函数cross entropy有</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-\mathop{\arg\max_{\mathrm{W}}}\ \| \mathrm{J}(\mathrm{W})\|&=\frac{\prod_{diag}W^TS_bW}{\prod_{diag}W^TS_{\mathcal{w}}W}\\
-& =\prod_{i=1}^{d}\frac{\mathcal{w}_i^TS_b\mathcal{w}_i}{\mathcal{w}_i^TS_\mathcal{w}\mathcal{w}_i}
-\end{aligned}</script><p>其中<script type="math/tex">\prod_{diag}A</script>为A的主对角线元素的乘积。利用广义瑞利商可知，最大值是<script type="math/tex">S_{w}^{-1}S_b</script>的最大特征值，而最大的d个值的乘积就是<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值的乘积，而W即为<script type="math/tex">S_{w}^{-1}S_b</script>最大的d个特征值对应的d个特征向量张成的矩阵，这样就得到用于降维的转换矩阵W。这里有一点需要注意的是W降维的大小不能超过k-1即数据类别数-1。因为矩阵的秩小于等于各个相加得到它的矩阵的秩的和，而累加得到<script type="math/tex">S_{b}</script>的<script type="math/tex">(\mu_{j}-\mu)(\mu_{j}-\mu)^T</script>的秩为1，所以<script type="math/tex">S_{b}</script>的秩不超过k，又因为第k个<script type="math/tex">\mu_{k}-\mu</script>可由前k-1个<script type="math/tex">\mu_{j}-\mu</script>线性表示，因此<script type="math/tex">S_b</script>秩最大为k-1，则不为0的特征值最多有k-1个。</p>
-<h3 id="1-2-LDA-vs-PCA"><a href="#1-2-LDA-vs-PCA" class="headerlink" title="1.2 LDA vs PCA"></a>1.2 LDA vs PCA</h3><ul>
-<li>Commonalities：<ul>
-<li>两者均可以对数据进行降维。</li>
-<li>两者在降维时均使用了矩阵特征分解的思想。</li>
-<li>两者都假设数据符合高斯分布。</li>
-</ul>
-</li>
-<li>Differences：<ul>
-<li>LDA是有监督的降维方法，而PCA是无监督的降维方法</li>
-<li>LDA降维最多降到类别数==k-1==的维数，而PCA没有这个限制。</li>
-<li>LDA除了可以用于降维，还可以用于分类。</li>
-<li>LDA选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向。</li>
-</ul>
-</li>
-</ul>
-<h2 id="二、Neighborhood-Component-Analysis-NCA"><a href="#二、Neighborhood-Component-Analysis-NCA" class="headerlink" title="二、Neighborhood Component Analysis(NCA)"></a>二、Neighborhood Component Analysis(NCA)</h2><h3 id="2-1-Rationale"><a href="#2-1-Rationale" class="headerlink" title="2.1 Rationale"></a>2.1 Rationale</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近邻成分分析（NCA）是由Jacob Goldberger和Geoff Hinton等大佬们在2005年发表于NIPS上的一项工作<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="<http://www.cs.toronto.edu/~fritz/absps/nca.pdf>">[1]</span></a></sup>，属于度量学习（Metric Learning）和降维（Dimension Reduction）领域。NCA的原理是以马氏距离为距离度量的KNN为基础，通过不断优化KNN分类的准确率来学习转换矩阵，最终得到对原数据进行降维的转换矩阵。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来对NCA学习转换矩阵的数学推导，设<script type="math/tex">x_i(1 \le i \le n)</script>表示原数据的列向量表示，A是d*D的转换矩阵，其中D为原数据的维度，而d为降维后的维度，定义<script type="math/tex">p_{ij}</script>为映射空间中欧氏距离(相当于原空间中的马氏距离)的softmax概率值</p>
-<script type="math/tex; mode=display">
-p_{ij}=\frac{exp(- \|Ax_{i}-Ax_{j}\|^{2})}{\sum_{k \ne i}exp(-\|Ax_{i}-A_{k}\|^{2})}，\ p_{ii}=0</script><p>设<script type="math/tex">p_{i}</script>为i能够被正确分类的概率，<script type="math/tex">C_{i}</script>表示与i属于同一类的样本的集合，那么</p>
-<script type="math/tex; mode=display">
-p_{i}=\sum_{j \in C_{i}}p_{ij}</script><p>优化目标就是最大化能被正确分类的点的数目</p>
-<script type="math/tex; mode=display">
-f(A)=\sum_{i}\sum_{j \in C_{i}}p_{ij}=\sum_{i}p_{i}</script><p>f(A)对A求偏导，定义<script type="math/tex">x_{ij}=x_{i}-x_{j}</script></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f^{'}(A)=\frac{\partial f}{\partial A}&=-2A\sum_{i}\sum_{j \in C_{i}}p_{ij}(x_{ij}x_{ij}^{T}-\sum_{k}p_{ik}x_{ik}x_{ik}^T)\\
-&=2A\sum_{i}(p_{i}\sum_{k}p_{ik}x_{ik}x_{ik}^T-\sum_{j \in C_{i}}p_{ij}x_{ij}x_{ij}^T)
-\end{aligned}</script><p>有了目标函数对A梯度之后就可以设定迭代次数和A的初始值<script type="math/tex">A_{0}</script>，利用梯度下降法不断优化目标函数上限(当然也可以使用其它的优化方法比如拟牛顿法)，设学习率为<script type="math/tex">\alpha</script>，<script type="math/tex">A_{0}</script>通过下面公式迭代</p>
-<script type="math/tex; mode=display">
-A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NCA-vs-PCA" class="headerlink" title="2.2 NCA vs PCA"></a>2.2 NCA vs PCA</h3><ul>
-<li>commonalities:<ul>
-<li>都可以用来降维</li>
-</ul>
-</li>
-<li>differences:<ul>
-<li>NCA除了降维还是一种度量学习的方法</li>
-<li>NCA对数据分布没有假设，而PCA要求数据服从高斯分布</li>
-<li>NCA基于KNN选择分类性能最好的投影方向，而PCA选择样本点投影具有最大方差的方向</li>
-</ul>
-</li>
-</ul>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="http://www.cs.toronto.edu/~fritz/absps/nca.pdf" target="_blank" rel="noopener">http://www.cs.toronto.edu/~fritz/absps/nca.pdf</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
+H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
+&=(1-\epsilon)H(q,p)+\epsilon H(u,p)
+\end{aligned}</script><p>由上式可知，LSR使得不仅要最小化原来的交叉熵H(q,p)，还要考虑预测分布$p$与$u(k)$之间差异最小化，使得模型预测泛化能力更好。transformer的论文中指定$\epsilon_{ls}=0.1$。下表是使用LSR和未使用LSR在tensorflow datasets的ted_hrlr_translate/pt_to_en dataset上bleu score对比</p>
+<p><center>表1. bleu score with LSR and without LSR</center><br>|                                           | bleu on validation dataset | bleu on test dataset |<br>| :———————————————————-: | :————————————: | :—————————: |<br>|                beam_search                |         0.415/41.5         |      0.420/42.0      |<br>| beam_search + label_smooth_regualrization |         0.473/47.3         |      0.468/46.8      |</p>
+<p>可以看到使用了LSR在验证集和测试集上都取得了比更好的bleu score.但是LSR对perplexity不利，因为模型的学习目标变得更不确切了。</p>
+<h3 id="LayerNormalization"><a href="#LayerNormalization" class="headerlink" title="LayerNormalization"></a>LayerNormalization</h3><p>在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Transformer是NLP在深度学习发展历程上的一座里程碑，目前主流的预训练语言模型都是基于transformer的，逐渐取代了LSTM的位置，深入理解transformer的细节对后续NLP的学习非常重要。</p>
+<p>Transformer最大的亮点在于不依靠RNN和CNN，通过引入self-attention机制，很好地解决了让人头疼的长距离依赖问题，使得输入和输出直接关联，没有了RNN那样的序列传递信息损失，输入输出之间经过的的路径长为常数级，与输入序列长度无关，上下文信息保留更完整。因此tranformer是非常强大的文本生成模型，应用于MT, 成分句法分析(constituency parsing)等效果非常好。</p>
+
       
     </div>
     
@@ -513,7 +519,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 	    <span>
         <b>作者: brooksjay</b><br>
         <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/2019/04/19/NCA-LDA/" title="降维与度量学习之LDA && NCA">https://brooksj.com/2019/04/19/NCA-LDA/</a><br>
+	    <b>本文地址: </b><a href="/2019/12/06/Transformer/" title="Transformer">https://brooksj.com/2019/12/06/Transformer/</a><br>
 	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <b>转载请注明出处, 谢谢！</b>
 	    </span>
@@ -524,11 +530,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
       
         <div class="post-tags">
           
-            <a href="/tags/dimensionality-reduction/" rel="tag"><i class="fa fa-tag"></i> dimensionality reduction</a>
-          
-            <a href="/tags/metrics-learning/" rel="tag"><i class="fa fa-tag"></i> metrics learning</a>
-          
-            <a href="/tags/classification/" rel="tag"><i class="fa fa-tag"></i> classification</a>
+            <a href="/tags/transformer/" rel="tag"><i class="fa fa-tag"></i> transformer</a>
           
         </div>
       
@@ -559,8 +561,8 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/19/hadoop-tips/" rel="next" title="hadoop tips">
-                <i class="fa fa-chevron-left"></i> hadoop tips
+              <a href="/2019/12/01/Standford-CS224n-Notes/" rel="next" title="Standford CS224n Notes">
+                <i class="fa fa-chevron-left"></i> Standford CS224n Notes
               </a>
             
           </div>
@@ -568,10 +570,6 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/24/apriori-fpgrowth/" rel="prev" title="apriori && fpgrowth:频繁模式与关联规则挖掘">
-                apriori && fpgrowth:频繁模式与关联规则挖掘 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +600,7 @@ A_{0}=A_{0}+\alpha f^{'}(A_{0})</script><h3 id="2-2-NCA-vs-PCA"><a href="#2-2-NC
 
   
     <div class="comments" id="comments">
-      <div class="fb-comments" data-href="https://brooksj.com/2019/04/19/NCA-LDA/" data-numposts="10" data-width="100%" data-colorscheme="light">
+      <div class="fb-comments" data-href="https://brooksj.com/2019/12/06/Transformer/" data-numposts="10" data-width="100%" data-colorscheme="light">
       </div>
     </div>
 
@@ -782,7 +780,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Linear-Discriminant-Analysis-LDA"><span class="nav-number">1.</span> <span class="nav-text">一、Linear Discriminant Analysis(LDA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Rationale"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-LDA-vs-PCA"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 LDA vs PCA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Neighborhood-Component-Analysis-NCA"><span class="nav-number">2.</span> <span class="nav-text">二、Neighborhood Component Analysis(NCA)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Rationale"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Rationale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-NCA-vs-PCA"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 NCA vs PCA</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">2.</span> <span class="nav-text">Model Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scaled-Dot-Producted-Attention"><span class="nav-number">2.0.1.</span> <span class="nav-text">Scaled Dot-Producted Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-Head-Attention"><span class="nav-number">2.0.2.</span> <span class="nav-text">Multi-Head Attention</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Masking"><span class="nav-number">2.1.</span> <span class="nav-text">Masking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeddings"><span class="nav-number">2.2.</span> <span class="nav-text">Embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">2.3.</span> <span class="nav-text">Positional Encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Self-Attention"><span class="nav-number">2.4.</span> <span class="nav-text">Why Self-Attention</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Training"><span class="nav-number">3.</span> <span class="nav-text">Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataset"><span class="nav-number">3.1.</span> <span class="nav-text">Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularization"><span class="nav-number">3.2.</span> <span class="nav-text">Regularization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Residual-Dropout"><span class="nav-number">3.2.1.</span> <span class="nav-text">Residual Dropout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Label-Smothing"><span class="nav-number">3.2.2.</span> <span class="nav-text">Label Smothing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LayerNormalization"><span class="nav-number">3.3.</span> <span class="nav-text">LayerNormalization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></div>
             
 
           </div>
