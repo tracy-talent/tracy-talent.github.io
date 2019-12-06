@@ -145,6 +145,22 @@ $$
 
 在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。
 
+### LayerNormalization
+
+在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。
+
+### Learning Rate with Warmup
+
+<div align="center">
+    <img src="/images/NLP/transformer_4.png">
+</div>
+
+Transformer使用Adam optimizer with $\beta_{1}=0.9,\beta_{2}=0.98,\epsilon=10^{-9}$.学习率在训练过程中会变动，先有一个预热，学习率呈线性增长，然后呈幂函数递减如上图所示，下面是学习率的计算公式
+$$
+lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^{-1.5})
+$$
+论文中设置warmup\_steps=4000.也就是说训练的前4000步线性增长，4000步后面呈幂函数递减。
+
 ## Conclusion
 
 Transformer是NLP在深度学习发展历程上的一座里程碑，目前主流的预训练语言模型都是基于transformer的，逐渐取代了LSTM的位置，深入理解transformer的细节对后续NLP的学习非常重要。
