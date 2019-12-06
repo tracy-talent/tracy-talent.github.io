@@ -389,7 +389,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">2.7k(字)</span>
+            <span class="post-count">2.8k(字)</span>
             
           </span>
 	  
@@ -399,7 +399,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">10(分)</span>
+            <span class="post-count">11(分)</span>
           </span>
 
           
@@ -496,6 +496,14 @@ H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
 <p><center>表1. bleu score with LSR and without LSR</center><br>|                                           | bleu on validation dataset | bleu on test dataset |<br>| :———————————————————-: | :————————————: | :—————————: |<br>|                beam_search                |         0.415/41.5         |      0.420/42.0      |<br>| beam_search + label_smooth_regualrization |         0.473/47.3         |      0.468/46.8      |</p>
 <p>可以看到使用了LSR在验证集和测试集上都取得了比更好的bleu score.但是LSR对perplexity不利，因为模型的学习目标变得更不确切了。</p>
 <h3 id="LayerNormalization"><a href="#LayerNormalization" class="headerlink" title="LayerNormalization"></a>LayerNormalization</h3><p>在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。</p>
+<h3 id="LayerNormalization-1"><a href="#LayerNormalization-1" class="headerlink" title="LayerNormalization"></a>LayerNormalization</h3><p>在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。</p>
+<h3 id="Learning-Rate-with-Warmup"><a href="#Learning-Rate-with-Warmup" class="headerlink" title="Learning Rate with Warmup"></a>Learning Rate with Warmup</h3><div align="center">
+    <img src="/images/NLP/transformer_4.png">
+</div>
+
+<p>Transformer使用Adam optimizer with $\beta<em>{1}=0.9,\beta</em>{2}=0.98,\epsilon=10^{-9}$.学习率在训练过程中会变动，先有一个预热，学习率呈线性增长，然后呈幂函数递减如上图所示，下面是学习率的计算公式</p>
+<script type="math/tex; mode=display">
+lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^{-1.5})</script><p>论文中设置warmup_steps=4000.也就是说训练的前4000步线性增长，4000步后面呈幂函数递减。</p>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Transformer是NLP在深度学习发展历程上的一座里程碑，目前主流的预训练语言模型都是基于transformer的，逐渐取代了LSTM的位置，深入理解transformer的细节对后续NLP的学习非常重要。</p>
 <p>Transformer最大的亮点在于不依靠RNN和CNN，通过引入self-attention机制，很好地解决了让人头疼的长距离依赖问题，使得输入和输出直接关联，没有了RNN那样的序列传递信息损失，输入输出之间经过的的路径长为常数级，与输入序列长度无关，上下文信息保留更完整。因此tranformer是非常强大的文本生成模型，应用于MT, 成分句法分析(constituency parsing)等效果非常好。</p>
 
