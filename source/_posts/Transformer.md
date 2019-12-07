@@ -50,7 +50,7 @@ $$
 $$
 \begin{aligned} \text { MultiHead }(Q, K, V) &=\text { Concat }\left(\text { head }_{1}, \ldots, \text { head }_{\mathrm{h}}\right) W^{O} \\ \text { where head }_{\mathrm{i}} &=\text { Attention }\left(Q W_{i}^{Q}, K W_{i}^{K}, V W_{i}^{V}\right) \end{aligned}
 $$
-其中，$W^{Q}_{i} \in \mathbb{R}^{d_{model} \times d_k}, W^{K}_{i} \in \mathbb{R}^{d_{model} \times d_k}, W^{V}_{i} \in \mathbb{R}^{d_{model} \times d_k}$，而$W^{O}_{i} \in \mathbb{R}^{hd_{v} \times d_{model}}$
+其中，$W^{Q}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{K}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{V}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}$，而$W^{O}_{i} \in \mathbb{R}^{hd_{v} \times d_{model}}$
 
 在transformer中使用h=8个parallel attention heads.对于每个head使用$d_k=d_v=d_{model}/h=64$. 我看[tf official tutorial of transformer](https://www.tensorflow.org/tutorials/text/transformer#encoder_layer)实现中并没有为每个head学习转换矩阵$W^{Q}_{i},W^{K}_{i},W^{V}_{i}$，而是直接对$d_{model}$的编码表示进行划分成h份，然后输入到各自的head中进行处理。<font color='red'>Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font>
 
