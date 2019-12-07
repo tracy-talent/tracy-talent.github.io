@@ -159,7 +159,7 @@ Transformer使用Adam optimizer with $\beta_{1}=0.9,\beta_{2}=0.98,\epsilon=10^{
 $$
 lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^{-1.5})
 $$
-论文中设置warmup\_steps=4000.也就是说训练的前4000步线性增长，4000步后面呈幂函数递减。
+论文中设置warmup\_steps=4000.也就是说训练的前4000步线性增长，4000步后面呈幂函数递减。这么做可以加速模型训练收敛，先以上升的较大的学习率让模型快速落入一个局部收敛较优的状态，然后以较小的学习率微调参数慢慢逼近更优的状态以避免震荡。
 
 ## Conclusion
 
