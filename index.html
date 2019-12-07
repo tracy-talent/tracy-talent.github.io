@@ -389,7 +389,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">2.8k(字)</span>
+            <span class="post-count">2.9k(字)</span>
             
           </span>
 	  
@@ -503,7 +503,7 @@ H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
 
 <p>Transformer使用Adam optimizer with $\beta<em>{1}=0.9,\beta</em>{2}=0.98,\epsilon=10^{-9}$.学习率在训练过程中会变动，先有一个预热，学习率呈线性增长，然后呈幂函数递减如上图所示，下面是学习率的计算公式</p>
 <script type="math/tex; mode=display">
-lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^{-1.5})</script><p>论文中设置warmup_steps=4000.也就是说训练的前4000步线性增长，4000步后面呈幂函数递减。</p>
+lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^{-1.5})</script><p>论文中设置warmup_steps=4000.也就是说训练的前4000步线性增长，4000步后面呈幂函数递减。这么做可以加速模型训练收敛，先以上升的较大的学习率让模型快速落入一个局部收敛较优的状态，然后以较小的学习率微调参数慢慢逼近更优的状态以避免震荡。</p>
 <h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Transformer是NLP在深度学习发展历程上的一座里程碑，目前主流的预训练语言模型都是基于transformer的，逐渐取代了LSTM的位置，深入理解transformer的细节对后续NLP的学习非常重要。</p>
 <p>Transformer最大的亮点在于不依靠RNN和CNN，通过引入self-attention机制，很好地解决了让人头疼的长距离依赖问题，使得输入和输出直接关联，没有了RNN那样的序列传递信息损失，输入输出之间经过的的路径长为常数级，与输入序列长度无关，上下文信息保留更完整。因此tranformer是非常强大的文本生成模型，应用于MT, 成分句法分析(constituency parsing)等效果非常好。</p>
 
