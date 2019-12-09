@@ -433,8 +433,6 @@
 <center>图1. The Transformer - model architecture</center>
 左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。
 
-<br>
-
 ### Attention
 
 <div align="center">
@@ -1221,7 +1219,7 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">131(字)</span>
+            <span class="post-count">141(字)</span>
             
           </span>
 	  
@@ -1255,7 +1253,7 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考<a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank" rel="noopener">维基百科: Backpropagation</a>，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程。</p>
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考<a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank" rel="noopener">维基百科: Backpropagation</a>，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程，假设前向计算公式$wx + b$.</p>
 <div align="center">
     <img src="/images/backpropagation/bp1.png">
 </div>
