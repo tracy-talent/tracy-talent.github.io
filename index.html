@@ -389,7 +389,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">2.8k(字)</span>
+            <span class="post-count">2.9k(字)</span>
             
           </span>
 	  
@@ -451,7 +451,7 @@ Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{k}}})V</script><p>这里除以
 <h4 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h4><p>如上图2右边所示即为Multi-Head Attention的结构图。它的中心思想就是将原来的<script type="math/tex">(Q, K, V)</script>转换成num_heads个shape为(seq_len, d_model/num_heads)的<script type="math/tex">(Q_i, K_i, V_i)</script>，然后再为每个head执行dot-producted attention的操作，最后再将所有head的输出在最后一个维度上进行拼接得到与对原始输入<script type="math/tex">(Q, K, V)</script>执行单个dot-producted attention操作后shape一致的结果。下面是Multi-Attention的数学表达形式</p>
 <script type="math/tex; mode=display">
 \begin{aligned} \text { MultiHead }(Q, K, V) &=\text { Concat }\left(\text { head }_{1}, \ldots, \text { head }_{\mathrm{h}}\right) W^{O} \\ \text { where head }_{\mathrm{i}} &=\text { Attention }\left(Q W_{i}^{Q}, K W_{i}^{K}, V W_{i}^{V}\right) \end{aligned}</script><p>其中，<script type="math/tex">W^{Q}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{K}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{V}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}</script>，而<script type="math/tex">W^{O}_{i} \in \mathbb{R}^{hd_{v} \times d_{model}}</script></p>
-<p>在transformer中使用h=8个parallel attention heads.对于每个head使用<script type="math/tex">d_k=d_v=d_{model}/h=64</script>. 我看<a href="https://www.tensorflow.org/tutorials/text/transformer#encoder_layer" target="_blank" rel="noopener">tf official tutorial of transformer</a>实现中并没有为每个head学习转换矩阵<script type="math/tex">W^{Q}_{i},W^{K}_{i},W^{V}_{i}</script>，而是直接对<script type="math/tex">d_{model}</script>的编码表示进行划分成h份，然后输入到各自的head中进行处理。<font color="red">Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font></p>
+<p>在transformer中使用h=8个parallel attention heads.对于每个head使用<script type="math/tex">d_k=d_v=d_{model}/h=64</script>. 我看<a href="https://www.tensorflow.org/tutorials/text/transformer#encoder_layer" target="_blank" rel="noopener">tf official tutorial of transformer</a>实现中并没有为<script type="math/tex">head_i</script>学习转换矩阵<script type="math/tex">W^{Q}_{i},W^{K}_{i},W^{V}_{i}</script>，而是先对<script type="math/tex">(Q, K, V)</script>作一个线性转换到<script type="math/tex">d_{model}</script>的编码，然后将<script type="math/tex">d_{model}</script>的编码表示划分成h份，然后输入到各自的head中进行处理。<font color="red">Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font></p>
 <p>Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用初始的<script type="math/tex">(Q, K, V)</script>作为输入，而是使用上一层MHA的输出作为<script type="math/tex">Q</script>，Encoder最后一层(第6层)的输出作为<script type="math/tex">K, V</script>.</p>
 <h3 id="Masking"><a href="#Masking" class="headerlink" title="Masking"></a>Masking</h3><p>无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。</p>
 <p>对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即<script type="math/tex">\frac{Qk^T}{\sqrt{d_k}}</script>之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.</p>
