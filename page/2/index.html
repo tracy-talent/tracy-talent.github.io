@@ -1624,8 +1624,8 @@ r^{2} = \frac{(\sum_{i=1}^{n}x_{i}y_{i})^{2}}{(\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{
 <script type="math/tex; mode=display">
 Gamma(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)},(x>0,\alpha>0)</script><p>令<script type="math/tex">\beta t=x</script>，代入积分公式(1.1)中则可得到新的概率密度函数</p>
 <script type="math/tex; mode=display">
-Gamma(x|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\beta t>0,\alpha>0)</script><p>其中<script type="math/tex">\alpha</script>为shape parameter，主要决定了分布曲线的形状，<script type="math/tex">\beta</script>为scale parameter，主要决定曲线有多陡，<script type="math/tex">\beta</script>越大则曲线越陡。</p>
-<p>伽马分布是为解决阶乘数列的插值而产生的，伽马函数使得任意正实数所有阶乘，伽马函数有几条特性如下:</p>
+Gamma(t|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\beta t>0,\alpha>0)</script><p>其中<script type="math/tex">\alpha</script>为shape parameter，主要决定了分布曲线的形状，<script type="math/tex">\beta</script>为scale parameter，主要决定曲线有多陡，<script type="math/tex">\beta</script>越大则曲线越陡。</p>
+<p>伽马分布是为解决阶乘数列的插值而产生的，伽马函数使得任意正实数都有阶乘，伽马函数有几条特性如下:</p>
 <ol>
 <li><script type="math/tex; mode=display">\Gamma(x+1)=x\Gamma(x)</script></li>
 <li><script type="math/tex; mode=display">\Gamma(n)=(n-1)!</script></li>
@@ -1663,7 +1663,7 @@ X\sim Be(\alpha,\beta):Beta(x|\alpha,\beta)=\frac{1}{B(\alpha,\beta)}x^{\alpha-1
 <script type="math/tex; mode=display">
 先验分布\ + \ 数据的知识\ =\ 后验分布</script><p>对应到beta分布和二项分布的共轭</p>
 <script type="math/tex; mode=display">
-Beta(p|\alpha, \beta)\ +\ Binomial(m1|m1+m2,p)\ =\ Beta(p|\alpha+m1,\alpha+m2)</script></li>
+Beta(p|\alpha, \beta)\ +\ Binomial(m1|m1+m2,p)\ =\ Beta(p|\alpha+m1,\beta+m2)</script></li>
 </ul>
 <h2 id="Dirichlet分布简介"><a href="#Dirichlet分布简介" class="headerlink" title="Dirichlet分布简介"></a>Dirichlet分布简介</h2><p>Multinomial分布: 中文名多项式分布</p>
 <script type="math/tex; mode=display">
@@ -2942,7 +2942,7 @@ show_date_time();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
