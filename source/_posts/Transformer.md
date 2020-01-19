@@ -40,44 +40,44 @@ Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意
 $$
 Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{k}}})V
 $$
-这里除以$\sqrt{d_k}$是因为在与[additive attention](https://brooksj.com/2019/12/01/Standford-CS224n-Notes/)(之前写的文章有提到)对比时发现$d_k$较小时，这两种注意力机制表现相似，但是当$d_k$较大时dot-producted attention不如additive attention。最后分析原因发现$d_k$较大时$QK^T$点乘结果矩阵元素在数量级很大，使得softmax函数求导的梯度非常小。下面是原论文的一个解释
+这里除以$$\sqrt{d_k}$$是因为在与[additive attention](https://brooksj.com/2019/12/01/Standford-CS224n-Notes/)(之前写的文章有提到)对比时发现$$d_k$$较小时，这两种注意力机制表现相似，但是当$$d_k$$较大时dot-producted attention不如additive attention。最后分析原因发现$$d_k$$较大时$$QK^T$$点乘结果矩阵元素在数量级很大，使得softmax函数求导的梯度非常小。下面是原论文的一个解释
 
-> To illustrate why the dot products get large, assume that the components of q and k are independent random variables with mean 0 and variance 1. Then their dot product, $q \cdot d=\sum_{i=1}^{d_k}{q_{i}k_{i}}$, has mean 0 and variance dk.
+> To illustrate why the dot products get large, assume that the components of q and k are independent random variables with mean 0 and variance 1. Then their dot product, $$q \cdot d=\sum_{i=1}^{d_k}{q_{i}k_{i}}$$, has mean 0 and variance dk.
 
 #### Multi-Head Attention
 
-如上图2右边所示即为Multi-Head Attention的结构图。它的中心思想就是将原来的$(Q, K, V)$转换成num_heads个shape为(seq_len, d_model/num_heads)的$(Q_i, K_i, V_i)$，然后再为每个head执行dot-producted attention的操作，最后再将所有head的输出在最后一个维度上进行拼接得到与对原始输入$(Q, K, V)$执行单个dot-producted attention操作后shape一致的结果。下面是Multi-Attention的数学表达形式
+如上图2右边所示即为Multi-Head Attention的结构图。它的中心思想就是将原来的$$(Q, K, V)$$转换成num_heads个shape为(seq_len, d_model/num_heads)的$$(Q_i, K_i, V_i)$$，然后再为每个head执行dot-producted attention的操作，最后再将所有head的输出在最后一个维度上进行拼接得到与对原始输入$$(Q, K, V)$$执行单个dot-producted attention操作后shape一致的结果。下面是Multi-Attention的数学表达形式
 $$
 \begin{aligned} \text { MultiHead }(Q, K, V) &=\text { Concat }\left(\text { head }_{1}, \ldots, \text { head }_{\mathrm{h}}\right) W^{O} \\ \text { where head }_{\mathrm{i}} &=\text { Attention }\left(Q W_{i}^{Q}, K W_{i}^{K}, V W_{i}^{V}\right) \end{aligned}
 $$
-其中，$W^{Q}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{K}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{V}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}$，而$W^{O}_{i} \in \mathbb{R}^{hd_{v} \times d_{model}}$
+其中，$$W^{Q}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{K}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}, W^{V}_{i} \in \mathbb{R}^{d_{model} \times d_{k}}$$，而$$W^{O}_{i} \in \mathbb{R}^{hd_{v} \times d_{model}}$$
 
-在transformer中使用h=8个parallel attention heads.对于每个head使用$d_k=d_v=d_{model}/h=64$. 我看[tf official tutorial of transformer](https://www.tensorflow.org/tutorials/text/transformer#encoder_layer)实现中并没有为每个head学习转换矩阵$W^{Q}_{i},W^{K}_{i},W^{V}_{i}$，而是直接对$d_{model}$的编码表示进行划分成h份，然后输入到各自的head中进行处理。<font color='red'>Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font>
+在transformer中使用h=8个parallel attention heads.对于每个head使用$$d_k=d_v=d_{model}/h=64$$. 我看[tf official tutorial of transformer](https://www.tensorflow.org/tutorials/text/transformer#encoder_layer)实现中并没有为$$head_i$$学习转换矩阵$$W^{Q}_{i},W^{K}_{i},W^{V}_{i}$$，而是先对$$(Q, K, V)$$作一个线性转换到$$d_{model}$$的编码，然后将$$d_{model}$$的编码表示划分成h份，然后输入到各自的head中进行处理。<font color='red'>Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font>
 
-Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用初始的$(Q, K, V)$作为输入，而是使用上一层MHA的输出作为$Q$，Encoder最后一层(第6层)的输出作为$K, V$.
+Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用初始的$$(Q, K, V)$$作为输入，而是使用上一层MHA的输出作为$$Q$$，Encoder最后一层(第6层)的输出作为$$K, V$$.
 
 ### Masking
 
 无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。
 
-对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$\frac{Qk^T}{\sqrt{d_k}}$之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.
+对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$$\frac{Qk^T}{\sqrt{d_k}}$$之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.
 
-对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为$K, V$，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。
+对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为$$K, V$$，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。
 
 ### Embeddings
 
-encoder和decoder的输入是两套独立的embedding(例如translation task，分别是原语和目标语subword的Embeddings)，embedding的维度为$d_{model}$，论文中的base model设为512，big model设为1024.在embedding输入模型前逐元素乘以$\sqrt{d_{model}}$，因为在dot-producted attention中 $\frac{QK^T}{\sqrt{d_{model}}}$.
+encoder和decoder的输入是两套独立的embedding(例如translation task，分别是原语和目标语subword的Embeddings)，embedding的维度为$$d_{model}$$，论文中的base model设为512，big model设为1024.在embedding输入模型前逐元素乘以$$\sqrt{d_{model}}$$，因为在dot-producted attention中 $$\frac{QK^T}{\sqrt{d_{model}}}$$.
 
 ### Positional Encoding
 
-由于transform model不包含循环和卷积网络，为了使模型能利用sequence的顺序信息，必须加入序列中每个subword的相对或者绝对位置信息。因此引入了Positional Encoding，它保持和embedding一样维度$d_{model}$，具体encoding的方式有很多种，主要分为学习的和固定的(learned and fixed)。在论文中使用了固定的无须学习的positional embedding，使用不同频率的cos和sin函数如下
+由于transform model不包含循环和卷积网络，为了使模型能利用sequence的顺序信息，必须加入序列中每个subword的相对或者绝对位置信息。因此引入了Positional Encoding，它保持和embedding一样维度$$d_{model}$$，具体encoding的方式有很多种，主要分为学习的和固定的(learned and fixed)。在论文中使用了固定的无须学习的positional embedding，使用不同频率的cos和sin函数如下
 $$
 \begin{align}
 PE_{(pos,2i)}&=sin(pos/10000^{2i/d_{model}})\\
 PE_{(pos,2i+1)}&=cos(pos/10000^{2i/d_{model}})
 \end{align}
 $$
-其中，pos是token position in sequence，i是dimension position.之所以选择cos和sin函数是因为对于固定的偏置量$k,PE_{pos+k}$能够表示为$PE_{pos}$的线性函数，假设它可以很容易学习到相对位置引入的信息。使用cos和sin的另一个原因是它允许模型推断比训练过程中遇到的更长的序列。论文中作者表示也使用了learned positional embeddings，但是与上述的fixed positional embeddings结果基本一致，所以最终采用了fixed positional embedings，这种方式更高效，减少训练开销。
+其中，pos是token position in sequence，i是dimension position.之所以选择cos和sin函数是因为对于固定的偏置量$$k,PE_{pos+k}$$能够表示为$$PE_{pos}$$的线性函数，假设它可以很容易学习到相对位置引入的信息。使用cos和sin的另一个原因是它允许模型推断比训练过程中遇到的更长的序列。论文中作者表示也使用了learned positional embeddings，但是与上述的fixed positional embeddings结果基本一致，所以最终采用了fixed positional embedings，这种方式更高效，减少训练开销。
 
 最终作为模型输入的是token embeddings + positional embeddings，然后套一层dropout.
 
@@ -93,7 +93,7 @@ $$
 * self-attention相比recurrent和convolutional更适合并行化，可并行化的粒度更小(measured by the minimum sequential operations required)
 * 最重要的一点self-attention解决了长距离依赖(long -range denpendency)的问题。对于sequence transduction task，影响这种依赖的关键因素就是前向或者后向信号要在网络中遍历的路径长度。而self-attention的Q(query)直接与K(key),V(value)中每个token直接产生联系，无须信号序列式传递，所以如上图中self-attention的sequential operations和maximum path length常数级别的。
 
-由于self-attention的complexity per layer为$O(n^2 \cdot d)$，考虑非常长序列的极限情况，可以限制self-attention在计算时只考虑输入序列K,V中的r个邻居即可将complexity per layer限制在$O(r \cdot n \cdot d)$，这就是上图2中的Self-Attention(restricted).
+由于self-attention的complexity per layer为$$O(n^2 \cdot d)$$，考虑非常长序列的极限情况，可以限制self-attention在计算时只考虑输入序列K,V中的r个邻居即可将complexity per layer限制在$$O(r \cdot n \cdot d)$$，这就是上图2中的Self-Attention(restricted).
 
 ## Training
 
@@ -120,7 +120,7 @@ q(k|x)=\delta_{k,y}=\left\{
 \end{aligned}
 \right.
 $$
-这使得模型对自己给出的预测太过自信，容易导致过拟合并且自适应能力差(easy cause overfit and hard to adapt)。解决方案：给label分布加入平滑分布$u(k)$，一般取均匀分布$u(k)=\frac{1}{k}$就好，于是得到
+这使得模型对自己给出的预测太过自信，容易导致过拟合并且自适应能力差(easy cause overfit and hard to adapt)。解决方案：给label分布加入平滑分布$$u(k)$$，一般取均匀分布$$u(k)=\frac{1}{k}$$就好，于是得到
 $$
 q'(k|x)=(1-\epsilon)\delta_{k,y}+\epsilon u(k)
 $$
@@ -131,19 +131,15 @@ H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
 &=(1-\epsilon)H(q,p)+\epsilon H(u,p)
 \end{aligned}
 $$
-由上式可知，LSR使得不仅要最小化原来的交叉熵H(q,p)，还要考虑预测分布$p$与$u(k)$之间差异最小化，使得模型预测泛化能力更好。transformer的论文中指定$\epsilon_{ls}=0.1$。下表是使用LSR和未使用LSR在tensorflow datasets的ted_hrlr_translate/pt_to_en dataset上bleu score对比
+由上式可知，LSR使得不仅要最小化原来的交叉熵H(q,p)，还要考虑预测分布$$p$$与$$u(k)$$之间差异最小化，使得模型预测泛化能力更好。transformer的论文中指定$$\epsilon_{ls}=0.1$$。下表是使用LSR和未使用LSR在tensorflow datasets的ted_hrlr_translate/pt_to_en dataset上bleu score对比
 
 <center>表1. bleu score with LSR and without LSR</center>
 |                                           | bleu on validation dataset | bleu on test dataset |
-| :---------------------------------------: | :------------------------: | :------------------: |
-|                beam_search                |         0.415/41.5         |      0.420/42.0      |
-| beam_search + label_smooth_regualrization |         0.473/47.3         |      0.468/46.8      |
+| ----------------------------------------- | -------------------------- | -------------------- |
+| beam_search                               | 0.415/41.5                 | 0.420/42.0           |
+| beam_search + label_smooth_regualrization | 0.473/47.3                 | 0.468/46.8           |
 
 可以看到使用了LSR在验证集和测试集上都取得了比更好的bleu score.但是LSR对perplexity不利，因为模型的学习目标变得更不确切了。
-
-### LayerNormalization
-
-在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。
 
 ### LayerNormalization
 
@@ -155,7 +151,7 @@ $$
     <img src="/images/NLP/transformer_4.png">
 </div>
 
-Transformer使用Adam optimizer with $\beta_{1}=0.9,\beta_{2}=0.98,\epsilon=10^{-9}$.学习率在训练过程中会变动，先有一个预热，学习率呈线性增长，然后呈幂函数递减如上图所示，下面是学习率的计算公式
+Transformer使用Adam optimizer with $$\beta_{1}=0.9,\beta_{2}=0.98,\epsilon=10^{-9}$$.学习率在训练过程中会变动，先有一个预热，学习率呈线性增长，然后呈幂函数递减如上图所示，下面是学习率的计算公式
 $$
 lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^{-1.5})
 $$

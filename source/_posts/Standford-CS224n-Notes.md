@@ -44,7 +44,7 @@ seq2seq model的结构如下图所示
     <img src="/images/NLP/lecture8_4.png">
 </div>
 
-一般beam size设置越大，寻找到的结果更优，但不一定是最优，只有搜索所有路径才可以得到最优解，一直搜索直到预测到结束标记，概率值为language model的log probability的前缀和，因此序列越长log probability的和可能越小，结果要除以对应序列长度来比较候选序列。通常可以设置概率阈值、候选序列个数、预测序列长度限制来作为搜索的终止条件。MT task的评估一般采用BLEU，可以参考assignment4 handout或者[paper bleu](https://dl.acm.org/citation.cfm?id=1073135)，NLTK提供了基于句子和语料库计算[bleu score的API](http://www.nltk.org/api/nltk.translate.html##nltk.translate.bleu_score.sentence_bleu)，<font color='red'>注意计算整个corpus的bleu不是求corpus中每个句子bleu的均值，而是累加每个句子的ngrams统计信息到同一个分子分母中统一计算得来。</font>bleu取值范围[0,1]，但是论文中都习惯将bleu乘以100后保留一位小数来表示。
+一般beam size设置越大，寻找到的结果更优，但不一定是最优，只有搜索所有路径才可以得到最优解，一直搜索直到预测到结束标记，概率值为language model的log probability的前缀和，因此序列越长log probability的和可能越小，结果要除以对应序列长度来比较候选序列。通常可以设置概率阈值、候选序列个数、预测序列长度限制来作为搜索的终止条件。由于beam search容易使用来自训练集中的常见短语和重复文本，因此[Hierarchical Neural Story Generation](https://arxiv.org/pdf/1805.04833.pdf)这篇文章提出使用*top-k random sample scheme*的方法，简单概括就是先选出LM生成概率最高的k个词，然后从这top-k个词中随机采样一个词作为下一个序列生成词，重复上述步骤直到生成终止词。 MT task的评估一般采用BLEU，可以参考assignment4 handout或者[paper bleu](https://dl.acm.org/citation.cfm?id=1073135)，NLTK提供了基于句子和语料库计算[bleu score的API](http://www.nltk.org/api/nltk.translate.html##nltk.translate.bleu_score.sentence_bleu)，<font color='red'>注意计算整个corpus的bleu不是求corpus中每个句子bleu的均值，而是累加每个句子的ngrams统计信息到同一个分子分母中统一计算得来。</font>bleu取值范围[0,1]，但是论文中都习惯将bleu乘以100后保留一位小数来表示。
 
 NMT相比SMT的优点如下
 

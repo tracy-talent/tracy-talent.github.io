@@ -23,11 +23,11 @@ Gamma(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)},(x>0,\alpha>0)
 $$
 令$$\beta t=x$$，代入积分公式(1.1)中则可得到新的概率密度函数
 $$
-Gamma(x|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\beta t>0,\alpha>0)
+Gamma(t|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\beta t>0,\alpha>0)
 $$
 其中$$\alpha$$为shape parameter，主要决定了分布曲线的形状，$$\beta$$为scale parameter，主要决定曲线有多陡，$$\beta$$越大则曲线越陡。
 
-伽马分布是为解决阶乘数列的插值而产生的，伽马函数使得任意正实数所有阶乘，伽马函数有几条特性如下:
+伽马分布是为解决阶乘数列的插值而产生的，伽马函数使得任意正实数都有阶乘，伽马函数有几条特性如下:
 
 1. $$\Gamma(x+1)=x\Gamma(x)$$
 2. $$\Gamma(n)=(n-1)!$$
@@ -62,7 +62,7 @@ B(\alpha, \beta)=\int_{0}^{1}x^{\alpha-1}(1-x)^{\beta-1}dx=\frac{\Gamma(\alpha)\
 $$
 对Beta函数作一个变形即可得到
 $$
-\int_{0}^{\infty}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}}=1,(\alpha>0,\beta>0)
+\int_{0}^{1}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}}=1,(\alpha>0,\beta>0)
 $$
 去除式(2.1)的积分即可得到Beta分布的概率密度函数
 $$
@@ -82,7 +82,7 @@ $$
   $$
   对应到beta分布和二项分布的共轭
   $$
-  Beta(p|\alpha, \beta)\ +\ Binomial(m1|m1+m2,p)\ =\ Beta(p|\alpha+m1,\alpha+m2)
+  Beta(p|\alpha, \beta)\ +\ Binomial(m1|m1+m2,p)\ =\ Beta(p|\alpha+m1,\beta+m2)
   $$
 
 
