@@ -71,7 +71,8 @@ a L-layer biLM computes a set of 2L + 1 representations
 $$
 \begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}
 $$
-$$h_{k,0}^{LM}=[x_{k}^{LM},x_{k}^{LM}]$$ for token representation, $$h_{k,j}^{LM}=[\overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$$ for each biLSTM layer, compute a task specific weighting of all LM layers
+$h_{k,0}^{LM}=[x_{k}^{LM},x_{k}^{LM}]$ for token representation
+$h_{k,j}^{LM}=[\overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$ for each biLSTM layer, compute a task specific weighting of all LM layers
 $$
 \text { ELMo }_{k}^{\text {task }}=E\left(R_{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum_{j=0}^{L} s_{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}
 $$
