@@ -312,6 +312,227 @@
   
   <div class="post-block">
 
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2020/01/19/ELMo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksj">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/19/ELMo/" itemprop="url">ELMo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-19T23:35:03+08:00">
+                2020-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/19/ELMo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2020/01/19/ELMo/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/01/19/ELMo/" class="leancloud_visitors" data-flag-title="ELMo">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">749(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">3(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>ELMo(Embeddings from Language Models)是发表在NAACL2018的论文<a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">Deep contextualized word representations</a>提出来的模型，属于feature-based预训练语言模型，其后的<a href="https://arxiv.org/abs/1801.06146" target="_blank" rel="noopener">ULM-fit</a>与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。</p>
+<p>ELMo模型的简略模型结构图如下</p>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/research/elmo_5.png">
+</div>
+
+<p>主要分为两大模块：</p>
+<ol>
+<li>token representation</li>
+<li>Multi-BiLSTM</li>
+</ol>
+<p>下面分别给出这两个模块的一些细节</p>
+<h2 id="token-representation"><a href="#token-representation" class="headerlink" title="token representation"></a>token representation</h2><p>ELMo模型的token representation采用了character embedding，拥有更强大的表示能力，并且使用多个不同跨度的卷积核进行一维卷积，不同kernel卷积得到的不同表示拼接在一起，然后经过两层highway network得到最终的预处理编码表示。下图是一维卷积获取character embedding的具体操作示意图</p>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/research/elmo_2.png">
+</div>
+
+<p>多跨度多kernel的卷积拼接获取character embedding的具体操作示意图如下</p>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/research/elmo_3.png">
+</div>
+
+<p>将拼接得到的character embedding输入到两层highway network进行处理，highway network其实就是CV领域著名的ResNet中使用的残差单元的原型，hgihway network模型结构图如下</p>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/research/elmo_1.png">
+</div>
+
+<p>highway network的表达式描述为</p>
+<script type="math/tex; mode=display">
+y=H(x,W_H) \cdot T(x, W_T) + x \cdot C(x, W_C)</script><p>特别地，当$C=1-T$</p>
+<script type="math/tex; mode=display">
+y=H(x,W_H) \cdot T(x, W_T) + x \cdot (1 - T(x, W_H))</script><p>其中$H,T,C$都是非线性转换，$W_H,W_T,W_C$分别为它们对应的参数。</p>
+<h2 id="Multi-BiLSTM"><a href="#Multi-BiLSTM" class="headerlink" title="Multi-BiLSTM"></a>Multi-BiLSTM</h2><p>下图是LSTM的模型结构试图以及每个control gate的计算式</p>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/tracy-talent/Notes/master/imgs/research/elmo_4.png">
+</div>
+
+<p>BiLSTM则是使用一个正向一个逆向的LSTM处理sequence得到每个token的hidden state进行拼接作为这个token最终的输出。而Multi-BiLSTM顾名思义就是多层的双向LSTM，将当前这一层BiLSTM的正反向hidden state拼接输出作为紧邻的上一层的输入，最后一层的输出才是token最终的输出。</p>
+<h2 id="downstream-application"><a href="#downstream-application" class="headerlink" title="downstream application"></a>downstream application</h2><p>ELMo使用feature-based的方式应用到下游任务，就是将模型输出表示加入(一般是拼接)到任务模型中的某一层中或多层中以增强任务模型对文本的表示能力。具体方式在这里我直接引用原文更好理解：</p>
+<p>a L-layer biLM computes a set of 2L + 1 representations</p>
+<script type="math/tex; mode=display">
+\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><p>$h<em>{k,0}^{LM}=[x</em>{k}^{LM},x<em>{k}^{LM}]$for token representation, $h</em>{k,j}^{LM}=[\overrightarrow{\mathbf{h}}<em>{k, j}^{L M}, \overleftarrow{\mathbf{h}}</em>{k, j}^{L M}],j \gt 1$ for each biLSTM layer, compute a task specific weighting of all LM layers</p>
+<script type="math/tex; mode=display">
+\text { ELMo }_{k}^{\text {task }}=E\left(R_{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum_{j=0}^{L} s_{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}</script><p>$s_{j}^{\text {task}}$are softmax-normalized weights and the scalar parameter $\gamma^{\text {task }}$allows the task model to scale the entire ELMo vector.</p>
+<p>下游任务可以根据优化的目标函数对ELMo表示的权重$s_{j}^{\text {task}},\gamma^{\text {task }}$进行学习得到合适的权重。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
     <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/12/06/Transformer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2625,259 +2846,6 @@ $$
 
 
     
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/09/01/spark-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksj">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/01/spark-tips/" itemprop="url">spark tips</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T22:18:19+08:00">
-                2019-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Distributed-System/" itemprop="url" rel="index">
-                    <span itemprop="name">Distributed System</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Distributed-System/Bigdata-Technology/" itemprop="url" rel="index">
-                    <span itemprop="name">Bigdata Technology</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/09/01/spark-tips/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/09/01/spark-tips/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/09/01/spark-tips/" class="leancloud_visitors" data-flag-title="spark tips">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">710(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="spark-tips"><a href="#spark-tips" class="headerlink" title="spark tips"></a>spark tips</h1><h3 id="jar包上传到hdfs"><a href="#jar包上传到hdfs" class="headerlink" title="jar包上传到hdfs"></a>jar包上传到hdfs</h3><ul>
-<li>分布式集群上跑spark时每次都要将${SPARK_HOME}/jars/<em>下所有的jar包上传到分布式系统中供调用，为了避免每次的上传时间可以将这些jar包存放到hdfs中，==注意：我在2.\</em>的版本中将所有jar包打包成.archive文件上传到hdfs，但是这样做导致spark在yarn上启动失败，后来尝试将这些jar包分散上传到hdfs的文件夹下就能正常在yarn上启动spark了。==具体做法如下：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将$&#123;SPARK_HOME&#125;/jars下的所有jar包上传到hdfs中：</span><br><span class="line">hadoop fs -put jars/* /spark</span><br><span class="line">在$&#123;SPARK_HOME&#125;/conf/spark-defaults.conf中添加配置项：</span><br><span class="line">spark.yarn.jars  hdfs://localhost:9000/spark/jars/*</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果要使用hbase则需要将hbase的lib目录下hbase开头的jar包和guava-{version}.jar、protobuf-java-{version}.jar上传到hdfs上的同一目录jars，hbase.xml复制一份到hadoop的配置文件目录etc/hadoop下</li>
-</ul>
-<h2 id="spark-on-yarn"><a href="#spark-on-yarn" class="headerlink" title="spark on yarn"></a>spark on yarn</h2><h3 id="1-调参"><a href="#1-调参" class="headerlink" title="1. 调参"></a>1. 调参</h3><h4 id="1-1-client-mode"><a href="#1-1-client-mode" class="headerlink" title="1.1 client mode"></a>1.1 client mode</h4><ul>
-<li>client mode下，spark的driver与applicationmaster是分离的，要分别设置内存大小。任务提交的同时driver就开始运行了，所以driver内存不可以在程序里使用SparkConf类设置，可通过spark-defaults.conf或者CLI下—driver-memory配置，而applicationmaster的内存大小没有限制可以在SparkConf里面通过spark.yarn.am.memory来配置</li>
-</ul>
-<h4 id="1-2-cluster-mode"><a href="#1-2-cluster-mode" class="headerlink" title="1.2 cluster mode"></a>1.2 cluster mode</h4><ul>
-<li>cluster mode下，spark的driver和applicationmaster在同一个container里面，可以通过在SparkConf，spark-defaults.conf或者CLI下用spark.yarn.am.memory来对这个container内存大小进行配置</li>
-</ul>
-<h4 id="1-3-CLI参数设置"><a href="#1-3-CLI参数设置" class="headerlink" title="1.3 CLI参数设置"></a>1.3 CLI参数设置</h4><blockquote>
-<p>spark在yarn上运行能使用的container数目是由核数vcores和executor内存大小共同决定的，由于hadoop不像spark，hadoop可以设置一个结点的总内存和核数，所以当cpu或者内存资源超过设置的额度时会限制container到尽可能大的数目</p>
-</blockquote>
-<ul>
-<li>—num-executors设置executor数目</li>
-<li>—executor-memory设置executor内存</li>
-<li>—executor-cores设置executor核数</li>
-<li>—conf spark.yarn.am.memory=2g设置application master内存大小</li>
-<li>—conf spark.yarn.am.cores=2设置application master核数</li>
-</ul>
-<h4 id="1-4-运行方式"><a href="#1-4-运行方式" class="headerlink" title="1.4 运行方式"></a>1.4 运行方式</h4><ul>
-<li>cluster</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class &lt;yourclass&gt; --master yarn --deploy-mode cluster --conf spark.yarn.am.memory=2g --executor-memory 2g --executor-cores 2 &lt;yourjar&gt; &lt;args&gt;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>client</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class &lt;yourclass&gt; --master yarn --deploy-mode client --driver-meemoty 2g --executor-memory 2g --executor-cores 2 &lt;yourjar&gt; &lt;args&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="spark-standalone"><a href="#spark-standalone" class="headerlink" title="spark standalone"></a>spark standalone</h2><h3 id="1-调参-1"><a href="#1-调参-1" class="headerlink" title="1.调参"></a>1.调参</h3><ul>
-<li><p>spark无需像mapreduce那样给每个节点设置总的内存限制，spark总内存使用会自动扩展。</p>
-</li>
-<li><p>spark集群总核数无需配置，自动识别集群中所有机器的虚拟内核数</p>
-</li>
-<li><p>spark的executor数目由集群中的总核数和exexutor的核数决定：</p>
-<script type="math/tex; mode=display">
-num-executors = cores-in-cluster/executor.cores</script></li>
-<li><p>executor.memory不等于RDD可用的memory size，因为JVM等也需要占据一定内存资源，差不多只能用一半，driver.memory也一样</p>
-</li>
-<li><p>运行方式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class &lt;yourclass&gt; --master spark://slave103:7077 --conf spark.driver.memery=6g --conf spark.executor.memory=2g --conf spark.executor.cores=2 &lt;yourjar&gt; &lt;args&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2930,7 +2898,7 @@ num-executors = cores-in-cluster/executor.cores</script></li>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2952,7 +2920,7 @@ num-executors = cores-in-cluster/executor.cores</script></li>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
