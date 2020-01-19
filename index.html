@@ -389,7 +389,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">750(字)</span>
+            <span class="post-count">749(字)</span>
             
           </span>
 	  
@@ -464,8 +464,9 @@ y=H(x,W_H) \cdot T(x, W_T) + x \cdot (1 - T(x, W_H))</script><p>其中$H,T,C$都
 <h2 id="downstream-application"><a href="#downstream-application" class="headerlink" title="downstream application"></a>downstream application</h2><p>ELMo使用feature-based的方式应用到下游任务，就是将模型输出表示加入(一般是拼接)到任务模型中的某一层中或多层中以增强任务模型对文本的表示能力。具体方式在这里我直接引用原文更好理解：</p>
 <p>a L-layer biLM computes a set of 2L + 1 representations</p>
 <script type="math/tex; mode=display">
-\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><script type="math/tex; mode=display">h_{k,0}^{LM}=[x_{k}^{LM},x_{k}^{LM}]$$ for token representation, $$h_{k,j}^{LM}=[\overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$$ for each biLSTM layer, compute a task specific weighting of all LM layers</script><p>\text { ELMo }<em>{k}^{\text {task }}=E\left(R</em>{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum<em>{j=0}^{L} s</em>{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}</p>
-<p>$$<br>$s_{j}^{\text {task}}$are softmax-normalized weights and the scalar parameter $\gamma^{\text {task }}$allows the task model to scale the entire ELMo vector.</p>
+\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><p>$h<em>{k,0}^{LM}=[x</em>{k}^{LM},x<em>{k}^{LM}]$ for token representation<br>$h</em>{k,j}^{LM}=[\overrightarrow{\mathbf{h}}<em>{k, j}^{L M}, \overleftarrow{\mathbf{h}}</em>{k, j}^{L M}],j \gt 1$ for each biLSTM layer, compute a task specific weighting of all LM layers</p>
+<script type="math/tex; mode=display">
+\text { ELMo }_{k}^{\text {task }}=E\left(R_{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum_{j=0}^{L} s_{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}</script><p>$s_{j}^{\text {task}}$are softmax-normalized weights and the scalar parameter $\gamma^{\text {task }}$allows the task model to scale the entire ELMo vector.</p>
 <p>下游任务可以根据优化的目标函数对ELMo表示的权重$s_{j}^{\text {task}},\gamma^{\text {task }}$进行学习得到合适的权重。</p>
 
           
