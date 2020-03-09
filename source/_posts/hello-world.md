@@ -1,5 +1,6 @@
 ---
 title: Hello Hexo
+date: 2019-04-10 10:00:00
 tags:
 	- hexo
 categories:
