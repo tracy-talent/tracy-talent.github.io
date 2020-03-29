@@ -59,7 +59,7 @@ Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用
 
 无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。
 
-对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$$\frac{Qk^T}{\sqrt{d_k}}$$之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.
+对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$$\frac{Qk^T}{\sqrt{d_k}}$$之后softmax之前，对需要mask的位置赋值为-1e9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.
 
 对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为$$K, V$$，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。
 
