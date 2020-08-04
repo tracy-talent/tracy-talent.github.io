@@ -26,7 +26,7 @@ categories:
 
 9. 后期如果对主题自定义，每次修改完之后确保将主题模块切换到master分支，然后提交修改。再回到博客主目录下提交修改，更新主线(hexo分支)指向子模块的指针，这样才能将第三方库即子模块同步到主线上，使得主线上指向子模块的指针对应的永远是子模块最新的commit id
 
-10. 这时候如果想在另一台机器上同步部署博客，那么需要先安装npm，然后新建一个目录例如hexo(因为hexo初始化必须是一个空目录)，在hexo目录下依次执行npm install hexo、hexo init、npm install 和 npm install hexo-deployer-git，然后退出hexo目录执行
+10. 这时候如果想在另一台机器上同步部署博客，那么需要先安装npm，然后新建一个目录例如hexo(因为hexo初始化必须是一个空目录)，保证hexo已安装好(hexo install -g hexo-cli)，在hexo目录下依次执行hexo init、npm install 和 npm install hexo-deployer-git，然后退出hexo目录执行
 
     ```shell
     git clone git@github.com:username/username.github.io.git
