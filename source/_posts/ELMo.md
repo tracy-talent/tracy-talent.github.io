@@ -3,9 +3,10 @@ title: ELMo
 date: 2020-01-19 23:35:03
 tags:
 	- ELMo
-catogories:
+categories:
 	- Machine Learning
 	- NLP
+mathjax: true
 ---
 
 ELMo(Embeddings from Language Models)是发表在NAACL2018的论文[Deep contextualized word representations](https://arxiv.org/abs/1802.05365)提出来的模型，属于feature-based预训练语言模型，其后的[ULM-fit](https://arxiv.org/abs/1801.06146)与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。
@@ -71,11 +72,17 @@ a L-layer biLM computes a set of 2L + 1 representations
 $$
 \begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}
 $$
-$h_{k,0}^{LM}=[x_{k}^{LM},x_{k}^{LM}]$ for token representation
-$h_{k,j}^{LM}=[\overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$ for each biLSTM layer, compute a task specific weighting of all LM layers
+
+
+$h_{k,0}^{LM}=[x_{k}^{LM},x_{k}^{LM}]$  &nbsp;for token representation
+
+$h_{k,j}^{LM}=[\overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$ &nbsp;for each biLSTM layer, compute a task specific weighting of all LM layers
+
+
 $$
 \text { ELMo }_{k}^{\text {task }}=E\left(R_{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum_{j=0}^{L} s_{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}
 $$
+
 $s_{j}^{\text {task}}$are softmax-normalized weights and the scalar parameter $\gamma^{\text {task }}$allows the task model to scale the entire ELMo vector.
 
 下游任务可以根据优化的目标函数对ELMo表示的权重$s_{j}^{\text {task}},\gamma^{\text {task }}$进行学习得到合适的权重。

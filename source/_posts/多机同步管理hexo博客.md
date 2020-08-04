@@ -49,3 +49,99 @@ categories:
 2. 依次执行git add .、git commit -m "..."、git push origin hexo指令将改动推送到GitHub（此时当前分支应为hexo）；
 3. 然后才执行hexo g -d发布网站到master分支上。
 
+## 三、Issues
+
+1. 公式渲染失败
+
+   hexo 默认的渲染引擎是 marked，但是 marked 不支持 mathjax，卸载marked并安装kramed
+
+   ```bash
+   npm uninstall hexo-renderer-marked --save
+   npm install hexo-renderer-kramed --save
+   ```
+
+   然后，更改node_modules/hexo-renderer-kramed/lib/renderer.js
+
+   ```bash
+   // Change inline math rule
+   function formatText(text) {
+       // Fit kramed's rule: $$ + \1 + $$
+       return text.replace(/`\$(.*?)\$`/g, '$$$$$1$$$$');
+   }
+   修改为
+   // Change inline math rule
+   function formatText(text) {
+       return text;
+   }
+   ```
+
+   然后停止使用hexo-math(hexo-math依赖hexo-inject一并删除)，安装mathjax
+
+   ```bash
+   npm uninstall hexo-math --save
+   npm uninstall hexo-inject --save
+   npm install hexo-renderer-mathjax --save
+   ```
+
+   更改默认转义规则，更改node_modules/kramed/lib/rules/inline.js
+
+   ```bash
+   // 替换11行
+   escape: /^\\([\\`*{}\[\]()#$+\-.!_>])/,
+   //修改为
+   escape: /^\\([`*\[\]()# +\-.!_>])/,
+   
+   //替换20行
+   em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
+   //修改为
+   em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
+   ```
+
+   开启mathjax，配置themes/hexo-theme-next/_config.yml
+
+   ```bash
+   mathjax:
+     enable: true
+     perpage: false
+     cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+   ```
+
+   并在博客中使用mathjax
+
+   ```markdown
+   ---
+   title: Testing Mathjax with Hexo
+   category: Uncategorized
+   date: 2017/05/03
+   mathjax: true
+   ---
+   ```
+
+2. 博客顶部菜单栏点击后网址末尾多了'20%'导致网页无法找到
+
+   修改themes/hexo-theme-next/_config.yaml
+
+   ```bash
+   menu:
+     home: / || home
+     about: /about/ || user
+     tags: /tags/ || tags
+     
+     将空格链接与||之间的空格去掉
+     menu:
+     home: /|| home
+     about: /about/|| user
+     tags: /tags/|| tags
+   ```
+
+3. 站点概览中点击日志标签找不到网页
+
+   在 themes\hexo-theme-next\layout\\_macro 找到sidebar.swig 文件找到如下代码
+
+   ```
+   <a href="{{ url_for(theme.menu.archives).split('||')[0] | trim }}">
+   修改为
+   <a href="{{ url_for(theme.menu.archives.split('||')[0]) | trim }}">
+   ```
+
+   

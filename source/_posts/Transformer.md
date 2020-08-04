@@ -3,7 +3,7 @@ title: Transformer
 date: 2019-12-06 21:14:01
 tags:
 	- transformer
-catogories:
+categories:
 	- Machine Learning
 	- NLP
 ---
@@ -18,18 +18,17 @@ Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意
 
 下图1是transformer的模型架构图
 
-<div align="center">
-    <img src="/images/NLP/transformer_1.png">
-</div>
+<img src="/images/NLP/transformer_1.png" align="center">
 
 <center>图1. The Transformer - model architecture</center>
+
+
+
 左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。
 
 ### Attention
 
-<div align="center">
-    <img src="/images/NLP/transformer_2.png">
-</div>
+<img src="/images/NLP/transformer_2.png" align="center">
 
 <center>图2. (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.
 3.2.1</center>
@@ -60,7 +59,7 @@ Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用
 
 无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。
 
-对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$$\frac{Qk^T}{\sqrt{d_k}}$$之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.
+对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即$$\frac{Qk^T}{\sqrt{d_k}}$$之后softmax之前，对需要mask的位置赋值为-1e9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.
 
 对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为$$K, V$$，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。
 
@@ -132,12 +131,14 @@ H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
 \end{aligned}
 $$
 由上式可知，LSR使得不仅要最小化原来的交叉熵H(q,p)，还要考虑预测分布$$p$$与$$u(k)$$之间差异最小化，使得模型预测泛化能力更好。transformer的论文中指定$$\epsilon_{ls}=0.1$$。下表是使用LSR和未使用LSR在tensorflow datasets的ted_hrlr_translate/pt_to_en dataset上bleu score对比
-
 <center>表1. bleu score with LSR and without LSR</center>
+
+
 |                                           | bleu on validation dataset | bleu on test dataset |
 | ----------------------------------------- | -------------------------- | -------------------- |
 | beam_search                               | 0.415/41.5                 | 0.420/42.0           |
 | beam_search + label_smooth_regualrization | 0.473/47.3                 | 0.468/46.8           |
+
 
 可以看到使用了LSR在验证集和测试集上都取得了比更好的bleu score.但是LSR对perplexity不利，因为模型的学习目标变得更不确切了。
 
