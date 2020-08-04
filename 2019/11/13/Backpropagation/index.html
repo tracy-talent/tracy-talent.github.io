@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -95,8 +95,8 @@
 <meta property="og:image" content="https://brooksj.com/images/backpropagation/bp3.png">
 <meta property="og:image" content="https://brooksj.com/images/backpropagation/bp4.png">
 <meta property="og:image" content="https://brooksj.com/images/backpropagation/bp5.png">
-<meta property="og:image" content="https://brooksj.com/home/brooksj/Downloads/bp6.svg">
-<meta property="og:updated_time" content="2020-08-04T03:33:24.018Z">
+<meta property="og:image" content="https://brooksj.com/images/bp6.svg">
+<meta property="og:updated_time" content="2020-08-04T06:09:38.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Backpropagation">
 <meta name="twitter:description" content="后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考维基百科: Backpropagation，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程，假设前向计算公式$wx + b$.">
@@ -157,7 +157,7 @@
      js.src = "//connect.facebook.net/zh_Hans/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 
 
@@ -177,7 +177,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <!-- fork me on github -->
@@ -416,7 +416,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">593(字)</span>
+            <span class="post-count">722(字)</span>
             
           </span>
 	  
@@ -426,7 +426,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">2(分)</span>
+            <span class="post-count">3(分)</span>
           </span>
 
           
@@ -448,7 +448,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考<a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank" rel="noopener">维基百科: Backpropagation</a>，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程，假设前向计算公式$wx + b$.</p>
+        <p>后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考<a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank" rel="noopener">维基百科: Backpropagation</a>，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程，假设前向计算公式$wx + b$.</p>
 <div align="center">
     <img src="/images/backpropagation/bp1.png">
 </div>
@@ -468,7 +468,7 @@
 <p><div align="center">
     <img src="/images/backpropagation/bp5.png">
 </div><br>举个例子</p>
-<p><img src="/home/brooksj/Downloads/bp6.svg" align="center"></p>
+<p><img src="/images/bp6.svg" align="center"></p>
 <p>上图是一个两层的全连接神经网络，其中$net<em>{i}$是输入，$net</em>{k}$是输出，输出在softmax之后计算交叉熵损失。下面给出详细计算隐藏层$net<em>{j}$对应的权重$w</em>{ij}$梯度的过程，其中$N$是batch size，$y$是真实标签，$o$是softmax激活后的输出</p>
 <script type="math/tex; mode=display">
 E(w)=\frac{1}{N}\sum_{i=1}^{N}E_{p}(w)=\frac{1}{N}\sum_{i=1}^{N}\sum_{d=1}^{D}{-y_{id}\log{o_{id}}}\\
@@ -484,7 +484,8 @@ E(w)=\frac{1}{N}\sum_{i=1}^{N}E_{p}(w)=\frac{1}{N}\sum_{i=1}^{N}\sum_{d=1}^{D}{-
 &=o_k - 1
 \end{aligned}</script><p>所以</p>
 <script type="math/tex; mode=display">
-\frac{\partial{E_p(w)}}{\partial{w_{ij}}}=x_i\sum_{k \in nextlayer(j)}{((o_{k}-1) \cdot w_{jk})}</script><p>除此之外，还有一个问题，交叉熵损失函数计算值只与标签1对应的输出相关，那么标签0对应输出的相关权重就无需计算梯度并进行更新了么？跑了一下上图两层全连接神经网络的demo程序，发现无论输出对应标签是0还是1，其相关权重梯度都不为0。通过对权重梯度的核算发现，对于标签0对应输出，虽然在交叉熵损失函数计算结果中没有得到体现，但是在后向传播梯度计算过程中，会采用$-(1-y_0)\log{(1-O_0)}$作为0标签相关权重梯度计算的损失，这点类似于逻辑回归损失函数，其中$y_0$为0，$O_0$为对应softmax输出。</p>
+\frac{\partial{E_p(w)}}{\partial{w_{ij}}}=x_i\sum_{k \in nextlayer(j)}{((o_{k}-1) \cdot w_{jk})}</script><p>除此之外，还有一个问题，交叉熵损失函数计算值只与标签1对应的输出相关，那么标签0对应输出的相关权重就无需计算梯度并进行更新了么？跑了一下上图两层全连接神经网络的demo程序，发现无论输出对应标签是0还是1，其相关权重梯度都不为0。通过对权重梯度的核算发现，对于标签0对应输出，虽然在交叉熵损失函数计算结果中没有得到体现，但是在后向传播梯度计算过程中，会采用$-(1-y_0)\log{(1-O_0)}$作为0标签相关权重梯度计算的损失，这点类似于逻辑回归损失函数，其中$y_0$为0，$O_0$为对应softmax输出。demo程序如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mymodel</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(mymodel, self).__init__()</span><br><span class="line">        self.l1 = nn.Linear(<span class="number">10</span>, <span class="number">20</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        nn.init.constant_(self.l1.weight, <span class="number">0.1</span>)</span><br><span class="line">        self.l2 = nn.Linear(<span class="number">20</span>, <span class="number">2</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        nn.init.constant_(self.l2.weight, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        t = self.l1(x)</span><br><span class="line">        print(t)</span><br><span class="line">        y_out = self.l2(t)</span><br><span class="line">        print(y_out)</span><br><span class="line">        <span class="keyword">return</span> y_out</span><br><span class="line"></span><br><span class="line">x = torch.rand(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">y = torch.tensor([<span class="number">0</span>])</span><br><span class="line">m = mymodel()</span><br><span class="line">optimizer = torch.optim.SGD(m.parameters(), lr=<span class="number">0.1</span>)</span><br><span class="line">loss_func = nn.CrossEntropyLoss()</span><br><span class="line">print(x)</span><br><span class="line">print(m.l1.weight)</span><br><span class="line">print(m.l2.weight)</span><br><span class="line">y_out = m(x)</span><br><span class="line">loss = loss_func(y_out, y)</span><br><span class="line">print(loss)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br><span class="line"><span class="keyword">for</span> name, param <span class="keyword">in</span> m.named_parameters():</span><br><span class="line">    print(name, param.grad, param)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1072,7 +1073,7 @@ show_date_time();
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

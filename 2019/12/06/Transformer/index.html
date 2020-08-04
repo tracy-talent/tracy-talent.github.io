@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://brooksj.com/images/NLP/transformer_2.png">
 <meta property="og:image" content="https://brooksj.com/images/NLP/transformer_3.png">
 <meta property="og:image" content="https://brooksj.com/images/NLP/transformer_4.png">
-<meta property="og:updated_time" content="2019-12-19T03:12:26.753Z">
+<meta property="og:updated_time" content="2020-08-04T06:11:14.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Transformer">
 <meta name="twitter:description" content="Introduction在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder. Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurren">
@@ -155,7 +155,7 @@
      js.src = "//connect.facebook.net/zh_Hans/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 
 
@@ -175,7 +175,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <!-- fork me on github -->
@@ -357,6 +357,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -424,22 +457,16 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder.</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder.</p>
 <p>Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurrent network是一种sequential model，不能很好地解决长距离依赖的问题(序列过长时，信息在序列模型中传递时容易一点点丢失)，并且阻碍了parallelism within train example.而<font color="red">transform最引人瞩目的一点正是很好地解决了长距离依赖的问题，通过引入自注意力机制(self-attention)使得对依赖的建模与输入输出序列的距离无关，并且支持train exmaple内部的并行化。</font>注意力机制可以参考之前写的<a href="https://brooksj.com/2019/12/01/Standford-CS224n-Notes/">notes of cs224n lecture8</a>.</p>
 <h2 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h2><p>下图1是transformer的模型架构图</p>
-<div align="center">
-    <img src="/images/NLP/transformer_1.png">
-</div>
-
+<p><img src="/images/NLP/transformer_1.png" align="center"></p>
 <center>图1. The Transformer - model architecture</center>
-左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。
 
-### Attention
 
-<div align="center">
-    <img src="/images/NLP/transformer_2.png">
-</div>
 
+<p>左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。</p>
+<h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p><img src="/images/NLP/transformer_2.png" align="center"></p>
 <center>图2. (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.
 3.2.1</center>
 
@@ -455,7 +482,7 @@ Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{k}}})V</script><p>这里除以
 <p>在transformer中使用h=8个parallel attention heads.对于每个head使用<script type="math/tex">d_k=d_v=d_{model}/h=64</script>. 我看<a href="https://www.tensorflow.org/tutorials/text/transformer#encoder_layer" target="_blank" rel="noopener">tf official tutorial of transformer</a>实现中并没有为<script type="math/tex">head_i</script>学习转换矩阵<script type="math/tex">W^{Q}_{i},W^{K}_{i},W^{V}_{i}</script>，而是先对<script type="math/tex">(Q, K, V)</script>作一个线性转换到<script type="math/tex">d_{model}</script>的编码，然后将<script type="math/tex">d_{model}</script>的编码表示划分成h份，然后输入到各自的head中进行处理。<font color="red">Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font></p>
 <p>Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用初始的<script type="math/tex">(Q, K, V)</script>作为输入，而是使用上一层MHA的输出作为<script type="math/tex">Q</script>，Encoder最后一层(第6层)的输出作为<script type="math/tex">K, V</script>.</p>
 <h3 id="Masking"><a href="#Masking" class="headerlink" title="Masking"></a>Masking</h3><p>无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。</p>
-<p>对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即<script type="math/tex">\frac{Qk^T}{\sqrt{d_k}}</script>之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.</p>
+<p>对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即<script type="math/tex">\frac{Qk^T}{\sqrt{d_k}}</script>之后softmax之前，对需要mask的位置赋值为-1e9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.</p>
 <p>对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为<script type="math/tex">K, V</script>，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。</p>
 <h3 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h3><p>encoder和decoder的输入是两套独立的embedding(例如translation task，分别是原语和目标语subword的Embeddings)，embedding的维度为<script type="math/tex">d_{model}</script>，论文中的base model设为512，big model设为1024.在embedding输入模型前逐元素乘以<script type="math/tex">\sqrt{d_{model}}</script>，因为在dot-producted attention中 <script type="math/tex">\frac{QK^T}{\sqrt{d_{model}}}</script>.</p>
 <h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h3><p>由于transform model不包含循环和卷积网络，为了使模型能利用sequence的顺序信息，必须加入序列中每个subword的相对或者绝对位置信息。因此引入了Positional Encoding，它保持和embedding一样维度<script type="math/tex">d_{model}</script>，具体encoding的方式有很多种，主要分为学习的和固定的(learned and fixed)。在论文中使用了固定的无须学习的positional embedding，使用不同频率的cos和sin函数如下</p>
@@ -494,7 +521,32 @@ q'(k|x)=(1-\epsilon)\delta_{k,y}+\epsilon u(k)</script><p>映射到损失函数c
 H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
 &=(1-\epsilon)H(q,p)+\epsilon H(u,p)
 \end{aligned}</script><p>由上式可知，LSR使得不仅要最小化原来的交叉熵H(q,p)，还要考虑预测分布<script type="math/tex">p</script>与<script type="math/tex">u(k)</script>之间差异最小化，使得模型预测泛化能力更好。transformer的论文中指定<script type="math/tex">\epsilon_{ls}=0.1</script>。下表是使用LSR和未使用LSR在tensorflow datasets的ted_hrlr_translate/pt_to_en dataset上bleu score对比</p>
-<p><center>表1. bleu score with LSR and without LSR</center><br>|                                           | bleu on validation dataset | bleu on test dataset |<br>| ————————————————————- | ————————————— | —————————— |<br>| beam_search                               | 0.415/41.5                 | 0.420/42.0           |<br>| beam_search + label_smooth_regualrization | 0.473/47.3                 | 0.468/46.8           |</p>
+<center>表1. bleu score with LSR and without LSR</center>
+
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>bleu on validation dataset</th>
+<th>bleu on test dataset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beam_search</td>
+<td>0.415/41.5</td>
+<td>0.420/42.0</td>
+</tr>
+<tr>
+<td>beam_search + label_smooth_regualrization</td>
+<td>0.473/47.3</td>
+<td>0.468/46.8</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>可以看到使用了LSR在验证集和测试集上都取得了比更好的bleu score.但是LSR对perplexity不利，因为模型的学习目标变得更不确切了。</p>
 <h3 id="LayerNormalization"><a href="#LayerNormalization" class="headerlink" title="LayerNormalization"></a>LayerNormalization</h3><p>在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。</p>
 <h3 id="Learning-Rate-with-Warmup"><a href="#Learning-Rate-with-Warmup" class="headerlink" title="Learning Rate with Warmup"></a>Learning Rate with Warmup</h3><div align="center">
@@ -792,7 +844,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">2.</span> <span class="nav-text">Model Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scaled-Dot-Producted-Attention"><span class="nav-number">2.0.1.</span> <span class="nav-text">Scaled Dot-Producted Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-Head-Attention"><span class="nav-number">2.0.2.</span> <span class="nav-text">Multi-Head Attention</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Masking"><span class="nav-number">2.1.</span> <span class="nav-text">Masking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeddings"><span class="nav-number">2.2.</span> <span class="nav-text">Embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">2.3.</span> <span class="nav-text">Positional Encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Self-Attention"><span class="nav-number">2.4.</span> <span class="nav-text">Why Self-Attention</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Training"><span class="nav-number">3.</span> <span class="nav-text">Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataset"><span class="nav-number">3.1.</span> <span class="nav-text">Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularization"><span class="nav-number">3.2.</span> <span class="nav-text">Regularization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Residual-Dropout"><span class="nav-number">3.2.1.</span> <span class="nav-text">Residual Dropout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Label-Smothing"><span class="nav-number">3.2.2.</span> <span class="nav-text">Label Smothing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LayerNormalization"><span class="nav-number">3.3.</span> <span class="nav-text">LayerNormalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-Rate-with-Warmup"><span class="nav-number">3.4.</span> <span class="nav-text">Learning Rate with Warmup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-Architecture"><span class="nav-number">2.</span> <span class="nav-text">Model Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention"><span class="nav-number">2.1.</span> <span class="nav-text">Attention</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scaled-Dot-Producted-Attention"><span class="nav-number">2.1.1.</span> <span class="nav-text">Scaled Dot-Producted Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-Head-Attention"><span class="nav-number">2.1.2.</span> <span class="nav-text">Multi-Head Attention</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Masking"><span class="nav-number">2.2.</span> <span class="nav-text">Masking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeddings"><span class="nav-number">2.3.</span> <span class="nav-text">Embeddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">2.4.</span> <span class="nav-text">Positional Encoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-Self-Attention"><span class="nav-number">2.5.</span> <span class="nav-text">Why Self-Attention</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training"><span class="nav-number">3.</span> <span class="nav-text">Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataset"><span class="nav-number">3.1.</span> <span class="nav-text">Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularization"><span class="nav-number">3.2.</span> <span class="nav-text">Regularization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Residual-Dropout"><span class="nav-number">3.2.1.</span> <span class="nav-text">Residual Dropout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Label-Smothing"><span class="nav-number">3.2.2.</span> <span class="nav-text">Label Smothing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LayerNormalization"><span class="nav-number">3.3.</span> <span class="nav-text">LayerNormalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-Rate-with-Warmup"><span class="nav-number">3.4.</span> <span class="nav-text">Learning Rate with Warmup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
             
 
           </div>
@@ -1118,7 +1170,7 @@ show_date_time();
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

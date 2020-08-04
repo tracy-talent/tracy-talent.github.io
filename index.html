@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -149,7 +149,7 @@
      js.src = "//connect.facebook.net/zh_Hans/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 
 
@@ -169,7 +169,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
+  <div class="container sidebar-position-left 
   page-home">
     <div class="headband"></div>
 
@@ -354,6 +354,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -389,7 +422,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">749(字)</span>
+            <span class="post-count">752(字)</span>
             
           </span>
 	  
@@ -423,7 +456,7 @@
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>ELMo(Embeddings from Language Models)是发表在NAACL2018的论文<a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">Deep contextualized word representations</a>提出来的模型，属于feature-based预训练语言模型，其后的<a href="https://arxiv.org/abs/1801.06146" target="_blank" rel="noopener">ULM-fit</a>与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。</p>
+            <p>ELMo(Embeddings from Language Models)是发表在NAACL2018的论文<a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">Deep contextualized word representations</a>提出来的模型，属于feature-based预训练语言模型，其后的<a href="https://arxiv.org/abs/1801.06146" target="_blank" rel="noopener">ULM-fit</a>与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。</p>
 <p>ELMo模型的简略模型结构图如下</p>
 <div align="center">
     <img src="/images/NLP/elmo_5.png">
@@ -464,7 +497,8 @@ y=H(x,W_H) \cdot T(x, W_T) + x \cdot (1 - T(x, W_H))</script><p>其中$H,T,C$都
 <h2 id="downstream-application"><a href="#downstream-application" class="headerlink" title="downstream application"></a>downstream application</h2><p>ELMo使用feature-based的方式应用到下游任务，就是将模型输出表示加入(一般是拼接)到任务模型中的某一层中或多层中以增强任务模型对文本的表示能力。具体方式在这里我直接引用原文更好理解：</p>
 <p>a L-layer biLM computes a set of 2L + 1 representations</p>
 <script type="math/tex; mode=display">
-\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><p>$h<em>{k,0}^{LM}=[x</em>{k}^{LM},x<em>{k}^{LM}]$ for token representation<br>$h</em>{k,j}^{LM}=[\overrightarrow{\mathbf{h}}<em>{k, j}^{L M}, \overleftarrow{\mathbf{h}}</em>{k, j}^{L M}],j \gt 1$ for each biLSTM layer, compute a task specific weighting of all LM layers</p>
+\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><p>$h<em>{k,0}^{LM}=[x</em>{k}^{LM},x_{k}^{LM}]$  &nbsp;for token representation</p>
+<p>$h<em>{k,j}^{LM}=[\overrightarrow{\mathbf{h}}</em>{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$ &nbsp;for each biLSTM layer, compute a task specific weighting of all LM layers</p>
 <script type="math/tex; mode=display">
 \text { ELMo }_{k}^{\text {task }}=E\left(R_{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum_{j=0}^{L} s_{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}</script><p>$s_{j}^{\text {task}}$are softmax-normalized weights and the scalar parameter $\gamma^{\text {task }}$allows the task model to scale the entire ELMo vector.</p>
 <p>下游任务可以根据优化的目标函数对ELMo表示的权重$s_{j}^{\text {task}},\gamma^{\text {task }}$进行学习得到合适的权重。</p>
@@ -575,6 +609,39 @@ y=H(x,W_H) \cdot T(x, W_T) + x \cdot (1 - T(x, W_H))</script><p>其中$H,T,C$都
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -644,22 +711,16 @@ y=H(x,W_H) \cdot T(x, W_T) + x \cdot (1 - T(x, W_H))</script><p>其中$H,T,C$都
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder.</p>
+            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在transformer model出现之前，主流的sequence transduction model是基于循环或者卷积神经网络，表现最好的模型也是用attention mechanism连接基于循环神经网络的encoder和decoder.</p>
 <p>Transformer model是一种摒弃了循环及卷积结构，仅仅依赖于注意力机制的简洁的神经网络模型。我们知道recurrent network是一种sequential model，不能很好地解决长距离依赖的问题(序列过长时，信息在序列模型中传递时容易一点点丢失)，并且阻碍了parallelism within train example.而<font color="red">transform最引人瞩目的一点正是很好地解决了长距离依赖的问题，通过引入自注意力机制(self-attention)使得对依赖的建模与输入输出序列的距离无关，并且支持train exmaple内部的并行化。</font>注意力机制可以参考之前写的<a href="https://brooksj.com/2019/12/01/Standford-CS224n-Notes/">notes of cs224n lecture8</a>.</p>
 <h2 id="Model-Architecture"><a href="#Model-Architecture" class="headerlink" title="Model Architecture"></a>Model Architecture</h2><p>下图1是transformer的模型架构图</p>
-<div align="center">
-    <img src="/images/NLP/transformer_1.png">
-</div>
-
+<p><img src="/images/NLP/transformer_1.png" align="center"></p>
 <center>图1. The Transformer - model architecture</center>
-左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。
 
-### Attention
 
-<div align="center">
-    <img src="/images/NLP/transformer_2.png">
-</div>
 
+<p>左边是encoder，右边是decoder，各有6层，下面我将讲解个人觉得比较重要的几个点。</p>
+<h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p><img src="/images/NLP/transformer_2.png" align="center"></p>
 <center>图2. (left) Scaled Dot-Product Attention. (right) Multi-Head Attention consists of several attention layers running in parallel.
 3.2.1</center>
 
@@ -675,7 +736,7 @@ Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_{k}}})V</script><p>这里除以
 <p>在transformer中使用h=8个parallel attention heads.对于每个head使用<script type="math/tex">d_k=d_v=d_{model}/h=64</script>. 我看<a href="https://www.tensorflow.org/tutorials/text/transformer#encoder_layer" target="_blank" rel="noopener">tf official tutorial of transformer</a>实现中并没有为<script type="math/tex">head_i</script>学习转换矩阵<script type="math/tex">W^{Q}_{i},W^{K}_{i},W^{V}_{i}</script>，而是先对<script type="math/tex">(Q, K, V)</script>作一个线性转换到<script type="math/tex">d_{model}</script>的编码，然后将<script type="math/tex">d_{model}</script>的编码表示划分成h份，然后输入到各自的head中进行处理。<font color="red">Multi-Head Attention机制允许模型在不同位置共同关注来自不同表示子空间的信息。</font></p>
 <p>Decoder中包含两层的Multi-Head Attention(MHA)，第二层的MHA不再使用初始的<script type="math/tex">(Q, K, V)</script>作为输入，而是使用上一层MHA的输出作为<script type="math/tex">Q</script>，Encoder最后一层(第6层)的输出作为<script type="math/tex">K, V</script>.</p>
 <h3 id="Masking"><a href="#Masking" class="headerlink" title="Masking"></a>Masking</h3><p>无论encoder还是decoder都需要使用mask屏蔽掉不必要的信息干扰。</p>
-<p>对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即<script type="math/tex">\frac{Qk^T}{\sqrt{d_k}}</script>之后softmax之前，对需要mask的位置赋值为1e-9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.</p>
+<p>对于encoder，由于我们传入的数据是padded batch，因此需要对padded的信息进行mask，具体mask的位置放置在dot-producted attention的scale即<script type="math/tex">\frac{Qk^T}{\sqrt{d_k}}</script>之后softmax之前，对需要mask的位置赋值为-1e9，这样在softmax之后需要mask的位置就变成了0，就像是指定mask的位置进行dropout.</p>
 <p>对于decoder，每一层包含两个Multi-Head Attention(MHA)，第一个MHA同样需要对padded信息进行mask，除此之外还要对output中还未出现的词进行mask，保证只能根据前面出现的词信息来预测后面还未出现的词。将两个mask矩阵叠加之后输入到dot-producted attention单元中的scale之后用于屏蔽非必要信息。第二个MHA由于使用Encoder最后一层的输出作为<script type="math/tex">K, V</script>，所以需要对Encoder初始输入的padded信息进行mask，同样是在dot-producted attention单元中的scale之后操作。</p>
 <h3 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h3><p>encoder和decoder的输入是两套独立的embedding(例如translation task，分别是原语和目标语subword的Embeddings)，embedding的维度为<script type="math/tex">d_{model}</script>，论文中的base model设为512，big model设为1024.在embedding输入模型前逐元素乘以<script type="math/tex">\sqrt{d_{model}}</script>，因为在dot-producted attention中 <script type="math/tex">\frac{QK^T}{\sqrt{d_{model}}}</script>.</p>
 <h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a>Positional Encoding</h3><p>由于transform model不包含循环和卷积网络，为了使模型能利用sequence的顺序信息，必须加入序列中每个subword的相对或者绝对位置信息。因此引入了Positional Encoding，它保持和embedding一样维度<script type="math/tex">d_{model}</script>，具体encoding的方式有很多种，主要分为学习的和固定的(learned and fixed)。在论文中使用了固定的无须学习的positional embedding，使用不同频率的cos和sin函数如下</p>
@@ -714,7 +775,32 @@ q'(k|x)=(1-\epsilon)\delta_{k,y}+\epsilon u(k)</script><p>映射到损失函数c
 H(q',p)&=-\sum_{k=1}^{K}\log^{p(k)}q'(k)\\
 &=(1-\epsilon)H(q,p)+\epsilon H(u,p)
 \end{aligned}</script><p>由上式可知，LSR使得不仅要最小化原来的交叉熵H(q,p)，还要考虑预测分布<script type="math/tex">p</script>与<script type="math/tex">u(k)</script>之间差异最小化，使得模型预测泛化能力更好。transformer的论文中指定<script type="math/tex">\epsilon_{ls}=0.1</script>。下表是使用LSR和未使用LSR在tensorflow datasets的ted_hrlr_translate/pt_to_en dataset上bleu score对比</p>
-<p><center>表1. bleu score with LSR and without LSR</center><br>|                                           | bleu on validation dataset | bleu on test dataset |<br>| ————————————————————- | ————————————— | —————————— |<br>| beam_search                               | 0.415/41.5                 | 0.420/42.0           |<br>| beam_search + label_smooth_regualrization | 0.473/47.3                 | 0.468/46.8           |</p>
+<center>表1. bleu score with LSR and without LSR</center>
+
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>bleu on validation dataset</th>
+<th>bleu on test dataset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beam_search</td>
+<td>0.415/41.5</td>
+<td>0.420/42.0</td>
+</tr>
+<tr>
+<td>beam_search + label_smooth_regualrization</td>
+<td>0.473/47.3</td>
+<td>0.468/46.8</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>可以看到使用了LSR在验证集和测试集上都取得了比更好的bleu score.但是LSR对perplexity不利，因为模型的学习目标变得更不确切了。</p>
 <h3 id="LayerNormalization"><a href="#LayerNormalization" class="headerlink" title="LayerNormalization"></a>LayerNormalization</h3><p>在multi-head attention之后使用layer normlization可以加速参数训练使得模型收敛，并且可以避免梯度消失和梯度爆炸。相比BatchNormalization，LayerNormalization更适用于序列化模型比如RNN等，而BatchNormalization则适用于CNN处理图像。</p>
 <h3 id="Learning-Rate-with-Warmup"><a href="#Learning-Rate-with-Warmup" class="headerlink" title="Learning Rate with Warmup"></a>Learning Rate with Warmup</h3><div align="center">
@@ -1439,7 +1525,7 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">593(字)</span>
+            <span class="post-count">722(字)</span>
             
           </span>
 	  
@@ -1449,7 +1535,7 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">2(分)</span>
+            <span class="post-count">3(分)</span>
           </span>
 
           
@@ -1473,7 +1559,7 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考<a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank" rel="noopener">维基百科: Backpropagation</a>，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程，假设前向计算公式$wx + b$.</p>
+            <p>后向传播(backpropagation)算法在深度学习中扮演了非常重要的角色，它能够从损失函数开始链式地对网络层中的权重进行梯度计算与更新。可以先参考<a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank" rel="noopener">维基百科: Backpropagation</a>，文章很好地还原了深度神经网络(DNN)每一层网络从后往前的链式梯度计算关系。然后再结合下面这几张图理解每一层网络中每个单元的梯度具体计算与推导过程，假设前向计算公式$wx + b$.</p>
 <div align="center">
     <img src="/images/backpropagation/bp1.png">
 </div>
@@ -1493,7 +1579,7 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
 <p><div align="center">
     <img src="/images/backpropagation/bp5.png">
 </div><br>举个例子</p>
-<p><img src="/home/brooksj/Downloads/bp6.svg" align="center"></p>
+<p><img src="/images/bp6.svg" align="center"></p>
 <p>上图是一个两层的全连接神经网络，其中$net<em>{i}$是输入，$net</em>{k}$是输出，输出在softmax之后计算交叉熵损失。下面给出详细计算隐藏层$net<em>{j}$对应的权重$w</em>{ij}$梯度的过程，其中$N$是batch size，$y$是真实标签，$o$是softmax激活后的输出</p>
 <script type="math/tex; mode=display">
 E(w)=\frac{1}{N}\sum_{i=1}^{N}E_{p}(w)=\frac{1}{N}\sum_{i=1}^{N}\sum_{d=1}^{D}{-y_{id}\log{o_{id}}}\\
@@ -1509,7 +1595,8 @@ E(w)=\frac{1}{N}\sum_{i=1}^{N}E_{p}(w)=\frac{1}{N}\sum_{i=1}^{N}\sum_{d=1}^{D}{-
 &=o_k - 1
 \end{aligned}</script><p>所以</p>
 <script type="math/tex; mode=display">
-\frac{\partial{E_p(w)}}{\partial{w_{ij}}}=x_i\sum_{k \in nextlayer(j)}{((o_{k}-1) \cdot w_{jk})}</script><p>除此之外，还有一个问题，交叉熵损失函数计算值只与标签1对应的输出相关，那么标签0对应输出的相关权重就无需计算梯度并进行更新了么？跑了一下上图两层全连接神经网络的demo程序，发现无论输出对应标签是0还是1，其相关权重梯度都不为0。通过对权重梯度的核算发现，对于标签0对应输出，虽然在交叉熵损失函数计算结果中没有得到体现，但是在后向传播梯度计算过程中，会采用$-(1-y_0)\log{(1-O_0)}$作为0标签相关权重梯度计算的损失，这点类似于逻辑回归损失函数，其中$y_0$为0，$O_0$为对应softmax输出。</p>
+\frac{\partial{E_p(w)}}{\partial{w_{ij}}}=x_i\sum_{k \in nextlayer(j)}{((o_{k}-1) \cdot w_{jk})}</script><p>除此之外，还有一个问题，交叉熵损失函数计算值只与标签1对应的输出相关，那么标签0对应输出的相关权重就无需计算梯度并进行更新了么？跑了一下上图两层全连接神经网络的demo程序，发现无论输出对应标签是0还是1，其相关权重梯度都不为0。通过对权重梯度的核算发现，对于标签0对应输出，虽然在交叉熵损失函数计算结果中没有得到体现，但是在后向传播梯度计算过程中，会采用$-(1-y_0)\log{(1-O_0)}$作为0标签相关权重梯度计算的损失，这点类似于逻辑回归损失函数，其中$y_0$为0，$O_0$为对应softmax输出。demo程序如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mymodel</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(mymodel, self).__init__()</span><br><span class="line">        self.l1 = nn.Linear(<span class="number">10</span>, <span class="number">20</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        nn.init.constant_(self.l1.weight, <span class="number">0.1</span>)</span><br><span class="line">        self.l2 = nn.Linear(<span class="number">20</span>, <span class="number">2</span>, bias=<span class="literal">False</span>)</span><br><span class="line">        nn.init.constant_(self.l2.weight, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        t = self.l1(x)</span><br><span class="line">        print(t)</span><br><span class="line">        y_out = self.l2(t)</span><br><span class="line">        print(y_out)</span><br><span class="line">        <span class="keyword">return</span> y_out</span><br><span class="line"></span><br><span class="line">x = torch.rand(<span class="number">1</span>, <span class="number">10</span>)</span><br><span class="line">y = torch.tensor([<span class="number">0</span>])</span><br><span class="line">m = mymodel()</span><br><span class="line">optimizer = torch.optim.SGD(m.parameters(), lr=<span class="number">0.1</span>)</span><br><span class="line">loss_func = nn.CrossEntropyLoss()</span><br><span class="line">print(x)</span><br><span class="line">print(m.l1.weight)</span><br><span class="line">print(m.l2.weight)</span><br><span class="line">y_out = m(x)</span><br><span class="line">loss = loss_func(y_out, y)</span><br><span class="line">print(loss)</span><br><span class="line">optimizer.zero_grad()</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()</span><br><span class="line"><span class="keyword">for</span> name, param <span class="keyword">in</span> m.named_parameters():</span><br><span class="line">    print(name, param.grad, param)</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2018,216 +2105,6 @@ $$
 <ol>
 <li><a href="https://blog.csdn.net/ACdreamers/article/details/7628667" target="_blank" rel="noopener">https://blog.csdn.net/ACdreamers/article/details/7628667</a></li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    
-    <!-- 文章结束分割线 -->
-    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
-
-    
-
-    
-
-    
-    
-    <div>
-	    <p id="div-border-left-red">
-	    <span>
-        <b>作者: brooksjay</b><br>
-        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
-	    <b>本文地址: </b><a href="/index.html" title></a><br>
-	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
-        <b>转载请注明出处, 谢谢！</b>
-	    </span>
-	    </p>
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-
-    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/09/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="brooksj">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="在人间漂流">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/18/hello-world/" itemprop="url">Hello Hexo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-18T15:17:40+08:00">
-                2019-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/09/18/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/09/18/hello-world/" itemprop="commentCount">0</span> comments
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/09/18/hello-world/" class="leancloud_visitors" data-flag-title="Hello Hexo">
-               <span class="post-meta-divider"><br></span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">157(字)</span>
-            
-          </span>
-	  
-          <span class="post-time">
-	        &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h3 id="Markdown-renderer"><a href="#Markdown-renderer" class="headerlink" title="Markdown renderer"></a>Markdown renderer</h3><p>hexo默认的markdown渲染插件<font color="red">hexo-renderer-marked</font>效果不是很好，有些复杂公式渲染不出来，需要安装一个更好的markdown rendrer: <font color="green">hexo-renderer-kramed</font></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm un hexo-renderer-marked --save</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm i hexo-renderer-kramed --save</span></span><br></pre></td></tr></table></figure>
-<p>安装好之后将其添加进站点目录下的package.json中，并删除默认markdown渲染插件</p>
 
           
         
@@ -2862,6 +2739,259 @@ $$
 
 
     
+      
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/09/01/spark-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksj">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/spark-tips/" itemprop="url">spark tips</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T22:18:19+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Distributed-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Distributed System</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Distributed-System/Bigdata-Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Bigdata Technology</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/01/spark-tips/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/09/01/spark-tips/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/09/01/spark-tips/" class="leancloud_visitors" data-flag-title="spark tips">
+               <span class="post-meta-divider"><br></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">710(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">3(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="spark-tips"><a href="#spark-tips" class="headerlink" title="spark tips"></a>spark tips</h1><h3 id="jar包上传到hdfs"><a href="#jar包上传到hdfs" class="headerlink" title="jar包上传到hdfs"></a>jar包上传到hdfs</h3><ul>
+<li>分布式集群上跑spark时每次都要将${SPARK_HOME}/jars/<em>下所有的jar包上传到分布式系统中供调用，为了避免每次的上传时间可以将这些jar包存放到hdfs中，==注意：我在2.\</em>的版本中将所有jar包打包成.archive文件上传到hdfs，但是这样做导致spark在yarn上启动失败，后来尝试将这些jar包分散上传到hdfs的文件夹下就能正常在yarn上启动spark了。==具体做法如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将$&#123;SPARK_HOME&#125;/jars下的所有jar包上传到hdfs中：</span><br><span class="line">hadoop fs -put jars/* /spark</span><br><span class="line">在$&#123;SPARK_HOME&#125;/conf/spark-defaults.conf中添加配置项：</span><br><span class="line">spark.yarn.jars  hdfs://localhost:9000/spark/jars/*</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果要使用hbase则需要将hbase的lib目录下hbase开头的jar包和guava-{version}.jar、protobuf-java-{version}.jar上传到hdfs上的同一目录jars，hbase.xml复制一份到hadoop的配置文件目录etc/hadoop下</li>
+</ul>
+<h2 id="spark-on-yarn"><a href="#spark-on-yarn" class="headerlink" title="spark on yarn"></a>spark on yarn</h2><h3 id="1-调参"><a href="#1-调参" class="headerlink" title="1. 调参"></a>1. 调参</h3><h4 id="1-1-client-mode"><a href="#1-1-client-mode" class="headerlink" title="1.1 client mode"></a>1.1 client mode</h4><ul>
+<li>client mode下，spark的driver与applicationmaster是分离的，要分别设置内存大小。任务提交的同时driver就开始运行了，所以driver内存不可以在程序里使用SparkConf类设置，可通过spark-defaults.conf或者CLI下—driver-memory配置，而applicationmaster的内存大小没有限制可以在SparkConf里面通过spark.yarn.am.memory来配置</li>
+</ul>
+<h4 id="1-2-cluster-mode"><a href="#1-2-cluster-mode" class="headerlink" title="1.2 cluster mode"></a>1.2 cluster mode</h4><ul>
+<li>cluster mode下，spark的driver和applicationmaster在同一个container里面，可以通过在SparkConf，spark-defaults.conf或者CLI下用spark.yarn.am.memory来对这个container内存大小进行配置</li>
+</ul>
+<h4 id="1-3-CLI参数设置"><a href="#1-3-CLI参数设置" class="headerlink" title="1.3 CLI参数设置"></a>1.3 CLI参数设置</h4><blockquote>
+<p>spark在yarn上运行能使用的container数目是由核数vcores和executor内存大小共同决定的，由于hadoop不像spark，hadoop可以设置一个结点的总内存和核数，所以当cpu或者内存资源超过设置的额度时会限制container到尽可能大的数目</p>
+</blockquote>
+<ul>
+<li>—num-executors设置executor数目</li>
+<li>—executor-memory设置executor内存</li>
+<li>—executor-cores设置executor核数</li>
+<li>—conf spark.yarn.am.memory=2g设置application master内存大小</li>
+<li>—conf spark.yarn.am.cores=2设置application master核数</li>
+</ul>
+<h4 id="1-4-运行方式"><a href="#1-4-运行方式" class="headerlink" title="1.4 运行方式"></a>1.4 运行方式</h4><ul>
+<li>cluster</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class &lt;yourclass&gt; --master yarn --deploy-mode cluster --conf spark.yarn.am.memory=2g --executor-memory 2g --executor-cores 2 &lt;yourjar&gt; &lt;args&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>client</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class &lt;yourclass&gt; --master yarn --deploy-mode client --driver-meemoty 2g --executor-memory 2g --executor-cores 2 &lt;yourjar&gt; &lt;args&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="spark-standalone"><a href="#spark-standalone" class="headerlink" title="spark standalone"></a>spark standalone</h2><h3 id="1-调参-1"><a href="#1-调参-1" class="headerlink" title="1.调参"></a>1.调参</h3><ul>
+<li><p>spark无需像mapreduce那样给每个节点设置总的内存限制，spark总内存使用会自动扩展。</p>
+</li>
+<li><p>spark集群总核数无需配置，自动识别集群中所有机器的虚拟内核数</p>
+</li>
+<li><p>spark的executor数目由集群中的总核数和exexutor的核数决定：</p>
+<script type="math/tex; mode=display">
+num-executors = cores-in-cluster/executor.cores</script></li>
+<li><p>executor.memory不等于RDD可用的memory size，因为JVM等也需要占据一定内存资源，差不多只能用一半，driver.memory也一样</p>
+</li>
+<li><p>运行方式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --class &lt;yourclass&gt; --master spark://slave103:7077 --conf spark.driver.memery=6g --conf spark.executor.memory=2g --conf spark.executor.cores=2 &lt;yourjar&gt; &lt;args&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br>
+	    <b>本文地址: </b><a href="/index.html" title></a><br>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3346,7 +3476,7 @@ show_date_time();
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 

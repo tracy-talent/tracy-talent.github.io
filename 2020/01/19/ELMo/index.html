@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://brooksj.com/images/NLP/elmo_3.png">
 <meta property="og:image" content="https://brooksj.com/images/NLP/elmo_1.png">
 <meta property="og:image" content="https://brooksj.com/images/NLP/elmo_4.png">
-<meta property="og:updated_time" content="2020-01-19T15:50:12.189Z">
+<meta property="og:updated_time" content="2020-08-04T06:11:14.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ELMo">
 <meta name="twitter:description" content="ELMo(Embeddings from Language Models)是发表在NAACL2018的论文Deep contextualized word representations提出来的模型，属于feature-based预训练语言模型，其后的ULM-fit与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。 ELMo模型的简略模型结构">
@@ -156,7 +156,7 @@
      js.src = "//connect.facebook.net/zh_Hans/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 
 
@@ -176,7 +176,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <!-- fork me on github -->
@@ -358,6 +358,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -393,7 +426,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">字数统计:</span>
-            <span class="post-count">749(字)</span>
+            <span class="post-count">752(字)</span>
             
           </span>
 	  
@@ -425,7 +458,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>ELMo(Embeddings from Language Models)是发表在NAACL2018的论文<a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">Deep contextualized word representations</a>提出来的模型，属于feature-based预训练语言模型，其后的<a href="https://arxiv.org/abs/1801.06146" target="_blank" rel="noopener">ULM-fit</a>与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。</p>
+        <p>ELMo(Embeddings from Language Models)是发表在NAACL2018的论文<a href="https://arxiv.org/abs/1802.05365" target="_blank" rel="noopener">Deep contextualized word representations</a>提出来的模型，属于feature-based预训练语言模型，其后的<a href="https://arxiv.org/abs/1801.06146" target="_blank" rel="noopener">ULM-fit</a>与其模型基本一致，但在训练和迁移阶段使用了更多的分层适用的概念，属于fine-tuning预训练语言模型。</p>
 <p>ELMo模型的简略模型结构图如下</p>
 <div align="center">
     <img src="/images/NLP/elmo_5.png">
@@ -466,7 +499,8 @@ y=H(x,W_H) \cdot T(x, W_T) + x \cdot (1 - T(x, W_H))</script><p>其中$H,T,C$都
 <h2 id="downstream-application"><a href="#downstream-application" class="headerlink" title="downstream application"></a>downstream application</h2><p>ELMo使用feature-based的方式应用到下游任务，就是将模型输出表示加入(一般是拼接)到任务模型中的某一层中或多层中以增强任务模型对文本的表示能力。具体方式在这里我直接引用原文更好理解：</p>
 <p>a L-layer biLM computes a set of 2L + 1 representations</p>
 <script type="math/tex; mode=display">
-\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><p>$h<em>{k,0}^{LM}=[x</em>{k}^{LM},x<em>{k}^{LM}]$ for token representation<br>$h</em>{k,j}^{LM}=[\overrightarrow{\mathbf{h}}<em>{k, j}^{L M}, \overleftarrow{\mathbf{h}}</em>{k, j}^{L M}],j \gt 1$ for each biLSTM layer, compute a task specific weighting of all LM layers</p>
+\begin{aligned} R_{k} &=\left\{\mathbf{x}_{k}^{L M}, \overrightarrow{\mathbf{h}}_{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M} | j=1, \ldots, L\right\} \\ &=\left\{\mathbf{h}_{k, j}^{L M} | j=0, \ldots, L\right\} \end{aligned}</script><p>$h<em>{k,0}^{LM}=[x</em>{k}^{LM},x_{k}^{LM}]$  &nbsp;for token representation</p>
+<p>$h<em>{k,j}^{LM}=[\overrightarrow{\mathbf{h}}</em>{k, j}^{L M}, \overleftarrow{\mathbf{h}}_{k, j}^{L M}],j \gt 1$ &nbsp;for each biLSTM layer, compute a task specific weighting of all LM layers</p>
 <script type="math/tex; mode=display">
 \text { ELMo }_{k}^{\text {task }}=E\left(R_{k} ; \Theta^{\text {task }}\right)=\gamma^{\text {task }} \sum_{j=0}^{L} s_{j}^{\text {task }} \mathbf{h}_{k, j}^{L M}</script><p>$s_{j}^{\text {task}}$are softmax-normalized weights and the scalar parameter $\gamma^{\text {task }}$allows the task model to scale the entire ELMo vector.</p>
 <p>下游任务可以根据优化的目标函数对ELMo表示的权重$s_{j}^{\text {task}},\gamma^{\text {task }}$进行学习得到合适的权重。</p>
@@ -1078,7 +1112,7 @@ show_date_time();
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
