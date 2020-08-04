@@ -31,7 +31,7 @@ categories:
 </div>
 举个例子
 
-<img src="/images/bp6.svg" align="center">
+<img src="/images/backpropagation/bp6.svg" align="center">
 
 上图是一个两层的全连接神经网络，其中$net_{i}$是输入，$net_{k}$是输出，输出在softmax之后计算交叉熵损失。下面给出详细计算隐藏层$net_{j}$对应的权重$w_{ij}$梯度的过程，其中$N$是batch size，$y$是真实标签，$o$是softmax激活后的输出
 $$
