@@ -452,7 +452,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子</p>
+        <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子</p>
 <ul>
 <li>一个字符串是否出现在另一个字符串中</li>
 <li>一个字符串包含的各不相同的子串数目</li>
@@ -463,7 +463,10 @@
 <li>求两个或多个字符串的最长公共子串</li>
 </ul>
 <p>上面这几个例子在构建好SAM之后都可以在线性时间内解决</p>
-<p>具体的原理可以参考这篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[https://oi-wiki.org/string/sam/](https://oi-wiki.org/string/sam/)">[1]</span></a></sup>,里面不仅给出了算法流程还给出了算法的正确性证明.</p>
+<p>具体的原理可以参考这篇文章<sup><a href="#fn_1" id="reffn_1">1</a></sup>,里面不仅给出了算法流程还给出了算法的正确性证明.</p>
+<blockquote id="fn_1">
+<sup>1</sup>. <a href="https://oi-wiki.org/string/sam/" target="_blank" rel="noopener">https://oi-wiki.org/string/sam/</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>首先我们假设字符集大小为常数。如果字符集大小不是常数，SAM 的时间复杂度就不是线性的。从一个结点出发的转移存储在支持快速查询和插入的平衡树(map)中。因此如果我们记$\sum$为字符集，$|\sum|$为字符集大小，则算法的渐进时间复杂度为$O(nlog|\sum|)$，空间复杂度为$O(n)$。然而如果字符集足够小，可以不写平衡树，以空间换时间将每个结点的转移存储为长度为$|\sum|$的数组（用于快速查询）和链表（用于快速遍历所有可用关键字）。这样算法的时间复杂度为$O(n)$，空间复杂度为$O(n|\sum|)$。</p>
 <p>这两种转移方式我都实现了一遍,并且在SAM基础上解决了前面列举的问题,下面是具体实现的代码</p>
 <h3 id="平衡树-map-版本"><a href="#平衡树-map-版本" class="headerlink" title="平衡树(map)版本"></a>平衡树(map)版本</h3><details>
@@ -479,7 +482,7 @@
 
 </details>
 
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://oi-wiki.org/string/sam/" target="_blank" rel="noopener">https://oi-wiki.org/string/sam/</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
+
       
     </div>
     
@@ -703,6 +706,10 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

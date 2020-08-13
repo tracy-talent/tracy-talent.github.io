@@ -452,7 +452,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="spark-tips"><a href="#spark-tips" class="headerlink" title="spark tips"></a>spark tips</h1><h3 id="jar包上传到hdfs"><a href="#jar包上传到hdfs" class="headerlink" title="jar包上传到hdfs"></a>jar包上传到hdfs</h3><ul>
+        <h1 id="spark-tips"><a href="#spark-tips" class="headerlink" title="spark tips"></a>spark tips</h1><h3 id="jar包上传到hdfs"><a href="#jar包上传到hdfs" class="headerlink" title="jar包上传到hdfs"></a>jar包上传到hdfs</h3><ul>
 <li>分布式集群上跑spark时每次都要将${SPARK_HOME}/jars/<em>下所有的jar包上传到分布式系统中供调用，为了避免每次的上传时间可以将这些jar包存放到hdfs中，==注意：我在2.\</em>的版本中将所有jar包打包成.archive文件上传到hdfs，但是这样做导致spark在yarn上启动失败，后来尝试将这些jar包分散上传到hdfs的文件夹下就能正常在yarn上启动spark了。==具体做法如下：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将$&#123;SPARK_HOME&#125;/jars下的所有jar包上传到hdfs中：</span><br><span class="line">hadoop fs -put jars/* /spark</span><br><span class="line">在$&#123;SPARK_HOME&#125;/conf/spark-defaults.conf中添加配置项：</span><br><span class="line">spark.yarn.jars  hdfs://localhost:9000/spark/jars/*</span><br></pre></td></tr></table></figure>
@@ -720,6 +720,10 @@ num-executors = cores-in-cluster/executor.cores</script></li>
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

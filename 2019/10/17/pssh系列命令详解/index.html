@@ -441,7 +441,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pssh提供OpenSSH和相关工具的并行版本。包括pssh，pscp，prsync，pnuke和pslurp。该项目包括psshlib，可以在自定义应用程序中使用。pssh是python写的可以并发在多台机器上批量执行命令的工具，它的用法可以媲美ansible的一些简单用法，执行起来速度比ansible快它支持文件并行复制，远程命令执行，杀掉远程主机上的进程等等。杀手锏是文件并行复制，，当进行再远程主机批量上传下载的时候，最好使用它。pssh用于批量ssh操作大批量机器；pssh是一个可以在多台服务器上执行命令的工具，同时支持拷贝文件，是同类工具中很出色的；比起for循环的做法，更推荐使用pssh！ (注意需要安装 python 2.4 或以上版本)</p>
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pssh提供OpenSSH和相关工具的并行版本。包括pssh，pscp，prsync，pnuke和pslurp。该项目包括psshlib，可以在自定义应用程序中使用。pssh是python写的可以并发在多台机器上批量执行命令的工具，它的用法可以媲美ansible的一些简单用法，执行起来速度比ansible快它支持文件并行复制，远程命令执行，杀掉远程主机上的进程等等。杀手锏是文件并行复制，，当进行再远程主机批量上传下载的时候，最好使用它。pssh用于批量ssh操作大批量机器；pssh是一个可以在多台服务器上执行命令的工具，同时支持拷贝文件，是同类工具中很出色的；比起for循环的做法，更推荐使用pssh！ (注意需要安装 python 2.4 或以上版本)</p>
 <p>下面是直接从源码进行编译安装的步骤，安装过程很快</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://pypi.python.org/packages/60/9a/8035af3a7d3d1617ae2c7c174efa4f154e5bf9c24b36b623413b38be8e4a/pssh-2.3.1.tar.gz</span><br><span class="line">tar xf pssh-2.3.1.tar.gz -C /usr/local</span><br><span class="line">cd /usr/local/pssh-2.3.1/</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
 <h2 id="命令详解"><a href="#命令详解" class="headerlink" title="命令详解"></a>命令详解</h2><p><code>pssh --help</code>可以查看命令参数选项：</p>
@@ -672,6 +672,10 @@
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

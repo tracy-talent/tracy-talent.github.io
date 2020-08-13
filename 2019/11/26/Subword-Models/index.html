@@ -459,7 +459,7 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>随着深度神经网络的发展，深度学习在文本生成比如nueral machine translation(NMT)以及question answer(QA)等任务中突破了传统方法的瓶颈，在很多数据集上都取得了state-of-the-art(SOTA)的效果。</p>
+        <p>随着深度神经网络的发展，深度学习在文本生成比如nueral machine translation(NMT)以及question answer(QA)等任务中突破了传统方法的瓶颈，在很多数据集上都取得了state-of-the-art(SOTA)的效果。</p>
 <p>我们知道神经网络输入层必须接收数字形式的信息，所以必须将文本形式的词嵌入成向量。通常会设定一个词汇表大小，对于词汇表中所有词有对应的向量表示。而由于一种语言涵盖的词汇太多，以及处理的文本数据本身就不规范(比如web数据)，从而无法覆盖所有的词汇，在对corpus中的词进行向量map时会出现out of  vocabulary(OOV)的现象。以往的做法是设置一个特殊字段(比如UNK)来表示所有OOV的词汇，这种做法可谓相当粗糙，那有没有更细致微妙的处理方法呢？答案当然是有的，很多从事NLP研究的工作者在这个方面开展了不少的工作。一种方法是从word embedding扩展到character embedding，另外一种方法是将word拆分成有意义的更小的词素也就是wordpieces，两个word可能不相同，但是他们可能包含相同的wordpieces，这样对于OOV的word，找到其对应的wordpieces的向量added or averaged也可以蕴含该word的word sense。接下来分别介绍这两种方法。</p>
 <h2 id="Character-Embedding"><a href="#Character-Embedding" class="headerlink" title="Character Embedding"></a>Character Embedding</h2><p>在没出现character embedding之前可能会觉得仅用少量的字符向量就可以表示含有丰富含义的词向量会有点不可思议，但借助于神经网络对特征强大的组合能力，使得这一切成为了可能。目前对word中的characters进行组合的方式目前主要有convolutional network和LSTM network两种。下面分别介绍这两种方法以及混合使用word-character embedding的模型。</p>
 <h3 id="Convolutional"><a href="#Convolutional" class="headerlink" title="Convolutional"></a>Convolutional</h3><p><a href="http://proceedings.mlr.press/v32/santos14.pdf" target="_blank" rel="noopener">Learning Character-level Representations for Part-of-Speech Tagging C´ıcero</a>，这篇文章发表于JMLR2014，应该是最早的使用卷积神经网络处理char embedding的，模型主要分三层conv+fcn+maxpool，具体的结构图如下</p>
@@ -744,6 +744,10 @@ s(w,c)=\sum_{g \in \mathcal{G}_w}z_{g}^{T}v_{c}</script><p>该方法异常高效
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

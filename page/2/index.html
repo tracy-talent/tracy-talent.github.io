@@ -456,7 +456,7 @@
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><font color="green" size="4">参考链接:</font>
+            <font color="green" size="4">参考链接:</font>
 
 <ol>
 <li><a href="https://www.youtube.com/watch?v=eBbEDRsCmv4" target="_blank" rel="noopener">google关于tensorboard的官方视频教程</a></li>
@@ -674,7 +674,7 @@
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子</p>
+            <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子</p>
 <ul>
 <li>一个字符串是否出现在另一个字符串中</li>
 <li>一个字符串包含的各不相同的子串数目</li>
@@ -685,7 +685,10 @@
 <li>求两个或多个字符串的最长公共子串</li>
 </ul>
 <p>上面这几个例子在构建好SAM之后都可以在线性时间内解决</p>
-<p>具体的原理可以参考这篇文章<sup id="fnref:1"><a href="#fn:1" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[https://oi-wiki.org/string/sam/](https://oi-wiki.org/string/sam/)">[1]</span></a></sup>,里面不仅给出了算法流程还给出了算法的正确性证明.</p>
+<p>具体的原理可以参考这篇文章<sup><a href="#fn_1" id="reffn_1">1</a></sup>,里面不仅给出了算法流程还给出了算法的正确性证明.</p>
+<blockquote id="fn_1">
+<sup>1</sup>. <a href="https://oi-wiki.org/string/sam/" target="_blank" rel="noopener">https://oi-wiki.org/string/sam/</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>首先我们假设字符集大小为常数。如果字符集大小不是常数，SAM 的时间复杂度就不是线性的。从一个结点出发的转移存储在支持快速查询和插入的平衡树(map)中。因此如果我们记$\sum$为字符集，$|\sum|$为字符集大小，则算法的渐进时间复杂度为$O(nlog|\sum|)$，空间复杂度为$O(n)$。然而如果字符集足够小，可以不写平衡树，以空间换时间将每个结点的转移存储为长度为$|\sum|$的数组（用于快速查询）和链表（用于快速遍历所有可用关键字）。这样算法的时间复杂度为$O(n)$，空间复杂度为$O(n|\sum|)$。</p>
 <p>这两种转移方式我都实现了一遍,并且在SAM基础上解决了前面列举的问题,下面是具体实现的代码</p>
 <h3 id="平衡树-map-版本"><a href="#平衡树-map-版本" class="headerlink" title="平衡树(map)版本"></a>平衡树(map)版本</h3><details>
@@ -701,7 +704,7 @@
 
 </details>
 
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a href="https://oi-wiki.org/string/sam/" target="_blank" rel="noopener">https://oi-wiki.org/string/sam/</a><a href="#fnref:1" rev="footnote"> ↩</a></span></li></ol></div></div>
+
           
         
       
@@ -910,7 +913,7 @@
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><font color="red" size="5">paper</font>
+            <font color="red" size="5">paper</font>
 
 <ul>
 <li><p><a href="https://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener">Efficient Estimation of Word Representations in<br>Vector Space</a></p>
@@ -1195,7 +1198,7 @@ p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>假设有一条绳子，上面有红、白、蓝三种颜色的旗子，起初绳子上的旗子的颜色并没有顺序，你希望将之分类并排列为蓝、白、红的顺序，要如何移动次数最少，注意你只能在绳子上进行这个动作，并且一次只能调换两个旗子。</p>
+            <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>假设有一条绳子，上面有红、白、蓝三种颜色的旗子，起初绳子上的旗子的颜色并没有顺序，你希望将之分类并排列为蓝、白、红的顺序，要如何移动次数最少，注意你只能在绳子上进行这个动作，并且一次只能调换两个旗子。</p>
 <h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>快排的思想，分别设三个标记wflag，rflag，bflag，初始bflag和wflag置首，rflag置末，然后分以下几个步骤解决：</p>
 <ol>
 <li>rflag向左移动到第一个非红色旗处停下，bflag向前移动到第一个非蓝色旗停下，wflag向前移动超越bflag并在非白色旗处停下</li>
@@ -1401,7 +1404,7 @@ p(z|w)=[\sigma(v(w)^T\theta^{z}]^{L^{u}(z)} \cdot [1-\sigma(v(w)^{T}\theta^{z})]
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>皮尔逊相关系数的介绍可参考<a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E5%B0%94%E9%80%8A%E7%A7%AF%E7%9F%A9%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0" target="_blank" rel="noopener">维基百科:皮尔逊积矩相关系数</a></p>
+            <p>皮尔逊相关系数的介绍可参考<a href="https://zh.wikipedia.org/wiki/%E7%9A%AE%E5%B0%94%E9%80%8A%E7%A7%AF%E7%9F%A9%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0" target="_blank" rel="noopener">维基百科:皮尔逊积矩相关系数</a></p>
 <p>在统计学中，皮尔逊积矩相关系数（Pearson product-moment correlation coefficient，又称作 <strong>PPMCC</strong>或<strong>PCCs</strong>, 文章中常用r或Pearson’s r表示）用于度量两个变量X和Y之间的相关程度（线性相关）</p>
 <p>两个变量的总体相关系数定义为两个变量之间的协方差与标准差的商</p>
 <script type="math/tex; mode=display">
@@ -1616,7 +1619,7 @@ r^{2} = \frac{(\sum_{i=1}^{n}x_{i}y_{i})^{2}}{(\sum_{i=1}^{n}{x_{i}^{2}})(\sum_{
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="泊松分布、指数分布与伽马分布简介及其关系"><a href="#泊松分布、指数分布与伽马分布简介及其关系" class="headerlink" title="泊松分布、指数分布与伽马分布简介及其关系"></a>泊松分布、指数分布与伽马分布简介及其关系</h2><p>泊松分布: <script type="math/tex">Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t > 0, n \ge 0)</script></p>
+            <h2 id="泊松分布、指数分布与伽马分布简介及其关系"><a href="#泊松分布、指数分布与伽马分布简介及其关系" class="headerlink" title="泊松分布、指数分布与伽马分布简介及其关系"></a>泊松分布、指数分布与伽马分布简介及其关系</h2><p>泊松分布: <script type="math/tex">Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t > 0, n \ge 0)</script></p>
 <p>指数分布: <script type="math/tex">f(x)=\lambda e^{-\lambda t},\ (\lambda > 0,t > 0)</script></p>
 <p>伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为<script type="math/tex">\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}}(x > 0)</script>，对伽马函数做一个变形即可得到</p>
 <script type="math/tex; mode=display">
@@ -1877,7 +1880,7 @@ Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="快速数论变换-FNT"><a href="#快速数论变换-FNT" class="headerlink" title="快速数论变换(FNT)"></a>快速数论变换(FNT)</h3><p>原理同<a href="https://brooksj.com/2019/07/18/%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/">FFT</a>一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下:</p>
+            <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="快速数论变换-FNT"><a href="#快速数论变换-FNT" class="headerlink" title="快速数论变换(FNT)"></a>快速数论变换(FNT)</h3><p>原理同<a href="https://brooksj.com/2019/07/18/%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0/">FFT</a>一样,用与弧度具有同样性质的一组值替代弧度进行计算,具体性质如下:</p>
 <p>FFT 中能在 O(nlog⁡n) 时间内变换用到了单位根 <script type="math/tex">\omega</script> 的什么性质:</p>
 <ol>
 <li><p>$\omega_n^n = 1$</p>
@@ -2174,7 +2177,7 @@ Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>参考:</p>
+            <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>参考:</p>
 <p><a href="https://www.jianshu.com/p/73f0ab14828a" target="_blank" rel="noopener">如何给文科生解释傅里叶变换</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/31584464" target="_blank" rel="noopener">一小时学会快速傅里叶变换（Fast Fourier Transform）</a></p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
@@ -2429,7 +2432,7 @@ Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h2><h3 id="HDU-3466"><a href="#HDU-3466" class="headerlink" title="HDU-3466"></a>HDU-3466</h3><p>题目: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3466" target="_blank" rel="noopener">HDU-3346. Proud Merchants</a></p>
+            <h2 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h2><h3 id="HDU-3466"><a href="#HDU-3466" class="headerlink" title="HDU-3466"></a>HDU-3466</h3><p>题目: <a href="http://acm.hdu.edu.cn/showproblem.php?pid=3466" target="_blank" rel="noopener">HDU-3346. Proud Merchants</a></p>
 <p>分析:&nbsp;&nbsp;首先对于任意两个物品i和j,如果我们只选他们中的一个或全不选,我们所需要的初始金钱是相同的.现在如果我们对于它们两个都选,初始金钱就跟选择的顺序有关了.比如:</p>
 <p>3 5 6</p>
 <p>5 10 5</p>
@@ -2640,7 +2643,7 @@ Dir(\vec{p}|\vec{\alpha})=\frac{\Gamma(\sum_{k=1}^{K}{\alpha_k})}{\sum_{k=1}^{K}
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>首先看一下三者的定义：</p>
+            <p>首先看一下三者的定义：</p>
 <p>定义1对于图G=(V,E)来说， <strong>最小支配集</strong> 指的是从V中取尽量少的点组成一个集合，使得对于V中剩余的点都与取出来的点有边相连。也就是说，设V‘是图G的一个支配集，则对于图中的任意一个顶点u，要么属于集合V’，要么与V‘中的顶点相邻。在V’中出去任何元素后V‘不再是支配集，则支配集是极小支配集。称G的所有支配集中顶点个数最少的支配集为最小支配集，最小支配集中顶点的个数称为支配数。</p>
 <p>定义2对于图G=(V,E)来说， <strong>最小点覆盖</strong> 指的是从V中取尽量少的点组成一个集合，使得E中所有的边都与取出来的点相连。也就是说，设V‘是图G的一个顶点覆盖，则对于图中的任意一条边(u,v)，要么u属于集合V’，要么v属于集合V‘。在V‘中除去任何元素后V’不在是顶点覆盖，则V‘是极小顶点覆盖。称G的所有顶点覆盖中顶点个数最少的覆盖为最小点覆盖。</p>
 <p>定义3对于图G=(V,E)来说， <strong>最大独立集</strong> 指的是从V中取尽量多的点组成一个集合，使得这些点之间没有边相连。也就是说，设V’是图G的一个独立集，则对于图中任意一条边(u,v)，u和v不能同时属于集合V’，甚至可以u和v都不属于集合V‘。在V’中添加任何不属于V‘元素后V’不再是独立集，则V‘是极大独立集。称G的所有顶点独立集中顶点个数最多的独立集为最大独立集。</p>
@@ -2876,6 +2879,10 @@ dp[i][1]=\sum{max(dp[u][0],dp[u][1])}</script><p>对于最大点独立集实现 
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

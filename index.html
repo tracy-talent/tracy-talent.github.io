@@ -1021,7 +1021,7 @@ lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="Lecture-08-Machine-Translation-Seq2Seq-and-Attention"><a href="#Lecture-08-Machine-Translation-Seq2Seq-and-Attention" class="headerlink" title="Lecture 08 Machine Translation, Seq2Seq and Attention"></a>Lecture 08 Machine Translation, Seq2Seq and Attention</h2><h3 id="Statistical-Machine-Translation-SMT"><a href="#Statistical-Machine-Translation-SMT" class="headerlink" title="Statistical Machine Translation(SMT)"></a>Statistical Machine Translation(SMT)</h3><p>统计机器翻译(Statistical Machine Translation，SMT)出现并流行于1990s～2010s，1990s以前的MT工作大部分都是基于规则的(rule-based)，使用双语词典作为映射，最早可以追溯到1950s。SMT的main idea如下图所示</p>
+            <h2 id="Lecture-08-Machine-Translation-Seq2Seq-and-Attention"><a href="#Lecture-08-Machine-Translation-Seq2Seq-and-Attention" class="headerlink" title="Lecture 08 Machine Translation, Seq2Seq and Attention"></a>Lecture 08 Machine Translation, Seq2Seq and Attention</h2><h3 id="Statistical-Machine-Translation-SMT"><a href="#Statistical-Machine-Translation-SMT" class="headerlink" title="Statistical Machine Translation(SMT)"></a>Statistical Machine Translation(SMT)</h3><p>统计机器翻译(Statistical Machine Translation，SMT)出现并流行于1990s～2010s，1990s以前的MT工作大部分都是基于规则的(rule-based)，使用双语词典作为映射，最早可以追溯到1950s。SMT的main idea如下图所示</p>
 <div align="center">
     <img src="/images/NLP/lecture8_1.png">
 </div>
@@ -1300,7 +1300,7 @@ lrate=d^{-0.5}_{model} \cdot min(step\_num^{-0.5},step\_num \cdot warmup\_steps^
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>随着深度神经网络的发展，深度学习在文本生成比如nueral machine translation(NMT)以及question answer(QA)等任务中突破了传统方法的瓶颈，在很多数据集上都取得了state-of-the-art(SOTA)的效果。</p>
+            <p>随着深度神经网络的发展，深度学习在文本生成比如nueral machine translation(NMT)以及question answer(QA)等任务中突破了传统方法的瓶颈，在很多数据集上都取得了state-of-the-art(SOTA)的效果。</p>
 <p>我们知道神经网络输入层必须接收数字形式的信息，所以必须将文本形式的词嵌入成向量。通常会设定一个词汇表大小，对于词汇表中所有词有对应的向量表示。而由于一种语言涵盖的词汇太多，以及处理的文本数据本身就不规范(比如web数据)，从而无法覆盖所有的词汇，在对corpus中的词进行向量map时会出现out of  vocabulary(OOV)的现象。以往的做法是设置一个特殊字段(比如UNK)来表示所有OOV的词汇，这种做法可谓相当粗糙，那有没有更细致微妙的处理方法呢？答案当然是有的，很多从事NLP研究的工作者在这个方面开展了不少的工作。一种方法是从word embedding扩展到character embedding，另外一种方法是将word拆分成有意义的更小的词素也就是wordpieces，两个word可能不相同，但是他们可能包含相同的wordpieces，这样对于OOV的word，找到其对应的wordpieces的向量added or averaged也可以蕴含该word的word sense。接下来分别介绍这两种方法。</p>
 <h2 id="Character-Embedding"><a href="#Character-Embedding" class="headerlink" title="Character Embedding"></a>Character Embedding</h2><p>在没出现character embedding之前可能会觉得仅用少量的字符向量就可以表示含有丰富含义的词向量会有点不可思议，但借助于神经网络对特征强大的组合能力，使得这一切成为了可能。目前对word中的characters进行组合的方式目前主要有convolutional network和LSTM network两种。下面分别介绍这两种方法以及混合使用word-character embedding的模型。</p>
 <h3 id="Convolutional"><a href="#Convolutional" class="headerlink" title="Convolutional"></a>Convolutional</h3><p><a href="http://proceedings.mlr.press/v32/santos14.pdf" target="_blank" rel="noopener">Learning Character-level Representations for Part-of-Speech Tagging C´ıcero</a>，这篇文章发表于JMLR2014，应该是最早的使用卷积神经网络处理char embedding的，模型主要分三层conv+fcn+maxpool，具体的结构图如下</p>
@@ -1795,7 +1795,7 @@ E(w)=\frac{1}{N}\sum_{i=1}^{N}E_{p}(w)=\frac{1}{N}\sum_{i=1}^{N}\sum_{d=1}^{D}{-
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pssh提供OpenSSH和相关工具的并行版本。包括pssh，pscp，prsync，pnuke和pslurp。该项目包括psshlib，可以在自定义应用程序中使用。pssh是python写的可以并发在多台机器上批量执行命令的工具，它的用法可以媲美ansible的一些简单用法，执行起来速度比ansible快它支持文件并行复制，远程命令执行，杀掉远程主机上的进程等等。杀手锏是文件并行复制，，当进行再远程主机批量上传下载的时候，最好使用它。pssh用于批量ssh操作大批量机器；pssh是一个可以在多台服务器上执行命令的工具，同时支持拷贝文件，是同类工具中很出色的；比起for循环的做法，更推荐使用pssh！ (注意需要安装 python 2.4 或以上版本)</p>
+            <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>pssh提供OpenSSH和相关工具的并行版本。包括pssh，pscp，prsync，pnuke和pslurp。该项目包括psshlib，可以在自定义应用程序中使用。pssh是python写的可以并发在多台机器上批量执行命令的工具，它的用法可以媲美ansible的一些简单用法，执行起来速度比ansible快它支持文件并行复制，远程命令执行，杀掉远程主机上的进程等等。杀手锏是文件并行复制，，当进行再远程主机批量上传下载的时候，最好使用它。pssh用于批量ssh操作大批量机器；pssh是一个可以在多台服务器上执行命令的工具，同时支持拷贝文件，是同类工具中很出色的；比起for循环的做法，更推荐使用pssh！ (注意需要安装 python 2.4 或以上版本)</p>
 <p>下面是直接从源码进行编译安装的步骤，安装过程很快</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://pypi.python.org/packages/60/9a/8035af3a7d3d1617ae2c7c174efa4f154e5bf9c24b36b623413b38be8e4a/pssh-2.3.1.tar.gz</span><br><span class="line">tar xf pssh-2.3.1.tar.gz -C /usr/local</span><br><span class="line">cd /usr/local/pssh-2.3.1/</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
 <h2 id="命令详解"><a href="#命令详解" class="headerlink" title="命令详解"></a>命令详解</h2><p><code>pssh --help</code>可以查看命令参数选项：</p>
@@ -2000,7 +2000,7 @@ E(w)=\frac{1}{N}\sum_{i=1}^{N}E_{p}(w)=\frac{1}{N}\sum_{i=1}^{N}\sum_{d=1}^{D}{-
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>卡特兰数又称卡塔兰数，英文名Catalan number，是组合数学中一个常出现在各种计数问题中的数列。该数在计算机专业中比较重要，有一些具体的应用实例。这篇文章主要分三部分：</p>
+            <p>卡特兰数又称卡塔兰数，英文名Catalan number，是组合数学中一个常出现在各种计数问题中的数列。该数在计算机专业中比较重要，有一些具体的应用实例。这篇文章主要分三部分：</p>
 <ol>
 <li>卡特兰数递归式的含义解释</li>
 <li>卡特兰数表达式的证明过程</li>
@@ -2314,7 +2314,7 @@ $$
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="安装nvidia-driver"><a href="#安装nvidia-driver" class="headerlink" title="安装nvidia driver"></a>安装nvidia driver</h2><ul>
+            <h2 id="安装nvidia-driver"><a href="#安装nvidia-driver" class="headerlink" title="安装nvidia driver"></a>安装nvidia driver</h2><ul>
 <li><p>查看本机显卡</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci | grep -i VGA</span><br></pre></td></tr></table></figure>
 <p>终端输出显卡名称，现在电脑一般都有集显+独显2块显卡，若都是nvidia公司的，后续如果安装openGL就不会冲突，因为openGL只支持nvidia的显卡，其他公司的会被openGL安装覆盖。我这里是intel集显，所以安装cuda的时候就不能安装openGL.</p>
@@ -2583,7 +2583,7 @@ $$
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ubuntu桌面比较简陋，这就驱使很多人想DIY自己的一套桌面主题，如果是从零开始配置和美化ubuntu18.04，可以建议先参考<a href="https://blog.csdn.net/ice__snow/article/details/80152068" target="_blank" rel="noopener">Ubuntu 18.04配置及美化</a></p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ubuntu桌面比较简陋，这就驱使很多人想DIY自己的一套桌面主题，如果是从零开始配置和美化ubuntu18.04，可以建议先参考<a href="https://blog.csdn.net/ice__snow/article/details/80152068" target="_blank" rel="noopener">Ubuntu 18.04配置及美化</a></p>
 <h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><blockquote>
 <p>工欲善其事，必先利其器</p>
 </blockquote>
@@ -2898,7 +2898,7 @@ $$
       
         
           
-            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="spark-tips"><a href="#spark-tips" class="headerlink" title="spark tips"></a>spark tips</h1><h3 id="jar包上传到hdfs"><a href="#jar包上传到hdfs" class="headerlink" title="jar包上传到hdfs"></a>jar包上传到hdfs</h3><ul>
+            <h1 id="spark-tips"><a href="#spark-tips" class="headerlink" title="spark tips"></a>spark tips</h1><h3 id="jar包上传到hdfs"><a href="#jar包上传到hdfs" class="headerlink" title="jar包上传到hdfs"></a>jar包上传到hdfs</h3><ul>
 <li>分布式集群上跑spark时每次都要将${SPARK_HOME}/jars/<em>下所有的jar包上传到分布式系统中供调用，为了避免每次的上传时间可以将这些jar包存放到hdfs中，==注意：我在2.\</em>的版本中将所有jar包打包成.archive文件上传到hdfs，但是这样做导致spark在yarn上启动失败，后来尝试将这些jar包分散上传到hdfs的文件夹下就能正常在yarn上启动spark了。==具体做法如下：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">将$&#123;SPARK_HOME&#125;/jars下的所有jar包上传到hdfs中：</span><br><span class="line">hadoop fs -put jars/* /spark</span><br><span class="line">在$&#123;SPARK_HOME&#125;/conf/spark-defaults.conf中添加配置项：</span><br><span class="line">spark.yarn.jars  hdfs://localhost:9000/spark/jars/*</span><br></pre></td></tr></table></figure>
@@ -3108,6 +3108,10 @@ num-executors = cores-in-cluster/executor.cores</script></li>
                 
                   <li class="links-of-blogroll-item">
                     <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
