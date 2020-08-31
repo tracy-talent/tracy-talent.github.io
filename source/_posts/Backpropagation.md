@@ -94,3 +94,6 @@ for name, param in m.named_parameters():
 
 ```
 
+Tips:
+
+1. 在实际应用场景中，可能由于硬件设备落后而无法支持大batch的数据训练，但是现在的深度学习框架一般都会支持梯度累积，可以用多个mini batch模拟big batch的训练，假设累积步数为k，那么每个mini batch在后向梯度计算之前要将loss除以k再做后向梯度计算。
