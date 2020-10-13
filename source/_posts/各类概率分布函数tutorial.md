@@ -13,7 +13,7 @@ categories:
 
 指数分布: $$f(x)=\lambda e^{-\lambda t},\ (\lambda > 0,t > 0)$$
 
-伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为$$\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}}(x > 0)$$，对伽马函数做一个变形即可得到
+伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为$$\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}dt}(x > 0)$$，对伽马函数做一个变形即可得到
 $$
 \int_{0}^{\infty}{\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}}dx=1 \tag{1.1}
 $$
@@ -62,7 +62,7 @@ B(\alpha, \beta)=\int_{0}^{1}x^{\alpha-1}(1-x)^{\beta-1}dx=\frac{\Gamma(\alpha)\
 $$
 对Beta函数作一个变形即可得到
 $$
-\int_{0}^{1}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}}=1,(\alpha>0,\beta>0)
+\int_{0}^{1}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}dx}=1,(\alpha>0,\beta>0)
 $$
 去除式(2.1)的积分即可得到Beta分布的概率密度函数
 $$
