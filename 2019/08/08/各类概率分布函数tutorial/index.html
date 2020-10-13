@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="在人间漂流">
 <meta property="og:description" content="泊松分布、指数分布与伽马分布简介及其关系泊松分布: Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t &amp;gt; 0, n \ge 0) 指数分布: f(x)=\lambda e^{-\lambda t},\ (\lambda &amp;gt; 0,t &amp;gt; 0) 伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为\G">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-05T03:35:52.313Z">
+<meta property="og:updated_time" content="2020-10-13T12:07:16.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各类概率分布函数tutorial">
 <meta name="twitter:description" content="泊松分布、指数分布与伽马分布简介及其关系泊松分布: Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t &amp;gt; 0, n \ge 0) 指数分布: f(x)=\lambda e^{-\lambda t},\ (\lambda &amp;gt; 0,t &amp;gt; 0) 伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为\G">
@@ -443,7 +443,7 @@
       
         <h2 id="泊松分布、指数分布与伽马分布简介及其关系"><a href="#泊松分布、指数分布与伽马分布简介及其关系" class="headerlink" title="泊松分布、指数分布与伽马分布简介及其关系"></a>泊松分布、指数分布与伽马分布简介及其关系</h2><p>泊松分布: <script type="math/tex">Poisson(N(t)=n)=\frac{(\lambda t)^{n}e^{- \lambda t}}{n!},\ (\lambda t > 0, n \ge 0)</script></p>
 <p>指数分布: <script type="math/tex">f(x)=\lambda e^{-\lambda t},\ (\lambda > 0,t > 0)</script></p>
-<p>伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为<script type="math/tex">\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}}(x > 0)</script>，对伽马函数做一个变形即可得到</p>
+<p>伽马分布: 先看伽马函数，伽马函数又称第二类欧拉积分，函数式为<script type="math/tex">\Gamma(x)=\int_{0}^{\infty}{t^{x-1}e^{-t}dt}(x > 0)</script>，对伽马函数做一个变形即可得到</p>
 <script type="math/tex; mode=display">
 \int_{0}^{\infty}{\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}}dx=1 \tag{1.1}</script><p>式(1.1)去除积分即为伽马分布的概率密度函数</p>
 <script type="math/tex; mode=display">
@@ -475,7 +475,7 @@ Gamma(t|\alpha)=\frac{\beta^{\alpha}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)},(\
 <script type="math/tex; mode=display">
 B(\alpha, \beta)=\int_{0}^{1}x^{\alpha-1}(1-x)^{\beta-1}dx=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)},(x \in [0,1],\alpha \gt 0, \beta \gt 0) \tag{2.1}</script><p>对Beta函数作一个变形即可得到</p>
 <script type="math/tex; mode=display">
-\int_{0}^{1}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}}=1,(\alpha>0,\beta>0)</script><p>去除式(2.1)的积分即可得到Beta分布的概率密度函数</p>
+\int_{0}^{1}{\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}dx}=1,(\alpha>0,\beta>0)</script><p>去除式(2.1)的积分即可得到Beta分布的概率密度函数</p>
 <script type="math/tex; mode=display">
 X\sim Be(\alpha,\beta):Beta(x|\alpha,\beta)=\frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1},(\alpha>0,\beta>0)</script><font color="green" size="4">参考链接:</font>
 
