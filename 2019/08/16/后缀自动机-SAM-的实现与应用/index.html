@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SAM," />
+
+
+
+
+
+
+
+
+  <meta property="fb:admins" content="100035055370515" />
+  <meta property="fb:app_id" content="473188823418438" />
+
+
+
+<meta name="description" content="原理后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子  一个字符串是否出现在另一个字符串中 一个字符串包含的各不相同的子串数目 查询一个字符串在另一个字符串中的出现次数  一个字符串在另一个字符串中第一次出现位置或者所有出现位置  求两个或多个字符串的最长公共子串  上面这几个例子在构建好SAM之后都可以在线性时间内解决 具体的原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后缀自动机(SAM)的实现与应用">
+<meta property="og:url" content="https://brooksj.com/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="在人间漂流">
+<meta property="og:description" content="原理后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子  一个字符串是否出现在另一个字符串中 一个字符串包含的各不相同的子串数目 查询一个字符串在另一个字符串中的出现次数  一个字符串在另一个字符串中第一次出现位置或者所有出现位置  求两个或多个字符串的最长公共子串  上面这几个例子在构建好SAM之后都可以在线性时间内解决 具体的原">
+<meta property="article:published_time" content="2019-08-16T08:50:08.000Z">
+<meta property="article:modified_time" content="2023-04-13T18:26:24.313Z">
+<meta property="article:author" content="brooksj">
+<meta property="article:tag" content="SAM">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://brooksj.com/2019/08/16/后缀自动机-SAM-的实现与应用/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+  <title>后缀自动机(SAM)的实现与应用 | 在人间漂流</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '473188823418438',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <!-- fork me on github -->
+    <!-- a href="https://github.com/tracy-talent"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a -->
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">在人间漂流</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">厚德 求真 励学 笃行</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <a href="https://github.com/tracy-talent" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">后缀自动机(SAM)的实现与应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T16:50:08+08:00">
+                2019-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/ACM-Solution/" itemprop="url" rel="index">
+                    <span itemprop="name">ACM Solution</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/" class="leancloud_visitors" data-flag-title="后缀自动机(SAM)的实现与应用">
+               <span class="post-meta-divider"><br/></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">5k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">25(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>后缀自动机(Suffix Automaton,简称SAM)是一个能解决许多字符串相关问题的有力的数据结构。举几个例子</p>
+<ul>
+<li>一个字符串是否出现在另一个字符串中</li>
+<li>一个字符串包含的各不相同的子串数目</li>
+<li><p>查询一个字符串在另一个字符串中的出现次数</p>
+</li>
+<li><p>一个字符串在另一个字符串中第一次出现位置或者所有出现位置</p>
+</li>
+<li>求两个或多个字符串的最长公共子串</li>
+</ul>
+<p>上面这几个例子在构建好SAM之后都可以在线性时间内解决</p>
+<p>具体的原理可以参考这篇文章<sup><a href="#fn_1" id="reffn_1">1</a></sup>,里面不仅给出了算法流程还给出了算法的正确性证明.</p>
+<blockquote id="fn_1">
+<sup>1</sup>. <a href="https://oi-wiki.org/string/sam/" target="_blank" rel="noopener">https://oi-wiki.org/string/sam/</a><a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>首先我们假设字符集大小为常数。如果字符集大小不是常数，SAM 的时间复杂度就不是线性的。从一个结点出发的转移存储在支持快速查询和插入的平衡树(map)中。因此如果我们记$\sum$为字符集，$|\sum|$为字符集大小，则算法的渐进时间复杂度为$O(nlog|\sum|)$，空间复杂度为$O(n)$。然而如果字符集足够小，可以不写平衡树，以空间换时间将每个结点的转移存储为长度为$|\sum|$的数组（用于快速查询）和链表（用于快速遍历所有可用关键字）。这样算法的时间复杂度为$O(n)$，空间复杂度为$O(n|\sum|)$。</p>
+<p>这两种转移方式我都实现了一遍,并且在SAM基础上解决了前面列举的问题,下面是具体实现的代码</p>
+<h3 id="平衡树-map-版本"><a href="#平衡树-map-版本" class="headerlink" title="平衡树(map)版本"></a>平衡树(map)版本</h3><details>
+<summary>展开代码</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后缀自动机，可以在O(n)复杂度内创建一个字符串的SAM</span></span><br><span class="line"><span class="comment">// 最多2*n - 1个状态节点(n &gt;= 2)，最多3*n - 4个转换(n &gt;= 3)</span></span><br><span class="line"><span class="keyword">namespace</span> SAM &#123;</span><br><span class="line">​    <span class="class"><span class="keyword">struct</span> <span class="title">state</span> &#123;</span></span><br><span class="line">​        <span class="comment">// SAM必须变量</span></span><br><span class="line">​        <span class="keyword">int</span> len, link;  <span class="comment">// len表示状态包含的后缀字符串中的最长串长度,link为后缀链接len(link[v]) + 1 = minlen(v)</span></span><br><span class="line">​        <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 用于求子串出现次数的变量</span></span><br><span class="line">        <span class="keyword">int</span> cnt; <span class="comment">// 子串出现次数</span></span><br><span class="line">    </span><br><span class="line">        <span class="comment">// firstpos用于求子串第一次出现位置,配合is_clone和inv_link可用于求子串所有出现位置</span></span><br><span class="line">        <span class="keyword">int</span> firstpos;  <span class="comment">// 子串第一次出现位置</span></span><br><span class="line">        <span class="keyword">bool</span> is_clone;  <span class="comment">// 标志节点是否是复制的</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inv_link; <span class="comment">// 节点的后缀引用列表,该节点对应串是列表内节点的后缀</span></span><br><span class="line">    </span><br><span class="line">        <span class="comment">// ml和nl用于求多字符串的最长公共子串</span></span><br><span class="line">        <span class="keyword">int</span> nl;  <span class="comment">// 当前字符串与状态节点对应最长后缀的公共子串长</span></span><br><span class="line">        <span class="keyword">int</span> ml;  <span class="comment">// 所有字符串与状态节点对应最长后缀的公共子串长中的最小长度</span></span><br><span class="line">    &#125;; <span class="comment">// 状态节点，一个状态对应一个endpoint集合</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> MAXLEN = <span class="number">100000</span>;  <span class="comment">// 字符串长度限制</span></span><br><span class="line">    state st[MAXLEN * <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">int</span> sz, last;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sam_init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">            st[i].next.<span class="built_in">clear</span>();</span><br><span class="line">            st[i].inv_link.<span class="built_in">clear</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        st[<span class="number">0</span>].len = <span class="number">0</span>;</span><br><span class="line">        st[<span class="number">0</span>].link = <span class="number">-1</span>;</span><br><span class="line">        sz = <span class="number">1</span>;</span><br><span class="line">        last = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 向sam中插入字符</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sam_extend</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cur = sz++;</span><br><span class="line">        st[cur].len = st[last].len + <span class="number">1</span>;</span><br><span class="line">        st[cur].ml = st[cur].len;</span><br><span class="line">        st[cur].nl = <span class="number">0</span>;</span><br><span class="line">        st[cur].firstpos = st[cur].len - <span class="number">1</span>;</span><br><span class="line">        st[cur].is_clone = <span class="literal">false</span>;</span><br><span class="line">        st[cur].cnt = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> p = last;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="number">-1</span> &amp;&amp; !st[p].next.count(c)) &#123;</span><br><span class="line">            st[p].next[c] = cur;</span><br><span class="line">            p = st[p].link;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="number">-1</span>) &#123;</span><br><span class="line">            st[cur].link = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> q = st[p].next[c];</span><br><span class="line">            <span class="keyword">if</span> (st[p].len + <span class="number">1</span> == st[q].len) &#123;</span><br><span class="line">                st[cur].link = q;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> clone = sz++;</span><br><span class="line">                st[clone].len = st[p].len + <span class="number">1</span>;</span><br><span class="line">                st[clone].ml = st[clone].len;</span><br><span class="line">                st[clone].nl = <span class="number">0</span>;</span><br><span class="line">                st[clone].is_clone = <span class="literal">true</span>;</span><br><span class="line">                st[clone].firstpos = st[q].firstpos;</span><br><span class="line">                st[clone].cnt = <span class="number">0</span>;</span><br><span class="line">                st[clone].next = st[q].next;</span><br><span class="line">                st[clone].link = st[q].link;</span><br><span class="line">                <span class="keyword">while</span> (p != <span class="number">-1</span> &amp;&amp; st[p].next.count(c) &amp;&amp; st[p].next[c] == q) &#123;</span><br><span class="line">                    st[p].next[c] = clone;</span><br><span class="line">                    p = st[p].link;</span><br><span class="line">                &#125;</span><br><span class="line">                st[q].link = st[cur].link = clone;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        last = cur;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取子串数目</span></span><br><span class="line"><span class="keyword">bool</span> vis[SAM::MAXLEN * <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_substr_num</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">​    <span class="keyword">int</span> res = (idx == <span class="number">0</span> ? <span class="number">0</span> : SAM::st[idx].len - SAM::st[SAM::st[idx].link].len);</span><br><span class="line">​    <span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator iter = SAM::st[idx].next.<span class="built_in">begin</span>();</span><br><span class="line">​    <span class="keyword">for</span> (; iter != SAM::st[idx].next.<span class="built_in">end</span>(); iter++) &#123;</span><br><span class="line">​        <span class="keyword">if</span> (!vis[iter-&gt;second]) res += get_substr_num(iter-&gt;second);</span><br><span class="line">​    &#125;</span><br><span class="line">​    vis[idx] = <span class="literal">true</span>;</span><br><span class="line">​    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子串查询，判断子串s是否包含在SAM对应的字符串中</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">lookup</span><span class="params">(<span class="keyword">char</span> *s)</span> </span>&#123;</span><br><span class="line">​    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">​    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; s[i]; i++) &#123;</span><br><span class="line">​        <span class="keyword">if</span> (SAM::st[idx].next.count(s[i])) </span><br><span class="line">​            idx = SAM::st[idx].next[s[i]]; </span><br><span class="line">​        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路径计数(可用于计算子串数目)</span></span><br><span class="line"><span class="keyword">int</span> d[SAM::MAXLEN * <span class="number">2</span>]; <span class="comment">// d[i]表示从节点i出发的路径数目</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">path_count</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">​    <span class="comment">// 从根节点出发的路径数目即为子串数目</span></span><br><span class="line">​    d[idx] = <span class="number">0</span>;</span><br><span class="line">​    <span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator iter = SAM::st[idx].next.<span class="built_in">begin</span>();</span><br><span class="line">​    <span class="keyword">for</span> (; iter != SAM::st[idx].next.<span class="built_in">end</span>(); iter++) &#123;</span><br><span class="line">​        d[idx] += <span class="number">1</span> + path_count(iter-&gt;second);</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> d[idx];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找字典序第k大的子串</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find_kth_substr</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">string</span> &amp;res, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">​    <span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator iter = SAM::st[idx].next.<span class="built_in">begin</span>();</span><br><span class="line">​    <span class="keyword">for</span> (; iter != SAM::st[idx].next.<span class="built_in">end</span>(); iter++) &#123;</span><br><span class="line">​        <span class="keyword">int</span> t = <span class="number">1</span> + d[iter-&gt;second];</span><br><span class="line">​        <span class="keyword">if</span> (k &gt; t) k -= t;</span><br><span class="line">​        <span class="keyword">else</span> &#123;</span><br><span class="line">​            res += iter-&gt;first;</span><br><span class="line">​            <span class="keyword">if</span> (k &gt; <span class="number">1</span>) find_kth_substr(k - <span class="number">1</span>, res, iter-&gt;second);</span><br><span class="line">​            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询子串出现次数</span></span><br><span class="line"><span class="keyword">int</span> csort[SAM::MAXLEN + <span class="number">1</span>]; <span class="comment">// 用于对len计数排序</span></span><br><span class="line"><span class="keyword">int</span> idsort[<span class="number">2</span> * SAM::MAXLEN];  <span class="comment">// 存储按len排好序的索引id</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query_count</span><span class="params">(<span class="keyword">char</span> *s, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">   <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator iter = SAM::st[idx].next.<span class="built_in">begin</span>();</span><br><span class="line">   <span class="keyword">for</span> (; iter != SAM::st[idx].next.<span class="built_in">end</span>(); iter++) &#123;</span><br><span class="line">​       <span class="keyword">if</span> (iter-&gt;first == s[<span class="number">0</span>]) &#123;</span><br><span class="line">​           <span class="keyword">return</span> !s[<span class="number">1</span>] ? SAM::st[iter-&gt;second].cnt : query_count(s + <span class="number">1</span>, iter-&gt;second);</span><br><span class="line">​       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询子串第一次出现位置,返回对应节点索引号,不存在则返回-1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query_firstpos</span><span class="params">(<span class="keyword">char</span> *s, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">​    <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator iter = SAM::st[idx].next.<span class="built_in">begin</span>();</span><br><span class="line">​    <span class="keyword">for</span> (; iter != SAM::st[idx].next.<span class="built_in">end</span>(); iter++) &#123;</span><br><span class="line">​        <span class="keyword">if</span> (iter-&gt;first == s[<span class="number">0</span>]) &#123;</span><br><span class="line">​            <span class="keyword">return</span> !s[<span class="number">1</span>] ? iter-&gt;second : query_firstpos(s + <span class="number">1</span>, iter-&gt;second);</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询子串所有出现位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">query_allpos</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> plen, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;res)</span> </span>&#123;</span><br><span class="line">​    <span class="keyword">if</span> (!SAM::st[v].is_clone) res.push_back(SAM::st[v].firstpos - plen + <span class="number">1</span>);</span><br><span class="line">​    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; SAM::st[v].inv_link.<span class="built_in">size</span>(); i++) query_allpos(SAM::st[v].inv_link[i], plen, res);</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 最长公共子串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">LCS</span><span class="params">(<span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">​    <span class="keyword">int</span> v = <span class="number">0</span>, l = <span class="number">0</span>, best = <span class="number">0</span>, bestpos = <span class="number">0</span>;</span><br><span class="line">​    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; t.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">​        <span class="keyword">while</span> (v &amp;&amp; !SAM::st[v].next.count(t[i])) &#123;</span><br><span class="line">​            v = SAM::st[v].link;</span><br><span class="line">​            l = SAM::st[v].len;</span><br><span class="line">​        &#125;</span><br><span class="line">​        <span class="keyword">if</span> (SAM::st[v].next.count(t[i])) &#123;</span><br><span class="line">​            v = SAM::st[v].next[t[i]];</span><br><span class="line">​            l++;</span><br><span class="line">​        &#125;</span><br><span class="line">​        <span class="keyword">if</span> (l &gt; best) &#123;</span><br><span class="line">​            best = l;</span><br><span class="line">​            bestpos = i;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> t.substr(bestpos - best + <span class="number">1</span>, best);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多个字符串的最长公共前缀</span></span><br><span class="line"><span class="comment">// 依据SAM的状态节点id在SAM中提取指定长度的子串,存在则返回真</span></span><br><span class="line"><span class="comment">// 并将结果写到lcs中否则返回false</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_substr</span><span class="params">(<span class="keyword">int</span> idx, <span class="keyword">int</span> sid, <span class="keyword">size_t</span> len, <span class="built_in">string</span> &amp;lcs)</span> </span>&#123;</span><br><span class="line">​    <span class="keyword">if</span> (idx != <span class="number">0</span> &amp;&amp; idx == sid) <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line">​    <span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt;::iterator iter = SAM::st[idx].next.<span class="built_in">begin</span>();</span><br><span class="line">​    <span class="keyword">for</span> (; iter != SAM::st[idx].next.<span class="built_in">end</span>(); iter++) &#123;</span><br><span class="line">​        <span class="keyword">if</span> (get_substr(iter-&gt;second, sid, len, lcs)) &#123;</span><br><span class="line">​            lcs += iter-&gt;first;</span><br><span class="line">​            <span class="keyword">if</span> (idx != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">​            <span class="keyword">else</span> &#123;</span><br><span class="line">​                <span class="keyword">if</span> (lcs.<span class="built_in">size</span>() == len) &#123;</span><br><span class="line">​                    reverse(lcs.<span class="built_in">begin</span>(), lcs.<span class="built_in">end</span>());</span><br><span class="line">​                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">​                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">​                    lcs.<span class="built_in">clear</span>();    </span><br><span class="line">​                &#125;</span><br><span class="line">​            &#125;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 时间复杂度为各字符串长总和</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LCS_Mul</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">string</span> &amp;lcs)</span> </span>&#123;</span><br><span class="line">​    <span class="keyword">int</span> ans = <span class="number">0</span>, nid = <span class="number">0</span>;</span><br><span class="line">​    <span class="built_in">string</span> s;</span><br><span class="line">​    <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">​        <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">​        <span class="keyword">int</span> tnl = <span class="number">0</span>, p = <span class="number">0</span>;</span><br><span class="line">​        <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; s.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">​            <span class="keyword">if</span> (SAM::st[p].next.count(s[j])) &#123;</span><br><span class="line">​                tnl++;</span><br><span class="line">​                p = SAM::st[p].next[s[j]];</span><br><span class="line">​            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">​                <span class="keyword">while</span> (p &amp;&amp; !SAM::st[p].next.count(s[j])) p = SAM::st[p].link;</span><br><span class="line">​                <span class="keyword">if</span> (SAM::st[p].next.count(s[j])) &#123;</span><br><span class="line">​                    tnl = SAM::st[p].len + <span class="number">1</span>;</span><br><span class="line">​                    p = SAM::st[p].next[s[j]];</span><br><span class="line">​                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">​                    tnl = <span class="number">0</span>;</span><br><span class="line">​                &#125;</span><br><span class="line">​            &#125;</span><br><span class="line">​            SAM::st[p].nl = <span class="built_in">max</span>(SAM::st[p].nl, tnl);</span><br><span class="line">​        &#125;</span><br><span class="line">​        <span class="keyword">for</span> (<span class="keyword">int</span> j = SAM::sz - <span class="number">1</span>; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">​            p = idsort[j];</span><br><span class="line">​            <span class="keyword">if</span> (SAM::st[p].nl &lt; SAM::st[p].ml) SAM::st[p].ml = SAM::st[p].nl;</span><br><span class="line">​            <span class="keyword">if</span> (SAM::st[p].link &amp;&amp; SAM::st[SAM::st[p].link].nl &lt; SAM::st[p].nl)</span><br><span class="line">​                SAM::st[SAM::st[p].link].nl = SAM::st[p].nl;</span><br><span class="line">​            SAM::st[p].nl = <span class="number">0</span>;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) &#123;</span><br><span class="line">​        <span class="keyword">if</span> (SAM::st[i].ml &gt; ans) &#123;</span><br><span class="line">​            ans = SAM::st[i].ml;</span><br><span class="line">​            nid = i;</span><br><span class="line">​        &#125;</span><br><span class="line">​    &#125;</span><br><span class="line">​    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">​    get_substr(<span class="number">0</span>, nid, ans, lcs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> instr[SAM::MAXLEN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">​    <span class="built_in">cin</span> &gt;&gt; instr;</span><br><span class="line">​    SAM::sam_init();</span><br><span class="line">​    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; instr[i]; i++) SAM::sam_extend(instr[i]);</span><br><span class="line">​    <span class="built_in">cout</span> &lt;&lt; <span class="string">"SAM节点数: "</span> &lt;&lt; SAM::sz &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// SAM节点数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取子串总数</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; get_substr_num(<span class="number">0</span>) &lt;&lt; <span class="string">" "</span> &lt;&lt; path_count(<span class="number">0</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查询串s是否在母串中</span></span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">if</span> (lookup(s)) <span class="built_in">cout</span> &lt;&lt; <span class="string">"exists!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; <span class="string">"not exists!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查找字典序第k大的子串</span></span><br><span class="line">    <span class="built_in">string</span> substr_k = <span class="string">""</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询第k大子串:"</span>;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; k;</span><br><span class="line">    <span class="keyword">if</span> (find_kth_substr(k, substr_k, <span class="number">0</span>))</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; k &lt;&lt; <span class="string">"大子串: "</span> &lt;&lt; substr_k &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"不存在,"</span> &lt;&lt; k &lt;&lt; <span class="string">"已超过"</span> &lt;&lt; instr &lt;&lt; <span class="string">"子串总数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查询子串出现次数</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串出现次数: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="comment">// 对len计数排序</span></span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(csort, <span class="number">0</span>, <span class="keyword">sizeof</span>(csort));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) &#123;</span><br><span class="line">        csort[SAM::st[i].len]++;</span><br><span class="line">        m = <span class="built_in">max</span>(m, SAM::st[i].len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= m; i++) csort[i] += csort[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) idsort[csort[SAM::st[i].len]--] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = SAM::sz - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        SAM::st[SAM::st[idsort[i]].link].cnt += SAM::st[idsort[i]].cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"子串数目: "</span> &lt;&lt; query_count(s, <span class="number">0</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查询子串第一次出现位置,不存在则返回-1,否则返回节点索引对应到第一次出现结束位置</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串第一次出现位置: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> fid = query_firstpos(s, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (fid == <span class="number">-1</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"子串不存在!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; SAM::st[fid].firstpos - <span class="keyword">int</span>(<span class="built_in">strlen</span>(s)) + <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 查询子串的所有出现位置(依赖于子串第一次出现节点)</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串所有出现位置: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    fid = query_firstpos(s, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (fid == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"子串不存在!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) SAM::st[SAM::st[i].link].inv_link.push_back(i);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; occur_pos; <span class="comment">// 所有出现的起始位置存放在occur_pos中</span></span><br><span class="line">        query_allpos(fid, <span class="built_in">strlen</span>(s), occur_pos);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; occur_pos.<span class="built_in">size</span>(); i++) <span class="built_in">cout</span> &lt;&lt; occur_pos[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 两个字符串的最长公共子串</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"两个字符串的最长公共子串: "</span>;</span><br><span class="line">    <span class="built_in">string</span> s1;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s1;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; LCS(s1) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 多个字符串的最长公共子串</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"多个字符串的最长公共子串: "</span>;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="comment">// 对len计数排序</span></span><br><span class="line">    <span class="keyword">int</span> lens = <span class="number">0</span>; <span class="comment">// len类别数</span></span><br><span class="line">    <span class="built_in">memset</span>(csort, <span class="number">0</span>, <span class="keyword">sizeof</span>(csort));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) &#123;</span><br><span class="line">        csort[SAM::st[i].len]++;</span><br><span class="line">        lens = <span class="built_in">max</span>(lens, SAM::st[i].len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= lens; i++) csort[i] += csort[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) idsort[csort[SAM::st[i].len]--] = i;</span><br><span class="line">    <span class="built_in">string</span> lcs;</span><br><span class="line">    LCS_Mul(n, lcs);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"多个子串的最长公共子串为"</span> &lt;&lt; lcs &lt;&lt; <span class="string">", 长度"</span> &lt;&lt; lcs.<span class="built_in">size</span>() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+
+<h3 id="数组-array-版本"><a href="#数组-array-版本" class="headerlink" title="数组(array)版本"></a>数组(array)版本</h3><details>
+<summary>展开代码</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后缀自动机，可以在O(n)复杂度内创建一个字符串的SAM</span></span><br><span class="line"><span class="comment">// 最多2*n - 1个状态节点(n &gt;= 2)，最多3*n - 4个转换(n &gt;= 3)</span></span><br><span class="line"><span class="keyword">namespace</span> SAM &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">state</span> &#123;</span></span><br><span class="line">        <span class="comment">// SAM必须变量</span></span><br><span class="line">        <span class="keyword">int</span> len, link;  <span class="comment">// len表示状态包含的后缀字符串中的最长串长度,link为后缀链接len(link[v]) + 1 = minlen(v)</span></span><br><span class="line">        <span class="keyword">int</span> trans[<span class="number">26</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 用于求子串出现次数的变量</span></span><br><span class="line">        <span class="keyword">int</span> cnt; <span class="comment">// 子串出现次数</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// firstpos用于求子串第一次出现位置,配合is_clone和inv_link可用于求子串所有出现位置</span></span><br><span class="line">        <span class="keyword">int</span> firstpos;  <span class="comment">// 子串第一次出现位置</span></span><br><span class="line">        <span class="keyword">bool</span> is_clone;  <span class="comment">// 标志节点是否是复制的</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; inv_link; <span class="comment">// 节点的后缀引用列表,该节点对应串是列表内节点的后缀</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ml和nl用于求多字符串的最长公共子串</span></span><br><span class="line">        <span class="keyword">int</span> nl;  <span class="comment">// 当前字符串与状态节点对应最长后缀的公共子串长</span></span><br><span class="line">        <span class="keyword">int</span> ml;  <span class="comment">// 所有字符串与状态节点对应最长后缀的公共子串长中的最小长度</span></span><br><span class="line">    &#125;; <span class="comment">// 状态节点，一个状态对应一个endpoint集合</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> MAXLEN = <span class="number">100000</span>;  <span class="comment">// 字符串长度限制</span></span><br><span class="line">    state st[MAXLEN * <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">char</span> alpha[<span class="number">26</span>]; <span class="comment">// 小写字母表,限制输入字符串仅含小写字母</span></span><br><span class="line">    <span class="keyword">int</span> sz, last;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sam_init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">            <span class="built_in">memset</span>(st[i].trans, <span class="number">0</span> , <span class="keyword">sizeof</span>(st[i].trans));</span><br><span class="line">            st[i].inv_link.<span class="built_in">clear</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">            alpha[i] = i + <span class="string">'a'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        st[<span class="number">0</span>].len = <span class="number">0</span>;</span><br><span class="line">        st[<span class="number">0</span>].link = <span class="number">-1</span>;</span><br><span class="line">        sz = <span class="number">1</span>;</span><br><span class="line">        last = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向sam中插入字符</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sam_extend</span><span class="params">(<span class="keyword">char</span> ch)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> c = ch - <span class="string">'a'</span>;</span><br><span class="line">        <span class="keyword">int</span> cur = sz++;</span><br><span class="line">        st[cur].len = st[last].len + <span class="number">1</span>;</span><br><span class="line">        st[cur].ml = st[cur].len;</span><br><span class="line">        st[cur].nl = <span class="number">0</span>;</span><br><span class="line">        st[cur].firstpos = st[cur].len - <span class="number">1</span>;</span><br><span class="line">        st[cur].is_clone = <span class="literal">false</span>;</span><br><span class="line">        st[cur].cnt = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> p = last;</span><br><span class="line">        <span class="keyword">while</span> (p != <span class="number">-1</span> &amp;&amp; !st[p].trans[c]) &#123;</span><br><span class="line">            st[p].trans[c] = cur;</span><br><span class="line">            p = st[p].link;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="number">-1</span>) &#123;</span><br><span class="line">            st[cur].link = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> q = st[p].trans[c];</span><br><span class="line">            <span class="keyword">if</span> (st[p].len + <span class="number">1</span> == st[q].len) &#123;</span><br><span class="line">                st[cur].link = q;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> clone = sz++;</span><br><span class="line">                st[clone].len = st[p].len + <span class="number">1</span>;</span><br><span class="line">                st[clone].ml = st[clone].len;</span><br><span class="line">                st[clone].nl = <span class="number">0</span>;</span><br><span class="line">                st[clone].is_clone = <span class="literal">true</span>;</span><br><span class="line">                st[clone].firstpos = st[q].firstpos;</span><br><span class="line">                st[clone].cnt = <span class="number">0</span>;</span><br><span class="line">                <span class="built_in">memcpy</span>(st[clone].trans, st[q].trans, <span class="keyword">sizeof</span>(st[q].trans));</span><br><span class="line">                st[clone].link = st[q].link;</span><br><span class="line">                <span class="keyword">while</span> (p != <span class="number">-1</span> &amp;&amp; st[p].trans[c] == q) &#123;</span><br><span class="line">                    st[p].trans[c] = clone;</span><br><span class="line">                    p = st[p].link;</span><br><span class="line">                &#125;</span><br><span class="line">                st[q].link = st[cur].link = clone;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        last = cur;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取子串数目</span></span><br><span class="line"><span class="keyword">bool</span> vis[SAM::MAXLEN * <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_substr_num</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = (idx == <span class="number">0</span> ? <span class="number">0</span> : SAM::st[idx].len - SAM::st[SAM::st[idx].link].len);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!SAM::st[idx].trans[i]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (!vis[SAM::st[idx].trans[i]]) res += get_substr_num(SAM::st[idx].trans[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    vis[idx] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 子串查询，判断子串s是否包含在SAM对应的字符串中</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">lookup</span><span class="params">(<span class="keyword">char</span> *s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; s[i]; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (SAM::st[idx].trans[s[i] - <span class="string">'a'</span>]) </span><br><span class="line">            idx = SAM::st[idx].trans[s[i] - <span class="string">'a'</span>]; </span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路径计数(可用于计算子串数目)</span></span><br><span class="line"><span class="keyword">int</span> d[SAM::MAXLEN * <span class="number">2</span>]; <span class="comment">// d[i]表示从节点i出发的路径数目</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">path_count</span><span class="params">(<span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 从根节点出发的路径数目即为子串数目</span></span><br><span class="line">    d[idx] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (SAM::st[idx].trans[i])</span><br><span class="line">            d[idx] += <span class="number">1</span> + path_count(SAM::st[idx].trans[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> d[idx];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找字典序第k大的子串</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find_kth_substr</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">string</span> &amp;res, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!SAM::st[idx].trans[i]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> t = <span class="number">1</span> + d[SAM::st[idx].trans[i]];</span><br><span class="line">        <span class="keyword">if</span> (k &gt; t) k -= t;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            res += SAM::alpha[i];</span><br><span class="line">            <span class="keyword">if</span> (k &gt; <span class="number">1</span>) find_kth_substr(k - <span class="number">1</span>, res, SAM::st[idx].trans[i]);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询子串出现次数</span></span><br><span class="line"><span class="keyword">int</span> csort[SAM::MAXLEN + <span class="number">1</span>]; <span class="comment">// 用于对len计数排序</span></span><br><span class="line"><span class="keyword">int</span> idsort[<span class="number">2</span> * SAM::MAXLEN];  <span class="comment">// 存储按len排好序的索引id</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query_count</span><span class="params">(<span class="keyword">char</span> *s, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">       <span class="keyword">if</span> (!SAM::st[idx].trans[i]) <span class="keyword">continue</span>;</span><br><span class="line">       <span class="keyword">if</span> (SAM::alpha[i] == s[<span class="number">0</span>]) &#123;</span><br><span class="line">           <span class="keyword">return</span> !s[<span class="number">1</span>] ? SAM::st[SAM::st[idx].trans[i]].cnt : query_count(s + <span class="number">1</span>, SAM::st[idx].trans[i]);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询子串第一次出现位置,返回对应节点索引号,不存在则返回-1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query_firstpos</span><span class="params">(<span class="keyword">char</span> *s, <span class="keyword">int</span> idx)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!SAM::st[idx].trans[i]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (SAM::alpha[i] == s[<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> !s[<span class="number">1</span>] ? SAM::st[idx].trans[i] : query_firstpos(s + <span class="number">1</span>, SAM::st[idx].trans[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询子串所有出现位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">query_allpos</span><span class="params">(<span class="keyword">int</span> v, <span class="keyword">int</span> plen, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;res)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!SAM::st[v].is_clone) res.push_back(SAM::st[v].firstpos - plen + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; SAM::st[v].inv_link.<span class="built_in">size</span>(); i++) query_allpos(SAM::st[v].inv_link[i], plen, res);</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 最长公共子串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">LCS</span><span class="params">(<span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = <span class="number">0</span>, l = <span class="number">0</span>, best = <span class="number">0</span>, bestpos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; t.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (v &amp;&amp; !SAM::st[v].trans[t[i] - <span class="string">'a'</span>]) &#123;</span><br><span class="line">            v = SAM::st[v].link;</span><br><span class="line">            l = SAM::st[v].len;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (SAM::st[v].trans[t[i] - <span class="string">'a'</span>]) &#123;</span><br><span class="line">            v = SAM::st[v].trans[t[i] - <span class="string">'a'</span>];</span><br><span class="line">            l++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (l &gt; best) &#123;</span><br><span class="line">            best = l;</span><br><span class="line">            bestpos = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> t.substr(bestpos - best + <span class="number">1</span>, best);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多个字符串的最长公共前缀</span></span><br><span class="line"><span class="comment">// 依据SAM的状态节点id在SAM中提取指定长度的子串,存在则返回真</span></span><br><span class="line"><span class="comment">// 并将结果写到lcs中否则返回false</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">get_substr</span><span class="params">(<span class="keyword">int</span> idx, <span class="keyword">int</span> sid, <span class="keyword">size_t</span> len, <span class="built_in">string</span> &amp;lcs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (idx != <span class="number">0</span> &amp;&amp; idx == sid) <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!SAM::st[idx].trans[i]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (get_substr(SAM::st[idx].trans[i], sid, len, lcs)) &#123;</span><br><span class="line">            lcs += SAM::alpha[i];</span><br><span class="line">            <span class="keyword">if</span> (idx != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (lcs.<span class="built_in">size</span>() == len) &#123;</span><br><span class="line">                    reverse(lcs.<span class="built_in">begin</span>(), lcs.<span class="built_in">end</span>());</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    lcs.<span class="built_in">clear</span>();    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 时间复杂度为各字符串长总和</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LCS_Mul</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">string</span> &amp;lcs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>, nid = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">        <span class="keyword">int</span> tnl = <span class="number">0</span>, p = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; s.<span class="built_in">size</span>(); j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (SAM::st[p].trans[s[j] - <span class="string">'a'</span>]) &#123;</span><br><span class="line">                tnl++;</span><br><span class="line">                p = SAM::st[p].trans[s[j] - <span class="string">'a'</span>];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (p &amp;&amp; !SAM::st[p].trans[s[j] - <span class="string">'a'</span>]) p = SAM::st[p].link;</span><br><span class="line">                <span class="keyword">if</span> (SAM::st[p].trans[s[j] - <span class="string">'a'</span>]) &#123;</span><br><span class="line">                    tnl = SAM::st[p].len + <span class="number">1</span>;</span><br><span class="line">                    p = SAM::st[p].trans[s[j] - <span class="string">'a'</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    tnl = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            SAM::st[p].nl = <span class="built_in">max</span>(SAM::st[p].nl, tnl);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = SAM::sz - <span class="number">1</span>; j &gt; <span class="number">0</span>; j--) &#123;</span><br><span class="line">            p = idsort[j];</span><br><span class="line">            <span class="keyword">if</span> (SAM::st[p].nl &lt; SAM::st[p].ml) SAM::st[p].ml = SAM::st[p].nl;</span><br><span class="line">            <span class="keyword">if</span> (SAM::st[p].link &amp;&amp; SAM::st[SAM::st[p].link].nl &lt; SAM::st[p].nl)</span><br><span class="line">                SAM::st[SAM::st[p].link].nl = SAM::st[p].nl;</span><br><span class="line">            SAM::st[p].nl = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (SAM::st[i].ml &gt; ans) &#123;</span><br><span class="line">            ans = SAM::st[i].ml;</span><br><span class="line">            nid = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    get_substr(<span class="number">0</span>, nid, ans, lcs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> instr[SAM::MAXLEN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; instr;  <span class="comment">// 仅限小写字母</span></span><br><span class="line">    SAM::sam_init();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; instr[i]; i++) SAM::sam_extend(instr[i]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"SAM节点数: "</span> &lt;&lt; SAM::sz &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// SAM节点数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取子串总数</span></span><br><span class="line">    <span class="built_in">memset</span>(vis, <span class="literal">false</span>, <span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; get_substr_num(<span class="number">0</span>) &lt;&lt; <span class="string">" "</span> &lt;&lt; path_count(<span class="number">0</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询串s是否在母串中</span></span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">if</span> (lookup(s)) <span class="built_in">cout</span> &lt;&lt; <span class="string">"exists!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">cout</span> &lt;&lt; <span class="string">"not exists!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查找字典序第k大的子串</span></span><br><span class="line">    <span class="built_in">string</span> substr_k = <span class="string">""</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询第k大子串:"</span>;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; k;</span><br><span class="line">    <span class="keyword">if</span> (find_kth_substr(k, substr_k, <span class="number">0</span>))</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; k &lt;&lt; <span class="string">"大子串: "</span> &lt;&lt; substr_k &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"不存在,"</span> &lt;&lt; k &lt;&lt; <span class="string">"已超过"</span> &lt;&lt; instr &lt;&lt; <span class="string">"子串总数"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询子串出现次数</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串出现次数: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="comment">// 对len计数排序</span></span><br><span class="line">    <span class="keyword">int</span> m = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(csort, <span class="number">0</span>, <span class="keyword">sizeof</span>(csort));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) &#123;</span><br><span class="line">        csort[SAM::st[i].len]++;</span><br><span class="line">        m = <span class="built_in">max</span>(m, SAM::st[i].len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= m; i++) csort[i] += csort[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) idsort[csort[SAM::st[i].len]--] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = SAM::sz - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        SAM::st[SAM::st[idsort[i]].link].cnt += SAM::st[idsort[i]].cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"子串数目: "</span> &lt;&lt; query_count(s, <span class="number">0</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询子串第一次出现位置,不存在则返回-1,否则返回节点索引对应到第一次出现结束位置</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串第一次出现位置: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    <span class="keyword">int</span> fid = query_firstpos(s, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (fid == <span class="number">-1</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"子串不存在!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; SAM::st[fid].firstpos - <span class="keyword">int</span>(<span class="built_in">strlen</span>(s)) + <span class="number">1</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 查询子串的所有出现位置(依赖于子串第一次出现节点)</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"查询子串所有出现位置: "</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">    fid = query_firstpos(s, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (fid == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"子串不存在!"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) SAM::st[SAM::st[i].link].inv_link.push_back(i);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; occur_pos; <span class="comment">// 所有出现的起始位置存放在occur_pos中</span></span><br><span class="line">        query_allpos(fid, <span class="built_in">strlen</span>(s), occur_pos);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; occur_pos.<span class="built_in">size</span>(); i++) <span class="built_in">cout</span> &lt;&lt; occur_pos[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 两个字符串的最长公共子串</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"两个字符串的最长公共子串: "</span>;</span><br><span class="line">    <span class="built_in">string</span> s1;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s1;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; LCS(s1) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 多个字符串的最长公共子串</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"多个字符串的最长公共子串: "</span>;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="comment">// 对len计数排序</span></span><br><span class="line">    <span class="keyword">int</span> lens = <span class="number">0</span>; <span class="comment">// len类别数</span></span><br><span class="line">    <span class="built_in">memset</span>(csort, <span class="number">0</span>, <span class="keyword">sizeof</span>(csort));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) &#123;</span><br><span class="line">        csort[SAM::st[i].len]++;</span><br><span class="line">        lens = <span class="built_in">max</span>(lens, SAM::st[i].len);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= lens; i++) csort[i] += csort[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; SAM::sz; i++) idsort[csort[SAM::st[i].len]--] = i;</span><br><span class="line">    <span class="built_in">string</span> lcs;</span><br><span class="line">    LCS_Mul(n, lcs);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"多个子串的最长公共子串为"</span> &lt;&lt; lcs &lt;&lt; <span class="string">", 长度"</span> &lt;&lt; lcs.<span class="built_in">size</span>() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+
+
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br/>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br/>
+	    <b>本文地址: </b><a href="/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/" title="后缀自动机(SAM)的实现与应用">https://brooksj.com/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/</a><br/>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br/>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SAM/" rel="tag"><i class="fa fa-tag"></i> SAM</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+          <div class="social-like">
+            
+
+            
+              <div class="fb_like">
+                <div class="fb-like" data-layout="button_count" data-share="true"></div>
+              </div>
+            
+          </div>
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/14/Word2Vec%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/" rel="next" title="Word2Vec原理详解">
+                <i class="fa fa-chevron-left"></i> Word2Vec原理详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/01/tensorboard-tutorial/" rel="prev" title="TensorBoard tutorial">
+                TensorBoard tutorial <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://brooksj.com/2019/08/16/%E5%90%8E%E7%BC%80%E8%87%AA%E5%8A%A8%E6%9C%BA-SAM-%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%BA%94%E7%94%A8/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="brooksj" />
+            
+              <p class="site-author-name" itemprop="name">brooksj</p>
+              <p class="site-description motion-element" itemprop="description">我听说虫洞可以穿梭时空</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tracy-talent" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jaypark@smail.nju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://karpathy.github.io" title="Karpathy's Blog" target="_blank">Karpathy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ruder.io" title="Ruder's Blog" target="_blank">Ruder's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com/@makcedward" title="Edward Ma's Blog" target="_blank">Edward Ma's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.miskcoo.com" title="Miskcoo's Blog" target="_blank">Miskcoo's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("04/20/2019 15:00:00");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡树-map-版本"><span class="nav-number">2.1.</span> <span class="nav-text">平衡树(map)版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组-array-版本"><span class="nav-number">2.2.</span> <span class="nav-text">数组(array)版本</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brooksj</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("AJCfamp9AdxK89MonULcgI68-gzGzoHsz", "sVrhDpWMN5wNlfAPwgDHdxPL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

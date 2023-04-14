@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="apriori,fpgrowth," />
+
+
+
+
+
+
+
+
+  <meta property="fb:admins" content="100035055370515" />
+  <meta property="fb:app_id" content="473188823418438" />
+
+
+
+<meta name="description" content="详细代码实现放在我的github上:click me 一、实验说明1.1 任务描述 1.2 数据集说明 GroceryStore数据集  This data set contains transaction records of a grocery store in a month. Each line is a transaction, where the purchased items lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="apriori &amp;&amp; fpgrowth:频繁模式与关联规则挖掘">
+<meta property="og:url" content="https://brooksj.com/2019/04/24/apriori-fpgrowth/index.html">
+<meta property="og:site_name" content="在人间漂流">
+<meta property="og:description" content="详细代码实现放在我的github上:click me 一、实验说明1.1 任务描述 1.2 数据集说明 GroceryStore数据集  This data set contains transaction records of a grocery store in a month. Each line is a transaction, where the purchased items lin">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2009-17-37%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2011-08-35%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2011-08-51%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2011-09-07%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-25%2023-52-40%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2020-21-39%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2011-09-27%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2011-09-43%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2011-10-01%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-25%2023-53-00%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2020-21-02%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="https://brooksj.com/images/2019-04-23%2020-21-22%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="article:published_time" content="2019-04-24T03:47:04.000Z">
+<meta property="article:modified_time" content="2023-04-13T18:26:24.306Z">
+<meta property="article:author" content="brooksj">
+<meta property="article:tag" content="apriori">
+<meta property="article:tag" content="fpgrowth">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://brooksj.com/images/2019-04-23%2009-17-37%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://brooksj.com/2019/04/24/apriori-fpgrowth/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+  <title>apriori && fpgrowth:频繁模式与关联规则挖掘 | 在人间漂流</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '473188823418438',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <!-- fork me on github -->
+    <!-- a href="https://github.com/tracy-talent"><img width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a -->
+    
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">在人间漂流</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">厚德 求真 励学 笃行</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <a href="https://github.com/tracy-talent" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+
+    <link itemprop="mainEntityOfPage" href="https://brooksj.com/2019/04/24/apriori-fpgrowth/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brooksj">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="在人间漂流">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">apriori && fpgrowth:频繁模式与关联规则挖掘</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T11:47:04+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-Mining/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Mining</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/24/apriori-fpgrowth/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://brooksj.com/2019/04/24/apriori-fpgrowth/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/24/apriori-fpgrowth/" class="leancloud_visitors" data-flag-title="apriori && fpgrowth:频繁模式与关联规则挖掘">
+               <span class="post-meta-divider"><br/></span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">字数统计:</span>
+            <span class="post-count">4.4k(字)</span>
+            
+          </span>
+	  
+          <span class="post-time">
+	        &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">20(分)</span>
+          </span>
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>详细代码实现放在我的github上:<a href="https://github.com/tracy-talent/curriculum/tree/master/Data%20Mining/apriori%20%26%26%20fpgrowth" target="_blank" rel="noopener">click me</a></p>
+<h2 id="一、实验说明"><a href="#一、实验说明" class="headerlink" title="一、实验说明"></a>一、实验说明</h2><h3 id="1-1-任务描述"><a href="#1-1-任务描述" class="headerlink" title="1.1 任务描述"></a>1.1 任务描述</h3><p><img src="/images/2019-04-23 09-17-37屏幕截图.png" alt=""></p>
+<h3 id="1-2-数据集说明"><a href="#1-2-数据集说明" class="headerlink" title="1.2 数据集说明"></a>1.2 数据集说明</h3><ul>
+<li><p>GroceryStore数据集</p>
+<blockquote>
+<p>This data set contains transaction records of a grocery store in a month. Each line is a transaction, where the purchased items line in {}, separated by “,” (the space is replaced by “/”).  In total, there are 9835 transactions of 169 items.</p>
+</blockquote>
+</li>
+<li><p>UNIX_usage数据集</p>
+<blockquote>
+<p>The data set contains 9 sets of sanitized user data drawn from the<br>command histories of 8 UNIX computer users at Purdue over the course<br>of up to 2 years (USER0 and USER1 were generated by the same person,<br>working on different platforms and different projects).  The data is<br>drawn from tcsh(1) history files and has been parsed and sanitized to<br>remove filenames, user names, directory structures, web addresses,<br>host names, and other possibly identifying items.  Command names,<br>flags, and shell metacharacters have been preserved.  Additionally,<br><strong>SOF</strong> and <strong>EOF</strong> tokens have been inserted at the start and end of<br>shell sessions, respectively.  Sessions are concatenated by date order<br>and tokens appear in the order issued within the shell session, but no<br>timestamps are included in this data.  </p>
+<p>For example, the two sessions:</p>
+<pre><code># Start session 1
+cd ~/private/docs
+ls -laF | more
+cat foo.txt bar.txt zorch.txt &gt; somewhere
+exit
+# End session 1
+
+# Start session 2
+cd ~/games/
+xquake &amp;
+fg
+vi scores.txt
+mailx john_doe@somewhere.com
+exit
+# End session 2
+</code></pre><p>would be represented by the token stream<br>​<br>​    <strong>SOF</strong><br>​    cd<br>​    <1>            # one “file name” argument<br>​    ls<br>​    -laF<br>​    |<br>​    more<br>​    cat<br>​    <3>            # three “file” arguments<br>​    &gt;<br>​    <1><br>​    exit<br>​    <strong>EOF</strong><br>​    <strong>SOF</strong><br>​    cd<br>​    <1><br>​    xquake<br>​    &amp;<br>​    fg<br>​    vi<br>​    <1><br>​    mailx<br>​    <1><br>​    exit<br>​    <strong>EOF</strong></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="二、代码设计与实现"><a href="#二、代码设计与实现" class="headerlink" title="二、代码设计与实现"></a>二、代码设计与实现</h2><p>对apriori算法手动实现了一个dummy版本和一个advanced版本，dummy版本没有使用剪枝的trick，使用暴力的方法生成候选项级，対事务表不做任何处理。而advanced版本则在dummy版本的基础上加入了一剪枝的trick，性能更胜一筹。对fpgrowth算法使用了已有的python包，其中的实现细节没有深入去review了。下面对这几份代码的详细设计与实现做一个说明。</p>
+<h3 id="2-1-dummy-apriori"><a href="#2-1-dummy-apriori" class="headerlink" title="2.1 dummy apriori"></a>2.1 dummy apriori</h3><p>从命令行接收算法的控制参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> len(sys.argv) != <span class="number">4</span>:</span><br><span class="line">	print(<span class="string">'usage: python apriori_dummy.py dataset-path support-ratio K'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	dataset_path_name = sys.argv[<span class="number">1</span>] <span class="comment"># 要处理的数据集GroceryStore or UNIX_usage</span></span><br><span class="line">	min_sup = float(sys.argv[<span class="number">2</span>])  <span class="comment"># 支持率</span></span><br><span class="line">	itemset_size = int(sys.argv[<span class="number">3</span>])  <span class="comment"># 要挖掘的最大频繁项集大小</span></span><br></pre></td></tr></table></figure>
+<p>读取数据集之后每一事务以set形式存储在一个列表data中，然后匹配、统计生成频繁一项集：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">oneitem_freq = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> itemset <span class="keyword">in</span> data:</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> itemset:</span><br><span class="line">        oneitem_freq[item] = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> itemset <span class="keyword">in</span> data:</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> itemset:</span><br><span class="line">        oneitem_freq[item] += <span class="number">1</span></span><br><span class="line">oneitem_freqset = []</span><br><span class="line"><span class="keyword">for</span> oneitem <span class="keyword">in</span> oneitem_freq.keys():</span><br><span class="line">    <span class="keyword">if</span> oneitem_freq[oneitem] &gt;= frequency_threshold:</span><br><span class="line">        oneitem_freqset.append([oneitem])</span><br></pre></td></tr></table></figure>
+<p>接下来就进入循环过程：由k项频繁项集生成k+1项候选项集，然后匹配事务表统计频次，筛选出高于支持率对应频次的作为k+1项频繁项集，以此往复循环直到生成的频繁项集为空或者达到要挖掘的频繁项集大小的上限。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pre_freqset = oneitem_freqset</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">2</span>, itemset_size + <span class="number">1</span>):</span><br><span class="line">    start_time = time.time()</span><br><span class="line">    candidates_k = generate_candidates(pre_freqset)</span><br><span class="line">    k_item_freq = count_freqset(data, candidates_k)</span><br><span class="line">    pre_freqset = []</span><br><span class="line">    new_k_item_freq = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> k_item_freq.keys():</span><br><span class="line">        <span class="keyword">if</span> k_item_freq[key] &gt;= frequency_threshold:</span><br><span class="line">            pre_freqset.append(sorted(key.split(<span class="string">','</span>)))</span><br><span class="line">            new_k_item_freq[<span class="string">','</span>.join(pre_freqset[<span class="number">-1</span>])] = k_item_freq[key]</span><br><span class="line">    k_item_freq = new_k_item_freq</span><br><span class="line">    <span class="keyword">if</span> len(pre_freqset) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    pre_freqset.sort()</span><br><span class="line">    output(pre_freqset, k_item_freq, frequency_threshold, k, dataset_path_name)</span><br></pre></td></tr></table></figure>
+<p>这段主控制程序中调用了2个甚为关键的函数：generate_candidates用于生成候选项集，count_freqset用于匹配事务表进行统计。</p>
+<p>generate_candidates: 使用纯暴力拼接的方式，由上一轮的k频繁项集构成的单项元素集合中每一个元素与任一k频繁项连接(前提是该单项元素不出现在这一频繁项中)构成一个k+1候选项</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_candidates</span><span class="params">(pre_freqset)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    由k-1的频繁项集生成k候选项集</span></span><br><span class="line"><span class="string">    :param pre_freqset: 前一次生成的k-1频繁项集</span></span><br><span class="line"><span class="string">    :param k: 要生成的k频繁项集对应的k</span></span><br><span class="line"><span class="string">    :return: 包含k候选项集的列表</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    items = []</span><br><span class="line">    <span class="keyword">for</span> itemset <span class="keyword">in</span> pre_freqset:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> itemset:</span><br><span class="line">            items.append(item)</span><br><span class="line">    items = list(set(items))</span><br><span class="line">    candidates = []</span><br><span class="line">    <span class="keyword">for</span> itemset <span class="keyword">in</span> pre_freqset:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">            <span class="keyword">if</span> item <span class="keyword">not</span> <span class="keyword">in</span> itemset:</span><br><span class="line">                itemset_backup = copy.deepcopy(itemset)</span><br><span class="line">                itemset_backup.append(item)</span><br><span class="line">                candidates.append(<span class="string">','</span>.join(sorted(itemset_backup)))</span><br><span class="line">    candidates_unique = []</span><br><span class="line">    candidates = set(candidates)</span><br><span class="line">    <span class="keyword">for</span> can <span class="keyword">in</span> candidates:</span><br><span class="line">        candidates_unique.append(can.split(<span class="string">','</span>))</span><br><span class="line">    <span class="keyword">return</span> candidates_unique</span><br></pre></td></tr></table></figure>
+<p>count_freqset: 对由generate_candidates生成的每一候选项在事务表中扫描匹配，统计出现频次</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_freqset</span><span class="params">(data, candidates_k)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    对照事务表统计候选项集频次</span></span><br><span class="line"><span class="string">    :param data: 事务集</span></span><br><span class="line"><span class="string">    :param candidates_k: k候选项集</span></span><br><span class="line"><span class="string">    :return: 候选项映射到频次的dict</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    counter = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> can <span class="keyword">in</span> candidates_k:</span><br><span class="line">        canset = set(can)</span><br><span class="line">        canstr = <span class="string">','</span>.join(can)</span><br><span class="line">        counter[canstr] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> itemset <span class="keyword">in</span> data:</span><br><span class="line">            <span class="keyword">if</span> canset &lt;= itemset:</span><br><span class="line">                counter[canstr] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> counter</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-advanced-apriori"><a href="#2-2-advanced-apriori" class="headerlink" title="2.2 advanced apriori"></a>2.2 advanced apriori</h3><p>advanced apriori在dummy apriori的基础上加入了一些剪枝的技巧，包括减小生成候选项集的规模、不断减少事务表规模、减少事务表中元组中的项。</p>
+<ul>
+<li><p>减小生成候选项集规模</p>
+<p>如果一个k+1候选项是频繁的，那么生成它的k频繁项集中必包含其k+1个子集。例如，如果{t1, t2, t3, t5}是频繁的，那么它将由{t1, t2, t3}和{t1, t2,t5 }生成，否则它就不会被生成。这么做要求生成候选项集的频繁项集的项内是有序的，各项之间也是有序的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_candidates</span><span class="params">(pre_freqset, k)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    由k-1的频繁项集生成k候选项集</span></span><br><span class="line"><span class="string">    :param pre_freqset: 前一次生成的k-1频繁项集（项内与项之间都为有序状态）</span></span><br><span class="line"><span class="string">    :param k: 要生成的k频繁项集对应的k</span></span><br><span class="line"><span class="string">    :return: 包含k候选项集的列表</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    candidates = []</span><br><span class="line">    <span class="keyword">if</span> k == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(pre_freqset)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(pre_freqset)):</span><br><span class="line">                candidates.append([pre_freqset[i][<span class="number">0</span>], pre_freqset[j][<span class="number">0</span>]])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(pre_freqset) - <span class="number">1</span>:</span><br><span class="line">            tails = []</span><br><span class="line">            <span class="keyword">while</span> i &lt; len(pre_freqset) - <span class="number">1</span> <span class="keyword">and</span> pre_freqset[i][:<span class="number">-1</span>] == pre_freqset[i + <span class="number">1</span>][:<span class="number">-1</span>]:</span><br><span class="line">                tails.append(pre_freqset[i][<span class="number">-1</span>])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> tails:</span><br><span class="line">                tails.append(pre_freqset[i][<span class="number">-1</span>])</span><br><span class="line">                prefix = copy.deepcopy(pre_freqset[i][<span class="number">0</span>:<span class="number">-1</span>])</span><br><span class="line">                <span class="keyword">for</span> a <span class="keyword">in</span> range(len(tails)):</span><br><span class="line">                    <span class="keyword">for</span> b <span class="keyword">in</span> range(a + <span class="number">1</span>, len(tails)):</span><br><span class="line">                        items = copy.deepcopy(prefix)</span><br><span class="line">                        items.append(tails[a])</span><br><span class="line">                        items.append(tails[b])</span><br><span class="line">                        candidates.append(items)</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> candidates</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>减小事务表规模</p>
+<p>如果一个k+1项候选项能与事务表中一条记录匹配，那么其k+1个子集也必能与事务表中该条记录匹配。因此在事务表中匹配k候选项集的时候，统计每条记录被匹配到的次数，如果少于k+1次，那么将该条记录从事务表中移除，因为它绝不可能与下一轮的任一k+1项候选项匹配。这样每次迭代都减小了事务表的规模，从而减小扫描事务表的时间消耗</p>
+</li>
+</ul>
+<ul>
+<li><p>减少事务表中元组的项</p>
+<p>如果事务表中元组的某一项能包含在一个k+1频繁项中，那么该项比出现在这个k+1频繁项的k个k项子集中。所以在扫描事务表统计k项候选集的出现频次时，如果事务表中任一元组的某一项未被匹配中k次,那么该项将在筛选出k频繁项集后从元组中除去，从而减少统计k+1项候选集频次时与事务表中元组的匹配次数。具体实现在减少事务表规模实现的基础上稍作修改即可，下面是结合减少事务表规模以及表中元组项数的实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_freqset</span><span class="params">(data, candidates_k)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    对照事务表统计候选项集频次</span></span><br><span class="line"><span class="string">    :param data: 事务集</span></span><br><span class="line"><span class="string">    :param candidates_k: k候选项集</span></span><br><span class="line"><span class="string">    :return: 候选项映射到频次的dict</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    prune_basis = []</span><br><span class="line">    <span class="keyword">for</span> itemset <span class="keyword">in</span> data:</span><br><span class="line">        prune_basis.append([<span class="number">0</span>] * (len(itemset) + <span class="number">1</span>))</span><br><span class="line">    counter = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> can <span class="keyword">in</span> candidates_k:</span><br><span class="line">        canset = set(can)</span><br><span class="line">        canstr = <span class="string">','</span>.join(can)</span><br><span class="line">        counter[canstr] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(data)):</span><br><span class="line">            <span class="keyword">if</span> canset &lt;= data[i]:</span><br><span class="line">                counter[canstr] += <span class="number">1</span></span><br><span class="line">                prune_basis[i][<span class="number">-1</span>] += <span class="number">1</span></span><br><span class="line">                j = <span class="number">0</span></span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> data[i]:</span><br><span class="line">                    <span class="keyword">if</span> item <span class="keyword">in</span> canset:</span><br><span class="line">                        prune_basis[i][j] += <span class="number">1</span></span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> counter, prune_basis</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prune</span><span class="params">(data, prune_basis, k)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    由k-1的频繁项集生成k候选项集</span></span><br><span class="line"><span class="string">    :param data: 存储事务的列表</span></span><br><span class="line"><span class="string">    :param prune_basis: 由k候选项集匹配事务表时生成的剪枝依据</span></span><br><span class="line"><span class="string">    :param k: 为生成k+1频繁项集剪枝</span></span><br><span class="line"><span class="string">    :return: None</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># 删除列表中某一项之后列表元素会自动往前补位,即被删除元素后的元素对应索引-1</span></span><br><span class="line">    <span class="keyword">if</span> len(prune_basis) != <span class="number">0</span>:</span><br><span class="line">        h = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(prune_basis)):</span><br><span class="line">            <span class="keyword">if</span> prune_basis[i][<span class="number">-1</span>] &lt; k + <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">del</span> data[h]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                j = <span class="number">0</span></span><br><span class="line">                del_items = []</span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> data[h]:</span><br><span class="line">                    <span class="keyword">if</span> prune_basis[i][j] &lt; k:</span><br><span class="line">                        del_items.append(item)</span><br><span class="line">                    j += <span class="number">1</span></span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> del_items:</span><br><span class="line">                    data[h].remove(item)</span><br><span class="line">                h += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-3-基于apriori的频繁项集挖掘关联规则"><a href="#2-3-基于apriori的频繁项集挖掘关联规则" class="headerlink" title="2.3 基于apriori的频繁项集挖掘关联规则"></a>2.3 基于apriori的频繁项集挖掘关联规则</h3><p>基于每论迭代得到的k-频繁项集，对其中每一k-频繁项利用二进制法构造其所有势大于0的子集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_all_subsets</span><span class="params">(itemset)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    计算itemset的所有势大于0的子集</span></span><br><span class="line"><span class="string">    :param itemset: 包含一个项集的列表 </span></span><br><span class="line"><span class="string">    :return: 项集itemset的所有势大于0的子集(type: list(set...))</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    n = len(itemset)</span><br><span class="line">    all_subsets = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">2</span>**(n - <span class="number">1</span>)):</span><br><span class="line">        subset = set()</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> (i &gt;&gt; j) % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">                subset.add(itemset[j])</span><br><span class="line">        all_subsets.append(subset)</span><br><span class="line">    <span class="keyword">return</span> all_subsets</span><br></pre></td></tr></table></figure>
+<p>任一子集与该子集和生成它的父集k-频繁项之间的差集构造k项的关联规则，筛选出大于置信度且提升度大于1.0的关联规则作为要挖掘的强关联规则</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_association_rules</span><span class="params">(k_freqset, itemset_freq, min_con, dataset_size)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    生成关联规则</span></span><br><span class="line"><span class="string">    :param k_freqset: k频繁项集 </span></span><br><span class="line"><span class="string">    :param itemset_freq: 项集与频次之间的字典映射</span></span><br><span class="line"><span class="string">    :param min_con: 置信度</span></span><br><span class="line"><span class="string">    :param dataset_size: 数据集记录总数</span></span><br><span class="line"><span class="string">    :return: 关联规则列表(list(list(previous item, post item, frequency)...))</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    association_rules = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(k_freqset)):</span><br><span class="line">        all_subsets = get_all_subsets(k_freqset[i])</span><br><span class="line">        par_set = set(k_freqset[i])</span><br><span class="line">        par_cnt = itemset_freq[<span class="string">','</span>.join(k_freqset[i])]</span><br><span class="line">        <span class="keyword">for</span> subset <span class="keyword">in</span> all_subsets:</span><br><span class="line">            subset_str = <span class="string">','</span>.join(sorted(list(subset)))</span><br><span class="line">            diffset_str = <span class="string">','</span>.join(sorted(list(par_set.difference(subset))))</span><br><span class="line">            subset_cnt = itemset_freq[subset_str]</span><br><span class="line">            diffset_cnt = itemset_freq[diffset_str]</span><br><span class="line">            subset_prob = <span class="number">1.0</span> * subset_cnt / dataset_size</span><br><span class="line">            diffset_prob = <span class="number">1.0</span> * diffset_cnt / dataset_size</span><br><span class="line">            <span class="keyword">if</span> <span class="number">1.0</span> * par_cnt / subset_cnt &gt;= min_con <span class="keyword">and</span> <span class="number">1.0</span> * par_cnt / (subset_cnt * diffset_prob) &gt;= <span class="number">1.0</span>:</span><br><span class="line">                association_rules.append([subset_str, diffset_str, <span class="number">1.0</span> * par_cnt / subset_cnt])</span><br><span class="line">            <span class="keyword">elif</span> <span class="number">1.0</span> * par_cnt / diffset_cnt &gt;= min_con <span class="keyword">and</span> <span class="number">1.0</span> * par_cnt / (diffset_cnt * subset_prob) &gt;= <span class="number">1.0</span>:</span><br><span class="line">                association_rules.append([diffset_str, subset_str, <span class="number">1.0</span> * par_cnt / diffset_cnt])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> association_rules</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-fpgrowth"><a href="#2-4-fpgrowth" class="headerlink" title="2.4 fpgrowth"></a>2.4 fpgrowth</h3><p>这里没有多少要讲的，直接调用接口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyfpgrowth</span><br><span class="line"></span><br><span class="line">data = []</span><br><span class="line">read(data, dataset_path_name)</span><br><span class="line"></span><br><span class="line">freq_patterns = pyfpgrowth.find_frequent_patterns(data, frequency_threshold)</span><br><span class="line">association_rules = pyfpgrowth.generate_association_rules(freq_patterns, min_con)</span><br></pre></td></tr></table></figure>
+<h2 id="三、实验结果及分析对比"><a href="#三、实验结果及分析对比" class="headerlink" title="三、实验结果及分析对比"></a>三、实验结果及分析对比</h2><h3 id="3-1-实验结果展示"><a href="#3-1-实验结果展示" class="headerlink" title="3.1 实验结果展示"></a>3.1 实验结果展示</h3><ul>
+<li>apriori算法在UNIX_usage数据集上挖掘的频繁5-项集的一部分(支持度0.01)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&amp;,-l,&lt;1&gt;,&lt;2&gt;,cd : 131</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,&gt;,cd : 142</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,&gt;,rm : 111</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,cd,cp : 139</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,cd,ll : 193</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,cd,ls : 198</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,cd,mv : 155</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,cd,rm : 217</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,cd,vi : 209</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,ll,rm : 127</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,ll,vi : 132</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,ls,rm : 127</span><br><span class="line">&amp;,&lt;1&gt;,&lt;2&gt;,mv,rm : 114</span><br></pre></td></tr></table></figure>
+<ul>
+<li>apriori算法在GroceryStore数据集上挖掘的频繁3-项集的一部分(支持度0.01)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bottled water,other vegetables,whole milk : 106</span><br><span class="line">butter,other vegetables,whole milk : 113</span><br><span class="line">citrus fruit,other vegetables,root vegetables : 102</span><br><span class="line">citrus fruit,other vegetables,whole milk : 128</span><br><span class="line">citrus fruit,whole milk,yogurt : 101</span><br><span class="line">curd,whole milk,yogurt : 99</span><br><span class="line">domestic eggs,other vegetables,whole milk : 121</span><br><span class="line">fruit&#x2F;vegetable juice,other vegetables,whole milk : 103</span><br><span class="line">other vegetables,pastry,whole milk : 104</span><br><span class="line">other vegetables,pip fruit,whole milk : 133</span><br></pre></td></tr></table></figure>
+<ul>
+<li>apriori算法在GroceryStore数据集上挖掘的一些关联规则(支持度0.01，置信度：0.5)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">butter,other vegetables -&gt; whole milk	confidence:0.5736040609137056</span><br><span class="line">citrus fruit,root vegetables -&gt; other vegetables	confidence:0.5862068965517241</span><br><span class="line">curd,yogurt -&gt; whole milk	confidence:0.5823529411764706</span><br><span class="line">domestic eggs,other vegetables -&gt; whole milk	confidence:0.5525114155251142</span><br><span class="line">other vegetables,pip fruit -&gt; whole milk	confidence:0.5175097276264592</span><br><span class="line">rolls&#x2F;buns,root vegetables -&gt; other vegetables	confidence:0.502092050209205</span><br><span class="line">root vegetables,tropical fruit -&gt; other vegetables	confidence:0.5845410628019324</span><br></pre></td></tr></table></figure>
+<ul>
+<li>fpgrowth算法在GroceryStore数据集上挖掘的一些关联规则(置信度0.5)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curd,yogurt -&gt; whole milk	confidence: 0.5823529411764706</span><br><span class="line">butter,other vegetables -&gt; whole milk	confidence: 0.5736040609137056</span><br><span class="line">domestic eggs,other vegetables -&gt; whole milk	confidence: 0.5525114155251142</span><br><span class="line">other vegetables,whipped&#x2F;sour cream -&gt; whole milk	confidence: 0.5070422535211268</span><br><span class="line">other vegetables,pip fruit -&gt; whole milk	confidence: 0.5175097276264592</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>apriori算法在UNIX_usage数据集上挖掘的一些关联规则a -&gt; b(支持度0.01， 置信度：0.8)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&amp; -&gt; &lt;1&gt;	confidence:0.8453738910012675</span><br><span class="line">netscape -&gt; &amp;	confidence:0.8895705521472392</span><br><span class="line">&amp;,-l -&gt; &lt;1&gt;	confidence:0.9875776397515528</span><br><span class="line">&amp;,-l -&gt; &lt;2&gt;	confidence:0.8509316770186336</span><br><span class="line">&amp;,-l -&gt; &lt;1&gt;,&lt;2&gt;	confidence:0.84472049689441</span><br><span class="line">&amp;,-l,&lt;2&gt; -&gt; &lt;1&gt;	confidence:0.9927007299270073</span><br><span class="line">&amp;,&gt;,rm -&gt; &lt;1&gt;,&lt;2&gt;	confidence:0.9024390243902439</span><br><span class="line">&amp;,&lt;2&gt;,cd,cp -&gt; &lt;1&gt;	confidence:1.0</span><br><span class="line">-,&lt;1&gt;,k,ll -&gt; &lt;2&gt;,cd	confidence:0.959349593495935</span><br><span class="line">-,k,ll -&gt; &lt;1&gt;,&lt;2&gt;,cd	confidence:0.959349593495935</span><br><span class="line">&lt;1&gt;,&lt;2&gt;,cp,ls,mv,rm -&gt; cd	confidence:0.9888888888888889</span><br><span class="line">&lt;2&gt;,cp,ls,mv,rm -&gt; &lt;1&gt;,cd	confidence:0.9888888888888889</span><br><span class="line">&lt;n2&gt;,cd,cp,ls,mv,rm,vi -&gt; &lt;1&gt;	confidence:1.0</span><br><span class="line">&lt;1&gt;,cd,cp,ls,mv,rm,vi -&gt; &lt;2&gt;	confidence:1.0</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>从上面挖掘出的关联规则可以发现，GroceryStore数据集的相关度很低，将置信度调到0.5的才挖掘到少量的关联规则，但是置信度不高并不一定代表它就没什么意义，上面列出的几条规则人眼观察还是很合理的，从如此多的数据记录中只挖掘出少量的几条关联规则使其更直观更具有参考价值，挖出太多关联规则反而更容易让人眼花缭乱，从而失去判断。反观在UNIX_usage上挖掘出的关联规则，置信度高而且数量又多，但很多都看起来让人难以理解，意义不大，但还是可以大致看出来哪些命令经常一起共用。fpgrowth算法在UNIX_usage数据集上运行时递归深度太深而没能跑出结果来。</p>
+<h3 id="3-2-时间性能对比"><a href="#3-2-时间性能对比" class="headerlink" title="3.2 时间性能对比"></a>3.2 时间性能对比</h3><h4 id="3-2-1-频繁项集挖掘"><a href="#3-2-1-频繁项集挖掘" class="headerlink" title="3.2.1 频繁项集挖掘"></a>3.2.1 频繁项集挖掘</h4><h5 id="3-2-1-1-UNIX-usage-Dataset"><a href="#3-2-1-1-UNIX-usage-Dataset" class="headerlink" title="3.2.1.1 UNIX_usage Dataset"></a>3.2.1.1 UNIX_usage Dataset</h5><p>对比dummy apriori，仅剪枝候选项集规模的advanced_1 apriori，剪枝候选项集规模和事务表规模的advanced_2 apriori，剪枝候选项集规模和事务表规模以及表中元组项数的advanced_3 apriori在相同数据集、实验环境和实验参数下的时间损耗(单位：秒/s)</p>
+<blockquote>
+<p>实验参数与数据集：</p>
+<p>支持度：0.01</p>
+<p>最大频繁项大小：10</p>
+<p>数据集：UNIX_usage</p>
+</blockquote>
+<p>下面表格中以da表示dummy apriori，a1a表示advance_1 apriori,a2a表示advanced_2 apriori,a3a表示advanced_3 apriori</p>
+<center>表 1 apriori在UNIX_usage数据集上的频繁项集挖掘时耗(秒/s)</center>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">freq-1</th>
+<th style="text-align:center">freq-2</th>
+<th style="text-align:center">freq-3</th>
+<th style="text-align:center">freq-4</th>
+<th style="text-align:center">freq-5</th>
+<th style="text-align:center">freq-6</th>
+<th style="text-align:center">freq-7</th>
+<th style="text-align:center">freq-8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">da</td>
+<td style="text-align:center">0.021</td>
+<td style="text-align:center">2.156</td>
+<td style="text-align:center">17.066</td>
+<td style="text-align:center">33.359</td>
+<td style="text-align:center">35.156</td>
+<td style="text-align:center">17.190</td>
+<td style="text-align:center">2.522</td>
+<td style="text-align:center">0.183</td>
+</tr>
+<tr>
+<td style="text-align:center">a1a</td>
+<td style="text-align:center">0.016</td>
+<td style="text-align:center">2.960</td>
+<td style="text-align:center">5.234</td>
+<td style="text-align:center">5.808</td>
+<td style="text-align:center">2.812</td>
+<td style="text-align:center">0.675</td>
+<td style="text-align:center">0.128</td>
+<td style="text-align:center">0.007</td>
+</tr>
+<tr>
+<td style="text-align:center">a2a</td>
+<td style="text-align:center">0.019</td>
+<td style="text-align:center">2.962</td>
+<td style="text-align:center">3.208</td>
+<td style="text-align:center">2.758</td>
+<td style="text-align:center">1.200</td>
+<td style="text-align:center">0.246</td>
+<td style="text-align:center">0.027</td>
+<td style="text-align:center">0.001</td>
+</tr>
+<tr>
+<td style="text-align:center">a3a</td>
+<td style="text-align:center">0.017</td>
+<td style="text-align:center">3.311</td>
+<td style="text-align:center">3.997</td>
+<td style="text-align:center">3.658</td>
+<td style="text-align:center">1.663</td>
+<td style="text-align:center">0.413</td>
+<td style="text-align:center">0.051</td>
+<td style="text-align:center">0.002</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="3-2-1-2-GroceryStore-Dataset"><a href="#3-2-1-2-GroceryStore-Dataset" class="headerlink" title="3.2.1.2 GroceryStore Dataset"></a>3.2.1.2 GroceryStore Dataset</h5><blockquote>
+<p>实验参数与数据集：</p>
+<p>支持度：0.01</p>
+<p>最大频繁项大小：10</p>
+<p>数据集：GroceryStore</p>
+</blockquote>
+<center>表 2 apriori在GroceryStore数据集上的频繁项集挖掘时耗(秒/s)</center>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">freq-1</th>
+<th style="text-align:center">freq-2</th>
+<th style="text-align:center">freq-3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">da</td>
+<td style="text-align:center">0.019</td>
+<td style="text-align:center">1.255</td>
+<td style="text-align:center">2.547</td>
+</tr>
+<tr>
+<td style="text-align:center">a1a</td>
+<td style="text-align:center">0.014</td>
+<td style="text-align:center">1.978</td>
+<td style="text-align:center">0.402</td>
+</tr>
+<tr>
+<td style="text-align:center">a2a</td>
+<td style="text-align:center">0.012</td>
+<td style="text-align:center">1.982</td>
+<td style="text-align:center">0.263</td>
+</tr>
+<tr>
+<td style="text-align:center">a3a</td>
+<td style="text-align:center">0.014</td>
+<td style="text-align:center">2.254</td>
+<td style="text-align:center">0.322</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="3-2-2-关联规则挖掘"><a href="#3-2-2-关联规则挖掘" class="headerlink" title="3.2.2 关联规则挖掘"></a>3.2.2 关联规则挖掘</h4><p>由于关联规则挖掘依赖频繁项集挖掘,选择上述时间性能最好的apriori算法来实现关联呢规则挖掘</p>
+<h5 id="3-2-2-1-UNIX-usage-Dataset"><a href="#3-2-2-1-UNIX-usage-Dataset" class="headerlink" title="3.2.2.1 UNIX_usage Dataset"></a>3.2.2.1 UNIX_usage Dataset</h5><blockquote>
+<p>实验参数与数据集：</p>
+<p>支持度：0.01</p>
+<p>最大频繁项大小：10</p>
+<p>置信度：0.8</p>
+<p>数据集：UNIX_usage</p>
+</blockquote>
+<center>表 3  UNIX_usage数据集上的关联规则挖掘时耗(秒/s)</center>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">2-items</th>
+<th style="text-align:center">3-items</th>
+<th style="text-align:center">4-items</th>
+<th style="text-align:center">5-items</th>
+<th style="text-align:center">6-items</th>
+<th style="text-align:center">7-items</th>
+<th style="text-align:center">8-items</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">apiori</td>
+<td style="text-align:center">2.840</td>
+<td style="text-align:center">3.092</td>
+<td style="text-align:center">2.619</td>
+<td style="text-align:center">1.779</td>
+<td style="text-align:center">0.268</td>
+<td style="text-align:center">0.035</td>
+<td style="text-align:center">0.003</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="3-2-2-2-GroceryStore-Dataset"><a href="#3-2-2-2-GroceryStore-Dataset" class="headerlink" title="3.2.2.2 GroceryStore Dataset"></a>3.2.2.2 GroceryStore Dataset</h5><blockquote>
+<p>实验参数与数据集：</p>
+<p>支持度：0.01</p>
+<p>最大频繁项大小：10</p>
+<p>置信度：0.5</p>
+<p>数据集：GroceryStore</p>
+</blockquote>
+<center>表 4  GroceryStore数据集上的关联规则挖掘时耗(秒/s)</center>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">3-items</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">apriori</td>
+<td style="text-align:center">0.286</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="3-2-3-简要分析"><a href="#3-2-3-简要分析" class="headerlink" title="3.2.3 简要分析"></a>3.2.3 简要分析</h4><p>从两个数据集的表现来看，advanced_2 apriori性能是最好的，advanced_1 apriori性能与advanced_2 apriori性能相近，在较小的数据集GroceryStore上差距在毫秒级别，在较大数据集UNIX_usage上差距在几秒以内。advanced_3 apriori理想情况下应该是性能最好的，因其使用了最多的剪枝技巧，但是实际情况却并非如此，用在删减事务表中元组项的时间比其能优化的时间还要多，得不偿失，如果能删除较多的元组项就能带来不错的性能提升，所以这一剪枝的trick能否有效还是要视数据集而定，不同的数据集上优化效果也不一样。而advanced apriori的三个算法相比dummy apriori在时间性能上提升了好几倍。由此可知，时间性能的主要提升点在减小候选项集规模，减小事务表规模的时间性能提升效果不明显，但是当数据规模较大时也能带来秒级的性能提升。在aporiori挖掘出的频繁项集基础上挖掘强关联规则的时间消耗基本与只作频繁项集挖掘的时间消一致，这是因为k-频繁项的k还比较小，生成的子集不多，相对于候选集生成与数据记录扫描匹配的时间复杂度可忽略不计，这才使得两者时间消耗基本一致。当频繁项足够长时，子集的数目是呈指数增长的，那是复杂度将变得让人难以接受，因此使用apriori挖掘关联规则时最好限制要挖掘的最大频繁项的大小。</p>
+<h3 id="3-3-内存占用对比"><a href="#3-3-内存占用对比" class="headerlink" title="3.3 内存占用对比"></a>3.3 内存占用对比</h3><h4 id="3-3-1-UNIX-usage-Dataset"><a href="#3-3-1-UNIX-usage-Dataset" class="headerlink" title="3.3.1 UNIX_usage Dataset"></a>3.3.1 UNIX_usage Dataset</h4><blockquote>
+<p>实验参数与数据集：</p>
+<p>最小支持度：0.01</p>
+<p>最大频繁项大小：10</p>
+<p>数据集：UNIX_usage</p>
+</blockquote>
+<ul>
+<li>dummy apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 11-08-35屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_1 apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 11-08-51屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_2 apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 11-09-07屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_3 apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-25 23-52-40屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_2 apriori关联规则挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 20-21-39屏幕截图.png" alt=""></p>
+<h4 id="3-3-2-GroceryStore-Dataset"><a href="#3-3-2-GroceryStore-Dataset" class="headerlink" title="3.3.2 GroceryStore Dataset"></a>3.3.2 GroceryStore Dataset</h4><blockquote>
+<p>实验参数与数据集：</p>
+<p>支持度：0.01</p>
+<p>最大频繁项大小：10</p>
+<p>置信度：0.5</p>
+<p>数据集：GroceryStore</p>
+</blockquote>
+<ul>
+<li>dummy apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 11-09-27屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_1 apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 11-09-43屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_2 apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 11-10-01屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_3 apriori频繁项集挖掘</li>
+</ul>
+<p><img src="/images/2019-04-25 23-53-00屏幕截图.png" alt=""></p>
+<ul>
+<li>advanced_2 apriori关联规则挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 20-21-02屏幕截图.png" alt=""></p>
+<ul>
+<li>fpgrowth关联规则挖掘</li>
+</ul>
+<p><img src="/images/2019-04-23 20-21-22屏幕截图.png" alt=""></p>
+<h4 id="3-3-3-简要分析对比"><a href="#3-3-3-简要分析对比" class="headerlink" title="3.3.3 简要分析对比"></a>3.3.3 简要分析对比</h4><p>advanced_1 apriori和advanced_2 apriori的内存消耗基本一致，在程序运行期间比较平稳，而dummy apriori相比advanced apriori占用内存较大，峰值达到了advanced apriori的2倍以上，主要消耗在暴力穷举候选项集，导致候选项集规模太大，占用内存过多。</p>
+
+      
+    </div>
+    
+    
+    
+    
+    <!-- 文章结束分割线 -->
+    <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+
+    
+
+    
+
+    
+    
+    <div>
+	    <p id="div-border-left-red">
+	    <span>
+        <b>作者: brooksjay</b><br/>
+        <b>联系邮箱: jaypark@smail.nju.edu.cn</b><br/>
+	    <b>本文地址: </b><a href="/2019/04/24/apriori-fpgrowth/" title="apriori && fpgrowth:频繁模式与关联规则挖掘">https://brooksj.com/2019/04/24/apriori-fpgrowth/</a><br/>
+	    <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br/>
+        <b>转载请注明出处, 谢谢！</b>
+	    </span>
+	    </p>
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/apriori/" rel="tag"><i class="fa fa-tag"></i> apriori</a>
+          
+            <a href="/tags/fpgrowth/" rel="tag"><i class="fa fa-tag"></i> fpgrowth</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+          <div class="social-like">
+            
+
+            
+              <div class="fb_like">
+                <div class="fb-like" data-layout="button_count" data-share="true"></div>
+              </div>
+            
+          </div>
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/19/NCA-LDA/" rel="next" title="降维与度量学习之LDA && NCA">
+                <i class="fa fa-chevron-left"></i> 降维与度量学习之LDA && NCA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/24/%E5%A4%9A%E6%9C%BA%E5%90%8C%E6%AD%A5%E7%AE%A1%E7%90%86hexo%E5%8D%9A%E5%AE%A2/" rel="prev" title="多机同步管理hexo博客">
+                多机同步管理hexo博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="fb-comments"
+           data-href="https://brooksj.com/2019/04/24/apriori-fpgrowth/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="brooksj" />
+            
+              <p class="site-author-name" itemprop="name">brooksj</p>
+              <p class="site-description motion-element" itemprop="description">我听说虫洞可以穿梭时空</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tracy-talent" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jaypark@smail.nju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/brooksj" title="博客旧址" target="_blank">博客旧址</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://kexue.fm" title="苏剑林's blog" target="_blank">苏剑林's blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://karpathy.github.io" title="Karpathy's Blog" target="_blank">Karpathy's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ruder.io" title="Ruder's Blog" target="_blank">Ruder's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://medium.com/@makcedward" title="Edward Ma's Blog" target="_blank">Edward Ma's Blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.miskcoo.com" title="Miskcoo's Blog" target="_blank">Miskcoo's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          <div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("04/20/2019 15:00:00");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验说明"><span class="nav-number">1.</span> <span class="nav-text">一、实验说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-任务描述"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 任务描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-数据集说明"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 数据集说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、代码设计与实现"><span class="nav-number">2.</span> <span class="nav-text">二、代码设计与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-dummy-apriori"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 dummy apriori</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-advanced-apriori"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 advanced apriori</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-基于apriori的频繁项集挖掘关联规则"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 基于apriori的频繁项集挖掘关联规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-fpgrowth"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 fpgrowth</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、实验结果及分析对比"><span class="nav-number">3.</span> <span class="nav-text">三、实验结果及分析对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-实验结果展示"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 实验结果展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-时间性能对比"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 时间性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-频繁项集挖掘"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 频繁项集挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-1-UNIX-usage-Dataset"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">3.2.1.1 UNIX_usage Dataset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-2-GroceryStore-Dataset"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">3.2.1.2 GroceryStore Dataset</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-关联规则挖掘"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 关联规则挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-1-UNIX-usage-Dataset"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">3.2.2.1 UNIX_usage Dataset</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-2-GroceryStore-Dataset"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">3.2.2.2 GroceryStore Dataset</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-简要分析"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 简要分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-内存占用对比"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 内存占用对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-UNIX-usage-Dataset"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1 UNIX_usage Dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-GroceryStore-Dataset"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2 GroceryStore Dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-简要分析对比"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3 简要分析对比</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brooksj</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("AJCfamp9AdxK89MonULcgI68-gzGzoHsz", "sVrhDpWMN5wNlfAPwgDHdxPL");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
