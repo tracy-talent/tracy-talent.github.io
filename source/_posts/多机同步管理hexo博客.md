@@ -26,7 +26,7 @@ categories:
 
 9. 后期如果对主题自定义，每次修改完之后确保将主题模块切换到master分支，然后提交修改。再回到博客主目录下提交修改，更新主线(hexo分支)指向子模块的指针，这样才能将第三方库即子模块同步到主线上，使得主线上指向子模块的指针对应的永远是子模块最新的commit id
 
-10. 这时候如果想在另一台机器上同步部署博客，那么需要先安装npm，然后新建一个目录例如hexo(因为hexo初始化必须是一个空目录)，保证hexo已安装好(hexo install -g hexo-cli)，在hexo目录下依次执行hexo init、npm install 和 npm install hexo-deployer-git，然后退出hexo目录执行
+10. 这时候如果想在另一台机器上同步部署博客，那么需要先安装npm，然后用npm安装hexo(`npm install -g hexo-cli, npm install -g hexo`)。接着拉取自己的github pages仓库，执行以下命令
 
     ```shell
     git clone git@github.com:username/username.github.io.git
@@ -36,7 +36,7 @@ categories:
     git clone git@github.com:username/username.github.io.git --recursive
     ```
 
-    download完成之后将username.github.io目录下所有内容copy到hexo目录下，然后进入到hexo\themes\hexo-theme-next目录下，执行git checkout master切换到子模块的master分支上，执行git pull origin master同步子模块与远程子仓库，到此就实现了在另一台机器上与远程完全同步的工作了，可以在这台机器上写博客发表文章了，记得每次在不同机器作业时先在博客主目录下git pull origin master同步commit之后再开始写博客发表。
+    拉取后创建hexo目录，进入到hexo目录下执行`hexo init`命令(必须为空目录才能执行成功)，初始化站点并安装依赖包。接着将github pages仓库中的所有内容copy到hexo目录下，如果github pages仓库中包含package.json和package-lock.json则可以跳过不执行上一步的`hexo init`(package.json会指定hexo所依赖插件的版本，依赖插件的版本可能会与hexo版本不兼容而报错，所以最好在仓库中保存依赖包版本配置文件，以便随处可复用)，在hexo目录下依次执行`npm install`和`npm install hexo-deployer-git`，最后进入到hexo\themes\hexo-theme-next目录下，执行git checkout master切换到子模块的master分支上，执行git pull origin master同步子模块与远程子仓库。至此就实现了在另一台机器上与远程完全同步的工作了，可以在这台机器上写博客发表文章了，记得每次在不同机器作业时先在博客主目录下git pull origin master同步commit之后再开始写博客发表。
 
 11. 执行hexo g -d生成网站并部署到GitHub上。
 
